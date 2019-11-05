@@ -1,0 +1,39 @@
+<div class="row" v-if="entityId || canReadOnly">
+    <div class="col-md-9">
+        <ul class="tagDetail" v-if="entityTags.length > 0">
+            <li v-for="(tag, index) in entityTags">
+                <span class="tags">
+                    <span>{{ tag.TagName }}</span>
+                    <i  v-show="isDisabled" class="far fa-times" @click="deleteSelectedTag(index, tag)"></i>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group searchTags" v-show="isDisabled">
+
+            <div class="input-group inputSearch" >
+                <button class="input-group-btn">
+                    <span class="fa fa-search"></span>
+                </button>
+                <input  type="text" class="form-control" v-model="searchTag" @click="showFilterByType" placeholder="Tags">
+                <button v-if="!canReadOnly" class="input-group-btn plusBtn" @click="createNewTag">
+                    <span class="fa fa-plus"></span>
+                </button>
+
+            </div>
+            <!-- <div class="form-control searchResultsAmenities" id="tagDropDown" v-show="selectedFilterColumn">
+                <ul>
+                  <li v-for="tag in tagsList" v-bind:value="tag" @click="addTagToFilter(tag)">{{tag.TagName}}</li>
+                </ul>
+              </div> -->
+
+
+            <div v-if="tagsList.length > 0" id="taglist" class="form-control searchResultTags" v-validate="'required'" v-show="selectedFilterColumn">
+                <div class="resultTags" v-for="tag in tagsList" v-bind:value="tag" @click="onChangeTag(tag)" v-if="showAutoComplete">
+                    <span>{{tag.TagName}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

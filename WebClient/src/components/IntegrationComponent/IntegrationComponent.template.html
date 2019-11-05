@@ -1,0 +1,148 @@
+<div class="panel-body fullStretch integrationsPage">
+    <div class="row">
+        <div class="col-md-12 infoContainer">
+            <section>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6>Your Integrations</h6>
+                        <button class="stripeCard connection-title" :class="{active :showPanel}" @click="showSidePanel($event,'Stripe')"v-if="paymentAccountList.length > 0">
+                            <svg width="62" height="25">
+                                <title>Stripe</title>
+                                <path
+                                d="M5 10.1c0-.6.6-.9 1.4-.9 1.2 0 2.8.4 4 1.1V6.5c-1.3-.5-2.7-.8-4-.8C3.2 5.7 1 7.4 1 10.3c0 4.4 6 3.6 6 5.6 0 .7-.6 1-1.5 1-1.3 0-3-.6-4.3-1.3v3.8c1.5.6 2.9.9 4.3.9 3.3 0 5.5-1.6 5.5-4.5.1-4.8-6-3.9-6-5.7zM29.9 20h4V6h-4v14zM16.3 2.7l-3.9.8v12.6c0 2.4 1.8 4.1 4.1 4.1 1.3 0 2.3-.2 2.8-.5v-3.2c-.5.2-3 .9-3-1.4V9.4h3V6h-3V2.7zm8.4 4.5L24.6 6H21v14h4v-9.5c1-1.2 2.7-1 3.2-.8V6c-.5-.2-2.5-.5-3.5 1.2zm5.2-2.3l4-.8V.8l-4 .8v3.3zM61.1 13c0-4.1-2-7.3-5.8-7.3s-6.1 3.2-6.1 7.3c0 4.8 2.7 7.2 6.6 7.2 1.9 0 3.3-.4 4.4-1.1V16c-1.1.6-2.3.9-3.9.9s-2.9-.6-3.1-2.5H61c.1-.2.1-1 .1-1.4zm-7.9-1.5c0-1.8 1.1-2.5 2.1-2.5s2 .7 2 2.5h-4.1zM42.7 5.7c-1.6 0-2.5.7-3.1 1.3l-.1-1h-3.6v18.5l4-.7v-4.5c.6.4 1.4 1 2.8 1 2.9 0 5.5-2.3 5.5-7.4-.1-4.6-2.7-7.2-5.5-7.2zm-1 11c-.9 0-1.5-.3-1.9-.8V10c.4-.5 1-.8 1.9-.8 1.5 0 2.5 1.6 2.5 3.7 0 2.2-1 3.8-2.5 3.8z">
+                                </path>
+                            </svg>
+                            <div>Connected</div>
+                        </button>
+                        <button class="stripeCard" :class="{active :showPanel}" @click="showSidePanel($event,'Stripe')" v-else>
+                            <svg width="62" height="25">
+                                <title>Stripe</title>
+                                <path d="M5 10.1c0-.6.6-.9 1.4-.9 1.2 0 2.8.4 4 1.1V6.5c-1.3-.5-2.7-.8-4-.8C3.2 5.7 1 7.4 1 10.3c0 4.4 6 3.6 6 5.6 0 .7-.6 1-1.5 1-1.3 0-3-.6-4.3-1.3v3.8c1.5.6 2.9.9 4.3.9 3.3 0 5.5-1.6 5.5-4.5.1-4.8-6-3.9-6-5.7zM29.9 20h4V6h-4v14zM16.3 2.7l-3.9.8v12.6c0 2.4 1.8 4.1 4.1 4.1 1.3 0 2.3-.2 2.8-.5v-3.2c-.5.2-3 .9-3-1.4V9.4h3V6h-3V2.7zm8.4 4.5L24.6 6H21v14h4v-9.5c1-1.2 2.7-1 3.2-.8V6c-.5-.2-2.5-.5-3.5 1.2zm5.2-2.3l4-.8V.8l-4 .8v3.3zM61.1 13c0-4.1-2-7.3-5.8-7.3s-6.1 3.2-6.1 7.3c0 4.8 2.7 7.2 6.6 7.2 1.9 0 3.3-.4 4.4-1.1V16c-1.1.6-2.3.9-3.9.9s-2.9-.6-3.1-2.5H61c.1-.2.1-1 .1-1.4zm-7.9-1.5c0-1.8 1.1-2.5 2.1-2.5s2 .7 2 2.5h-4.1zM42.7 5.7c-1.6 0-2.5.7-3.1 1.3l-.1-1h-3.6v18.5l4-.7v-4.5c.6.4 1.4 1 2.8 1 2.9 0 5.5-2.3 5.5-7.4-.1-4.6-2.7-7.2-5.5-7.2zm-1 11c-.9 0-1.5-.3-1.9-.8V10c.4-.5 1-.8 1.9-.8 1.5 0 2.5 1.6 2.5 3.7 0 2.2-1 3.8-2.5 3.8z">
+                                </path>
+                            </svg>
+                            Connect with stripe
+                        </button>
+                        <button class="stripeCard" :class="{active :showBEPanel}" @click="showSidePanel($event,'BE')">
+                            <!-- <a><i class="fa"
+                                    style="color: #6772e5;display: block;clear: both;margin: 0 auto;">BE</i></a> -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="26">
+                                <path id="Booking_Engine" data-name="Booking Engine" class="cls-1" d="M11.075,17.429A5.982,5.982,0,0,0,14.8,16.413a3.577,3.577,0,0,0,1.257-2.983,3.022,3.022,0,0,0-.566-1.855,2.848,2.848,0,0,0-1.624-1.039,2.811,2.811,0,0,0,1.419-1.095,3.215,3.215,0,0,0,.482-1.791A3.18,3.18,0,0,0,14.41,4.876a6.872,6.872,0,0,0-3.966-.956H5.592V17.429h5.483Zm0.056-5.743a1.5,1.5,0,0,1,1.679,1.7,1.412,1.412,0,0,1-.473,1.136,2.029,2.029,0,0,1-1.354.4H8.848V11.686h2.282ZM8.848,6.426h1.6A2.632,2.632,0,0,1,12.03,6.8a1.456,1.456,0,0,1,.492,1.233,1.387,1.387,0,0,1-.455,1.126,2.411,2.411,0,0,1-1.522.391h-1.7V6.426Zm8.945,6.42a5.025,5.025,0,0,0,1.4,3.484,4.68,4.68,0,0,0,3.442,1.285,4.628,4.628,0,0,0,3.53-1.378,5.2,5.2,0,0,0,1.3-3.725V12.4a5.358,5.358,0,0,0-1.3-3.8,4.616,4.616,0,0,0-3.553-1.4,5.057,5.057,0,0,0-2.57.631,4.18,4.18,0,0,0-1.679,1.8,5.926,5.926,0,0,0-.585,2.677Zm3.127-.9q0.13-2.329,1.7-2.329,1.726,0,1.726,2.7v0.315q-0.037,2.57-1.707,2.57a1.452,1.452,0,0,1-1.29-.649,3.734,3.734,0,0,1-.436-2.041Zm8.017,0.9a5.025,5.025,0,0,0,1.4,3.484,4.68,4.68,0,0,0,3.442,1.285,4.628,4.628,0,0,0,3.53-1.378,5.2,5.2,0,0,0,1.3-3.725V12.4a5.359,5.359,0,0,0-1.3-3.8,4.616,4.616,0,0,0-3.553-1.4,5.058,5.058,0,0,0-2.57.631,4.181,4.181,0,0,0-1.679,1.8,5.926,5.926,0,0,0-.584,2.677Zm3.126-.9q0.13-2.329,1.7-2.329,1.726,0,1.726,2.7v0.315Q35.45,15.2,33.78,15.2a1.452,1.452,0,0,1-1.29-.649,3.734,3.734,0,0,1-.436-2.041Zm14.623,5.483h3.581l-3.748-5.91L50.036,7.39H46.288l-2.356,2.932-0.315.417V3.169H40.49V17.429h3.127V14.571L44.5,13.69ZM54.63,7.39H51.494V17.429H54.63V7.39ZM51.791,5.9a2.051,2.051,0,0,0,2.5,0A1.4,1.4,0,0,0,54.779,4.8,1.4,1.4,0,0,0,54.3,3.707a2.051,2.051,0,0,0-2.5,0A1.4,1.4,0,0,0,51.309,4.8,1.4,1.4,0,0,0,51.791,5.9ZM56.97,7.39V17.429H60.1V10.341a1.491,1.491,0,0,1,1.364-.724,1.417,1.417,0,0,1,1.113.357,1.694,1.694,0,0,1,.306,1.118v6.336h3.136V10.962a4.462,4.462,0,0,0-.8-2.82A2.864,2.864,0,0,0,62.87,7.2,3.4,3.4,0,0,0,60,8.569L59.9,7.39H56.97Zm10.884,5.056a5.822,5.822,0,0,0,1.132,3.762,3.628,3.628,0,0,0,2.969,1.406,2.936,2.936,0,0,0,2.273-.993v0.316a1.862,1.862,0,0,1-2.078,2.134,2.867,2.867,0,0,1-2.3-1.03l-1.308,1.837a3.858,3.858,0,0,0,1.582,1.085,5.661,5.661,0,0,0,2.138.418,6.565,6.565,0,0,0,2.709-.524,3.959,3.959,0,0,0,1.786-1.5,4.233,4.233,0,0,0,.617-2.305V7.39H74.534l-0.111.872A3.014,3.014,0,0,0,71.973,7.2a3.791,3.791,0,0,0-2.18.636,4.033,4.033,0,0,0-1.438,1.8,6.778,6.778,0,0,0-.5,2.69v0.111Zm3.609-2.083a1.474,1.474,0,0,1,1.308-.747,1.619,1.619,0,0,1,1.457.687v4.221a1.661,1.661,0,0,1-1.475.677,1.463,1.463,0,0,1-1.3-.719,3.569,3.569,0,0,1-.464-1.953A4.072,4.072,0,0,1,71.463,10.364ZM93.352,9.283H88.231V6.435H94.3V3.921H84.975V17.429H94.28v-2.5H88.231V11.7h5.121V9.283ZM95.877,7.39V17.429H99V10.341a1.491,1.491,0,0,1,1.363-.724,1.417,1.417,0,0,1,1.114.357,1.7,1.7,0,0,1,.306,1.118v6.336h3.136V10.962a4.467,4.467,0,0,0-.8-2.82,2.863,2.863,0,0,0-2.342-.937,3.4,3.4,0,0,0-2.867,1.364l-0.1-1.178H95.877Zm10.884,5.056a5.826,5.826,0,0,0,1.132,3.762,3.628,3.628,0,0,0,2.969,1.406,2.936,2.936,0,0,0,2.273-.993v0.316a1.862,1.862,0,0,1-2.078,2.134,2.866,2.866,0,0,1-2.3-1.03l-1.308,1.837a3.859,3.859,0,0,0,1.582,1.085,5.657,5.657,0,0,0,2.138.418,6.563,6.563,0,0,0,2.709-.524,3.959,3.959,0,0,0,1.786-1.5,4.235,4.235,0,0,0,.617-2.305V7.39h-2.839l-0.111.872A3.014,3.014,0,0,0,110.881,7.2a3.794,3.794,0,0,0-2.181.636,4.038,4.038,0,0,0-1.438,1.8,6.778,6.778,0,0,0-.5,2.69v0.111Zm3.609-2.083a1.475,1.475,0,0,1,1.308-.747,1.62,1.62,0,0,1,1.457.687v4.221a1.66,1.66,0,0,1-1.475.677,1.463,1.463,0,0,1-1.3-.719,3.573,3.573,0,0,1-.464-1.953A4.076,4.076,0,0,1,110.37,10.364ZM121.83,7.39h-3.136V17.429h3.136V7.39ZM118.991,5.9a2.051,2.051,0,0,0,2.5,0,1.4,1.4,0,0,0,.482-1.095,1.4,1.4,0,0,0-.482-1.095,2.051,2.051,0,0,0-2.5,0,1.4,1.4,0,0,0-.483,1.095A1.4,1.4,0,0,0,118.991,5.9Zm5.178,1.494V17.429H127.3V10.341a1.491,1.491,0,0,1,1.364-.724,1.416,1.416,0,0,1,1.113.357,1.7,1.7,0,0,1,.306,1.118v6.336h3.136V10.962a4.46,4.46,0,0,0-.8-2.82A2.863,2.863,0,0,0,130.07,7.2,3.4,3.4,0,0,0,127.2,8.569L127.1,7.39h-2.932Zm18.413,9.746a4,4,0,0,0,1.656-1.285l-1.429-1.688A2.808,2.808,0,0,1,140.49,15.2a2.181,2.181,0,0,1-1.466-.482,2.258,2.258,0,0,1-.733-1.327h6.216V12.178a5.16,5.16,0,0,0-1.224-3.66,4.347,4.347,0,0,0-3.34-1.313,5.029,5.029,0,0,0-2.6.645,4.172,4.172,0,0,0-1.665,1.823,6.156,6.156,0,0,0-.571,2.718v0.26a4.756,4.756,0,0,0,1.429,3.586,5.16,5.16,0,0,0,3.739,1.378A5.6,5.6,0,0,0,142.582,17.136Zm-1.517-7.106a1.55,1.55,0,0,1,.381,1.164v0.241h-3.155q0.26-1.818,1.633-1.818A1.513,1.513,0,0,1,141.065,10.03Z"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6>Available Integration</h6>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="inegrationMask" v-if="showPanel || showBEPanel" @click="hideSidePanel"></div>
+        <div class="col-md-5 editContainer pan" v-if="showPanel == true">
+            <div class="row">
+                <div class="col-md-12">
+                    <a :href="stripeUrl" class="stripe-connect">
+                        <span>Connect with Stripe</span>
+                    </a>
+                    <!-- <iframe :src="stripeUrl" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>   -->
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <!-- <label style="float:left;margin: 4px 12px 0 0; font-size: 12px; color: #868686;">$</label> -->
+                <label class="slideCheck" style="color: #868686;">
+                    <input type="checkbox" v-model="IsActive" @change="getAccountDetails($event)" true-value=1 false-value=0 />
+                    <span>Close out</span>
+                </label>
+                <label style="margin: 4px 12px 0 12px; font-size: 12px; color: #868686;">Only Active Accounts</label>
+            </div>
+            <div class="stripeAcount mt-4" v-for="(paymentAccount,index) in paymentAccountList">
+                <div class="icon">
+                    <span :class="paymentAccount.StatusId != 1 ? 'disable' : ''"></span>
+                </div>
+                <span class="title" v-if="paymentAccount.PaymentAccountName">{{paymentAccount.PaymentAccountName}}
+                    <span class="defaultStripe" v-if="paymentAccount.IsDefault">Default</span>
+                </span>
+                <span class="title" v-else>AccountName
+                    <span class="defaultStripe" v-if="paymentAccount.IsDefault">Default</span>
+                </span>
+                <span class="accInfo">Account ID :
+                    <span>{{paymentAccount.PaymentAccountId}}</span>
+                </span>
+                <div class="dropdown mainDD keep-open">
+                    <button title="Views" type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle  btn-sm btn-sm-icon" aria-expanded="false">
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" :id="'accountEdit'+index" @click="">
+                        <li class="heading">Options</li>
+                        <li @click="makePaymentAccountDefault(paymentAccount)">
+                            <label>Make default</label>
+                        </li>
+                        <li v-for="status in statusList" @click="removePaymentAccount(paymentAccount,status.statusId)">
+                            <label>{{status.statusName}}</label>
+                        </li>
+                    </ul>
+                </div>
+                <!-- <span @click="showAccountEdit(index)"><i class="fa fa-edit"></i></span> -->
+
+            </div>
+        </div>
+        <div class="col-md-5 editContainer pan" v-if="showBEPanel">
+            <div class="row">
+                <!-- <div class="col-md-12">
+                   
+                  
+                </div> -->
+                <div class="col-md-12">
+                        <label class="slideCheck" style="color: #868686;">
+                                <input type="checkbox" v-model="BeIsActive" @click=getBeDetail($event) true-value=1 false-value=2 />
+                                <span>Close out</span>
+                            </label>
+                            <label style="margin: 4px 12px 0 12px; font-size: 12px; color: #868686;">Only Active BE</label>
+                    <button class="btn btn-default btn-sm pull-right" @click="redirectToDetailPage(-1)">
+                        <i class="fa fa-plus"></i> New BE</button>
+                </div>
+
+            </div>
+            <div class="stripeAcount mt-4" v-for="be in beList" style="cursor: pointer;">
+                <div class="icon" :class="be.BE_StatusId != 1 ? 'disable' : ''" >
+                    <!-- <a>
+                        <i class="fa" style="color: #6772e5;display: block;clear: both;margin: 11px 15px auto">BE</i></a> -->
+                    <svg  xmlns="http://www.w3.org/2000/svg" width="41" height="26">
+                        <path id="BE" class="cls-1" d="M7.723,18a5.372,5.372,0,0,0,3.209-.827,2.843,2.843,0,0,0,1.083-2.429,2.369,2.369,0,0,0-.488-1.511,2.471,2.471,0,0,0-1.4-.846,2.407,2.407,0,0,0,1.223-.891,2.511,2.511,0,0,0,.416-1.458A2.545,2.545,0,0,0,10.6,7.778,6.189,6.189,0,0,0,7.18,7H3V18H7.723Zm0.048-4.677a1.255,1.255,0,0,1,1.447,1.383,1.121,1.121,0,0,1-.408.926,1.819,1.819,0,0,1-1.167.329H5.8V13.324H7.771ZM5.8,9.04H7.18a2.37,2.37,0,0,1,1.367.307,1.156,1.156,0,0,1,.424,1,1.1,1.1,0,0,1-.392.917,2.168,2.168,0,0,1-1.311.318H5.8V9.04Zm15.38,2.327H16.772V9.047H22V7H13.967V18h8.017V15.96H16.772V13.331h4.412V11.367Z"
+                        />
+                    </svg>
+                    <!-- <svg  width="41" height="26">
+                        <path id="BE" class="cls-1" d="M7.723,18a5.372,5.372,0,0,0,3.209-.827,2.843,2.843,0,0,0,1.083-2.429,2.369,2.369,0,0,0-.488-1.511,2.471,2.471,0,0,0-1.4-.846,2.407,2.407,0,0,0,1.223-.891,2.511,2.511,0,0,0,.416-1.458A2.545,2.545,0,0,0,10.6,7.778,6.189,6.189,0,0,0,7.18,7H3V18H7.723Zm0.048-4.677a1.255,1.255,0,0,1,1.447,1.383,1.121,1.121,0,0,1-.408.926,1.819,1.819,0,0,1-1.167.329H5.8V13.324H7.771ZM5.8,9.04H7.18a2.37,2.37,0,0,1,1.367.307,1.156,1.156,0,0,1,.424,1,1.1,1.1,0,0,1-.392.917,2.168,2.168,0,0,1-1.311.318H5.8V9.04Zm15.38,2.327H16.772V9.047H22V7H13.967V18h8.017V15.96H16.772V13.331h4.412V11.367Z"
+                        />
+                    </svg> -->
+                </div>
+                <!-- <div class="icon">
+                    <span :class="paymentAccount.StatusId != 1 ? 'disable' : ''"></span>
+                </div> -->
+                <div  @click="redirectToDetailPage(be.BE_Id)" class="card-item">
+                    <div  class="">
+                        {{be.BE_Name}}
+                    </div>
+                </div>
+                <div class="dropdown mainDD keep-open">
+                    <button title="Views" type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle  btn-sm btn-sm-icon" aria-expanded="false">
+                        <i class="fas fa-caret-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" @click="">
+                        <li class="heading">Options</li>
+                        <li v-for="status in beStatusList" @click="removeBookingEngine(be,status.statusId)">
+                            <label>{{status.statusName}}</label>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

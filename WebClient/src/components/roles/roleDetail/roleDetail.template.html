@@ -1,0 +1,355 @@
+<div class="panel-body fullStretch" v-if="roleDetail">
+  <div class="row flexStart">
+    <div class="col-md-7 infoContainer">
+      <section :class="{bgColor:isBgColor1}">
+        <div class="row">
+          <div class="col-md-12">
+            <h6 class="pull-left">Roles Info</h6>
+            <a href="#" class="editPencil">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <label>Role Name</label>
+              <span class="infoData">{{roleDetail.RoleName}}</span>
+            </div>
+          </div>
+          <div class="col-md-3 resInfoSectionActions pull-right">
+            <div class="form-group">
+              <!-- <select v-model="roleDetail.StatusId" class="form-control" :disabled="fncIsRoleSave && (fncIsRoleSave.isAssigned === -1 && fncIsRoleSave.functionState === 2)"
+              v-if="fncIsRoleSave && (fncIsRoleSave.isAssigned === 1 || (fncIsRoleSave.isAssigned === -1 && fncIsRoleSave.functionState === 2))">
+                <option v-for="status in StatusObj" v-bind:value="status.StatusId">{{status.StatusName}}</option>
+              </select> -->
+              <select v-model="role_Status" class="form-control resDetailStatus" :disabled="fncIsRoleSave && (fncIsRoleSave.isAssigned === -1 && fncIsRoleSave.functionState === 2)"
+                v-if="fncIsRoleSave && (fncIsRoleSave.isAssigned === 1 || (fncIsRoleSave.isAssigned === -1 && fncIsRoleSave.functionState === 2))"
+                v-bind:class="role_Status.StatusName">
+                <option v-for="status in StatusObj" v-bind:value="status">{{status.StatusName}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Description</label>
+              <span class="infoData">{{roleDetail.RoleDescription}}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+    <div class="pl-3 pr-3">
+        <div class="form-group" v-if="roleDetail.RoleId > 0 || roleDetail.RoleId === -1">
+          <h6 class="pull-left">Entities</h6>
+        </div>
+        <div class="">
+          <div class="tableWrap" v-if="roleDetail.RoleId > 0 || roleDetail.RoleId === -1">
+            <table class="table table-bordered userTable">
+              <thead>
+                <tr>
+                  <th>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="selectAllEntity">
+                      <span>Entity Name</span>
+                    </label>
+                  </th>
+                  <th>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="viewSelectAll">
+                      <span>View</span>
+                    </label>
+                  </th>
+                  <th>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="addSelectAll">
+                      <span>Add</span>
+                    </label>
+                  </th>
+                  <th>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="updateSelectAll">
+                      <span>Update</span>
+                    </label>
+                  </th>
+                  <th>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="deleteSelectAll">
+                      <span>Delete</span>
+                    </label>
+                  </th>
+                  <th>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="reportsSelectAll">
+                      <span>Reports</span>
+                    </label>
+                  </th>
+                  <!-- <th>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="manageSelectAll">
+                      <span>Manage</span>
+                    </label>
+                  </th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="inst in entityPermissionScheme">
+                  <td>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="inst.isCheckAllPermissions" @click="checkAllPermissionsForSelectedEntity(inst, $event)">
+                      <span>{{inst.EntityName }}</span>
+                    </label>
+                  </td>
+                  <td>
+                    <!-- <div>{{inst.View}}</div> -->
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="inst.View" @click="permissionChanged(inst, $event, 'View')" v-if="inst.View !== nullObject"
+                      />
+                    </label>
+                  </td>
+                  <td>
+                    <!--  <div>{{inst.Add}}</div>  -->
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="inst.Add" @click="permissionChanged(inst, $event, 'Add')" v-if="inst.Add !== nullObject"
+                      />
+                    </label>
+                  </td>
+                  <td>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="inst.Update" @click="permissionChanged(inst, $event,'Update')" v-if="inst.Update !== nullObject"
+                      />
+                    </label>
+                  </td>
+                  <td>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="inst.Delete" @click="permissionChanged(inst, $event,'Delete')" v-if="inst.Delete !== nullObject"
+                      />
+                    </label>
+                  </td>
+                  <td>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="inst.Reports" @click="permissionChanged(inst, $event,'Reports')" v-if="inst.Reports !== nullObject"
+                      />
+                    </label>
+                  </td>
+                  <!-- <td>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="inst.Manage" @click="permissionChanged(inst, $event,'Manage')" v-if="inst.Manage !== nullObject"
+                      />
+                    </label>
+                  </td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+         
+      </div>
+    </div>
+
+ <!-- special -->
+
+<div class="pl-3 pr-3">
+  <div class="form-group pt-3" v-if="roleDetail.RoleId > 0 || roleDetail.RoleId === -1">
+    <h6 class="pull-left">Special Functions</h6>
+  </div>
+  <div class="">
+    <div class="tableWrap" v-if="roleDetail.RoleId > 0 || roleDetail.RoleId === -1">
+      <table class="table table-bordered userTable noWrapText">
+        <thead>
+          <tr>
+            <th>
+                <span>Entity </span>
+              
+            </th>
+            <th>
+                <span>Description</span>
+              
+            </th>
+            <th>
+                <span>Type</span>
+              
+            </th>
+            <th>
+                <span>Included</span>
+              
+            </th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="inst in HousekeepingIncludede">
+            <td>
+                <strong>{{inst.EntityName }}</strong>
+              
+            </td>
+            <td>
+                <strong>{{inst.UsecaseDescription}}</strong>
+              
+            </td>
+            <td>
+               <strong>{{inst.PermissionName}}</strong>
+              
+            </td>
+            <td>
+              <label class="checkLabel">
+                <input type="checkbox" v-model="inst.IsIncluded" @click="permissionChanged(inst, $event,'IsIncluded')" v-if="inst.Update !== nullObject"/>
+              </label>
+              
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- special -->
+    <!-- special -->
+  
+  </div>
+    <!-- special -->
+
+    <div class="col-md-5 editContainer">
+      <div class="editContainerHeading">
+        <h6 class="pull-left">Role Detail
+          <span v-text="roleDetail.RoleName"></span>
+        </h6>
+        <button class="btn btn-success btn-sm pull-right" title="Save Role" @click="saveRole" :disabled="fncIsRoleSave && (fncIsRoleSave.isAssigned === -1 && fncIsRoleSave.functionState === 2)"
+          v-if="fncIsRoleSave && (fncIsRoleSave.isAssigned === 1 || (fncIsRoleSave.isAssigned === -1 && fncIsRoleSave.functionState === 2))">Save</button>
+
+        <!-- <button class="btn btn-success btn-sm pull-right" title="Save User" @click="saveRole" >Save</button> -->
+
+      </div>
+      <section class="pl-0">
+
+
+        <div class="form-group">
+          <label>Role Name</label>
+          <input class="form-control" type="text" v-model="roleDetail.RoleName" name="RoleName" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('RoleName') }"
+            :disabled="fncIsRoleSave && (fncIsRoleSave.isAssigned === -1 && fncIsRoleSave.functionState === 2)" v-if="fncIsRoleSave && (fncIsRoleSave.isAssigned === 1 || (fncIsRoleSave.isAssigned === -1 && fncIsRoleSave.functionState === 2))">
+          <!-- <i v-show="errors.has('RoleName')" class="fa fa-warning"></i>
+                <span v-show="errors.has('RoleName')" class="help is-danger">{{ errors.first('RoleName') }}</span> -->
+          <span v-show="errors.has('RoleName')" class="invalid-feedback">
+            <i v-show="errors.has('RoleName')" class="fa fa-warning"></i> {{ errors.first('RoleName') }}</span>
+        </div>
+        <!-- <div class="form-group">
+          <label>Status</label>
+         
+        </div> -->
+        <div class="form-group">
+          <label>Description</label>
+          <textarea class="form-control" v-model="roleDetail.RoleDescription" :disabled="fncIsRoleSave && (fncIsRoleSave.isAssigned === -1 && fncIsRoleSave.functionState === 2)"
+            v-if="fncIsRoleSave && (fncIsRoleSave.isAssigned === 1 || (fncIsRoleSave.isAssigned === -1 && fncIsRoleSave.functionState === 2))"></textarea>
+        </div>
+        <!-- 
+        <div class="form-group" v-if="roleDetail.RoleId > 0">
+          <label>Entities</label>
+        </div> -->
+        <!-- <div class="form-group" v-if="roleDetail.RoleId > 0 || roleDetail.RoleId === -1">
+          <label>Entities</label>
+        </div> -->
+        <!-- <div class="form-group">
+          <div class="tableWrap" v-if="roleDetail.RoleId > 0 || roleDetail.RoleId === -1">
+            <table class="table table-bordered userTable">
+              <thead>
+                <tr>
+                  <th>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="selectAllEntity">
+                      <span>Entity Name</span>
+                    </label>
+                  </th>
+                  <th>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="viewSelectAll">
+                      <span>View</span>
+                    </label>
+                  </th>
+                  <th>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="addSelectAll">
+                      <span>Add</span>
+                    </label>
+                  </th>
+                  <th>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="updateSelectAll">
+                      <span>Update</span>
+                    </label>
+                  </th>
+                  <th>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="deleteSelectAll">
+                      <span>Delete</span>
+                    </label>
+                  </th>
+                  <th>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="reportsSelectAll">
+                      <span>Reports</span>
+                    </label>
+                  </th>
+                  <th>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="manageSelectAll">
+                      <span>Manage</span>
+                    </label>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="inst in entityPermissionScheme">
+                  <td>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="inst.isCheckAllPermissions" @click="checkAllPermissionsForSelectedEntity(inst, $event)">
+                      <span>{{inst.EntityName }}</span>
+                    </label>
+                  </td>
+                  <td>
+
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="inst.View" @click="permissionChanged(inst, $event, 'View')" v-if="inst.View !== nullObject"
+                      />
+                    </label>
+                  </td>
+                  <td>
+
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="inst.Add" @click="permissionChanged(inst, $event, 'Add')" v-if="inst.Add !== nullObject"
+                      />
+                    </label>
+                  </td>
+                  <td>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="inst.Update" @click="permissionChanged(inst, $event,'Update')" v-if="inst.Update !== nullObject"
+                      />
+                    </label>
+                  </td>
+                  <td>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="inst.Delete" @click="permissionChanged(inst, $event,'Delete')" v-if="inst.Delete !== nullObject"
+                      />
+                    </label>
+                  </td>
+                  <td>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="inst.Reports" @click="permissionChanged(inst, $event,'Reports')" v-if="inst.Reports !== nullObject"
+                      />
+                    </label>
+                  </td>
+                  <td>
+                    <label class="checkLabel">
+                      <input type="checkbox" v-model="inst.Manage" @click="permissionChanged(inst, $event,'Manage')" v-if="inst.Manage !== nullObject"
+                      />
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div> -->
+      </section>
+    </div>
+  </div>
+
+</div>

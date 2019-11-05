@@ -1,0 +1,564 @@
+<div class="panel panel-default" v-if="userDetail">
+
+  <div class="panel-body fullStretch">
+    <div class="row flexStart">
+      <div class="col-md-7 infoContainer">
+        <section class="" :class="{bgColor:isBgColor1}" v-on:click="displaySection('userDetails')">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <!-- <div class="dummyLogo"> -->
+                <div class="containerUploadLogo">
+                  <!-- <img :src="imageURLS(logo)" width="133px" height="133px" /> -->
+                  <img v-if="logo && (logo != null || logo != '')" :src="imageURLS(logo)" class="imagePlace blankavatarImg" width="" height=""
+                  />
+                  <img v-else class="imagePlace blankavatarImg">
+                  <button :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+                  v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) && logo && (logo != null || logo != '')" class="btn uploadThbImageRemove" @click="deletelogo(logo)">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                    <div>
+                        <input :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+                        v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) " type='file' id="imageUpload" @change="processLogo($event)" accept=".png, .jpg, .jpeg" />
+                        <label for="imageUpload">
+                          <i :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+                          v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) && logo !== ''"  class="fas fa-pencil"></i>
+                        </label>
+        
+                      </div>
+                 
+
+
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-6 pb-4" style="align-self: flex-end;">
+              <div class="">
+                <div class="form-group">
+
+                  <span class="infoData pl-0 ml-0" style="font-size:30px">{{userDetail.UserFirstName}} {{userDetail.UserLastName}}</span>
+                  <span class="infoData" style="color:grey">{{userDetail.LoginId}}</span>
+                  <span class="infoData">{{userDetail.Email}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <div class="resInfoSectionActions pull-right">
+                  <!-- <select v-model="userDetail.StatusId" name="UserStatus" class="form-control" v-validate="'required'" :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+                        v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) ">
+                      
+                        <option v-for="status in statusList" v-bind:value="status.StatusId">{{status.StatusName}}</option>
+                      </select> -->
+                  <select v-model="user_Status" name="UserStatus" class="form-control resDetailStatus" v-validate="'required'" :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+                    v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))"
+                    v-bind:class="user_Status.StatusName">
+
+                    <option v-for="status in statusList" v-bind:value="status">{{status.StatusName}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- <section class="noHover" :class="{bgColor:isBgColor2}">
+            <div class="row">
+  
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#roles">Roles</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#property">Property</a></li>
+                  </ul>            
+              </div>
+              <div class="tab-content">
+                <div style="opacity:1" id="roles" class="tab-pane fade in active">
+            <div class="row">
+              
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div class="tableWrap">
+                    <table class="table table-bordered userTable">
+                      <thead >
+                        <tr>
+                          <th>Role Name</th>
+                          <th>Description</th>
+                          <th>Status</th>
+                         
+                        </tr>
+                      </thead>
+  
+                      <tbody>
+  
+                        <tr v-for="role in roleList" v-if="role.IsAssigned === 1">
+                          <td>{{role.RoleName}}</td>
+                          <td>{{role.RoleDescription}}</td>
+                          <td v-if="role.StatusId === 1">Active</td>
+                          <td v-else> Inactive</td>
+                        
+  
+                        </tr>
+  
+                        <tr v-for="inst in userDetail.RoleList">
+                          <td>{{inst.LoginId}}</td>
+                          <td>
+                            <a @click="renderUserDetail(inst)">{{inst.UserFirstName}} {{inst.UserLastName}}</a>
+                          </td>
+                          <td>{{inst.Email}}</td>
+                          <td>{{inst.StatusName}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <button class="btn btn-primary btn-sm mt-3" v-on:click="displaySection('rolesDetails')">Associate Roles</button>
+                </div>
+              </div>
+  
+  
+            </div>
+          </div>
+          <div id="property" class="tab-pane">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div class="tableWrap">
+                    <table class="table table-bordered userTable">
+                      <thead>
+                        <tr>
+                          <th>Property Name</th>
+                          <th>Status</th>
+                         
+  
+  
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="property in propertyList" v-if="property.IsAssigned === 1">
+                          <td>{{property.Name}}</td>
+                          <td v-if="property.StatusId == 1">Active</td>
+                          <td v-else-if="property.StatusId == 0"> Inactive</td>
+                          <td v-else-if="property.StatusId == -1">Obsolete</td>
+                          <td v-else-if="property.StatusId== -2">Deleted</td>
+                         
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <button class="btn btn-primary btn-sm mt-3" v-on:click="displaySection('property')">Associate Property</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+          </section> -->
+        <!-- <section class="noHover" :class="{bgColor:isBgColor2}"> -->
+        <section class="" :class="{bgColor:isBgColor2}" v-on:click="displaySection('rolesDetails')">
+          <div class="infoContainerHeading">
+            <span class="editPencil">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h6>Associated Roles</h6>
+            </div>
+            <div class="col-md-3" v-for="role in RoleList" v-if="role.IsAssigned === 1">
+              <label>
+                {{role.RoleName}}
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <!-- <section class="noHover" :class="{bgColor:isBgColor2}"> -->
+        <section class="" :class="{bgColor:isBgColor3}" v-on:click="displaySection('propertyDetails')">
+          <div class="infoContainerHeading">
+            <span class="editPencil">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h6>Associated Properties</h6>
+              <div class="row">
+                <!-- <div class="col-md-3" v-show="showLess" v-for="property in propertylistItems">
+                  <label>{{property.PropertyName}}</label>
+
+                </div> -->
+                <!-- <div class="col-md-3" v-show="showMore" v-for="property in ApplypropertyList">
+                  <label>{{property.PropertyName}}</label>
+
+                </div> -->
+                <div class="col-md-3" v-for="property in propertyList" v-if="property.IsAssigned===1">
+                  <label>{{property.PropertyName}}</label>
+                </div>
+              </div>
+              <!-- <div>
+                <button v-if="propertyList &&  showMore === false && ApplypropertyList.length > 8" class="btn btn-hypeLink pull-right textSm"
+                  type="button" v-on:click="showMorepropertyList">
+                  {{ApplypropertyList.length - 8}} More..
+                </button>
+                <button v-if="ApplypropertyList && showMore === true  && ApplypropertyList.length > 8" class="btn btn-hypeLink pull-right textSm" type="button"
+                  v-on:click="showLesspropertyList">
+                  Show less..
+                </button>
+              </div> -->
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+
+
+
+
+
+      <div class="col-md-5 editContainer">
+        <div class="editContainerHeading">
+          <h6 class="pull-left mt-2" v-if="displaySectionValue === 'userDetails'">User details</h6>
+          <h6 class="pull-left mt-2" v-if="displaySectionValue === 'rolesDetails'">Associated Roles to Users</h6>
+          <h6 class="pull-left mt-2" v-if="displaySectionValue === 'propertyDetails'">Associated properties to Users</h6>
+          <button class="btn btn-success btn-sm pull-right" title="Save User" @click="saveUser" :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+            v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) ">Save</button>
+        </div>
+
+        <section v-if="displaySectionValue === 'userDetails'">
+          <!-- <div class="editContainerHeading">
+            <h6 class="pull-left">User details</h6>
+            <button class="btn btn-success btn-sm pull-right" title="Save User" @click="saveUser" :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+              v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) ">Save</button>
+          </div> -->
+          <!-- </section> -->
+          <div class="row">
+            <div class="col-md-12 pt-0">
+              <div class="" v-if="logo === ''" >
+                <label  class="custom-file-upload">
+                  <div>
+                    <i class="fa fa-upload" aria-hidden="true"></i>
+                    <input :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+                    v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) "  type="file" id="logo" name="logo" accept="image/*" @change="processLogo($event)"/>
+                  </div>
+
+                </label>
+
+              </div>
+             
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>First Name:</label>
+                <input class="form-control" type="text" v-model="userDetail.UserFirstName" :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+                  v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) ">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Last Name:</label>
+                <input class="form-control" type="text" v-model="userDetail.UserLastName" :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+                  v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) ">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Login Id:</label>
+                <input class="form-control" type="text" v-model="userDetail.LoginId" name="LoginId" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('LoginId') }"
+                  :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)" v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) ">
+                <i v-show="errors.has('LoginId')" class="fa fa-warning"></i>
+                <span v-show="errors.has('LoginId')" class="help is-danger">{{ errors.first('LoginId') }}</span>
+
+              </div>
+              <div class="form-group" style="display: none;">
+                <label>Device Ids:</label>
+                <input class="form-control" type="text" disabled v-model="userDetail.DeviceIds" :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+                  v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) ">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Email:</label>
+                <input class="form-control" type="text" v-model="userDetail.Email" autocomplete="off" name="Email" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('Email') }"
+                  :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)" v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) ">
+                <i v-show="errors.has('Email')" class="fa fa-warning"></i>
+                <span v-show="errors.has('Email')" class="help is-danger">{{ errors.first('Email') }}</span>
+
+                <!--<span v-show="!isValidEmail">Email is not vaild</span>-->
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label> Password:</label>
+                <input class="form-control" type="password" v-model="userDetail.UserPassword" name="UserPassword" v-validate="'required'"
+                  :class="{'input': true, 'is-danger': errors.has('UserPassword') }" :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+                  v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) ">
+                <i v-show="errors.has('UserPassword')" class="fa fa-warning"></i>
+                <span v-show="errors.has('UserPassword')" class="help is-danger">{{ errors.first('UserPassword') }}</span>
+
+              </div>
+              <!-- <div class="form-group">
+                        <label> conformation Password:</label>
+                        <input class="form-control" type="password" v-model="userDetail.UserPassword" />
+                      </div> -->
+
+            </div>
+
+            <div class="col-md-12" v-if="!showModal">
+
+              <span>
+                <button :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+                v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) && $route.params.userId !== '-1' &&  $route.params.userId !== selectedUser"  class="btn btn-default btn-sm" id="show-modal" 
+                  @click="showModal = true">
+                  <i class="fa fa-key"></i> Reset
+                </button>
+              </span>
+
+              <span>
+                <button class="btn btn-default btn-sm" id="show-modal" :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+                v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))  && $route.params.userId !== '-1' && $route.params.userId === selectedUser"
+                  @click="showModal = true">
+                  <i class="fa fa-key"></i> Change Password</button>
+              </span>
+            </div>
+
+
+
+
+            <div class="col-md-12" v-if="showModal && $route.params.userId === selectedUser">
+              <div class="form-group">
+                <label>current password</label>
+                <input v-validate="'required'" v-model="currentpassword" name="currentpassword" type="password" class="form-control">
+              </div>
+              <div class="form-group mt-2">
+                <label>New Password:</label>
+                <input v-validate="'required'" v-model="newpassword" name="password" type="password" class="form-control">
+              </div>
+              <div class="form-group mt-2">
+                <label>Confirm New Password:</label>
+                <input v-validate="'required|confirmed:password'" v-model="conformpassword" name="password_confirmation" type="password"
+                  class="form-control" data-vv-as="password">
+              </div>
+
+              <div class="alert alert-danger" v-show="errors.any()">
+                <div v-if="errors.has('currentpassword')">
+                  {{ errors.first('currentpassword') }}
+                </div>
+
+                <div v-if="errors.has('password')">
+                  {{ errors.first('password') }}
+                </div>
+                <div v-if="errors.has('password_confirmation')">
+                  {{ errors.first('password_confirmation') }}
+                </div>
+              </div>
+              <button class="btn btn-default danger btn-sm mt-2" @click="showModal = false">
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-success btn-sm mt-2" @click="changePassword">
+                change
+              </button>
+
+            </div>
+
+
+            <div class="col-md-12" v-if="showModal && $route.params.userId !== selectedUser">
+
+              <div class="form-group mt-2">
+                <label>New Password:</label>
+                <input v-validate="'required'" v-model="newpassword" name="password" type="password" class="form-control" placeholder="newPassword">
+              </div>
+              <div class="form-group mt-2">
+                <label>Confirm New Password:</label>
+                <input v-validate="'required|confirmed:password'" v-model="conformpassword" name="password_confirmation" type="password"
+                  class="form-control" placeholder="Password confirmation " data-vv-as="password">
+              </div>
+
+              <div class="alert alert-danger" v-show="errors.any()">
+                <!-- <div v-if="errors.has('currentpassword')">
+                    {{ errors.first('currentpassword') }}
+                  </div> -->
+
+                <div v-if="errors.has('password')">
+                  {{ errors.first('password') }}
+                </div>
+                <div v-if="errors.has('password_confirmation')">
+                  {{ errors.first('password_confirmation') }}
+                </div>
+              </div>
+              <button class="btn btn-default danger btn-sm mt-2" @click="showModal = false">
+                Cancel
+              </button>
+              <button type="submit" class="btn btn-success btn-sm mt-2" @click="resetPassword">
+                Reset
+              </button>
+            </div>
+          </div>
+        </section>
+        <section v-else-if="displaySectionValue === 'loginDetails'">
+          <div class="editContainerHeading">
+            <h6 class="pull-left">login details</h6>
+            <button class="btn btn-success btn-sm pull-right" title="Save User" @click="saveUser" :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+              v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))">Save</button>
+          </div>
+          <div class="form-group">
+            <label>Login Id:</label>
+            <input class="form-control" type="text" v-model="userDetail.LoginId" />
+          </div>
+          <div class="form-group" style="display: none;">
+            <label>Device Ids:</label>
+            <input class="form-control" type="text" disabled v-model="userDetail.DeviceIds" />
+          </div>
+          <div class="form-group">
+            <label>Email:</label>
+            <input class="form-control" type="text" v-model="userDetail.Email" />
+            <!--<span v-show="!isValidEmail">Email is not vaild</span>-->
+          </div>
+          <div class="form-group">
+            <label>Password:</label>
+            <input class="form-control" type="password" v-model="userDetail.UserPassword" disabled />
+            <button class="btn btn-default" id="show-modal" @click="showModal = true">Edit</button>
+            <button class="btn btn-default" id="show-modal">Reset</button>
+          </div>
+        </section>
+
+        <section v-else-if="displaySectionValue === 'rolesDetails'">
+          <!-- <section class="pl-0"> -->
+          <!-- <div class="editContainerHeading">
+            <h6 class="pull-left">Associated Roles to Users</h6>
+            <button class="btn btn-success btn-sm pull-right" title="Save User" @click="saveUser" :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+              v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))">
+              save</button>
+          </div> -->
+
+
+          <!-- <div class="row">
+          <div class="col-md-12" style="border:1px solid lightgrey">
+
+            <div class="row">
+              <span class="tags" style="margin-left:10px;border:1px solid  lightgrey; margin-top:10px" v-for="applyRole in RoleList" v-if="applyRole.IsAssigned === 1">
+                <span>{{applyRole.RoleName}}</span>
+                <i class="fa fa-times" @click="removeAppliedRoleList(applyRole)"></i>
+              </span>
+            </div>
+            <div class="row" style="padding-bottom:60px" @click="showRoleList">
+            </div>
+          </div>
+          <div class="col-md-12" style="height:150px;overflow-y: scroll;border:1px solid lightgrey" v-show="showRoles">
+            <ul>
+              <li v-for="role in RoleList" v-bind:value="role" @click="addRoles(role)">{{role.RoleName}}</li>
+            </ul>
+          </div>
+        </div> -->
+          <div class="">
+            <div class="form-group" style="position: relative;">
+              <div class="col-md-12 searchResultsAmenitiesDiv">
+                <ul class="todo-list">
+                  <li v-for="applyRole in RoleList" v-if="applyRole.IsAssigned === 1">
+                    <span class="tags">
+                      <span>{{applyRole.RoleName}}</span>
+                      <i class="far fa-times" @click="removeAppliedRoleList(applyRole)"></i>
+                    </span>
+                  </li>
+                </ul>
+                <input type="text" :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+                v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))"  @click="showAmenitiesListFnc" placeholder="Click here to add more...">
+              </div>
+
+              <div class="form-control searchResultsAmenities" @click="$event.stopPropagation()" id="dropdownlist" v-show="dropDownList">
+                <ul>
+                  <li v-for="role in RoleList" v-if="role.IsAssigned === 0" v-bind:value="role" @click="addRoles(role)">{{role.RoleName}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section v-else-if="displaySectionValue === 'propertyDetails'">
+          <!-- <section class="pl-0"> -->
+          <!-- <div class="editContainerHeading">
+            <h6 class="pull-left">Associated properties to Users</h6>
+            <button class="btn btn-success btn-sm pull-right" title="Save User" @click="saveUser" :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+              v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))">
+              save</button>
+          </div> -->
+          <div class="">
+            <div class="form-group" style="position: relative;">
+              <div class="col-md-12 searchResultsAmenitiesDiv">
+                <ul class="todo-list">
+                  <li v-for="property in propertyList" v-if="property.IsAssigned===1">
+                    <span class="tags">
+                      <span>{{ property.PropertyName }}</span>
+                      <i class="far fa-times" @click="removeAppliedPropertyList(property)"></i>
+                    </span>
+                  </li>
+                </ul>
+                <input type="text" :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+                v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))" @click="showAmenitiesListFnc" placeholder="Click here to add more...">
+              </div>
+
+              <div class="form-control searchResultsAmenities toggle" @click="$event.stopPropagation()" id="dropdownlist" v-show="dropDownList">
+                <ul class="menu">
+                  <li v-for="property in propertyList" v-if="property.IsAssigned === 0" v-bind:value="property" @click="addProperties(property)">{{property.PropertyName}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- propertysection -->
+        <!-- <section v-else-if="displaySectionValue === 'property'" class="col-md-5 editContainer">
+        <section class="pl-0">
+          <div class="editContainerHeading">
+            <h6 class="pull-left">Property Details</h6>
+            <button class="btn btn-success btn-sm pull-right" title="Save User" @click="saveUser" :disabled="fncIsUserSave && (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)"
+              v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))">Save</button>
+          </div>
+        </section>
+
+        <div class="tableWrap">
+          
+
+          <table class="table table-bordered userTable">
+            <thead>
+              <tr>
+                <th>Property Name</th>
+                <th>Status</th>
+                <th>Assigned</th>
+                <th>Default PropertyId</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr v-for="property in propertyList">
+                <th>{{property.Name}}</th>
+                <th v-if="property.StatusId == 1">Active</th>
+                <th v-else-if="property.StatusId == 0"> Inactive</th>
+                <th v-else-if="property.StatusId == -1">Obsolete</th>
+                <th v-else-if="property.StatusId== -2">Deleted</th>
+
+                <th>
+                  <label class="checkLabel">
+                    <input type="checkbox" v-model="property.IsAssigned" true-value="1" false-value="0" />
+                  </label>
+                </th>
+                <th>
+                  <label class="radioLabel">
+                    <input type="radio" v-bind:value="property.PropertyId" name="propertyCheck" :checked="property.IsDefault" @click="setToDefaultProperty(property)"
+                    />
+
+                  </label>
+                </th>
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </section> -->
+
+      </div>
+      <!-- </div> -->
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,188 @@
+<div class="panel panel-default paymentGrid">
+    <div class="panel-heading">
+        <div class="btn-group">
+            <!-- <span> -->
+            <div class="dropdown mainDD defaultDD keep-open">
+                <span class="dashboard-icon"></span>
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+                    style="padding: 6px 0px;">
+                    {{reportType}}
+                    <i class="fas fa-caret-down"></i>
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li class="heading">Reports</li>
+                    <li @click="changeGridView('Sales')"><label><span class="report-icon r-sales">Sales</span></label>
+                    </li>
+                    <li @click="changeGridView('Payments')"><label><span
+                                class="report-icon r-payments">Payments</span></label></li>
+                    <!-- <li @click="changeGridView('Booking Engine')">Booking Engine</li> -->
+                </ul>
+            </div>
+        </div>
+        <div class="btn-group pull-right">
+            <date-range-picker ref="picker" :opens="opens" :locale-data="{ firstDay: 1, format: 'DD MMM YYYY' }"
+                :minDate="minDate" :maxDate="maxDate" :singleDatePicker="singleDatePicker" :timePicker="false"
+                :timePicker24Hour="false" :showWeekNumbers="false" :showDropdowns="false" :autoApply="true"
+                v-model="dateRange" :ranges="show_ranges ? undefined : false" @update="updateValues" @toggle="checkOpen"
+                :linkedCalendars="linkedCalendars" :reportType="reportType">
+            </date-range-picker>
+            <div class="dropdown mainDD keep-open">
+                <button title="Property Chooser" class="btn btn-default dropdown-toggle" type="button"
+                    data-toggle="dropdown" @click="checkDateControl">
+                    All Properties
+                    <i class="fas fa-caret-down"></i>
+                </button>
+
+                <ul class="dropdown-menu scrollable-menu">
+                    <li v-for="property in propertyList">
+                        <label class="checkLabel">
+                            <input type="checkbox" name="checkclass" :id="property.PropertyId"
+                                @click="selectProperty(property, $event)" />
+                            <span v-text="property.PropertyName"></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdown mainDD keep-open">
+                <button title="Unit Type Chooser" class="btn btn-default dropdown-toggle" type="button"
+                    data-toggle="dropdown">
+                    All Unit Types
+                    <i class="fas fa-caret-down"></i>
+                </button>
+
+                <ul class="dropdown-menu scrollable-menu">
+                    <li v-for="unitType in unitTypeList">
+                        <label class="checkLabel">
+                            <input type="checkbox" name="checkclass" :id="unitType.UnitTypeId"
+                                @click="selectUnitType(unitType, $event)" />
+                            <span v-text="unitType.UnitTypeName"></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="dropdown mainDD keep-open">
+                <button title="Source Chooser" class="btn btn-default dropdown-toggle" type="button"
+                    data-toggle="dropdown">
+                    All Sources
+                    <i class="fas fa-caret-down"></i>
+                </button>
+
+                <ul class="dropdown-menu scrollable-menu">
+                    <li v-for="source in sourceList">
+                        <label class="checkLabel">
+                            <input type="checkbox" name="checkclass" :id="source.sourceID"
+                                @click="selectSource(source, $event)" />
+                            <span v-text="source.sourceName"></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdown mainDD keep-open" v-if="reportType == 'Sales'">
+                <button title="Status Chooser" class="btn btn-default dropdown-toggle" type="button"
+                    data-toggle="dropdown">
+                    All Reservation Status
+                    <i class="fas fa-caret-down"></i>
+                </button>
+
+                <ul class="dropdown-menu scrollable-menu">
+                    <li v-for="status in statusList">
+                        <label class="checkLabel">
+                            <input type="checkbox" :checked="statusId.findIndex(x=>x == status.StatusId)>-1"
+                                name="checkclass" :id="status.StatusId" @click="selectStatus(status, $event)" />
+                            <span v-text="status.StatusName"></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdown mainDD keep-open" v-if="reportType == 'Payments'">
+                <button title="Status Chooser" class="btn btn-default dropdown-toggle" type="button"
+                    data-toggle="dropdown">
+                    All Payment Status
+                    <i class="fas fa-caret-down"></i>
+                </button>
+
+                <ul class="dropdown-menu scrollable-menu">
+                    <li v-for="paymentStatus in paymentStatusList">
+                        <label class="checkLabel">
+                            <input type="checkbox" name="checkclass" :id="paymentStatus.ItemStatusName"
+                                @click="selectPaymentStatus(paymentStatus.ItemStatusName, $event)" />
+                            <span v-text="paymentStatus.ItemStatusName"></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdown mainDD keep-open" v-if="reportType == 'Payments'">
+                <button title="Status Chooser" class="btn btn-default dropdown-toggle" type="button"
+                    data-toggle="dropdown">
+                    All Payment Methods
+                    <i class="fas fa-caret-down"></i>
+                </button>
+
+                <ul class="dropdown-menu scrollable-menu">
+                    <li v-for="ledgeraccount in ledgeraccountlist">
+                        <label class="checkLabel">
+                            <input type="checkbox" name="checkclass" :id="ledgeraccount.ledgerAccountID"
+                                @click="selectledgeraccount(ledgeraccount, $event)" />
+                            <span v-text="ledgeraccount.ledgerAccountName"></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group" @click="getFilteredData(reportType)">
+                <button class="btn btn-sm btn-default">Apply Filter</button>
+            </div>
+
+            <div class="form-group" @click="clearFilter()" v-if="showClearFilter">
+                <span style="color: red !important;font-size: 12px;cursor: pointer;">Clear Filter</span>
+            </div>
+
+            <div class="dropdown">
+                <button title="More Options" class="btn btn-default dropdown-toggle  btn-sm btn-sm-icon" type="button"
+                    data-toggle="dropdown">
+                    <i class="fas fa-download"></i>
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li class="heading">More Options</li>
+                    <li @click="exportToExcelOrPdf('Excel')">
+                        <label>
+                            <i class="fa fa-file-excel-o"></i>
+                            Export to Excel</label>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button title="Column Chooser" class="btn btn-default dropdown-toggle  btn-sm btn-sm-icon" type="button"
+                    data-toggle="dropdown">
+                    <i class="fa fa-columns"></i>
+                </button>
+
+                <ul class="dropdown-menu scrollable-menu">
+                    <li class="heading">Column Chooser</li>
+                    <li v-for="column in headerColumnList">
+                        <label class="checkLabel">
+                            <input type="checkbox" :id="column.Label" v-model="column.IsChecked"
+                                @change="selectColumn(column, $event)" />
+                            <span v-text="column.ColumnName"></span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <pageLoadingComponent v-show="loading"></pageLoadingComponent>
+
+        <!-- <div class="row"> -->
+        <SalesReport v-if="reportType == 'Sales'" :propertyIds="PropertyId" :unitTypeIds="unitTypeId"
+            :sourceIds="sourceID" :reservationStatusIds="statusId" :startDate="startDate" :endDate="endDate" :dateType="dateType">
+        </SalesReport>
+        <PaymentsReport v-if="reportType == 'Payments'" :propertyIds="PropertyId" :unitTypeIds="unitTypeId"
+            :sourceIds="sourceID" :methods="ledgeraccountId" :paymentStatusIds="paymentStatus" :startDate="startDate"
+            :endDate="endDate" :dateType="dateType"></PaymentsReport>
+        <!-- </div> -->
+    </div>
+</div>

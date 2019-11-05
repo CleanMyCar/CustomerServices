@@ -1,0 +1,49 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="pull-left">Guest Profile List</h4>
+        <div class="pull-right">
+            <button class="btn btn-default btn-sm" @click="switchView">
+                <i v-if="listType == 'list'" class="fa fa-th-large"></i>
+                <i v-if="listType != 'list'" class="fa fa-table"></i>
+            </button>
+            <button class="btn btn-default btn-sm" title="Add New User" style="float: right" @click="createNewInstance">
+                <i class="fa fa-plus "></i>Add new guest
+            </button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="tableWrap">
+            <table class="table table-bordered userTable">
+                <thead>
+                    <tr>
+                        <th>Guest First Name</th>
+                        <th>Guest Last Name</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="cursor: pointer;">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-deck entityCards mt-0 pt-0" v-if="listType != 'list'">
+            <div class="card zoomIn animated">
+                <div class="card-block usersListCard">
+                    <h6 class="" ></h6>
+                    <span class="sm-txt"></span>
+                    <span class="sm-txt"></span>
+                    <span class="sm-txt"></span>
+                    <span class="sm-txt"></span>
+                    <span class="sm-txt"></span>
+                    <span class="sm-txt"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

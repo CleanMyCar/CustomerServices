@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Host Tempo</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAU474IV10ASKHtbXOf6pLAQJvYlgE4gZM&libraries=places"></script> -->
+  <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAU474IV10ASKHtbXOf6pLAQJvYlgE4gZM&libraries=places"></script>
+  <!-- <link href="/src/content/css/styles.css" rel="stylesheet" type='text/css' /> -->
+  <link href="./dist/style.css" rel="stylesheet" type='text/css' />
+  <link rel="stylesheet" href="./dist/styles.css">
+  <script src="./dist/react.development.js" crossorigin></script>
+  <script src="./dist/react-dom.development.js" crossorigin></script>
+  <script src="./dist/react-virtualized.js"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body class="mainBody">
+  <div id="app">
+
+  </div>
+  <script src="./dist/vendor.js"></script>
+  <script src="./dist/build.js"></script>
+  <script src="./src/assets/svg/iconfont.js"></script>
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+
+      // var loginParams = {
+      //   requestParams: {
+      //     'APIReg': "10003",
+      //     'UserName': "DeeDee",
+      //     'ClientCode': "User1",
+      //     'Password': "User1",
+      //   },
+      //   systemParams: {
+      //     'Source': 'Web',
+      //     'SourceId': window.location.hostname
+      //   }
+      // };
+      // $.ajax({
+      //   dataType: "json",
+      //   type: 'POST',        
+      //   contentType: "application/json;charset=utf-8",
+      //   url: 'http://192.168.1.9:1339/api',
+      //   data: JSON.stringify(loginParams),
+      //   success: function (response) {          
+      //     console.log(response);         
+      //   },
+      //   error: function (d) {
+      //     console.log(d);          
+      //   },
+      // });
+
+      // $("ul.dropdown-menu").click(function(e) {
+      //   e.stopPropagation();
+      // });
+
+      $(document).on("keypress", 'form', function (e) {
+        var code = e.keyCode || e.which;
+        if (code == 13) {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+    });
+
+  </script>
+
+</body>
+
+</html>

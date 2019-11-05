@@ -1,0 +1,266 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+
+
+
+
+    <div class="btn-group pull-right">
+      <button class="btn btn-default btn-sm" title="New Role" style="float: right" @click="createNewInstance" :disabled="fncIsRoleNew && (fncIsRoleNew.isAssigned === -1 && fncIsRoleNew.functionState === 2)"
+        v-if="fncIsRoleNew && (fncIsRoleNew.isAssigned === 1 || (fncIsRoleNew.isAssigned === -1  && fncIsRoleNew.functionState === 2)) ">
+        <i class="fa fa-plus "></i> Add new role
+      </button>
+    </div>
+    <!-- <i class="fa fa-sliders" aria-hidden="true" @click="toggleFilterPanel = !toggleFilterPanel" title="Filters"></i> -->
+
+
+    <div class="btn-group pull-right">
+      <!-- <button class="btn btn-default btn-sm" :disabled="fncIsClientDelete && (fncIsClientDelete.isAssigned === -1 && fncIsClientDelete.functionState === 2)"
+        v-if="fncIsClientDelete && (fncIsClientDelete.isAssigned === 1 || (fncIsClientDelete.isAssigned === -1  && fncIsClientDelete.functionState === 2)) " >
+            <i class="fa fa-trash"></i>
+        </button> -->
+
+    </div>
+
+
+    <div class="btn-group pull-right">
+      <!-- <input type="text" placeholder="Tags" class="form-control" :disabled="fncIsRoleList && (fncIsRoleList.isAssigned === -1 && fncIsRoleList.functionState === 2)"
+        v-if="fncIsRoleList && (fncIsRoleList.isAssigned === 1 || (fncIsRoleList.isAssigned === -1 && fncIsRoleList.functionState === 2))"
+      />
+      <button class="btn btn-default btn-sm btn-sm-icon" :disabled="fncIsRoleList && (fncIsRoleList.isAssigned === -1 && fncIsRoleList.functionState === 2)"
+        v-if="fncIsRoleList && (fncIsRoleList.isAssigned === 1 || (fncIsRoleList.isAssigned === -1 && fncIsRoleList.functionState === 2))">
+        <i class="fa fa-eye"></i>
+      </button> -->
+
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle  btn-sm btn-sm-icon" :disabled="fncIsRoleList && (fncIsRoleList.isAssigned === -1 && fncIsRoleList.functionState === 2)"
+          v-if="fncIsRoleList && (fncIsRoleList.isAssigned === 1 || (fncIsRoleList.isAssigned === -1 && fncIsRoleList.functionState === 2))"
+          type="button" data-toggle="dropdown">
+          <i class="fa fa-columns"></i>
+        </button>
+        <ul class="dropdown-menu">
+          <li class="heading">Column Chooser</li>
+          <li v-for="column in headerColumnList">
+            <label class="checkLabel">
+              <input type="checkbox" :id="column.Label" v-model="column.IsChecked" />
+              <span v-text="column.Label"></span>
+            </label>
+          </li>
+        </ul>
+
+        <ul class="dropdown-menu">
+          <li v-for="column in headerColumnList">
+            <input type="checkbox" v-model="column.IsChecked" />
+            <span v-text="column.Label"></span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle  btn-sm btn-sm-icon" type="button" data-toggle="dropdown">
+          <i class="fa fa-ellipsis-v"></i>
+        </button>
+
+        <ul class="dropdown-menu">
+          <li class="heading">More Options</li>
+          <li>
+            <label>
+              <i class="fa fa-file-pdf-o"></i> Export to PDF</label>
+          </li>
+          <li>
+            <label>
+              <i class="fa fa-file-excel-o"></i> Export to Excel</label>
+          </li>
+          <li>
+            <label>
+              <i class="fa fa-print"></i> Print</label>
+          </li>
+        </ul>
+      </div> -->
+
+
+      <button class="btn btn-default btn-sm" v-if="false">
+        <i v-if="tempListType == 'list'" class="fa fa-th-large"></i>
+        <i v-if="tempListType != 'list'" class="fa fa-table"></i>
+      </button>
+    </div>
+  </div>
+  <div class="panel-body">
+
+
+    <!-- <table class="table table-bordered userTable">
+      <thead>
+        <tr>
+          <th class="resTh dCell" v-for="column in headerColumnList" v-if="column.IsChecked" v-bind:class="column.Label">
+            <span v-text="column.Label" v-bind:class="{stay : column.Label == 'Stay'}"></span>
+            <span class="dropdown mainDD keep-open ">
+              <button class="btn dropdown-toggle resListSortBtn" type="button" data-toggle="dropdown">
+                <i class="fa resListSortIcon"></i>
+              </button>
+              <ul class="resListSortMenu dropdown-menu"> 
+                <li class="heading">Sort By</li>
+                <li  @click="ascSort(column.ColumnName, 'asc')">
+                  <span v-if="column.Label == 'NAME'">Name</span>
+                  
+                  <span v-if="column.Label == 'DESCRIPTION'">Description</span>
+                  <span v-if="column.Label == 'STATUS'">Status</span>
+
+                
+                  
+                  
+                  <i class="fa sort-up"></i>
+                  <span :class="column.class" v-show="column.isSortLoading && column.isAscOrDesc === 'asc'"></span>
+                </li>
+                <li  @click="ascSort(column.ColumnName, 'desc')">
+                  <span v-if="column.Label == 'NAME'">Name</span>
+                  
+                  <span v-if="column.Label == 'DESCRIPTION'">Description</span>
+                  <span v-if="column.Label == 'STATUS'">Status</span>
+                  <i class="fa sort-dwn"></i>
+                  <span :class="column.class" v-show="column.isSortLoading && column.isAscOrDesc === 'desc'"></span>
+                </li>
+              </ul>
+            </span>
+          </th>
+
+        </tr>
+      </thead>
+      <tbody>
+
+
+
+        <tr v-for="inst in roleList" @click="renderRoleDetail(inst)" :disabled="fncIsRoleList && (fncIsRoleList.isAssigned === -1 && fncIsRoleList.functionState === 2)"
+          v-if="fncIsRoleList && (fncIsRoleList.isAssigned === 1 || (fncIsRoleList.isAssigned === -1 && fncIsRoleList.functionState === 2))">
+
+
+          <td v-if="headerColumnList.NAME.IsChecked">
+            <strong>
+              <a style="cursor: pointer;">{{inst.RoleName}}</a>
+            </strong>
+          </td>
+          <td v-if="headerColumnList.DESCRIPTION.IsChecked">
+            <strong>
+              <a style="cursor: pointer;">{{inst.RoleDescription}}</a>
+            </strong>
+          </td>
+
+
+          <td v-if="headerColumnList.STATUS.IsChecked">
+            <span class="statusType" :class="inst.StatusName">{{inst.StatusName}}</span>
+          </td>
+
+        </tr>
+
+      </tbody>
+    </table> -->
+    <!-- fixed header -->
+    <div v-show="isGreyOut" style="position: fixed; background: rgba(0, 0, 0, 0.41); left: 0; top: 0; width: 100%; height: 100vh; z-index: 1030;"></div>
+   
+    <div class="">
+      <div class="dTable">
+        <div class="dTHead">
+          <div v-for="column in headerColumnList" v-if="column.IsChecked" v-bind:class="column.Label" class="resTh dCell">
+            <div class="dTableSortWrap">
+              <span v-text="column.Label" v-bind:class="column.Label"></span>
+              <span class="dropdown mainDD keep-open ">
+                <button class="btn dropdown-toggle resListSortBtn" type="button" data-toggle="dropdown">
+                  <i class="fa resListSortIcon"></i>
+                </button>
+                <ul class="resListSortMenu dropdown-menu">
+                  <li class="heading">Sort By</li>
+                  <li @click="ascSort(column.ColumnName, 'asc')">
+                    <span v-if="column.Label == 'NAME'">Name</span>
+                    <span v-if="column.Label == 'DESCRIPTION'">Description</span>
+                    <span v-if="column.Label == 'STATUS'">Status</span>
+                    <i class="fa sort-up"></i>
+                    <span :class="column.class" v-show="column.isSortLoading && column.isAscOrDesc === 'asc'"></span>
+                  </li>
+                  <li @click="ascSort(column.ColumnName, 'desc')">
+                    <span v-if="column.Label == 'NAME'">Name</span>
+                    <span v-if="column.Label == 'DESCRIPTION'">Description</span>
+                    <span v-if="column.Label == 'STATUS'">Status</span>
+                    <i class="fa sort-dwn"></i>
+                    <span :class="column.class" v-show="column.isSortLoading && column.isAscOrDesc === 'desc'"></span>
+                  </li>
+                </ul>
+              </span>
+            </div>
+          </div>
+
+        </div>
+        <div class="dTBody">
+          <div class="dTBodyRow" v-for="inst in roleList" @click="renderRoleDetail(inst)">
+
+            <div class="dCell NAME" v-if="headerColumnList.NAME.IsChecked">
+
+              <strong>{{inst.RoleName}}</strong>
+
+            </div>
+            <div class="dCell DESCRIPTION" v-if="headerColumnList.DESCRIPTION.IsChecked">
+
+              <strong>{{inst.RoleDescription}}</strong>
+
+            </div>
+
+            <div class="dCell STATUS" v-if="headerColumnList.STATUS.IsChecked" >
+              <div class="statusTypeDiv">
+                <span class="statusType" v-bind:class="inst.StatusName">{{inst.StatusName}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- fixed header -->
+    <!-- </div> -->
+
+  </div>
+  <div :class="['rightSideBar', 'resList', toggleFilterPanel ? 'expand' : '']" v-if="toggleFilterPanel">
+		<div class="sideBarHeading">
+			<h6>Filters</h6>
+
+		</div>
+		<div class="col-md-12 mt-3 pull-left">
+      	<div class="form-group">
+            <div class="col-md-12 searchResultsAmenitiesDiv">
+              <ul class="todo-list">
+                <li>
+                  <span class="tags">
+                   
+                  </span>
+                </li>
+              </ul>
+              <input type="text">
+            </div>
+    
+            <div class="form-control searchResultsAmenities">
+            
+            </div>
+          </div>
+          
+			<div class="form-group">
+				<div class="col-md-12 searchResultsAmenitiesDiv">
+					<ul class="todo-list">
+            <li>
+              <span class="tags">
+               
+              </span>
+            </li>
+          </ul>
+					<input type="text">
+				</div>
+
+				<div class="form-control searchResultsAmenities" >
+				
+				</div>
+			</div>
+			
+
+			<button class="btn btn-default btn-sm" >
+				Apply Filter
+			</button>
+			<button class="btn btn-default btn-sm" @click="closeFilter()">
+				Cancel
+			</button>
+		</div>
+	</div>
+</div>

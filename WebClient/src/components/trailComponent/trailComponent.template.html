@@ -1,0 +1,75 @@
+<div class="container-fluid" style="margin-top: 10px">
+    <div class="table-row header">
+      <div class="column index">#</div>
+      <div class="wrapper attributes">
+        <div class="wrapper title-comment-module-reporter">
+          <div class="wrapper title-comment">
+            <div class="column title">Title</div>
+            <div class="column comment">Comment</div>
+          </div>
+          <div class="wrapper module-reporter">
+            <div class="column module">Module</div>
+            <div class="column reporter">Reporter</div>
+          </div>
+        </div>
+        <div class="wrapper status-owner-severity">
+          <div class="wrapper status-owner">
+            <div class="column status">Status</div>
+            <div class="column owner">Owner</div>
+          </div>
+          <div class="column severity">Severity</div>
+        </div>
+      </div>
+      <div class="wrapper icons">
+        <div title="Watch" class="column watch">
+          <span class="glyphicon glyphicon-eye-open"></span>
+        </div>
+        <div title="Add comment" class="column add-comment">
+          <span class="glyphicon glyphicon-comment"></span>
+        </div>
+      </div>
+      <div class="wrapper dates">
+        <div class="column date">Created</div>
+        <div class="column date">Updated</div>
+        <div class="column date">Due</div>
+      </div>
+    </div>
+  
+    <div class="table-row" v-for="(inst, index) in reservationList">
+      <div class="column index">1</div>
+      <div class="wrapper attributes">
+        <div class="wrapper title-comment-module-reporter">
+          <div class="wrapper title-comment">
+            <div class="column title"> 
+                <strong>{{formatStartDate(inst.ActualStartDate)}}</strong>
+                <strong>{{formatEndDate(inst.ActualEndDate)}}</strong>
+                <span  style="position: absolute;" v-if="formatStartYear(inst.ActualStartDate) != null">{{formatStartYear(inst.ActualStartDate)}}</span>
+            </div>
+            <div class="column comment">{{inst.UnitTypeName}}</div>
+          </div>
+          <div class="wrapper module-reporter">
+            <div class="column module">{{inst.PropertyName}} - {{inst.UnitName}}</div>
+            <div class="column reporter">{{inst.StatusName}}</div>
+          </div>
+        </div>
+        <div class="wrapper status-owner-severity">
+          <div class="wrapper status-owner">
+            <div class="column status"><span class="label label-primary">{{inst.SubSourceName}}</span></div>
+            <div class="column owner">{{inst.SourceName}}</div>
+          </div>
+          <div class="column severity high">{{formatDateBooked(inst.DateBooked)}}</div>
+        </div>
+      </div>
+      <div class="wrapper icons">
+        <div class="column watch"><span class="glyphicon glyphicon-eye-open active" /></div>
+        <div class="column add-comment"><span class="glyphicon glyphicon-comment" /></div>
+      </div>
+      <div class="wrapper dates">
+        <div class="column date">{{inst.BookedBy}}</div>
+        <div class="column date">{{formatMoney(inst.BalanceRate)}}</div>
+        <div class="column date">{{formatMoney(inst.TotalRate)}}</div>
+      </div>
+    </div>
+  
+  
+  </div>

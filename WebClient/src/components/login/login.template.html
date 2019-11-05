@@ -1,0 +1,14 @@
+<div class="overlay-color">
+    <div class="loginBoxDiv">
+        <h1>Room
+            <span>Tempo</span>
+        </h1>
+        <form>
+            <h4>LOGIN</h4>
+            <input type="text" placeholder="Client Id" v-model="loginParams.ClientCode" />
+            <input type="text" placeholder="User Name" v-model="loginParams.UserName" />
+            <input type="password" placeholder="Password" v-model="loginParams.Password" />
+            <input type="button" value="Sign In" @click="login" />
+        </form>
+    </div>
+</div>
