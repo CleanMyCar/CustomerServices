@@ -40,10 +40,10 @@ const awsImageService = require('./code/modules/imageUploadServices/awsStorageSe
 const configParams = (() => {
     let p = {
         sql: {
-            server: '192.168.1.33',
+            server: 'localhost',
             user: 'sa',
             password: 'Apple#123',
-            database: 'RoomTempo_Working',
+            database: 'RoomTempo_Dev_ISS',
             // server: 'roomtempoqa.ccb0buccqamy.ap-south-1.rds.amazonaws.com',
             // port: 1403,
             // user: 'sa',
@@ -56,7 +56,7 @@ const configParams = (() => {
             },
             options: {
                 encrypt: false,
-                appName: "cloud-roomtemp0-Rajendra"
+                appName: "cloud-Rajendra"
             }
             // Bucket: {
             //     AccessKeyId: "AKIAJ27DJOG5BWHGUJWQ",
@@ -119,24 +119,10 @@ require('./code/core/core')(configParams)
 
             socket.on('disconnect', () => {
                 console.log(config.userId + ': user disconnected on ');
-                //config.removeUserFromUsersKeyStore(socket.id);
-                // console.log('disconnected IP: ' + socket.request.connection.remoteAddress);    
-                //loop through object store and remove this socket.id
             });
 
             modules.forEach((module) => {
-                // if(module.key == ""){
-
-                // }
-
                 socket.on(module.key, (params, responseCallback) => {
-                    // delete params.token;
-                    // delete params.Source;
-
-
-                    // delete params.SourceId;
-
-                    console.log("apiGateway => Module.key", module.key);
 
                     let ContinueNextStep = function () {
                         if (params.systemParams && params.systemParams.token) {
@@ -145,20 +131,6 @@ require('./code/core/core')(configParams)
 
                                     params.systemParams.UserId = decodedObj.decoded.header.UserId;
                                     params.systemParams.EmailId = decodedObj.decoded.header.EmailId;
-                                    // params.systemParams.ClientId = decodedObj.decoded.header.ClientId;
-                                    params.systemParams.UserClientId = decodedObj.decoded.header.UserClientId;
-                                    params.systemParams.SelectedClientId = decodedObj.decoded.header.SelectedClientId;
-                                    params.systemParams.PropertyId = decodedObj.decoded.header.PropertyId;
-
-                                    console.log("UserInstanceId: " + params.systemParams.UserId);
-                                    // console.log("ClientId: " + params.systemParams.ClientId);
-                                    console.log("userClientId: " + params.systemParams.SelectedClientId);
-
-
-                                    //if (module.key === "GetNotificationList")
-                                    //config.pushToUserKeyStore({ userId: decodedObj.decoded.header.userId.toString() }, socket.id.toString());
-
-                                    //console.log('Info in APIGateway', { "key": module.key, "params": params });
 
                                     module.callback(config, params, (err, response) => {
 
@@ -346,39 +318,10 @@ require('./code/core/core')(configParams)
 
         console.log("port: " + process.env.PORT);
 
-        // ======================== schedule ============================
-
-        const housekeepingJob = require('./code/modules/houseKeeping/UpdateUnitStatus_ByJob.js');
-
-        // var rule2 = new schedule.RecurrenceRule();
-        //     rule2.dayOfWeek = [0,1,2,3,4,5,6];
-        //     rule2.hour = 10;
-        //     rule2.minute = 30;
-
-        // schedule.scheduleJob(rule2, function () {
-        //     console.log('Housekeeping nightly process job!');
-        //     housekeepingJob(config,null,function(err,res){
-        //         if(err){
-        //             console.log(err)
-        //         }
-        //         console.log(res)
-        //     });
-        // });
-        var cron = require('node-cron');
-
-        cron.schedule('*/5 * * * *', () => {
-            console.log('running a task every five minutes');
-            housekeepingJob(config, null, function (err, res) {
-                if (err) {
-                    console.log("error in job update ===", err)
-                }
-                // console.log(res)
-            });
-        });
+       
 
         // ==================== Stripe response Uri =============================
         let rp = require("request-promise")
-        let save_Acc_Commission_Config = require('./code/modules/payments/Save_Acc_Commission_Config.js');
         app.get('/getConnectAccountId', function (req, res) {
             let statusValue = {
                 code: null,
@@ -568,25 +511,8 @@ require('./code/core/core')(configParams)
         const verifyUserOtp = require('./code/modules/user/verifyUserOtp.js');
         const addAppIdToUser = require('./code/modules/user/addAppIdToUser.js');
         const clientProfile = require('./code/modules/client/getClientProfile.js');
-        const getExcelData = require('./code/modules/reservations/GetReservations_ExportToExcel');
-        const getPaymentExcel = require('./code/modules/payments/GetPaymentdetails_report');
-        const getSalesExcel = require('./code/modules/payments/Get_SalesReport');
-        const getFolioInvoice = require('./code/modules/reservations/GetFolioLedgerTransDetails_Invoice.js');
-        // const SendOtp = require('sendotp');
-        // const sendOtp = new SendOtp('172311ASex2uKW59a67f84', 'OTP for your SCAITS login is {{otp}}, please do not share it with anybody');
 
-        const SaveReservationAssignRooms = require('./code/modules/reservations/SaveExternalReservation_AssignRooms.js');
-        const saveReservationGuestInfo = require('./code/modules/reservations/Save_ExternalReservation.js');
-        const updateResevationStatus = require('./code/modules/reservations/updateReservationStatus.js')
-        const SaveNotesDetails = require('./code/modules/reservations/SaveNotesDetails.js'),
-            getTapechartUnassignedresList = require('./code/modules/tapeChart/getUnitAllReservations');
-
-
-        const getAvailabilitySearchBE = require('./code/modules/bookingEngine/availabilitySearch');
-        const GetFiltersData_BE = require('./code/modules/bookingEngine/GetFiltersData_BE');
-        const getFolioLedgerTransDetails = require("./code/modules/reservations/GetFolioLedgerTransDetails");
-        const Validate_Subdomain = require("./code/modules/bookingEngine/Validate_Subdomain");
-
+      
 
         app.post("/api", function (req, res) {
             //   console.log("loginconsoleapi",req);
