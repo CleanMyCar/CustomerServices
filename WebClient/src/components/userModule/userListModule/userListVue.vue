@@ -14,23 +14,25 @@
                 headerColumnList: {
 
                     LOGINID: {
-                        Label: "LOGIN ID",
+                        Label: "FIRST NAME",
                         IsChecked: true,
-                        ColumnName: "LoginId",
+                        ColumnName: "UserFirstName",
                         isSortLoading: false,
                         isAscOrDesc: null
 
                     },
                     NAME: {
-                        Label: "NAME",
+                        Label: "last NAME",
                         IsChecked: true,
-                        ColumnName: "UserFirstName",
+                        ColumnName: "UserLastName",
                         isSortLoading: false,
                         isAscOrDesc: null
                     },
 
                     EMAIL: { Label: "EMAIL", IsChecked: true, ColumnName: "Email", isSortLoading: false, isAscOrDesc: null },
+                    MOBIILENUMBER: { Label: "MOBILE NUMBER", IsChecked: true, ColumnName: "mobileNumber", isSortLoading: false, isAscOrDesc: null },
                     STATUS: { Label: "STATUS", IsChecked: true, ColumnName: "StatusId", isSortLoading: false, isAscOrDesc: null },
+                    RoleId: { Label: "Role", IsChecked: true, ColumnName: "RoleName", isSortLoading: false, isAscOrDesc: null },
                 },
 
                 filterObj: {
@@ -109,29 +111,22 @@
                         }
                         else {
                             console.log("response in GetUserList", response);
-                            self.userList = response.recordsets[0];
-                            // if (self.userList.length > 0) {
-                            //     self.$store.dispatch("toastr", {
-                            //         type: "success",
-                            //         header: "Success!",
-                            //         message: "userList List Rendered"
-                            //     });
-                            // }
+                            self.userList = response.recordsets[0];                            
                             self.loading = false;
-                            for (var i in self.headerColumnList) {
+                            // for (var i in self.headerColumnList) {
 
-                                if (self.headerColumnList[i].ColumnName !== "LOGO") {
-                                    var obj = self.headerColumnList[i];
-                                    console.log("obj", obj)
+                            //     if (self.headerColumnList[i].ColumnName !== "LOGO") {
+                            //         var obj = self.headerColumnList[i];
+                            //         console.log("obj", obj)
 
-                                    if (self.filterObj.SortBy === obj.ColumnName.toString()) {
-                                        console.log("obj.ColumnName", obj.ColumnName);
-                                        self.headerColumnList[i].isSortLoading = false;
-                                        // vm.headerColumnList[i].isAscOrDesc = sortOrder.toString();
-                                    }
+                            //         if (self.filterObj.SortBy === obj.ColumnName.toString()) {
+                            //             console.log("obj.ColumnName", obj.ColumnName);
+                            //             self.headerColumnList[i].isSortLoading = false;
+                            //             // vm.headerColumnList[i].isAscOrDesc = sortOrder.toString();
+                            //         }
 
-                                }
-                            }
+                            //     }
+                            // }
 
                         }
 

@@ -1,42 +1,20 @@
 const md5 = require('md5');
-//const mssql = require('mssql');
+const mssql = require('mssql');
 
 module.exports = (config, params, callback) => {
 
-    Promise.all([
-    ])
-        .then(data => {
-            console.log("ValidateUser", params);
-            config.utils.sqlConnectionCall(params, 'ValidateUser',
-                function (result) {
-                    callback(undefined, result);
-                },
-                function (err) {
-                    callback(err, undefined);
-                }
-            );
+    const requestParams = config.dbwrapper.getNewRequest();
+    requestParams.input('Email', mssql.NVarChar, params.email);
+    requestParams.input('Password', mssql.NVarChar, md5(params.password));
 
-            // const requestParams = config.dbwrapper.getNewRequest();
-            // requestParams.input('LoginID', mssql.NVarChar, params.UserName);
-            // requestParams.input('UserPassword', mssql.NVarChar, params.Password);
-            // requestParams.input('ClientCode', mssql.NVarChar, params.ClientCode);
+    requestParams.execute('ValidateUser', (err, result) => {
+        if (err) {
+            console.log(err);
+            callback(err);
+            return
+        }
 
-            // requestParams.execute('ValidateUser', (err, result) => {
-            //     if (err) {
-            //         console.log(err);
-            //         callback(err);
-            //         return
-            //     }
-
-            //     console.log(result);
-            //     callback(null, result);
-
-            // })
-
-
-        })
-        .catch(reason => {
-            console.log(reason);
-            callback(reason)
-        });
+        console.log(result);
+        return callback(null, result);
+    })
 }

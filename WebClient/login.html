@@ -35,29 +35,30 @@
           </div>
         </div>
 
-        <div class="loginScreen" style="display: none">          
+        <div class="loginScreen" style="display: none">
 
-          <input type="text" placeholder="Phone Number/Email" data-bind="value: loginUsername, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }"
-          />
-          <input type="password" placeholder="Password" data-bind="value: loginPassword, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }"
-          />
+          <input type="text" placeholder="Phone Number/Email"
+            data-bind="value: loginUsername, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
+          <input type="password" placeholder="Password"
+            data-bind="value: loginPassword, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
           <input type="button" value="Login" class="loginButton" data-bind="click: Login" />
           <div data-bind="text: errLoginMsg" class="invalidClient"></div>
         </div>
         <div class="registerScreen" style="display: none">
-          <input type="text" placeholder="First Name" data-bind="value: firstName, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }"
-          />
-          <input type="text" placeholder="Last Name" data-bind="value: lastName, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }"
-          />
-          <!-- <input type="text" placeholder="Phone Number" data-bind="value: phoneNumber, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }"
+          <input type="text" placeholder="First Name"
+            data-bind="value: firstName, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
+          <input type="text" placeholder="Last Name"
+            data-bind="value: lastName, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
+          <!-- <input type="text" placeholder="Phone Number" data-bind="value: mobileNumber, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }"
           /> -->
-          <input id="phone" name="phone" type="tel" data-bind="value: phoneNumber, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
-          <input type="text" placeholder="Email" data-bind="value: email, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }"
-          />
-          <input type="password" minlength="8" placeholder="Password (Min 8 Characters)" data-bind="value: password, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }"
-          />
-          <input type="text" placeholder="Referral Code (Optional)" data-bind="value: referralCode, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }"
-          />
+          <input id="phone" name="phone" type="tel"
+            data-bind="value: mobileNumber, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
+          <input type="text" placeholder="Email"
+            data-bind="value: email, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
+          <input type="password" minlength="8" placeholder="Password (Min 8 Characters)"
+            data-bind="value: password, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
+          <input type="text" placeholder="Referral Code (Optional)"
+            data-bind="value: referralCode, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
           <input type="button" value="Register" class="registerButton" data-bind="click: Register" />
           <div data-bind="text: errRegisterMsg" class="invalidClient"></div>
         </div>
@@ -81,6 +82,8 @@
         }
       }
     }
+
+    let apiUrl = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':1339' : '')
 
 
     let viewModel = function () {
@@ -137,8 +140,8 @@
         let loginParams = {
           requestParams: {
             'APIReg': "10001",
-            'UserName': self.loginUsername(),
-            'Password': self.loginPassword(),
+            'email': self.loginUsername(),
+            'password': self.loginPassword(),
           },
           systemParams: {
             'Source': 'Web',
@@ -159,7 +162,7 @@
             console.log(response);
             if (response) {
               if (!response.response.error) {
-                if (response.response.length > 0 && response.response[0] && response.response[0].hasOwnProperty("userID")) {
+                if (response.response.length > 0 && response.response[0] && response.response[0].hasOwnProperty("UserId")) {
                   window.localStorage.setItem('rttoken', response.response[0]["token"]);
                   window.location.href = "/index.html";
                 }
@@ -188,7 +191,7 @@
 
       self.firstName = ko.observable('');
       self.lastName = ko.observable('')
-      self.phoneNumber = ko.observable('');
+      self.mobileNumber = ko.observable('');
       self.email = ko.observable('')
       self.password = ko.observable('');
       self.referralCode = ko.observable('')
@@ -199,7 +202,7 @@
       self.lastName.extend({
         required: { message: 'Last Name is required', params: true }
       });
-      self.phoneNumber.extend({
+      self.mobileNumber.extend({
         required: { message: 'Phone Number is required', params: true },
         pattern: {
           message: 'Invalid phone number.',
@@ -215,7 +218,7 @@
         minLength: { params: 8, message: "Password should be minimun 8 characters" }
       });
 
-      self.registerErrors = ko.validation.group([self.firstName, self.lastName, self.phoneNumber, self.email, self.password]);
+      self.registerErrors = ko.validation.group([self.firstName, self.lastName, self.mobileNumber, self.email, self.password]);
 
       self.Register = function () {
         if (self.registerErrors().length) {
@@ -228,10 +231,10 @@
 
         let loginParams = {
           requestParams: {
-            'APIReg': "10002",
+            'APIReg': "10000",
             'firstName': self.firstName(),
             'lastName': self.lastName(),
-            'phoneNumber': self.phoneNumber(),
+            'mobileNumber': self.mobileNumber(),
             'email': self.email(),
             'password': self.password(),
             'referralCode': self.referralCode()
@@ -256,9 +259,7 @@
               if (!response.response.error) {
                 console.log("response for login", response);
                 if (response.response.length > 0 && response.response[0]) {
-                  window.localStorage.setItem('rttoken', response.response[0]["token"]);
-
-                  window.location.href = "/index.html";
+                  self.showLogin();
                 }
                 else {
                   if (response.response.errno) {

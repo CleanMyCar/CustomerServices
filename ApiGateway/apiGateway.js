@@ -11,15 +11,9 @@ let io = socketio(http);
 let log4js = require("log4js");
 let logger = log4js.getLogger();
 const fileUpload = require('express-fileupload');
-let schedule = require('node-schedule');
-
-// const { google } = require('googleapis')
-// const scopes = 'https://www.googleapis.com/auth/analytics.readonly'
-// const jwt = new google.auth.JWT(process.env.CLIENT_EMAIL, null, process.env.PRIVATE_KEY, scopes)
 
 let config = require('./code/core/core');
 
-var path = require('path');
 config.socketIo = io;
 config.logger = logger;
 
@@ -43,12 +37,7 @@ const configParams = (() => {
             server: 'localhost',
             user: 'sa',
             password: 'Apple#123',
-            database: 'RoomTempo_Dev_ISS',
-            // server: 'roomtempoqa.ccb0buccqamy.ap-south-1.rds.amazonaws.com',
-            // port: 1403,
-            // user: 'sa',
-            // password: 'Apple#123',
-            // database: 'RoomTempo_QA',
+            database: 'RoomTempo_Dev_ISS',            
             pool: {
                 max: 10,
                 min: 0,
@@ -66,14 +55,7 @@ const configParams = (() => {
             // },
         },
         rentalUnitedApiUrl: 'http://localhost:3000',
-        sessionTimeOut: 30, //minutes
-        // googleAnalyticsJwt: {
-        //     CLIENT_EMAIL : "google-analytics-api@soy-channel-243409.iam.gserviceaccount.com",
-        //     PRIVATE_KEY : "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQChqLDKpG06av3V\nJV3ZGjRvCgpd7gM0y8sLrR30M9XvtGC+SQ06HrVpy+IVo8FZLjUnguIOqRGLWAKK\n2LBocoxH8NAa467H/ML/7/+tM2Hd/ssPrEabLF4dQBxI1WhXZRUBflaiCSynapPy\nyQyJhQyXm4L14YikATLEfg6v/75xBaJ6xQs06rCZ9MFHWAjNf/ljbL03YJCrtCuv\nqqi8XJRbTo1Tia6iq3KRsXcxtuQ6TAQCBHJIEZ7yHOhljMEw/JMu8HI6mzkULThl\nHN1CnL2AtjHH6zu09vasn5SoylkmeWv9IPVwVMdhb17qd5fhIlE+9vxz3ispjbep\noF0Sf2X3AgMBAAECggEAQhdO7BIMLAF49C7aLvu1Kx5uPZekzO1yfjwRDnkwwla6\n5KDGHRhX78BwlotD7XtkNNqgJAFAEHlzVKOhf5oxOuo7knq6Rr3SVUOgAoYKwXE9\nQJOcrC0X7xp6VdaV2YEUdO9baNSaYnnCsdQ7YW+5RbRI9tB1hiONR2MICzFiAR93\nq7c623bUC8+XJwh6ZNGajwqCnfw8dV0w8kCrAlrtQPtKFRQdIY4otFWhQEuMxxze\nSBSr7AOIHzxl7gBiwEGnwKqf2ODWNw9k3BR5WtkxWcu84P52G0hK5l+w/HiY7wZq\n77gwLYPyYVimHTS0PXLfTKLknjFUDG9fbbSbUJVz5QKBgQDSu4qMmJfR93GwhgVK\ntFmMQ35EumhQ7G73AcjNGnebR/d6HSJDKi1DjjjaivYt2WHlJ9aKoOWYmMeWMQc/\nSnYQR+9D2/9pZ7YbHKUBOrVmgGlpm7oVknJmTSwAVfo/QdV15o3/idzITLbh3+yx\nRV1Wu6bXRn20ZY14Jy6FROtSbQKBgQDEYoa/sIyGyy38vLiwvPaGkmil5W+UyCBA\nJS3qG3oNOOJk6i93YPnzbTe//8nvx+HxXQ7d7LmM5MbtkC4dQF4pkG6UpqwQCL82\nvc8t4HxjluNw90o5U946GTDxRf/bEOOYUYZEr2jPePnxOxJoqKrCLKbCdqphZPP3\nja42l4t7cwKBgAUnhy0HMnd1SPebX5fDL4mJwRXnRVPtZI1wIrw5kIFg0kHPYp4n\n8vF7EhLuYTUf4xAa2FmNs+/2lLMswdOfe6HMUKLlR6sJWV/yZGrSR8uZCnsFzxhl\n+5xa+N+NOtC/SHxYxlJgyeCwV6zQsFZpru3HKz6Kv9pgvYQZ2T5zQBpFAoGAKwMx\nZDa08Kj7r4leIkeg7ySOCxfPcpTKi4IZJldSSicVXujz8H+q/ygCt+i8P+pVkFnD\ncdPxZ+yLrWiQ0RNSDGR389L1iKWBy+mSwQeT9vQLaKig9yFpYOw3jgC44zA1yRzB\n/bU1jYt/otg/VfDrRZAmDh2Tf7Vuwd+kMozKngUCgYAK2VOaQ/hj2InHsjq4b1lR\nwzhB0p7z52yIdtsDdi902W/N1//NJCdFRdXdWV4fDm5k/QWvjYzWhMuREEzL6Izs\nvZd7YD2nJGRRFyjr/XKA7GkU8xhs4uPAFAvXemu8D3cD17AjrtEtSpNbzsW2QWAU\n7waITr0g3fISR+EOK72+jQ==\n-----END PRIVATE KEY-----\n",
-        //     scopes : scopes
-
-        // }
-        // rentalUnitedApiUrl: 'http://192.168.1.219:3000'
+        sessionTimeOut: 300, //minutes        
     };
 
     //override from env variables    
@@ -318,7 +300,7 @@ require('./code/core/core')(configParams)
 
         console.log("port: " + process.env.PORT);
 
-       
+
 
         // ==================== Stripe response Uri =============================
         let rp = require("request-promise")
@@ -391,7 +373,7 @@ require('./code/core/core')(configParams)
                     imgRequest.imageGuid = "";
                     imgRequest.image = req.files.photos[index].data;
                     imgRequest.method = 30031,
-                    imgRequest.mimetype = req.files.photos[index].mimetype
+                        imgRequest.mimetype = req.files.photos[index].mimetype
                     awsImageService(config, imgRequest, function (err, response) {
                         multiResponse.push(response);
                         if (multiResponse.length == req.files.photos.length)
@@ -511,8 +493,9 @@ require('./code/core/core')(configParams)
         const verifyUserOtp = require('./code/modules/user/verifyUserOtp.js');
         const addAppIdToUser = require('./code/modules/user/addAppIdToUser.js');
         const clientProfile = require('./code/modules/client/getClientProfile.js');
+        const registerNewUser = require('./code/modules/user/registerUser');
 
-      
+
 
         app.post("/api", function (req, res) {
             //   console.log("loginconsoleapi",req);
@@ -526,21 +509,12 @@ require('./code/core/core')(configParams)
                 apiSystemParams = JSON.parse(req.body.systemParams);
             }
 
-            if (apiRequestParams.APIReg === "10000") { //Register new client with user
-                if (!apiRequestParams.hasOwnProperty("entityObj")) {
-                    apiRequestParams.entityObj = {};
-                }
-                registerNewClient(config, apiRequestParams, function (error, responseObj) {
+            if (apiRequestParams.APIReg === "10000") { //Register new user                
+                registerNewUser(config, apiRequestParams, function (error, responseObj) {
                     res.end(JSON.stringify(responseObj));
                 });
-            } else if (apiRequestParams.APIReg === "10001" || apiRequestParams.APIReg === 10001) { // Get Client Profile by client Code
-                clientProfile(config, apiRequestParams, function (error, responseObj) {
-
-                    apiRequestParams.successMessage = "Profile details retrieved";
-                    apiRequestParams.ErrorMessage = "";
-                    res.end(JSON.stringify(responseObj));
-                });
-            } else if (apiRequestParams.APIReg === "10003" || apiRequestParams.APIReg === 10003) { // Validate User credentials - from Login Page
+            }
+            else if (apiRequestParams.APIReg === "10001" || apiRequestParams.APIReg === 10001) { // Validate User credentials - from Login Page
 
                 validateUser(config, apiRequestParams, function (error, responseObj) {
 
@@ -557,19 +531,14 @@ require('./code/core/core')(configParams)
                     if (responseObj.recordsets.length > 0 && responseObj.recordsets[0].length > 0) {
                         console.log("responseObj in validate user", responseObj.recordsets[0]);
                         headerObj = {
-                            UserId: responseObj.recordsets[0][0]["userID"],
-                            EmailId: responseObj.recordsets[0][0]["email"],
-                            PropertyId: responseObj.recordsets[0][0]["PropertyId"],
-                            UserClientId: responseObj.recordsets[0][0]["clientID"],
-                            SelectedClientId: responseObj.recordsets[0][0]["clientID"],
-                            Source: apiSystemParams.Source
+                            UserId: responseObj.recordsets[0][0]["UserId"],
+                            EmailId: responseObj.recordsets[0][0]["Email"]
                         };
 
                         config.utils.JwtToken.GetToken(config, { "header": headerObj }, function (tokenObj) {
                             if (tokenObj) {
                                 responseObj.recordsets[0][0]["token"] = tokenObj.token;
                                 res.end(JSON.stringify({ response: responseObj.recordsets[0], token: tokenObj.token }));
-                                // console.log("tokenObj.token", JSON.stringify(responseObj.recordsets[0]))
                             } else {
                                 res.end(JSON.stringify({ response: { "error": 1, "ErrorMessage": "Invalid Parameters" }, token: null }));
                             }
@@ -818,80 +787,6 @@ require('./code/core/core')(configParams)
             });
 
         });
-        // app.post('/getAvailabilitySearchBE', function (req, res) {
-        //     console.log(req)
-        //     let params = req.body;
-
-        //     getAvailabilitySearchBE(config, params, function (error, responseObj) {
-        //         if (error) {
-        //             console.log("err in getAvailabilitySearchBE", res.end(JSON.stringify(error)));
-        //         }
-        //         if (responseObj) {
-        //             console.log("responseObj in getAvailabilitySearchBE", responseObj);
-        //             // let responseObjToSend = {
-        //             //     folioData: responseObj,
-        //             // }
-        //             res.send(responseObj);
-
-        //         }
-        //     });
-
-        // });
-
-        // app.post('/getFolioLedgerTransDetails', function (req, res) {
-        //     console.log(req)
-        //     let params = req.body;
-
-        //     getFolioLedgerTransDetails(config, params, function (error, responseObj) {
-        //         if (error) {
-        //             console.log("err in getFolioLedgerTransDetails", res.end(JSON.stringify(error)));
-        //         }
-        //         if (responseObj) {
-        //             console.log("responseObj in getFolioLedgerTransDetails", responseObj);
-        //             // let responseObjToSend = {
-        //             //     folioData: responseObj,
-        //             // }
-        //             res.send(responseObj);
-
-        //         }
-        //     });
-
-        // });
-
-        // app.post('/GetFiltersData_BE', function (req, res) {
-        //     console.log(req.body)
-        //     let params = req.body;
-        //     if (params.systemBeParams && params.systemBeParams.token) {
-        //         config.utils.JwtToken.VerifyToken(config, { "token": params.systemBeParams.token }, function (decodedObj) {
-        //             if (decodedObj && decodedObj.decoded.header && decodedObj.decoded.header.UserId) {
-
-        //                 params.systemBeParams.ClientId = decodedObj.decoded.header.ClientId;
-        //                 params.systemBeParams.ClientName = decodedObj.decoded.header.ClientName;
-        //                 params.systemBeParams.BE_Id = decodedObj.decoded.header.BE_Id;
-        //                 params.systemBeParams.BE_Name = decodedObj.decoded.header.BE_Name;
-        //                 params.systemBeParams.BE_Type = decodedObj.decoded.header.BE_Type;
-        //                 params.systemBeParams.SubDomainName = decodedObj.decoded.header.SubDomainName;
-        //                 params.systemBeParams.TLD_Name = decodedObj.decoded.header.TLD_Name;
-        //             }
-        //         }
-        //         )
-        //     }
-
-        //     GetFiltersData_BE(config, params, function (error, responseObj) {
-        //         if (error) {
-        //             console.log("err in GetFiltersData_BE", res.end(JSON.stringify(error)));
-        //         }
-        //         if (responseObj) {
-        //             console.log("responseObj in GetFiltersData_BE", responseObj);
-        //             // let responseObjToSend = {
-        //             //     folioData: responseObj,
-        //             // }
-        //             res.send(responseObj);
-
-        //         }
-        //     });
-
-        // });
 
         app.post('/getExcelData', function (req, res) {
             // data which needs to be sent in the response.
@@ -1016,123 +911,6 @@ require('./code/core/core')(configParams)
                     }
                 })
             }
-            //   var  responseObj =   {
-            //         reservationList: [
-            //           {
-            //             GuestName: "Washington George",
-            //             StartDate: "Oct 22",
-            //             Adults: "2",
-            //             Children: "1",
-            //             EndDate: "Oct 27",
-            //             Nights: "5",
-            //             Unit: "143N-503",
-            //             UnitType: "3 BR",
-            //             Amount: "123.00",
-            //             Status: "Confirmed"
-            //           },
-            //           {
-            //             GuestName: "Clinton B.",
-            //             StartDate: "Oct 24",
-            //             Adults: "1",
-            //             Children: "2",
-            //             EndDate: "Oct 25",
-            //             Nights: "3",
-            //             Unit: "143N-503",
-            //             UnitType: "3 BR",
-            //             Amount: "249.00",
-            //             Status: "Reserved"
-            //           },
-            //           {
-            //             GuestName: "Jefferson Thomas",
-            //             StartDate: "Oct 27",
-            //             Adults: "3",
-            //             Children: "1",
-            //             EndDate: "Oct 29",
-            //             Nights: "2",
-            //             Unit: "143N-503",
-            //             UnitType: "3 BR",
-            //             Amount: "850.00",
-            //             Status: "Cancelled"
-            //           },
-            //           {
-            //             GuestName: "Trump Donald",
-            //             StartDate: "Oct 26",
-            //             Adults: "2",
-            //             Children: "3",
-            //             EndDate: "Oct 27",
-            //             Nights: "6",
-            //             Unit: "143N-503",
-            //             UnitType: "3 BR",
-            //             Amount: "5823.00",
-            //             Status: "Departed"
-            //           },
-            //           {
-            //             GuestName: "John Trump",
-            //             StartDate: "Oct 25",
-            //             Adults: "1",
-            //             Children: "1",
-            //             EndDate: "Oct 27",
-            //             Nights: "7",
-            //             Unit: "143N-503",
-            //             UnitType: "3 BR",
-            //             Amount: "124.00",
-            //             Status: "In House"
-            //           },
-            //           {
-            //             GuestName: "Jackson Michel",
-            //             StartDate: "Oct 21",
-            //             Adults: "3",
-            //             Children: "2",
-            //             EndDate: "Oct 21",
-            //             Nights: "1",
-            //             Unit: "143N-503",
-            //             UnitType: "3 BR",
-            //             Amount: "145.00",
-            //             Status: "Confirmed"
-            //           },
-            //           {
-            //             GuestName: "Michel David",
-            //             StartDate: "Oct 23",
-            //             Adults: "2",
-            //             Children: "1",
-            //             EndDate: "Oct 23",
-            //             Nights: "5",
-            //             Unit: "143N-503",
-            //             UnitType: "3 BR",
-            //             Amount: "745.00",
-            //             Status: "Reserved"
-            //           },
-            //           {
-            //             GuestName: "Washington George",
-            //             StartDate: "Oct 22",
-            //             Adults: "3",
-            //             Children: "3",
-            //             EndDate: "Oct 27",
-            //             Nights: "4",
-            //             Unit: "143N-503",
-            //             UnitType: "3 BR",
-            //             Amount: "621.00",
-            //             Status: "Departed"
-            //           }
-            //         ],
-            //         headerColumnList: {
-            //           GuestName: {
-            //             Label: "Guest Name",
-            //             IsChecked: true,
-            //             ColumnName: "GuestName"
-            //           },
-            //           StartDate: { Label: "Stay", IsChecked: true, ColumnName: "StartDate" },
-            //           // EndDate: { Label: "", IsChecked: true, ColumnName: "EndDate" },
-            //           Unit: { Label: "Unit", IsChecked: true, ColumnName: "Unit" },
-            //           Status: { Label: "Status", IsChecked: false, ColumnName: "Status" },
-            //           Amount: { Label: "Amount", IsChecked: true, ColumnName: "Amount" }
-            //         },
-            //         listType: "list",
-            //         RowsPerPage: 10,
-            //         totalCount: 0
-            //       };
-
-            // sending response back to the route.
 
 
         });
@@ -1150,59 +928,11 @@ require('./code/core/core')(configParams)
                     console.log("responseObj in getFolioInvoice", responseObj);
                     let responseObjToSend = {
                         folioData: responseObj,
-                        // folioTableHeaders: {
-                        //     SNo: { Label: "SNo", IsChecked: true, ColumnName: "SNo" },
-                        //     Date: { Label: "Date", IsChecked: true, ColumnName: "Date" },
-                        //     ItemDescription: { Label: "ItemDescription", IsChecked: true, ColumnName: "ItemDescription" },
-                        //     Qty: { Label: "Qty", IsChecked: true, ColumnName: "Qty" },
-                        //     Amount: { Label: "Amount", IsChecked: true, ColumnName: "Amount" },
-                        // }
                     }
                     res.send(responseObjToSend);
 
                 }
             });
-            // let responseObjToSend = {
-            //     folioData: [
-            //         {
-            //             SNo: 1,
-            //             Date: "20-05-18",
-            //             ItemDescription: "Room Charge",
-            //             Qty: 2,
-            //             Amount: 200
-            //         },
-            //         {
-            //             SNo: 2,
-            //             Date: "21-05-18",
-            //             ItemDescription: "Cleaning service",
-            //             Qty: 2,
-            //             Amount: 200
-            //         },
-            //         {
-            //             SNo: 3,
-            //             Date: "22-05-18",
-            //             ItemDescription: "Room Charge",
-            //             Qty: 2,
-            //             Amount: 200
-            //         },
-            //         {
-            //             SNo: 4,
-            //             Date: "23-05-18",
-            //             ItemDescription: "Room Charge",
-            //             Qty: 2,
-            //             Amount: 200
-            //         }
-            //     ],
-            //     folioTableHeaders: {
-            //         SNo: { Label: "SNo", IsChecked: true, ColumnName: "SNo" },
-            //         Date: { Label: "Date", IsChecked: true, ColumnName: "Date" },
-            //         ItemDescription: { Label: "ItemDescription", IsChecked: true, ColumnName: "ItemDescription" },
-            //         Qty: { Label: "Qty", IsChecked: true, ColumnName: "Qty" },
-            //         Amount: { Label: "Amount", IsChecked: true, ColumnName: "Amount" },
-
-            //     }
-            // };
-            // res.send(responseObjToSend);
         });
 
         // call from rentals united for the certification
@@ -1222,10 +952,10 @@ require('./code/core/core')(configParams)
         console.log(reason);
     });
 process.on('uncaughtException', (err) => {
-    console.log("uncaughtException",err)
+    console.log("uncaughtException", err)
     logger.fatal((new Date).toUTCString() + ' uncaughtException:', err.message, err.stack);
 
-    
+
     process.exit(1);
     // Using kill instead of exit because couchbase kafka dgraph will have active connections which will not allow the process a clean exit
     //process.kill(process.pid);

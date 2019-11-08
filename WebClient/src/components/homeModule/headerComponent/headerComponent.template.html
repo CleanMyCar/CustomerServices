@@ -4,7 +4,7 @@
             <div class="logoSection">
                 <a class="mainLogo">
 
-                    <span v-if="selectedClientObj" class="roomTemp">{{ClientName}}</span>
+                    <span v-if="selectedClientObj" class="">{{ClientName}}</span>
                     <!-- <span v-if="(selectedClientObj && selectedClientObj.ClientId === 1 && ClientId !== 1)"><button title="Client List" @click="showPropertyPanel"><i style="font-size:24px" class="fa">&#xf107;</i></button></span> -->
                 </a>
 
@@ -15,10 +15,11 @@
                 </span>
             </div>
 
-            <form v-show="showsearchText" class="search" v-bind:class="{support: (selectedClientObj && selectedClientObj.ClientId === 1)}">
+            <form v-show="showsearchText" class="search"
+                v-bind:class="{support: (selectedClientObj && selectedClientObj.ClientId === 1)}">
                 <span class="fas fa-search"></span>
-                <input type="text" name="search" v-on:keyup="searchWithText" v-model="searchText" placeholder="Search for a reservation, guest or availability"
-                    autocomplete="off">
+                <input type="text" name="search" v-on:keyup="searchWithText" v-model="searchText"
+                    placeholder="Search for a reservation, guest or availability" autocomplete="off">
                 <!-- <button v-if="clear" class="btn btn-default btn-sm" @click="clearResults">Clear</button> -->
                 <button v-if="clear" class="searchClear" @click="clearResults">
                     <i class="fas fa-times"></i>
@@ -27,8 +28,6 @@
 
 
             <div class="headRightWrap">
-                <button class="navFixNewReser" @click="redirectToReservation" :disabled="fncIsReservationNew && (fncIsReservationNew.isAssigned === -1 && fncIsReservationNew.functionState === 2)"
-                    v-if="fncIsReservationNew && (fncIsReservationNew.isAssigned === 1 || (fncIsReservationNew.isAssigned === -1 && fncIsReservationNew.functionState === 2))">New Reservation</button>
                 <ul class="topNav">
 
                     <!-- <li>
@@ -48,21 +47,21 @@
                             <i class="fa fa-cogs topNavHomeIcon"></i>
                         </button>
                     </li> -->
-                    <li title="calender">
+                    <!-- <li title="calender">
                         <button v-if="showCalendar" @click="calendar" :class="{ active: parentModuleName === 'Reservations' || parentModuleName === 'HouseKeepingStatus'  }">
 
                             <i class="fas fa-calendar-alt"></i>
 
                         </button>
 
-                        <!-- <span>Home</span> -->
-                    </li>
+                    </li> -->
 
                 </ul>
                 <div class="dropdown">
 
-                    <button v-show="showicon" class="btn btn-primary dropdown-toggle profilePic" @click="groupicons" type="button" data-toggle="dropdown"
-                        title="Control Panel" :class="{ active: parentModuleName === 'Admin' }">
+                    <button v-show="showicon" class="btn btn-primary dropdown-toggle profilePic" @click="groupicons"
+                        type="button" data-toggle="dropdown" title="Control Panel"
+                        :class="{ active: parentModuleName === 'Admin' }">
                         <span class="fas fa-cogs "></span>
                     </button>
 
@@ -90,8 +89,9 @@
                            
                         </ul> -->
                 </div>
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle profilePic" type="button" data-toggle="dropdown" :title="selectedClientObj.UserFirstName +selectedClientObj.UserLastName"
+                <div class="dropdown" v-if="false">
+                    <button class="btn btn-primary dropdown-toggle profilePic" type="button" data-toggle="dropdown"
+                        :title="selectedClientObj.UserFirstName +selectedClientObj.UserLastName"
                         :class="{ active: isActiveForUser }">
                         <!-- <img :src="userImage" alt=""> -->
                         <span class="fas fa-user"></span>
@@ -99,7 +99,8 @@
                     </button>
 
                     <ul class="dropdown-menu">
-                        <li @click="navigateToUserProfile" :disabled="fncIsMyProfile && (fncIsMyProfile.isAssigned === -1 && fncIsMyProfile.functionState === 2)"
+                        <li @click="navigateToUserProfile"
+                            :disabled="fncIsMyProfile && (fncIsMyProfile.isAssigned === -1 && fncIsMyProfile.functionState === 2)"
                             v-if="fncIsMyProfile && (fncIsMyProfile.isAssigned === 1 || (fncIsMyProfile.isAssigned === -1 && fncIsMyProfile.functionState === 2))">
                             <a>
                                 <i class="fas fa-user"></i>
@@ -122,15 +123,19 @@
                     </ul>
                 </div>
                 <ul class="topNav">
-                    <li>
+                    <!-- <li>
                         <button title="Support">
                             <i class="fas fa-life-ring topNavHomeIcon"></i>
                         </button>
-                    </li>
+                    </li> -->
                     <li>
-                        <button @click="toggleNotification" title="Notifications" class="notoficationButton" :class="{ active: isActiveForNotification }">
+                        <!-- <button @click="toggleNotification" title="Notifications" class="notoficationButton" :class="{ active: isActiveForNotification }">
                             <span class="fas fa-bell"></span>
                             <span class="count" v-text="notificationCount"></span>
+                        </button> -->
+
+                        <button @click="toggleNotification" id="nav-icon3" style="float: right; margin-top: 5px;">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
                         </button>
                     </li>
                     <!-- <li>
@@ -252,91 +257,11 @@
                 <a href="#">More</a> <a class="ml-2" href="#">Dismiss</a>
             </li>-->
             </ul>
-        </div>
-
-
-        <!-- password -->
-        <div class="menuMaskN" @click="togglepassword"></div>
-        <div id="password" class="notofocationBar">
-
-            <div class="sideBarHeading">
-                <h6 @click="redirectToChangePassword">
-                    change password </h6>
-            </div>
-            <div class="col-md-12 pt-3">
-            </div>
-
-
-            <!-- <div class="clientList">
-                    <div class="sideBarHeading">
-                        <h6>Client List </h6>
-                    </div>
-        
-        
-                    <div class="col-md-12 pt-3">
-                        <ul class="listMenu">
-                            <li v-for="client in clientList" @click="viewClientDetailById(client)" v-if="client.ClientId > 1">
-                                     <img :src="client.ClientLogo" style="max-width:61px; height:47px; margin-right: 7px; white-space: nowrap"> {{client.ClientName}} 
-                                     <span class="status" v-bind:class="[client.StatusId == 1 ? 'active' : 'inactive']">{{client.StatusId == 1 ? 'Active' : 'Inactive'}} </span>
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
-
-            <label class="pull-right">
-
-                <span class="back"></span>
-
-
-            </label>
-            <div class=" col-md-12 form-group">
-                <label>current password</label>
-                <input v-validate="'required'" type="password" v-model="UserPassword" name="currentpassword" class="form-control">
-            </div>
-            <!-- <div class="form-group">
-                <label>new password</label>
-                <input v-validate="'required'" type="password" v-model="newpassword" name="currentpassword"  class="form-control" placeholder="newPassword">
-            </div>
-            <div class="form-group">
-                <label>confirm new password</label>
-                <input v-validate="'required'" type="password" v-model="confirmPassword" name="currentpassword"  class="form-control" placeholder="confirm newPassword">
-            </div> -->
-            <div class="col-md-12 form-group">
-                <label>New Password:</label>
-                <input v-validate="'required'" v-model="newpassword" name="password" type="password" class="form-control">
-            </div>
-            <div class=" col-md-12 form-group">
-                <label>Confirm New Password:</label>
-                <input v-validate="'required|confirmed:password'" v-model="confirmPassword" name="password_confirmation" type="password"
-                    class="form-control" data-vv-as="password">
-            </div>
-
-            <div class="alert alert-danger" v-show="errors.any()">
-                <div v-if="errors.has('currentpassword')">
-                    {{ errors.first('currentpassword') }}
-                </div>
-
-                <div v-if="errors.has('password')">
-                    {{ errors.first('password') }}
-                </div>
-                <div v-if="errors.has('password_confirmation')">
-                    {{ errors.first('password_confirmation') }}
-                </div>
-            </div>
-            <div class=" col-md-12 form-group">
-                <button class="btn btn-success btn-sm" @click="changePassword">change</button>
-            </div>
-
-        </div>
+        </div>      
 
 
     </div>
     <!-- password -->
-
-
-
-
-
 
     <div class="menuMaskNCL" @click="showClientPanel"></div>
     <div class="clientList">
@@ -348,10 +273,14 @@
         <div class="col-md-12 pt-3">
             <ul class="listMenu">
                 <li v-for="client in clientList" @click="viewClientDetailById(client)" v-if="client.ClientId >= 1">
-                    <img v-if="client.ClientLogo  && client.ClientLogo !== 'null'  && client.ClientLogo !== ''  " :src="imageURLS(client.ClientLogo)"
+                    <img v-if="client.ClientLogo  && client.ClientLogo !== 'null'  && client.ClientLogo !== ''  "
+                        :src="imageURLS(client.ClientLogo)"
                         style="max-width:61px; height:47px; margin-right: 7px; white-space: nowrap">
-                    <img v-else style="max-width:61px; height:47px; margin-right: 7px; white-space: nowrap" class="dummyListLogo" />{{client.ClientName}}
-                    <span class="status" v-bind:class="[client.StatusId == 1 ? 'active' : 'inactive']">{{client.StatusId == 1 ? 'Active' : 'Inactive'}} </span>
+                    <img v-else style="max-width:61px; height:47px; margin-right: 7px; white-space: nowrap"
+                        class="dummyListLogo" />{{client.ClientName}}
+                    <span class="status"
+                        v-bind:class="[client.StatusId == 1 ? 'active' : 'inactive']">{{client.StatusId == 1 ? 'Active' : 'Inactive'}}
+                    </span>
                 </li>
             </ul>
         </div>

@@ -1,11 +1,12 @@
 module.exports = (config, params, callback) => {
-    config.utils.sqlConnectionCall(params, 'GetUserList',
-    function (result) {
-        callback(undefined, result);
-        // console.log("result userlist",result.recordsets)
-    },
-    function (err) {
-        callback(err, undefined);
-    }
-);
+    const requestParams = config.dbwrapper.getNewRequest();
+
+    requestParams.execute('GetUsersList', (err, result) => {
+        if (err) {
+            console.log(err);
+            callback(err);
+            return
+        }
+        return callback(null, result);
+    })
 }
