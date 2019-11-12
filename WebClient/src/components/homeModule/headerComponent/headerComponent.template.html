@@ -15,7 +15,7 @@
                 </span>
             </div>
 
-            <form v-show="showsearchText" class="search"
+            <form v-if="false" class="search"
                 v-bind:class="{support: (selectedClientObj && selectedClientObj.ClientId === 1)}">
                 <span class="fas fa-search"></span>
                 <input type="text" name="search" v-on:keyup="searchWithText" v-model="searchText"
@@ -57,7 +57,7 @@
                     </li> -->
 
                 </ul>
-                <div class="dropdown">
+                <div class="dropdown" v-if="false">
 
                     <button v-show="showicon" class="btn btn-primary dropdown-toggle profilePic" @click="groupicons"
                         type="button" data-toggle="dropdown" title="Control Panel"
@@ -160,17 +160,8 @@
                 <p @click="navigateToNotification(notification)">{{notification.default.message}}</p>
             </li>
         </ul>-->
-            <div class="sideBarHeading">
-                <h6 @click="redirectToNotifications">
-                    <!-- <span class="count" v-text="unreadCount"></span>-->Notifications </h6>
-
-                <label class="pull-right">
-                    <!--<input type="checkbox">-->
-                    <span class="back"></span>
-                    <span class="clearAll" v-if="notificationCount > 0" @click="dimissAllNotifications">Clear All</span>
-                    <!--<span class="opt one" @click="showNotificationByType(1)">Unread</span>
-             <span class="opt two" @click="showNotificationByType(0)">All</span>-->
-                </label>
+            <div class="">
+                <userProfilePanel></userProfilePanel>
             </div>
 
 

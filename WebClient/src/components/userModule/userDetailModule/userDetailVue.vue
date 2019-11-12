@@ -226,12 +226,12 @@
           });
           return;
         }
-        if ((userDetail.LoginId === "" || userDetail.LoginId === undefined) || (userDetail.Email === "" || userDetail.UserPassword === "" || userDetail.UserPassword === undefined)) {
+        if ((userDetail.Email === "" || userDetail.UserPassword === "" || userDetail.UserPassword === undefined)) {
           // console.log("vm.guestInfo.GuestFirstName");
           vm.$store.dispatch("toastr", {
             type: "warning",
             header: "Warning",
-            message: "LoginId,  E-mail, UserPassword are mandatary"
+            message: "E-mail, UserPassword are mandatary"
           });
         }
         else {
@@ -243,8 +243,8 @@
             Email: vm.userDetail.Email,
             UserPassword: vm.userDetail.UserPassword,
             profileImage: vm.userDetail.ProfileImage,
-            DeviceIds: vm.userDetail.DeviceIds,
-            StatusId: vm.user_Status.StatusId
+            StatusId: vm.user_Status.StatusId,
+            MobileNumber: vm.userDetail.MobileNumber
           };
 
 
@@ -319,9 +319,8 @@
               }
             }
 
-            if (response.hasOwnProperty("propertylist")) {
-              self.propertyList = response.propertylist;
-              self.ApplypropertyList = self.propertylist.slice(0, 8)
+            if (response.hasOwnProperty("roleList")) {
+              self.RoleList = response.roleList;
             }
           }
         });
@@ -406,7 +405,7 @@
           vm.userDetail.ProfileImage = null;
           return;
         } else {
-          vm.userDetail.ProfileImage = files[0];
+          //vm.userDetail.ProfileImage = files[0];
 
           let reader = new FileReader();
           reader.onload = e => {
@@ -523,6 +522,9 @@
           }
         });
       },
+      cancel(){
+        this.$router.push("/users")
+      }
 
     },
     computed: {
@@ -559,7 +561,7 @@
     mounted() {
       console.log("user detail");
       this.getUserDetail();
-      this.getUserProfile();
+      // this.getUserProfile();
       $(document).click(function (e) {
         console.log("clicked on doc");
         $("#dropdownlist").hide();

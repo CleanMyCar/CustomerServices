@@ -1,14 +1,19 @@
+
+const mssql = require('mssql');
 module.exports = (config, params, callback) => {
-    params.ModuleAction = "GetUserDetails";
-    // console.log("params in GetUserDetail",params)    
-    config.utils.sqlConnectionCall(params, 'GetUserDetail',
-        function (result) {
-            // console.log("getUserDetail userprofile=>", result.recordsets);
-            callback(undefined, result.recordsets);
-            
-        },
-        function (err) {
-            callback(err, undefined);
+    const requestParams = config.dbwrapper.getNewRequest();
+
+    requestParams.input('UserId', mssql.Int, params.systemParams.UserId);
+
+    let userDetailObjToReturn = {}
+    requestParams.execute('GetUserProfile', (err, result) => {
+
+        if (err) {
+            console.log(err);
+            callback(err);
+            return
         }
-    );
+
+        callback(null, result.recordsets && result.recordsets[0] && result.recordsets[0][0]);
+    })
 };

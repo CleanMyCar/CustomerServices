@@ -1,61 +1,74 @@
 <div class="panel panel-default" v-if="userDetail">
 
   <div class="panel-body fullStretch">
-    <div class="row flexStart"> 
+    <div class="row flexStart">
 
-      <div class="col-md-12 editContainer">
+      <div class="col-md-12">
         <div class="editContainerHeading">
-          <h6 class="pull-left mt-2" v-if="displaySectionValue === 'userDetails'">User details</h6>          
+          <h6 class="pull-left mt-2" v-if="displaySectionValue === 'userDetails'">User details</h6>
+
           <button class="btn btn-success btn-sm pull-right" title="Save User" @click="saveUser">Save</button>
+          <button class="btn btn-danger btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
         </div>
 
-        <section v-if="displaySectionValue === 'userDetails'">
+       
           <div class="row">
-            <div class="col-md-12 pt-0">
+            <div class="col-md-2 pt-0" v-if="userDetail.ProfileImage">
+              <img :src="userDetail.ProfileImage" height="200" width="200">
+            </div>
+            <div class="col-md-2 pt-0">
+
               <div class="">
-                <label  class="custom-file-upload">
+                <label class="custom-file-upload">
                   <div>
                     <i class="fa fa-upload" aria-hidden="true"></i>
-                    <input 
-                      type="file" id="logo" name="logo" accept="image/*" @change="processLogo($event)"/>
+                    <input type="file" id="logo" name="logo" accept="image/*" @change="processLogo($event)" />
                   </div>
 
                 </label>
 
               </div>
-             
+
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
                 <label>First Name:</label>
-                <input class="form-control" type="text" v-model="userDetail.UserFirstName" 
-                  >
+                <input class="form-control" type="text" v-model="userDetail.UserFirstName">
               </div>
             </div>
             <div class="col-md-12">
               <div class="form-group">
                 <label>Last Name:</label>
-                <input class="form-control" type="text" v-model="userDetail.UserLastName" 
-                  >
+                <input class="form-control" type="text" v-model="userDetail.UserLastName">
               </div>
             </div>
             <div class="col-md-12" style="display: none;">
-              <div class="form-group">               
+              <div class="form-group">
 
               </div>
               <div class="form-group">
                 <label>Device Ids:</label>
-                <input class="form-control" type="text" disabled v-model="userDetail.DeviceIds" 
-                  >
+                <input class="form-control" type="text" disabled v-model="userDetail.DeviceIds">
               </div>
             </div>
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Role:</label>
+                <input type="radio" value="2" v-model="userDetail.UserRoleId">Customer
+                <input type="radio" value="3" v-model="userDetail.UserRoleId">Service Person
+
+              </div>
+            </div>
+
+
             <div class="col-md-12">
               <div class="form-group">
                 <label>Email:</label>
-                <input class="form-control" type="text" v-model="userDetail.Email" autocomplete="off" name="Email" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('Email') }"
-                   >
+                <input class="form-control" type="text" v-model="userDetail.Email" autocomplete="off" name="Email"
+                  v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('Email') }">
                 <i v-show="errors.has('Email')" class="fa fa-warning"></i>
                 <span v-show="errors.has('Email')" class="help is-danger">{{ errors.first('Email') }}</span>
 
@@ -65,39 +78,41 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label> Password:</label>
-                <input class="form-control" type="password" v-model="userDetail.UserPassword" name="UserPassword" v-validate="'required'"
-                  :class="{'input': true, 'is-danger': errors.has('UserPassword') }" 
-                  >
+                <input class="form-control" type="password" v-model="userDetail.UserPassword" name="UserPassword"
+                  v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('UserPassword') }">
                 <i v-show="errors.has('UserPassword')" class="fa fa-warning"></i>
-                <span v-show="errors.has('UserPassword')" class="help is-danger">{{ errors.first('UserPassword') }}</span>
+                <span v-show="errors.has('UserPassword')"
+                  class="help is-danger">{{ errors.first('UserPassword') }}</span>
 
               </div>
             </div>
             <div class="col-md-12">
               <div class="form-group">
                 <label>Mobile Number:</label>
-                <input class="form-control" type="text" v-model="userDetail.MobileNumber" name="MobileNumber" v-validate="'required'"
-                  :class="{'input': true, 'is-danger': errors.has('MobileNumber') }" 
-                  >
+                <input class="form-control" type="text" v-model="userDetail.MobileNumber" name="MobileNumber"
+                  v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('MobileNumber') }">
                 <i v-show="errors.has('MobileNumber')" class="fa fa-warning"></i>
-                <span v-show="errors.has('MobileNumber')" class="help is-danger">{{ errors.first('MobileNumber') }}</span>
+                <span v-show="errors.has('MobileNumber')"
+                  class="help is-danger">{{ errors.first('MobileNumber') }}</span>
 
               </div>
             </div>
 
+
+
             <div class="col-md-12" v-if="!showModal">
 
               <span>
-                <button 
-                v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) && $route.params.userId !== '-1' &&  $route.params.userId !== selectedUser"  class="btn btn-default btn-sm" id="show-modal" 
-                  @click="showModal = true">
+                <button
+                  v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) && $route.params.userId !== '-1' &&  $route.params.userId !== selectedUser"
+                  class="btn btn-default btn-sm" id="show-modal" @click="showModal = true">
                   <i class="fa fa-key"></i> Reset
                 </button>
               </span>
 
               <span>
-                <button class="btn btn-default btn-sm" id="show-modal" 
-                v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))  && $route.params.userId !== '-1' && $route.params.userId === selectedUser"
+                <button class="btn btn-default btn-sm" id="show-modal"
+                  v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))  && $route.params.userId !== '-1' && $route.params.userId === selectedUser"
                   @click="showModal = true">
                   <i class="fa fa-key"></i> Change Password</button>
               </span>
@@ -109,16 +124,18 @@
             <div class="col-md-12" v-if="showModal && $route.params.userId === selectedUser">
               <div class="form-group">
                 <label>current password</label>
-                <input v-validate="'required'" v-model="currentpassword" name="currentpassword" type="password" class="form-control">
+                <input v-validate="'required'" v-model="currentpassword" name="currentpassword" type="password"
+                  class="form-control">
               </div>
               <div class="form-group mt-2">
                 <label>New Password:</label>
-                <input v-validate="'required'" v-model="newpassword" name="password" type="password" class="form-control">
+                <input v-validate="'required'" v-model="newpassword" name="password" type="password"
+                  class="form-control">
               </div>
               <div class="form-group mt-2">
                 <label>Confirm New Password:</label>
-                <input v-validate="'required|confirmed:password'" v-model="conformpassword" name="password_confirmation" type="password"
-                  class="form-control" data-vv-as="password">
+                <input v-validate="'required|confirmed:password'" v-model="conformpassword" name="password_confirmation"
+                  type="password" class="form-control" data-vv-as="password">
               </div>
 
               <div class="alert alert-danger" v-show="errors.any()">
@@ -147,12 +164,13 @@
 
               <div class="form-group mt-2">
                 <label>New Password:</label>
-                <input v-validate="'required'" v-model="newpassword" name="password" type="password" class="form-control" placeholder="newPassword">
+                <input v-validate="'required'" v-model="newpassword" name="password" type="password"
+                  class="form-control" placeholder="newPassword">
               </div>
               <div class="form-group mt-2">
                 <label>Confirm New Password:</label>
-                <input v-validate="'required|confirmed:password'" v-model="conformpassword" name="password_confirmation" type="password"
-                  class="form-control" placeholder="Password confirmation " data-vv-as="password">
+                <input v-validate="'required|confirmed:password'" v-model="conformpassword" name="password_confirmation"
+                  type="password" class="form-control" placeholder="Password confirmation " data-vv-as="password">
               </div>
 
               <div class="alert alert-danger" v-show="errors.any()">
@@ -175,11 +193,11 @@
               </button>
             </div>
           </div>
-        </section>
-        <section v-else-if="displaySectionValue === 'loginDetails'">
+        
+        <section v-if="displaySectionValue === 'loginDetails'">
           <div class="editContainerHeading">
             <h6 class="pull-left">login details</h6>
-            <button class="btn btn-success btn-sm pull-right" title="Save User" @click="saveUser" 
+            <button class="btn btn-success btn-sm pull-right" title="Save User" @click="saveUser"
               v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))">Save</button>
           </div>
           <div class="form-group">
@@ -242,13 +260,16 @@
                     </span>
                   </li>
                 </ul>
-                <input type="text" 
-                v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))"  @click="showAmenitiesListFnc" placeholder="Click here to add more...">
+                <input type="text"
+                  v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))"
+                  @click="showAmenitiesListFnc" placeholder="Click here to add more...">
               </div>
 
-              <div class="form-control searchResultsAmenities" @click="$event.stopPropagation()" id="dropdownlist" v-show="dropDownList">
+              <div class="form-control searchResultsAmenities" @click="$event.stopPropagation()" id="dropdownlist"
+                v-show="dropDownList">
                 <ul>
-                  <li v-for="role in RoleList" v-if="role.IsAssigned === 0" v-bind:value="role" @click="addRoles(role)">{{role.RoleName}}</li>
+                  <li v-for="role in RoleList" v-if="role.IsAssigned === 0" v-bind:value="role" @click="addRoles(role)">
+                    {{role.RoleName}}</li>
                 </ul>
               </div>
             </div>
@@ -273,13 +294,16 @@
                     </span>
                   </li>
                 </ul>
-                <input type="text" 
-                v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))" @click="showAmenitiesListFnc" placeholder="Click here to add more...">
+                <input type="text"
+                  v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))"
+                  @click="showAmenitiesListFnc" placeholder="Click here to add more...">
               </div>
 
-              <div class="form-control searchResultsAmenities toggle" @click="$event.stopPropagation()" id="dropdownlist" v-show="dropDownList">
+              <div class="form-control searchResultsAmenities toggle" @click="$event.stopPropagation()"
+                id="dropdownlist" v-show="dropDownList">
                 <ul class="menu">
-                  <li v-for="property in propertyList" v-if="property.IsAssigned === 0" v-bind:value="property" @click="addProperties(property)">{{property.PropertyName}}</li>
+                  <li v-for="property in propertyList" v-if="property.IsAssigned === 0" v-bind:value="property"
+                    @click="addProperties(property)">{{property.PropertyName}}</li>
                 </ul>
               </div>
             </div>
@@ -288,7 +312,7 @@
 
 
       </div>
-      
+
     </div>
   </div>
 

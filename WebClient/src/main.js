@@ -21,6 +21,7 @@ import VueGoogleAutocomplete from './components/VueGoogleAutocomplete.vue';
 
 import SalesReport from './components/Dashboard/SalesReport/SalesReport.vue'
 import PaymentsReport from './components/Dashboard/PaymentsReport/PaymentsReport.vue'
+import userProfilePanel from './components/userProfilePanel/userProfilePanel.vue'
 
 
 Vue.component(datePickerComponent.name, datePickerComponent);
@@ -36,6 +37,7 @@ Vue.component(addMarker.name, addMarker);
 Vue.component(SalesReport.name, SalesReport);
 Vue.component(PaymentsReport.name, PaymentsReport);
 Vue.component(VueGoogleAutocomplete.name, VueGoogleAutocomplete);
+Vue.component(userProfilePanel.name, userProfilePanel);
 
 
 new Vue({

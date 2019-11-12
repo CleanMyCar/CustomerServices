@@ -3,6 +3,8 @@ const mssql = require('mssql');
 
 module.exports = (config, params, callback) => {
 
+
+
     const requestParams = config.dbwrapper.getNewRequest();
     requestParams.input('UserId', mssql.Int, params.UserId);
     requestParams.input('UserLastName', mssql.NVarChar, params.UserLastName);
@@ -10,13 +12,16 @@ module.exports = (config, params, callback) => {
     requestParams.input('Email', mssql.NVarChar, params.Email);
     requestParams.input('UserPassword', mssql.NVarChar, md5(params.UserPassword));
     requestParams.input('StatusId', mssql.Int, params.StatusId);
-    requestParams.input('LoggedinUser', mssql.Int, params.systemParams.UserId);
+    requestParams.input('MobileNumber', mssql.NVarChar, params.MobileNumber);
     requestParams.input('ProfileImage', mssql.NVarChar, params.profileImage);
-    
+    requestParams.input('LoggedinUser', mssql.Int, params.systemParams.UserId);
+    requestParams.input('ReferralCode', mssql.NVarChar, params.ReferralCode);
+    requestParams.input('UserOtp', mssql.NVarChar, params.UserOtp);
+    requestParams.input('UserRoleId', mssql.Int, params.UserRoleId);
     requestParams.execute('SaveUserDetail', (err, result) => {
         if (err) {
             console.log(err);
-            return callback(err);            
+            return callback(err);
         }
         callback(null, result.recordsets);
     });

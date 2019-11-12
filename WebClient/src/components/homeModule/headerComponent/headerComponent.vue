@@ -745,7 +745,7 @@
       let vm = this;
       // vm.ClientName = window.localStorage.getItem('CName');
 
-      vm.getUserProfile();
+      // vm.getUserProfile();
       vm.getClientDetailByid();
       vm.getClientDetailList();
       vm.GetUserEntitlementsAndDefaultProperty();

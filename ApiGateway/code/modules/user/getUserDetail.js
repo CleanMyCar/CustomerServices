@@ -18,6 +18,12 @@ module.exports = (config, params, callback) => {
             if (Array.isArray(result.recordsets[0]) && result.recordsets[0].length > 0) {
                 userDetailObjToReturn.userObj = result.recordsets[0][0];
             }
+            if (Array.isArray(result.recordsets[1]) && result.recordsets[1].length > 0) {
+                userDetailObjToReturn.statusList = result.recordsets[1];
+            }
+            if (Array.isArray(result.recordsets[2]) && result.recordsets[2].length > 0) {
+                userDetailObjToReturn.roleList = result.recordsets[2];
+            }
         }
 
         callback(null, userDetailObjToReturn);

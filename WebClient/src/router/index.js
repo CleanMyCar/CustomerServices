@@ -24,7 +24,7 @@ import timePicker from '../components/timePicker/timepicker.vue'
 import homePageComponent from '../components/homeModule/homePageComponent/homePageComponent.vue'
 
 import DateRangePicker from '../components/DateRangePicker/components/DateRangePicker.vue'
-
+import myAccountHome from '../components/myaccount/myaccountHome/myAccountHome.vue'
 
 
 
@@ -115,5 +115,11 @@ export default new Router({
       component: DateRangePicker,
       props: {}
     },
+    {
+      path: '/myAccount',
+      name: 'myAccountHome',
+      component: myAccountHome,
+      props: {}
+    }
   ]
 })

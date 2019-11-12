@@ -4108,7 +4108,7 @@ table.table-bordered tbody tr:hover {
 
 // User Profile
 .profileHeader {
-    background: #1879BE;
+    background: #595959;
     height: 220px;
     display: flex;
     flex-wrap: wrap;
@@ -12606,4 +12606,111 @@ body {
     display: block;
     z-index: 1032;
     background-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .btn-card {
+    width: 374px;
+    height: 100px;
+    min-height: 97px;
+    color: #fff;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    position: relative;
+    padding: 0 22px;
+    box-sizing: border-box;
+    white-space: unset;
+    background: none;
+    margin-bottom: 10px !important;
+    text-align: left;
+    background: #8989bb;
+  }
+
+
+  randomColorsForBtn{
+    .btn-card{
+      max-width: unset !important;
+      
+    }
+    >*:nth-child(8n+1) .btn-card {
+      background: #f56954;
+      &:hover{
+        background: #f88171;
+      }
+      .icon {
+        color: #dc5e4b;
+      }
+    }
+    >*:nth-child(8n+2) .btn-card {
+      background: #1bc0ec;
+      &:hover{
+        background: #45d6fa;
+      }
+      .icon {
+        color: #00acd7;
+      }
+    }
+    >*:nth-child(8n+3) .btn-card {
+      background: #0073b7;
+      &:hover{
+        background: #0b89d3;
+      }
+      .icon {
+        color: #0a6094;
+      }
+    }
+    >*:nth-child(8n+4) .btn-card {
+      background: #00b29e;
+      &:hover{
+        background: #09d1ba;
+      }
+      .icon {
+        color: #00a08e;
+      }
+    }
+    >*:nth-child(8n+5) .btn-card {
+      background: #ba79cb;
+      &:hover{
+        background: #cd8edf;
+      }
+      .icon {
+        color: #a765b7;
+      }
+    }
+    >*:nth-child(8n+6) .btn-card {
+      background: #9d84a2;
+      &:hover{
+        background: #b89fbd;
+      }
+      .icon {
+        color: #847188;
+      }
+    }
+    >*:nth-child(8n+7) .btn-card {
+      background: #ffb818;
+      &:hover{
+        background: #ffc547;
+      }
+      .icon {
+        color: #efaa11;
+      }
+    }
+    >*:nth-child(8n+8) .btn-card {
+      background: #8e8e8e;
+      &:hover{
+        background: #a5a5a5;
+      }
+      .icon {
+        color: #797979;
+      }
+    }
+    &[style*="flex-start"] >*> *{
+      margin-right: 15px;
+    }
+    &[style*="flex-end"] >*{
+      margin-right: 15px;
+    }
+    &[style*="center"] >*{
+      margin: 0 7px;
+    }
   }

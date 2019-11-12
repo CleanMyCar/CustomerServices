@@ -1,6 +1,4 @@
-<template>
-    <div></div>
-</template>
+<template src="./homePageComponent.template.html"></template>
 
 <script>
     export default {

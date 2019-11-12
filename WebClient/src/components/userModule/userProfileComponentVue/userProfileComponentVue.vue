@@ -49,7 +49,7 @@
                     params: {
                         ProfileImage: img.toDataURL(),
                         NickName: self.userProfile.NickName,
-                        ModuleAction : "UpdateUserProfile"
+                        ModuleAction: "UpdateUserProfile"
                     },
                     callback: function (err, response) {
                         //console.log(response);
@@ -60,22 +60,16 @@
                 var self = this;
                 this.$store.dispatch("dataRequestHandler", {
                     key: 'GetUserProfile', params: {}, callback: function (err, response) {
-                        //console.log(err + "/" + response);
-                        if (response.recordsets.length === 0) {
-                            return;
+                        self.userProfile = response;
+                        if (self.userProfile.ProfileImage) {
+                            setTimeout(function () {
+                                self.$refs.vueavatar.loadImage(self.userProfile.ProfileImage)
+                            }, 500);
                         }
                         else {
-                            self.userProfile = response.recordsets[0][0];
-                            if (self.userProfile.ProfileImage) {
-                                setTimeout(function () {
-                                    self.$refs.vueavatar.loadImage(self.userProfile.ProfileImage)
-                                }, 500);
-                            }
-                            else{
-                                setTimeout(function () {
-                                    self.$refs.vueavatar.loadImage("https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png")
-                                }, 500);
-                            }
+                            setTimeout(function () {
+                                self.$refs.vueavatar.loadImage("https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png")
+                            }, 500);
                         }
                     }
                 });
