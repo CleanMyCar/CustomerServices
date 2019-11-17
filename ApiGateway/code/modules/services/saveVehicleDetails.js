@@ -13,7 +13,8 @@ module.exports = (config, params, callback) => {
     requestParams.input('FourWheelerTypeId', mssql.Int, params.FourWheelerTypeId);
     requestParams.input('StatusId', mssql.Int, 1);
     requestParams.input('UserId', mssql.Int, params.systemParams.UserId);
-
+    requestParams.input('VehicleName', mssql.NVarChar, params.VehicleName);
+    requestParams.input('VehicleImage', mssql.Text, params.VehicleImage);
     requestParams.execute('SaveVehicleDetails', (err, result) => {
         if (err) {
             console.log(err);

@@ -6,18 +6,32 @@
         props: [],
         data() {
             return {
+                subscriptions: []
             };
         },
 
         methods: {
-            navigateToMyProfile(){
-                this.$router.push("/userprofile");
+            getMySubscriptions() {
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "GetMySubscriptions",
+                    params: {
+                        serviceId: vm.$route.params.serviceId
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+
+                        vm.subscriptions.splice(0, vm.subscriptions.length, ...response);
+                    }
+                });
             },
-            navigateToMySubscriptions(){
-                this.$router.push("/mysubscriptions");
+            pauseSubscription(serviceObj){
+
             },
-            navigateToMyProducts(){
-                this.$router.push("/myproducts");
+            resumeSubscription(serviceObj){
+                
             }
         },
 
@@ -27,7 +41,7 @@
 
         mounted() {
             let vm = this;
-            console.log("mounted")
+            vm.getMySubscriptions();
         }
     };
 </script>

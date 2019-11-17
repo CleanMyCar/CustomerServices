@@ -12,7 +12,8 @@
                 vehicleInfo: {
                     isPersonal: true,
                     VehicleId: null,
-                    Frequency: null
+                    Frequency: null,
+                    TimeSlot: "10:00"
                 },
                 newVehicleDetails: null,
                 fourWheelerTypes: [],

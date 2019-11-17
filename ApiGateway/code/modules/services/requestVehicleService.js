@@ -10,6 +10,7 @@ module.exports = (config, params, callback) => {
     requestParams.input('Promocode', mssql.NVarChar, params.Promocode);
     // requestParams.input('StatusId', mssql.Int, 1);
     requestParams.input('UserId', mssql.Int, params.systemParams.UserId);
+    requestParams.input('TimeSlot', mssql.Int, params.TimeSlot);
 
     requestParams.execute('SaveVehicleRequest', (err, result) => {
         if (err) {
