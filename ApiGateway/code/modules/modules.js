@@ -23,16 +23,15 @@ const dismissNotification = require("./notifications/dismissNotification");
 const getNotificationDetail = require("./notifications/getNotificationDetail");
 
 const addclientdetails = require("./clientDetails/addClientDetails");
-const getclientlistdetails = require("./clientDetails/getClientListDetails");
-
-const getClientDetailById = require("./clientDetails/getClientDetailById");
-const getClientList = require("./clientDetails/getClientListDetails");
-const saveClientDetails = require("./client/saveClientDetails");
-const SaveClientDaysSelection = require("./client/SaveClientDaysSelection");
-const UpdateTokenWithClientId = require("./client/updateTokenWithClientId");
 
 const deleteImages = require("./images/deleteImages");
 const getImages = require("./images/getImages");
+const getServiceList = require("./services/getServiceList"),
+  getMyServiceProducts = require("./services/getMyServiceProducts"),
+  getServiceDetail = require("./services/getServiceDetail"),
+  saveVehicleDetails = require("./services/saveVehicleDetails"),
+  getVechicleAddress = require("./services/getVehicleAddress"),
+  requestVehicleService = require("./services/requestVehicleService");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -46,7 +45,7 @@ module.exports = [
 
   { key: "SearchUsers", callback: searchUsers, pushkey: null },
   { key: "UserLogout", callback: userLogout, pushkey: null, isLoggingEnabled: false },
-  { key: "GetUserEntitlementsAndDefaultProperty", callback: getUserEntitlementsAndDefaultProperty, pushkey: null },
+  // { key: "GetUserEntitlementsAndDefaultProperty", callback: getUserEntitlementsAndDefaultProperty, pushkey: null },
   { key: "UpdateLogginPassword", callback: updateLogginPassword, pushkey: null, isLoggingEnabled: false },
 
   { key: "SaveUserGroupDetail", callback: saveUserGroupDetail, pushkey: null, isLoggingEnabled: false },
@@ -63,4 +62,10 @@ module.exports = [
   { key: "AddClientDetails", callback: addclientdetails, pushkey: null },
   { key: "DeleteImages", callback: deleteImages, pushkey: null },
   { key: "GetImages", callback: getImages, pushkey: null },
+  { key: "GetServiceList", callback: getServiceList, pushkey: null, isLoggingEnabled: false },
+  { key: "GetMyServiceProducts", callback: getMyServiceProducts, pushkey: null, isLoggingEnabled: false },
+  { key: "GetServiceDetail", callback: getServiceDetail, pushkey: null, isLoggingEnabled: false },
+  { key: "SaveVehicleDetails", callback: saveVehicleDetails, pushkey: null, isLoggingEnabled: false },
+  { key: "GetVechicleAddress", callback: getVechicleAddress, pushkey: null, isLoggingEnabled: false },
+  { key: "RequestVehicleService", callback: requestVehicleService, pushkey: null, isLoggingEnabled: false }
 ];

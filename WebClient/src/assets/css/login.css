@@ -1,7 +1,7 @@
 body{
     margin: 0;
     padding: 0;
-    /* background: url(images/deedees-login-bg.jpg); */
+    background-color: #e4e4e4;
     background-size: cover;
     background-position-x: center;
     background-position-y: -200px;
@@ -12,16 +12,12 @@ body{
     background: rgba(77, 112, 224, 0.30);
     height: 100vh;
 }
+
 .loginBoxDiv{
-    /* height: 100vh; */
-    /* -webkit-box-shadow: 1px 0px 25px 4px rgb(0, 16, 67);
-	-moz-box-shadow: 1px 0px 25px 4px rgb(0, 16, 67);
-    box-shadow: 1px 0px 25px 4px rgb(0, 16, 67); */
-    /* display: flex; */
+    display: flex;
     justify-content: center;
     align-items: center;
-    /* min-height: 600px; */
-    height: 100vh;
+    height: 75vh;
 }
 .loginBoxDiv h1{
     font-size: 35px;
@@ -36,56 +32,44 @@ body{
 }
 .loginBoxDiv form{
     margin: 20px;
+    padding: 30px;
+    background: #fff;
 }
 .loginBoxDiv form h4{
     padding-left: 16px;
     margin-bottom: 0;
 }
-.loginBoxDiv form input[type="text"], .loginBoxDiv form input[type="password"]{
-	width: 95%;
+.loginBoxDiv form input[type="text"], .loginBoxDiv form input[type="password"], .loginBoxDiv form input[type="tel"]{
+    width: 100%;
     border: none;
     outline: none;
-    height: 36px;
-    background-color: #edf1fc;
+    padding: 10px;
+    color: #484848;
+    background: #ecebeb;
+    font-size: 15px;
     border-radius: 3px;
     margin: 20px 0 0 0;
-    padding-left: 18px;
-    font-size: 14px;
 }
-.loginBoxDiv form input[type="tel"]{
-    width: 95%;
-    border: none;
-    outline: none;
-    height: 36px;
-    background-color: #edf1fc;
-    border-radius: 3px;
-    font-size: 14px;
-}
+
 .iti--allow-dropdown{
     width: 100% !important;
     margin: 20px 0 0 0 !important;
 }
 .loginBoxDiv form input[type="submit"],  input[type="button"]{
-	width: 100%;
+    width: 100%;
     border: none;
     outline: none;
-    height: 36px;
+    padding: 10px;
     color: #fff;
     font-size: 15px;
-    /* background-color: #75c62e; */
     border-radius: 3px;
     margin: 20px 0 0 0;
-    cursor: pointer;
-    -webkit-box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.20);
-    -moz-box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.20);
-    box-shadow: 0px 2px 8px 0px rgba(50, 50, 50, 0.20);
-
 }
-.loginBoxDiv form input[type="submit"]:hover,  input[type="button"]:hover{
+/* .loginBoxDiv form input[type="submit"]:hover,  input[type="button"]:hover{
 	-webkit-box-shadow: 0px 4px 8px 0px rgba(50, 50, 50, 0.20);
     -moz-box-shadow: 0px 4px 8px 0px rgba(50, 50, 50, 0.20);
 	box-shadow: 0px 4px 8px 0px rgba(50, 50, 50, 0.20);
-}
+} */
 ::placeholder{
 	color: #7b7b7b;
 	font-size: 13px;
@@ -98,10 +82,12 @@ body{
 .loginBoxDiv .validationMessage, .loginBoxDiv .invalidClient{
     color: #fb2d2d;
     font-size: 14px;
-    margin-left: 20px;
     margin-top: 10px;
 }
-
+.authfyLogin .footer{
+    background: #ddd;
+    height: 25vh;
+}
 .header{
     height: -moz-calc(100% - (20px + 30px));
     height: -webkit-calc(100% - (20px + 30px));
@@ -118,3 +104,12 @@ body{
 .registerButton{
     background-color: #337ab7;
 }
+.brandLogo{
+    text-align: center;
+}
+/* @media only screen and (max-width: 600px) {
+    .authfyLogin .footer{
+        background: #ddd;
+        height: 25vh;
+    }
+} */

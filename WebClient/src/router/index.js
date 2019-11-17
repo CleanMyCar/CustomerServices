@@ -25,7 +25,8 @@ import homePageComponent from '../components/homeModule/homePageComponent/homePa
 
 import DateRangePicker from '../components/DateRangePicker/components/DateRangePicker.vue'
 import myAccountHome from '../components/myaccount/myaccountHome/myAccountHome.vue'
-
+import purchaseService from '../components/services/purchaseService/purchaseService.vue'
+import mysubscriptions from "../components/myaccount/mysubscriptions/mysubscriptions.vue"
 
 
 
@@ -119,6 +120,18 @@ export default new Router({
       path: '/myAccount',
       name: 'myAccountHome',
       component: myAccountHome,
+      props: {}
+    },
+    {
+      path: '/purchaseService/:serviceId/:serviceType',
+      name: 'purchaseService',
+      component: purchaseService,
+      props: {}
+    },
+    {
+      path: '/mysubscriptions',
+      name: 'mysubscriptions',
+      component: mysubscriptions,
       props: {}
     }
   ]

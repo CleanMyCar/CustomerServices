@@ -1,8 +1,8 @@
-<template src="./myAccountHome.template.html"></template>
+<template src="./mysubscriptions.template.html"></template>
 
 <script>
     export default {
-        name: "myAccountHome",
+        name: "mysubscriptions",
         props: [],
         data() {
             return {

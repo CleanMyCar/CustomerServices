@@ -746,24 +746,24 @@
       // vm.ClientName = window.localStorage.getItem('CName');
 
       // vm.getUserProfile();
-      vm.getClientDetailByid();
-      vm.getClientDetailList();
-      vm.GetUserEntitlementsAndDefaultProperty();
+      // vm.getClientDetailByid();
+      // vm.getClientDetailList();
+      // vm.GetUserEntitlementsAndDefaultProperty();
 
 
-      vm.$store.state.bus.$on('userEntitlementList', function (payload) {
+      // vm.$store.state.bus.$on('userEntitlementList', function (payload) {
 
-        console.log("userEntitlementList======>", payload);
-        vm.functions = payload;
-        console.log("vm.functions", vm.functions);
+      //   console.log("userEntitlementList======>", payload);
+      //   vm.functions = payload;
+      //   console.log("vm.functions", vm.functions);
 
-      });
-      vm.$store.state.bus.$on("setParentAndSubmenuListCalendarIcons", function (selected) {
-        console.log("selected", selected);
-        vm.parentModuleName = selected.toString();
-        console.log("vm.parentModuleName", vm.parentModuleName);
-        // }
-      });
+      // });
+      // vm.$store.state.bus.$on("setParentAndSubmenuListCalendarIcons", function (selected) {
+      //   console.log("selected", selected);
+      //   vm.parentModuleName = selected.toString();
+      //   console.log("vm.parentModuleName", vm.parentModuleName);
+      //   // }
+      // });
 
 
 

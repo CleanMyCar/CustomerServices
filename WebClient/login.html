@@ -18,21 +18,21 @@
 </head>
 
 <body>
-  <div class="">
+  <div class="authfyLogin">
     <div class="loginBoxDiv">
+      <div class="col-lg-4 col-md-6 col-sm-8">
       <form>
-        <div class="header">
-
+        <div class="brandLogo">
           <img src="./src/assets/logo.png" height="50">
           <h2>My Project</h2>
         </div>
-        <div class="row buttonsArea">
-          <div class="col-sm-6">
-            <input type="button" value="Login" class="loginButton" data-bind="click: showLogin" />
-          </div>
-          <div class="col-sm-6">
-            <input type="button" value="Register" class="registerButton" data-bind="click: showRegister" />
-          </div>
+        <div class="row">
+            <div class="col-sm-6">
+              <input type="button" value="Login" class="loginButton" data-bind="click: showLogin" />
+            </div>
+            <div class="col-sm-6">
+              <input type="button" value="Register" class="registerButton" data-bind="click: showRegister" />
+            </div>
         </div>
 
         <div class="loginScreen" style="display: none">
@@ -62,10 +62,12 @@
           <input type="button" value="Register" class="registerButton" data-bind="click: Register" />
           <div data-bind="text: errRegisterMsg" class="invalidClient"></div>
         </div>
-        <div class="footer">
-          Footer goes here......
-        </div>
+
       </form>
+    </div>
+    </div>
+    <div class="footer">
+        <div>Footer goes here......</div>
     </div>
   </div>
 

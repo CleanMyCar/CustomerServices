@@ -305,17 +305,17 @@ export const store = new Vuex.Store({
 
       }
       else {
-        dataRequestHandler("GetUserEntitlementsAndDefaultProperty", {}, (error, response) => {
-          if (error) {
-            commit("setUserEntitlementList", null);
-            return;
-          }
+        // dataRequestHandler("GetUserEntitlementsAndDefaultProperty", {}, (error, response) => {
+        //   if (error) {
+        //     commit("setUserEntitlementList", null);
+        //     return;
+        //   }
 
-          commit("setUserEntitlementList", response.userEntitlementList);
+        //   commit("setUserEntitlementList", response.userEntitlementList);
 
-          commit("setUserDefaultPropertyId", response.defaultPropertyId);
-          commit("setUserEntityNames", response.EntityNames);
-        });
+        //   commit("setUserDefaultPropertyId", response.defaultPropertyId);
+        //   commit("setUserEntityNames", response.EntityNames);
+        // });
       }
 
       // socket.emit("GetUserEntitlementsAndDefaultProperty", params, (err, response) => {
