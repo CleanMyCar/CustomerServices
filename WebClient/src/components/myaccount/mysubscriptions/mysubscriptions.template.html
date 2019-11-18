@@ -23,14 +23,88 @@
                 <span> {{product.VehicleName}}</span>
                 <span style="color: #004dff; margin-left: 30px;">{{product.SubscribeType}}</span>
             </div>
-            <div class="form-group" v-if="product.ServiceStatusId == 1" @click="pauseSubscription(product)" style="cursor: pointer;">
+            <div class="form-group" v-if="product.ServiceStatusId == 1" @click="addDetailsToPause(product)"
+                style="cursor: pointer;">
                 <span class="pauseSubscribe"><i class="far fa-pause-circle"></i> </span>
                 <span>Pause</span>
             </div>
-            <div class="form-group" v-if="product.ServiceStatusId == 2" @click="resumeSubscription(product)" style="cursor: pointer;">
+            <div class="form-group" v-if="product.ServiceStatusId == 2" @click="addDetailsToPauseResume(product)"
+                style="cursor: pointer;">
                 <span class="pauseSubscribe"><i class="far fa-play-circle"></i></span>
                 <span>Resume</span>
             </div>
         </div>
     </div>
+
+    <div class="modal" data-backdrop="static" role="dialog" id="pauseServiceDetailsPopup">
+        <div class="modal-dialog" v-if="serviceObj">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
+                        data-dismiss="modal">
+                        &times;
+                    </button>
+                    <h4>Pause Service</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label>From</label>
+                                <input type="text" class="form-control" placeholder="Start Date"
+                                    v-model="serviceObj.StartDate">
+                            </div>
+                            <div class="form-group">
+                                <label>Till</label>
+                                <input type="text" class="form-control" placeholder="End Date"
+                                    v-model="serviceObj.EndDate">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
+                    <button class="btn btn-success btn-sm pull-right" title="Save User"
+                        @click="pauseSubscription">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" data-backdrop="static" role="dialog" id="deleteConfimationPopup">
+            <div class="modal-dialog" v-if="serviceObj">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
+                            data-dismiss="modal">
+                            &times;
+                        </button>
+                        <h4>Please choose reason</h4>
+                    </div>
+    
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+    
+                                <div class="form-group" v-for="reason in serviceDeleteReasons">
+                                    
+                                    <input type="checkbox" class="form-control" placeholder="Start Date"
+                                        v-model="selectedReasons">
+                                        {{reason.Reason}}
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-danger btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
+                        <button class="btn btn-success btn-sm pull-right" title="Save User"
+                            @click="deleteCustomerService">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>

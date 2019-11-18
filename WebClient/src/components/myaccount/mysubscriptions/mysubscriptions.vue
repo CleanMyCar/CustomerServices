@@ -6,7 +6,10 @@
         props: [],
         data() {
             return {
-                subscriptions: []
+                subscriptions: [],
+                serviceObj: null,
+                serviceDeleteReasons: [],
+                selectedReasons:[]
             };
         },
 
@@ -27,11 +30,39 @@
                     }
                 });
             },
-            pauseSubscription(serviceObj){
+            addDetailsToPause(serviceItem) {
+                this.serviceObj = serviceItem;
+                $("#pauseServiceDetailsPopup").modal("show");
+            },
+            addDetailsToPauseResume(serviceObj) {
+                this.serviceObj = serviceItem;
+            },
+            pauseSubscription(serviceObj) {
 
             },
-            resumeSubscription(serviceObj){
-                
+            resumeSubscription(serviceObj) {
+
+            },
+            cancel() {
+                $("#pauseServiceDetailsPopup").modal("hide");
+            },
+            selectDeleteReason() {
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "GetServiceDeleteReasons",
+                    params: {
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+
+                        vm.serviceDeleteReasons.splice(0, vm.serviceDeleteReasons.length, ...response);
+                    }
+                });
+            },
+            deleteCustomerService() {
+
             }
         },
 

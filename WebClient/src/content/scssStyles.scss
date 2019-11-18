@@ -68,7 +68,7 @@ html {
 }
 
 body {
-    background: #f6f6f6;
+    // background: #f6f6f6;
     /*f2f2f2*/
     font-family: $primary-font;
     -webkit-font-smoothing: antialiased;
@@ -365,11 +365,11 @@ sortable-chosen.sortable-ghost {
     width: auto;
 }
 
-.mainContent {
-    width: calc(100% - 50px);
-    float: left;
-    margin: 30px 0 0 50px
-}
+// .mainContent {
+//     width: calc(100% - 50px);
+//     float: left;
+//     margin: 30px 0 0 50px
+// }
 
 .LeftMainSaid {
     width: 100%;
@@ -449,11 +449,11 @@ sortable-chosen.sortable-ghost {
     transition-timing-function: linear;
 }
 
-.mainContent {
-    width: calc(100% - 63px);
-    // float: right;
-    margin: 0px 0 0 0
-}
+// .mainContent {
+//     width: calc(100% - 63px);
+//     // float: right;
+//     margin: 0px 0 0 0
+// }
 
 .LeftMainSaid {
     width: 63px;
@@ -4966,7 +4966,7 @@ select.form-control {
 }
 
 .dummyListLogo {
-    background: url(images/imageIconlogo.png);
+    // background: url(images/imageIconlogo.png);
     border-radius: 7%;
     background-position: 50% 50%;
     border: 1px solid #eee;
@@ -4985,7 +4985,7 @@ select.form-control {
 
 .dummyLogo img,
 .thumbIcon img {
-    background: url(/dist/imageIconlogo.png?816381f…);
+    // background: url(/dist/imageIconlogo.png?816381f…);
     background-repeat: no-repeat;
     background-position: 50% 50%;
     border-radius: 2px;
@@ -5078,7 +5078,7 @@ input[type="file"] {
 }
 
 .fa.unitIcon {
-    background: url(images/unit-icon.png);
+    // background: url(images/unit-icon.png);
     background-repeat: no-repeat;
     width: 15px;
     height: 24px;
@@ -5086,14 +5086,14 @@ input[type="file"] {
 }
 
 #custom-nav-bar .dropdown .dropdown-menu li a:hover .fa.unitIcon {
-    background: url(images/unit-icon.png);
+    // background: url(images/unit-icon.png);
     background-position-y: -24px;
     background-repeat: no-repeat;
     margin-bottom: -5px !important;
 }
 
 .fa.clientIcon {
-    background: url(images/client-icon.png);
+    // background: url(images/client-icon.png);
     background-repeat: no-repeat;
     width: 21px;
     height: 24px;
@@ -5109,7 +5109,7 @@ input[type="file"] {
 }
 
 #custom-nav-bar .dropdown .dropdown-menu li a:hover .fa.clientIcon {
-    background: url(images/client-icon.png);
+    // background: url(images/client-icon.png);
     background-position-y: -20px;
     background-repeat: no-repeat;
     margin-bottom: -4px !important;
@@ -5690,7 +5690,7 @@ button {
 
 .check-in-icon,
 .check-in-icon[disabled] {
-    background-image: url("images/check-in-icon.png") !important;
+    // background-image: url("images/check-in-icon.png") !important;
     height: 27px;
     background-repeat: no-repeat !important;
     background-position-x: 10px !important;
@@ -5704,7 +5704,7 @@ button {
 
 .check-out-icon,
 .check-out-icon[disabled] {
-    background-image: url("images/check-out-icon.png") !important;
+    // background-image: url("images/check-out-icon.png") !important;
     height: 27px;
     background-repeat: no-repeat !important;
     background-position-x: 10px !important;
@@ -5722,14 +5722,14 @@ button {
 .btn-default.check-in-icon:focus,
 .btn-default.check-in-icon:active {
     background-position-y: -15px !important;
-    background-image: url("images/check-in-icon.png") !important;
+    // background-image: url("images/check-in-icon.png") !important;
 }
 
 .btn-default.check-out-icon:hover,
 .btn-default.check-out-icon:focus,
 .btn-default.check-out-icon:active {
     background-position-y: -15px !important;
-    background-image: url("images/check-out-icon.png") !important;
+    // background-image: url("images/check-out-icon.png") !important;
 }
 
 .check-in-icon[disabled]:hover,
@@ -5853,7 +5853,7 @@ div div.ball {
 }
 
 .fa.guestIcon {
-    background: url(images/guest-icon.png);
+    // background: url(images/guest-icon.png);
     background-repeat: no-repeat;
     width: 21px;
     height: 24px;
@@ -5866,7 +5866,7 @@ div div.ball {
 }
 
 .fa.taxIcon {
-    background: url(images/tax-icon.png);
+    // background: url(images/tax-icon.png);
     background-repeat: no-repeat;
     width: 22px;
     height: 24px;
@@ -5877,19 +5877,6 @@ div div.ball {
 .LeftMainSaid li:hover .fa.taxIcon,
 .LeftMainSaid .active .fa.taxIcon {
     background-position-y: -22px;
-}
-
-.fa.ratesOverride {
-    background: url(images/rates-override.png);
-    background-repeat: no-repeat;
-    width: 24px;
-    height: 24px;
-    margin-bottom: -4px !important;
-}
-
-.LeftMainSaid li:hover .fa.ratesOverride,
-.LeftMainSaid .active .fa.ratesOverride {
-    background-position-y: -25px;
 }
 
 .fa.broomStick {
@@ -5907,7 +5894,7 @@ div div.ball {
 }
 
 .fa.restrictionsIcon {
-    background: url(images/restrictions-icon.png);
+    // background: url(images/restrictions-icon.png);
     background-repeat: no-repeat;
     width: 24px;
     height: 24px;
@@ -6467,147 +6454,11 @@ th[class*="resTh Source Name"] {
     //text-indent: 0;
 }
 
-.source[class*="Rentals"] {
-    background: url("images/ru.png") no-repeat 50%;
-}
-
-.source[class*="Booking"] {
-    background: url("images/booking.png") no-repeat 50%;
-}
-
-.source[class*="Airbnb"] {
-    background: url("images/air.png") no-repeat 50%;
-}
-
-.source[class*="Home"] {
-    background: url("images/ha.png") no-repeat 50%;
-}
-
-.source[class*="Trip"] {
-    background: url("images/ta.png") no-repeat 50%;
-}
-
-.source[class*="Expedia"] {
-    background: url("images/expedia.png") no-repeat 50%;
-}
-
-.source[class*="Tempo"],
-.source[class*="website"],
-.source[class*="Direct"] {
-    background: url("images/roomtempo.png") no-repeat 50%;
-    background-position-y: 5px;
-}
-
-.source[class*="Tripadvisor"] {
-    background: url("images/ta.png") no-repeat 50%;
-}
-
-.source[class*="Hotels"],
-.source[class*="uk.hotels.com"] {
-    background: url("images/Hotels.png") no-repeat 50%;
-}
-
-.source[class*="Orbitz"] {
-    background: url("images/Orbitz.png") no-repeat 50%;
-}
-
-.source[class*="Egencia"] {
-    background: url("images/Egencia.png") no-repeat 50%;
-}
-
-.source[class*="Travelocity"] {
-    background: url("images/Travelocity.png") no-repeat 50%;
-}
-
-.source[class*="zillow"] {
-    background: url("images/Zillow.png") no-repeat 50%;
-}
-
 .resDetailSource {
     width: 80px;
     height: 19px;
     float: left;
     margin: 3px 7px 0 0;
-}
-
-.resDetailSource.Airbnb {
-    text-indent: -9999px;
-    background: url("images/air_ico.png") no-repeat right;
-}
-
-.resDetailSource[class*="Rentals"] {
-    width: 125px;
-    background: url("images/ru_ico.png") no-repeat right;
-    text-indent: -9999px;
-}
-
-.resDetailSource[class*="Booking.com"] {
-    width: 130px;
-    background: url("images/booking_ico.png") no-repeat right;
-    text-indent: -9999px;
-    background-position-y: -2px;
-}
-
-.resDetailSource[class*="Tempo"],
-.resDetailSource[class*="website"],
-.resDetailSource[class*="Direct"] {
-    width: 81px;
-    background: url("images/rt_ico.png") no-repeat right;
-    text-indent: -9999px;
-}
-
-.resDetailSource[class*="Home"] {
-    width: 94px;
-    background: url("images/ha_ico.png") no-repeat right;
-    text-indent: -9999px;
-}
-
-.resDetailSource[class*="Trip"] {
-    width: 94px;
-    background: url("images/ta_ico.png") no-repeat right;
-    text-indent: -9999px;
-}
-
-.resDetailSource[class*="Expedia"] {
-    width: 94px;
-    background: url("images/Expedia_ico.png") no-repeat right;
-    text-indent: -9999px;
-    margin-right: -20px;
-    margin-top: -4px;
-}
-
-.resDetailSource[class*="Hotels.com"],
-.resDetailSource[class*="uk.hotels.com"] {
-    width: 110px;
-    background: url("images/Hotels_ico.png") no-repeat right;
-    text-indent: -9999px;
-    margin-right: 0px;
-}
-
-.resDetailSource[class*="Orbitz"] {
-    width: 110px;
-    background: url("images/Orbitz_ico.png") no-repeat right;
-    text-indent: -9999px;
-    margin-right: -17px;
-}
-
-.resDetailSource[class*="Egencia"] {
-    width: 110px;
-    background: url("images/Egencia_ico.png") no-repeat right;
-    text-indent: -9999px;
-    margin-right: -2px;
-}
-
-.resDetailSource[class*="Travelocity"] {
-    width: 110px;
-    background: url("images/Travelocity_ico.png") no-repeat right;
-    text-indent: -9999px;
-}
-
-.resDetailSource[class*="zillow"] {
-    width: 110px;
-    background: url("images/Zillow_ico.png") no-repeat right;
-    text-indent: -9999px;
 }
 
 .topBtns {
@@ -8655,24 +8506,24 @@ input[class="unitType"] {
 .nextResStatus .Arriving.Today,
 .preResStatus .Awaiting.Arrival,
 .nextResStatus .Awaiting.Arrival {
-    background: url("images/awaiting-arrival.png");
+    // background: url("images/awaiting-arrival.png");
 }
 
 .preResStatus .Awaiting.Arrival.in,
 .nextResStatus .Awaiting.Arrival.in {
-    background: url("images/awaiting-arrival-days.png");
+    // background: url("images/awaiting-arrival-days.png");
 }
 
 .preResStatus .Arrived.Today,
 .nextResStatus .Arrived.Today,
 .preResStatus .Arrived,
 .nextResStatus .Arrived {
-    background: url("images/arrived-today.png");
+    // background: url("images/arrived-today.png");
 }
 
 .preResStatus .Awaiting.Departure,
 .nextResStatus .Awaiting.Departure {
-    background: url("images/departed-today.png") !important;
+    // background: url("images/departed-today.png") !important;
     background-position-y: 22px !important;
 }
 
@@ -8680,14 +8531,14 @@ input[class="unitType"] {
 .nextResStatus .Departed,
 .preResStatus .Departed.Today,
 .nextResStatus .Departed.Today {
-    background: url("images/departed-n-f-days-ago.png") 0 24px !important;
+    // background: url("images/departed-n-f-days-ago.png") 0 24px !important;
 }
 
 .preResStatus .Expected,
 .nextResStatus .Expected,
 .preResStatus .Expecting,
 .nextResStatus .Expecting {
-    background: url("images/expected-in-n-f-days.png") !important;
+    // background: url("images/expected-in-n-f-days.png") !important;
 }
 
 .nextResStatusTime,
@@ -10384,39 +10235,6 @@ input[class="unitType"] {
     background-position-y: 50% !important;
 }
 
-.tapeChat .ReactVirtualized__Grid__innerScrollContainer>div span.statusType[class*="Tempo"]:before {
-    background: #fff url(images/hosttempo-fav-icon.png) no-repeat 3px 2px;
-}
-
-.tapeChat .ReactVirtualized__Grid__innerScrollContainer>div span.statusType[class*="Rentals"]:before {
-    background: #fff url(images/rentalsunited-fav-icon.png) no-repeat 2px 1px;
-}
-
-.tapeChat .ReactVirtualized__Grid__innerScrollContainer>div span.statusType[class*="Airbnb"]:before {
-    background: #fff url(images/airbnb-fav-icon.png) no-repeat 2px 1px;
-}
-
-.tapeChat .ReactVirtualized__Grid__innerScrollContainer>div span.statusType[class*="Hotels"]:before,
-.tapeChat .ReactVirtualized__Grid__innerScrollContainer>div span.statusType[class*="uk.hotels.com"]:before {
-    background: #fff url(images/hotels-fav-icon.png) no-repeat 2px 1px;
-}
-
-.tapeChat .ReactVirtualized__Grid__innerScrollContainer>div span.statusType[class*="Booking"]:before {
-    background: #fff url(images/booking-fav-icon.png) no-repeat 2px 1px;
-}
-
-.tapeChat .ReactVirtualized__Grid__innerScrollContainer>div span.statusType[class*="Home"]:before {
-    background: #fff url(images/homeaway-fav-icon.png) no-repeat 2px 1px;
-}
-
-.tapeChat .ReactVirtualized__Grid__innerScrollContainer>div span.statusType[class*="Expedia"]:before {
-    background: #fff url(images/expedia-fav-icon.png) no-repeat 2px 1px;
-}
-
-.tapeChat .ReactVirtualized__Grid__innerScrollContainer>div span.statusType[class*="Tripadvisor"]:before {
-    background: #fff url(images/tripadvisor-fav-icon.png) no-repeat 2px 2px;
-}
-
 
 /* TapeChat FavIcons - styles end*/
 
@@ -10927,34 +10745,6 @@ table.table-bordered.userTable tbody tr th label {
 .panel-heading .btn:hover {
     svg * {
         fill: #fff;
-    }
-}
-
-.panel-heading {
-    .fa.restrictionsIconSm {
-        background: url(images/restrictions-icon-sm.png);
-        background-repeat: no-repeat !important;
-        width: 24px;
-        height: 24px;
-        margin-left: -3px;
-    }
-    .btn-default.restrictionsGrid:hover .fa.restrictionsIconSm,
-    .btn-default.restrictionsGrid:active .fa.restrictionsIconSm,
-    .btn-default.restrictionsGrid:focus .fa.restrictionsIconSm {
-        background: url(images/restrictions-icon-sm.png);
-        background-position-y: -25px;
-    }
-    .fa.ratesOverrideIconSm {
-        background: url(images/rates-override-sm.png);
-        background-repeat: no-repeat !important;
-        width: 24px;
-        height: 24px;
-    }
-    .btn-default.rateGrid:hover .fa.ratesOverrideIconSm,
-    .btn-default.rateGrid:active .fa.ratesOverrideIconSm,
-    .btn-default.rateGrid:focus .fa.ratesOverrideIconSm {
-        background: url(images/rates-override-sm.png);
-        background-position-y: -23px;
     }
 }
 
@@ -11523,7 +11313,7 @@ body {
         span {
             width: 50px;
             height: 50px;
-            background: url(images/stripe_logo.png) no-repeat;
+            // background: url(images/stripe_logo.png) no-repeat;
             display: block;
             /* float: left; */
             /* background-attachment: fixed; */
@@ -11768,7 +11558,7 @@ body {
     .stripe-icon {
         width: 20px;
         height: 20px;
-        background: url(images/stripe_logo.png) no-repeat;
+        // background: url(images/stripe_logo.png) no-repeat;
         display: inline-block;
         background-size: contain;
         margin: -4px 4px;
@@ -12072,7 +11862,7 @@ body {
     .stripe-icon {
         width: 20px;
         height: 20px;
-        background: url(/dist/stripe_logo.png?b748157…) no-repeat;
+        // background: url(/dist/stripe_logo.png?b748157…) no-repeat;
         display: inline-block;
         background-size: contain;
         margin: -4px 4px;
@@ -12334,10 +12124,10 @@ body {
             margin-top: 1px;
           }
           .report-icon.r-sales:before{
-            background-image:  url("images/r-sales.png");
+            // background-image:  url("images/r-sales.png");
           }
           .report-icon.r-payments:before{
-            background-image:  url("images/r-payments.png");
+            // background-image:  url("images/r-payments.png");
           }
 
         }
@@ -12418,35 +12208,35 @@ body {
         font-size: 22px;
       }
     }
-    .occupancy{
-      background-image:  url("images/occupancy.png");
-    }
-    .stay-nights{
-      background-image:  url("images/stay-nights.png"); 
-    }
-    .avg-daily-rate{
-      background-image:  url("images/avg-daily-rate.png");
-    }
-    .revenue{
-      background-image:  url("images/revenue.png"); 
-    }
-    .amount-authorized{
-      background-image:  url("images/amount-authorized.png"); 
-    }
-    .amount-failed{
-      background-image:  url("images/amount-failed.png"); 
-    }
+    // .occupancy{
+    //   background-image:  url("images/occupancy.png");
+    // }
+    // .stay-nights{
+    //   background-image:  url("images/stay-nights.png"); 
+    // }
+    // .avg-daily-rate{
+    //   background-image:  url("images/avg-daily-rate.png");
+    // }
+    // .revenue{
+    //   background-image:  url("images/revenue.png"); 
+    // }
+    // .amount-authorized{
+    //   background-image:  url("images/amount-authorized.png"); 
+    // }
+    // .amount-failed{
+    //   background-image:  url("images/amount-failed.png"); 
+    // }
   
   
-    .amount-refunded{
-        background-image:  url("images/amount-refunded.png"); 
-    }
-    .revpar{
-        background-image:  url("images/revpar.png");        
-    }
-    .transactions{
-      background-image:  url("images/transactions.png"); 
-    }
+    // .amount-refunded{
+    //     background-image:  url("images/amount-refunded.png"); 
+    // }
+    // .revpar{
+    //     background-image:  url("images/revpar.png");        
+    // }
+    // .transactions{
+    //   background-image:  url("images/transactions.png"); 
+    // }
     .dashboard-icon{
       width: 28px;
       height: 22px;
@@ -12739,11 +12529,11 @@ body {
       margin-bottom: 5px;
   }
 
-  .serviceName{
-      background-color: #3083d01c;
-      margin-top: 5px;
-      margin-bottom: 5px;
-  }
+//   .serviceName{
+//       background-color: #3083d01c;
+//       margin-top: 5px;
+//       margin-bottom: 5px;
+//   }
   .services{
     padding: 9px 0 0 0;
   }
@@ -12757,9 +12547,23 @@ body {
   }
 
   .pauseSubscribe{
-      
+
   }
 
   /* Ui styles */
 
- 
+ .adsBanner{
+     height: 20vh;
+     background: #ddd;
+ }
+ .services{
+     .serviceCards{
+        & .sercard{
+            // border:1px solid #ddd;
+        }
+    }
+     .serviceCardImg{
+        width: 100%;
+        height: 250px;
+     }
+ }

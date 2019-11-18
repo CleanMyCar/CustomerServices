@@ -32,7 +32,8 @@ const getServiceList = require("./services/getServiceList"),
   saveVehicleDetails = require("./services/saveVehicleDetails"),
   getVechicleAddress = require("./services/getVehicleAddress"),
   requestVehicleService = require("./services/requestVehicleService"),
-  getMySubscriptions = require("./services/getMySubscriptions");
+  getMySubscriptions = require("./services/getMySubscriptions"),
+  getServiceDeleteReasons = require("./services/getServiceDeleteReasons");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -70,4 +71,5 @@ module.exports = [
   { key: "GetVechicleAddress", callback: getVechicleAddress, pushkey: null, isLoggingEnabled: false },
   { key: "RequestVehicleService", callback: requestVehicleService, pushkey: null, isLoggingEnabled: false },
   { key: "GetMySubscriptions", callback: getMySubscriptions, pushkey: null, isLoggingEnabled: false },
+  { key: "GetServiceDeleteReasons", callback: getServiceDeleteReasons, pushkey: null, isLoggingEnabled: false }
 ];
