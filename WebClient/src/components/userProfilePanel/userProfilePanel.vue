@@ -39,7 +39,10 @@
             },
             redirectToMyProducts(){
                 this.$router.push("/myProducts")
-            }
+            },
+            redirectToMyOrders(){
+                this.$router.push("/myOrders")
+            },
         },
         computed: {
 

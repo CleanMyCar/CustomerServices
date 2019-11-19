@@ -1,38 +1,33 @@
-<div class="">
-    <div>
-        <h4>My Subscriptions</h4>
-    </div>
-    <div class="cellRow" v-for="product in subscriptions" style="border: 1px solid #65ff00">
-        <div class="cell">
-            <img :src="product.ServiceImage" height="100" width="200" @click="showMoreInfo(service)">
+<div class="cell" v-if="orderDetails">
+    <div class="cell">
+        <img :src="orderDetails.ServiceImage" height="100" width="200" @click="showMoreInfo(service)">
 
+    </div>
+    <div class="cell">
+        <div class="form-group">
+            <span style="float: right;" @click="deleteConfirm(orderDetails)">
+                <i class="far fa-trash-alt"></i>
+            </span>
         </div>
-        <div class="cell">
-            <div class="form-group">
-                <span style="float: right;" @click="deleteConfirm(product)">
-                    <i class="far fa-trash-alt"></i>
-                </span>
-            </div>
-            <div class="form-group">
-                {{product.ServiceName}}
-            </div>
-            <div class="form-group">
-                ₹ {{product.SubscriptionPrice}}
-            </div>
-            <div class="form-group">
-                <span> {{product.VehicleName}}</span>
-                <span style="color: #004dff; margin-left: 30px;">{{product.SubscribeType}}</span>
-            </div>
-            <div class="form-group" v-if="product.ServiceStatusId == 1" @click="addDetailsToPause(product)"
-                style="cursor: pointer;">
-                <span class="pauseSubscribe"><i class="far fa-pause-circle"></i> </span>
-                <span>Pause</span>
-            </div>
-            <div class="form-group" v-if="product.ServiceStatusId == 2" @click="addDetailsToPauseResume(product)"
-                style="cursor: pointer;">
-                <span class="pauseSubscribe"><i class="far fa-play-circle"></i></span>
-                <span>Resume</span>
-            </div>
+        <div class="form-group">
+            {{orderDetails.ServiceName}}
+        </div>
+        <div class="form-group">
+            ₹ {{orderDetails.ServiceType == 1 ? orderDetails.SubscriptionPrice : orderDetails.Price}}
+        </div>
+        <div class="form-group">
+            <span> {{orderDetails.VehicleName}}</span>
+            <span style="color: #004dff; margin-left: 30px;">{{orderDetails.SubscribeType}}</span>
+        </div>
+        <div class="form-group" v-if="orderDetails.ServiceStatusId == 1 && orderDetails.ServiceType == 1" @click="addDetailsToPause(orderDetails)"
+            style="cursor: pointer;">
+            <span class="pauseSubscribe"><i class="far fa-pause-circle"></i> </span>
+            <span>Pause</span>
+        </div>
+        <div class="form-group" v-if="orderDetails.ServiceStatusId == 2 && orderDetails.ServiceType == 1" @click="addDetailsToPauseResume(orderDetails)"
+            style="cursor: pointer;">
+            <span class="pauseSubscribe"><i class="far fa-play-circle"></i></span>
+            <span>Resume</span>
         </div>
     </div>
 

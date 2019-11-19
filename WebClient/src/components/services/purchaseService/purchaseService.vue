@@ -140,6 +140,7 @@
                             return;
                         }
                         // vm.vehicleAddress = response;
+                        this.$router.push("/mysubscriptions");
 
                     }
                 });

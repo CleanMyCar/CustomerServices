@@ -47,106 +47,11 @@
         functions: {},
         entitlements: {},
         showicon: true,
-        showsearchText:true,
+        showsearchText: true,
         showCalendar: true
       };
     },
     methods: {
-
-      GetUserEntitlementsAndDefaultProperty() {
-        let vm = this;
-        vm.$store.dispatch("dataRequestHandler", {
-          key: "GetUserEntitlementsAndDefaultProperty",
-          params: {
-            ModuleAction: "GetUserEntitlementsAndDefaultProperty"
-          },
-          callback: function (err, response) {
-            if (err) {
-              return;
-            }
-            if (response) {
-              console.log("response in GetUserEntitlementsAndDefaultProperty", response);
-              // vm.UserProperties = response.properties;
-              vm.entitlements = response.userEntitlementList;
-              vm.showsearchInput();
-              vm.setupPannel();
-              vm.calendarIcon();
-
-              // vm.DefaultProperty = response.defaultPropertyId;
-            }
-          }
-        });
-      },
-
-      showsearchInput() {
-        let vm = this;
-        if (vm.entitlements.fncReservationUpdate && vm.entitlements.fncReservationUpdate.isAssigned === -1) {
-          // vm.showphone= false;
-          vm.showsearchText = false;
-
-        }
-        else {
-          vm.showsearchText = true;
-        }
-      },
-
-      setupPannel() {
-        let vm = this;
-        if (vm.entitlements && vm.entitlements.fncClientList && vm.entitlements.fncPropertyList && vm.entitlements.fncUnitList && vm.entitlements.fncUserList && vm.entitlements.fncRoleList && vm.entitlements.fncListManagementView && vm.entitlements.fncListManagementView && vm.entitlements.fncTaxItemsView && vm.entitlements.fncClientList.isAssigned === 1 || vm.entitlements.fncPropertyList.isAssigned === 1 || vm.entitlements.fncUnitList.isAssigned === 1 || vm.entitlements.fncUserList.isAssigned === 1 || vm.entitlements.fncUserList.isAssigned === 1 || vm.entitlements.fncRoleList.isAssigned === 1 || vm.entitlements.fncListManagementView.isAssigned === 1 || vm.entitlements.fncListManagementView.isAssigned === 1 || vm.entitlements.fncTaxItemsView.isAssigned === 1) {
-          vm.showicon = true;
-        }
-        else {
-          vm.showicon = false;
-
-        }
-      },
-      calendarIcon() {
-        let vm = this;
-        if (vm.entitlements && (vm.entitlements.fncReservationSelect.isAssigned === 1 || vm.entitlements.fncHousekeeper.isAssigned === 1)) {
-          vm.showCalendar = true;
-        }
-        else {
-          vm.showCalendar = false;
-        }
-      },
-
-      imageURLS(imgGuid) {
-        let isBase64 = /^data:image\/([a-zA-Z]*);base64,([^\"]*)/.test(imgGuid)
-        if (isBase64) {
-          return imgGuid;
-        }
-        return this.apiUrl + '/downloadImage/' + imgGuid+'/430x300';
-      },
-      changePassword: function () {
-
-
-        let self = this;
-
-        self.$store.dispatch("dataRequestHandler", {
-          key: "UpdateLogginPassword",
-          params: {
-
-            OldPassword: self.UserPassword,
-            NewPassword: self.newpassword,
-            ModuleAction: "UpdateLogginPassword"
-
-          },
-          callback: function (err, response) {
-            console.log("userupdate password", response);
-            if (err) {
-              return;
-            }
-            else if (response) {
-              self.$store.dispatch("toastr",
-                {
-                  type: "success",
-                  message: "Password changed successfully",
-                  header: "Success"
-                });
-            }
-          }
-        });
-      },
       toggleNotification: function () {
         this.isActiveForNotification = true;
         this.isActiveForPassword = false;
@@ -157,60 +62,13 @@
         $(".menuMaskN").toggle();
         $(".clientList").removeClass("expand");
       },
-      togglepassword: function () {
-        this.isActiveForPassword = true;
-        this.isActiveForCogs = false;
-        this.isActiveForUser = false;
-        this.isActiveForNotification = false;
-        $("#password").toggleClass("expand");
-        // $(".notoficationButton").toggleClass("active");
-        $(".menuMaskN").toggle();
-        $(".clientList").removeClass("expand");
-      },
-
-
-      showClientPanel: function () {
-        let vm = this;
-        $(".clientList").toggleClass("expand");
-        $("#notification").removeClass("expand");
-        $(".menuMaskNCL").toggle();
-        vm.getClientDetailList();
-
-
-      },
-
-      showPropertyPanel: function () {
-        $(".propertyList").toggleClass("expand");
-        $("#notification").removeClass("expand");
-        $(".menuMaskNCL").toggle();
-
-      },
       logout: function () {
         let scope = this;
         window.localStorage.removeItem("rttoken");
         window.location.href = "login.html";
       },
-      redirectToReservation() {
-        let vm = this;
-        vm.parentModuleName = "Reservations";
-        vm.$store.state.bus.$emit('IsCalendarIcons', vm.parentModuleName);
-        vm.searchText = null;
-        vm.clear = false;
-        // vm.$store.state.bus.$emit('clearSearchText');
-        vm.$router.push("/newReservation/-1");
-      },
-      redirectToHome: function () {
+      navigateToHome: function () {
         window.location.href = this.$store.state.uiPageName;// + this.userDetail.response["p_9"]["txt"];
-      },
-      // toggle: function(){
-      //   let vm = this;
-      //   vm.isActiveForCogs = true;
-      //   vm.isActiveForUser =  false;
-
-      // },
-      // toggle2:function(){},
-      gotoHome() {
-        //window.location.href = this.$store.state.uiPageName;
       },
       clearMessages: function () {
         changeNotificationStatus(scope.userNotifications, "archieved");
@@ -491,16 +349,16 @@
           vm.$router.push("/propertyList");
           vm.$store.state.bus.$emit('cogs', 'PropertyList');
         }
-        else if (vm.entitlements.fncClientList.isAssigned === -1 && vm.entitlements.fncPropertyList.isAssigned === -1 && vm.entitlements.fncUnitList.isAssigned === 1  ) {
+        else if (vm.entitlements.fncClientList.isAssigned === -1 && vm.entitlements.fncPropertyList.isAssigned === -1 && vm.entitlements.fncUnitList.isAssigned === 1) {
           vm.$router.push("/unitList");
           vm.$store.state.bus.$emit('cogs', 'UnitList');
         }
-        else if (vm.entitlements.fncClientList.isAssigned === -1 && vm.entitlements.fncPropertyList.isAssigned === -1 && vm.entitlements.fncUnitList.isAssigned === -1  && vm.entitlements.fncRoleList.isAssigned === 1) {
+        else if (vm.entitlements.fncClientList.isAssigned === -1 && vm.entitlements.fncPropertyList.isAssigned === -1 && vm.entitlements.fncUnitList.isAssigned === -1 && vm.entitlements.fncRoleList.isAssigned === 1) {
           vm.$router.push("/roles");
           vm.$store.state.bus.$emit('cogs', 'RoleList');
 
         }
-        else if (vm.entitlements.fncClientList.isAssigned === -1 && vm.entitlements.fncPropertyList.isAssigned === -1  && vm.entitlements.fncUnitList.isAssigned === -1 && vm.entitlements.fncRoleList.isAssigned === -1 && vm.entitlements.fncUserList.isAssigned === 1) {
+        else if (vm.entitlements.fncClientList.isAssigned === -1 && vm.entitlements.fncPropertyList.isAssigned === -1 && vm.entitlements.fncUnitList.isAssigned === -1 && vm.entitlements.fncRoleList.isAssigned === -1 && vm.entitlements.fncUserList.isAssigned === 1) {
           vm.$router.push("/users");
           vm.$store.state.bus.$emit('cogs', 'Users');
         }
@@ -530,10 +388,10 @@
           vm.$router.push("/houseKeepingStatus");
           vm.$store.state.bus.$emit('calendar', 'HouseKeepingStatus');
         }
-        else{
+        else {
           vm.$router.push("/ReservationList");
         }
-        
+
         vm.$store.state.bus.$emit('clearSearchText');
       },
       searchWithText(event) {
@@ -651,87 +509,10 @@
         return null;
       },
 
-      // setupPannel() {
-      //   let vm = this;
-      //   if (vm.$store.state.userEntitlementList && vm.$store.state.userEntitlementList.fncClientList && vm.$store.state.userEntitlementList.fncPropertyList && vm.$store.state.userEntitlementList.fncUnitList && vm.$store.state.userEntitlementList.fncUserList && vm.$store.state.userEntitlementList.fncRoleList && vm.$store.state.userEntitlementList.fncListManagementView && vm.$store.state.userEntitlementList.fncListManagementView && vm.$store.state.userEntitlementList.fncTaxItemsView && vm.$store.state.userEntitlementList.fncClientList.isAssigned === 1 || vm.$store.state.userEntitlementList.fncPropertyList.isAssigned === 1 || vm.$store.state.userEntitlementList.fncUnitList.isAssigned === 1 || vm.$store.state.userEntitlementList.fncUserList.isAssigned === 1 || vm.$store.state.userEntitlementList.fncUserList.isAssigned === 1 || vm.$store.state.userEntitlementList.fncRoleList.isAssigned === 1 || vm.$store.state.userEntitlementList.fncListManagementView.isAssigned === 1 || vm.$store.state.userEntitlementList.fncListManagementView.isAssigned === 1 || vm.$store.state.userEntitlementList.fncTaxItemsView.isAssigned === 1) {
-      //     return true;
-      //   }
-      //  else {
-      //   return false;
-      //  }
-      // }
-      // fncIsPropertyList(){
-      //   let vm = this;
-      //   if(vm.$store.state.userEntitlementList.hasOwnProperty("fncPropertyList")){
-
-      //     let fncPropertyList =  vm.$store.state.userEntitlementList.fncPropertyList
-
-      //     return fncPropertyList;            
-      //   }
-      //   return null;
-      // },
-      // fncIsRoleList(){
-      //   let vm = this;
-      //   if(vm.$store.state.userEntitlementList.hasOwnProperty("fncRoleList")){
-      //     console.log("fncRoleList =>",vm.$store.state.userEntitlementList);
-      //     let fncRoleList =  vm.$store.state.userEntitlementList.fncRoleList
-      //     console.log("fncRoleList", fncRoleList)
-      //     return fncRoleList;            
-      //   }
-      //   return null;
-      // },
-      // fncIsUserList(){
-      //   let vm = this;
-      //   if(vm.$store.state.userEntitlementList.hasOwnProperty("fncUserList")){
-      //     console.log("fncUserList =>",vm.$store.state.userEntitlementList);
-      //     let fncUserList =  vm.$store.state.userEntitlementList.fncUserList
-      //     console.log("fncUserList", fncUserList)
-      //     return fncUserList;            
-      //   }
-      //   return null;
-      // }
-
-
-
-
+      // s
     },
     created() {
       let vm = this;
-      vm.$store.state.bus.$on("setParentAndSubmenuListGroupIcons", function (selected) {
-        console.log("setParentAndSubmenuListGroupIcons", selected);
-        vm.parentModuleName = selected.toString();
-      });
-      vm.$store.state.bus.$on("setParentAndSubmenuListCalendarIcons", function (selected) {
-        vm.parentModuleName = selected.toString();
-      });
-      vm.$store.state.bus.$on('isActiveForReservations', function (selected) {
-        if (selected === true) {
-          vm.isActiveForCogs = false;
-          vm.isActiveForNotification = false;
-          vm.isActiveForChangePassword = false;
-          vm.isActiveForUser = false;
-          console.log("this.isActive", vm.isActiveForCogs);
-          console.log("this.isActive", vm.isActiveForNotification)
-          console.log("this.isActive", vm.isActiveForUser)
-        }
-
-      });
-      vm.$store.state.bus.$on("IsCalendarIcons", function (selected) {
-        console.log("in IsCalendarIcons", selected);
-        // submenuListName: "ReservationsList",
-        vm.parentModuleName = selected.toString();
-        vm.submenuListName = "ReservationsList"
-        // if (selected === true) {
-        //   vm.isActiveGroupIcons = true;
-        //   vm.isActiveCalendarIcons = false;
-        //   vm.isActiveForReservations = true;
-        // }
-      });
-      vm.$store.state.bus.$on('clearSearchText', function () {
-        console.log("Clear called from module");
-        vm.searchText = null;
-        vm.clearResults();
-      });
     },
     watch: {
       namespaceInstanceId() {
@@ -743,33 +524,6 @@
     mounted() {
       //this.getNotifications1();
       let vm = this;
-      // vm.ClientName = window.localStorage.getItem('CName');
-
-      // vm.getUserProfile();
-      // vm.getClientDetailByid();
-      // vm.getClientDetailList();
-      // vm.GetUserEntitlementsAndDefaultProperty();
-
-
-      // vm.$store.state.bus.$on('userEntitlementList', function (payload) {
-
-      //   console.log("userEntitlementList======>", payload);
-      //   vm.functions = payload;
-      //   console.log("vm.functions", vm.functions);
-
-      // });
-      // vm.$store.state.bus.$on("setParentAndSubmenuListCalendarIcons", function (selected) {
-      //   console.log("selected", selected);
-      //   vm.parentModuleName = selected.toString();
-      //   console.log("vm.parentModuleName", vm.parentModuleName);
-      //   // }
-      // });
-
-
-
-      // vm.getPropertyDetailList();
-      // vm.getClientDetailList();
-
     }
   }
 

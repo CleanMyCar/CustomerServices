@@ -123,18 +123,18 @@
                     </ul>
                 </div>
                 <ul class="topNav">
-                    <!-- <li>
-                        <button title="Support">
-                            <i class="fas fa-life-ring topNavHomeIcon"></i>
+                    <li>
+                        <button title="Support" @click="navigateToHome">
+                            <i class="fas fa-home"></i>
                         </button>
-                    </li> -->
+                    </li>
                     <li>
                         <!-- <button @click="toggleNotification" title="Notifications" class="notoficationButton" :class="{ active: isActiveForNotification }">
                             <span class="fas fa-bell"></span>
                             <span class="count" v-text="notificationCount"></span>
                         </button> -->
 
-                        <button @click="toggleNotification" id="nav-icon3" style="float: right; margin-top: 5px;">
+                        <button @click="toggleNotification"  style="float: right; ">
                             <i class="fa fa-bars" aria-hidden="true"></i>
                         </button>
                     </li>
@@ -167,13 +167,13 @@
 
             <ul class="notofiLIst" v-if="notificatoinKeyList && notificatoinKeyList.status == 'success'">
             </ul>
-        </div>      
+        </div>
 
 
     </div>
     <!-- password -->
 
-    <div class="menuMaskNCL" @click="showClientPanel"></div>
+    
     <div class="clientList">
         <div class="sideBarHeading">
             <h6>Client List </h6>
@@ -196,31 +196,4 @@
         </div>
     </div>
 
-    <!-- <div class="menuMaskNCL" @click="showPropertyPanel"></div>
-        <div class="propertyList">
-                <div class="sideBarHeading">
-                    <h6>Property List </h6>
-                </div>
-    
-    
-                <div class="col-md-12 pt-3">
-                    <ul class="listMenu">
-                        <li v-for="property in propertyList">
-                             <span>{{property.PropertyName}}</span>    
-                        </li>
-                    </ul>
-                </div>
-        </div> -->
-
-
-    <!-- <div class="menuMaskNCL" ></div>
-        <div class="password">
-            <div class="sideBarHeading">
-                <h6>password </h6>
-            </div>
-
-
-           
-        </div> -->
-</div>
 </div>

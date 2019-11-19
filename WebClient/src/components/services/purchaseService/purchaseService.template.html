@@ -24,7 +24,9 @@
 
     <div class="cellRow">
         <div class="cell" v-for="product in myServiceProducts" v-if="vehicleInfo.isPersonal">
+        <label class="radioLabel">
             <input type="radio" name="Vechile" :value="product.VehicleId" @click="chooseVehicle(product, $event)">
+        </label>
             <img :src="product.ServiceImage" height="100" width="200" @click="showMoreInfo(service)">
             <div class="form-group serviceName">
                 {{product.VehicleNumber}}
@@ -47,10 +49,13 @@
         </div>
         <div class="cellRow">
             <div class="cell" v-for="product in subscriptionTypes">
+            <label class="radioLabel">
                 <input type="radio" name="serviceFrequency" :value="product.SubsribeId" v-model="vehicleInfo.Frequency">
-                <div class="form-group serviceName">
-                    {{product.SubscribeType}}
-                </div>
+                <span class="form-group serviceName">
+                        {{product.SubscribeType}}
+                </span>
+            </label>
+
             </div>
         </div>
         <div class="form-group">

@@ -1,8 +1,8 @@
-<template src="./mysubscriptions.template.html"></template>
+<template src="./myOrders.template.html"></template>
 
 <script>
     export default {
-        name: "mysubscriptions",
+        name: "myOrders",
         props: [],
         data() {
             return {
@@ -17,9 +17,9 @@
             getMySubscriptions() {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
-                    key: "GetMySubscriptions",
+                    key: "GetMyOrders",
                     params: {
-                        serviceId: vm.$route.params.serviceId
+                        
                     },
                     callback: function (err, response) {
                         if (err) {

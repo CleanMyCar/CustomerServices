@@ -1,32 +1,33 @@
-<template src="./mysubscriptions.template.html"></template>
+<template src="./orderItemComponent.template.html"></template>
 
 <script>
     export default {
-        name: "mysubscriptions",
-        props: [],
+        name: "orderItem",
+        props: ["orderId"],
         data() {
             return {
                 subscriptions: [],
                 serviceObj: null,
                 serviceDeleteReasons: [],
-                selectedReasons: []
+                selectedReasons: [],
+                orderDetails: null
             };
         },
 
         methods: {
-            getMySubscriptions() {
+            getOrderDetails() {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
-                    key: "GetMySubscriptions",
+                    key: "GetOrderDetails",
                     params: {
-                        serviceId: vm.$route.params.serviceId
+                        RequestId: vm.orderId
                     },
                     callback: function (err, response) {
                         if (err) {
                             return;
                         }
 
-                        vm.subscriptions.splice(0, vm.subscriptions.length, ...response);
+                        vm.orderDetails = response;
                     }
                 });
             },
@@ -96,7 +97,13 @@
 
         mounted() {
             let vm = this;
-            vm.getMySubscriptions();
+            // vm.getMySubscriptions();
+            this.getOrderDetails();
+        },
+        watch: {
+            orderId() {
+                this.getOrderDetails();
+            }
         }
     };
 </script>
