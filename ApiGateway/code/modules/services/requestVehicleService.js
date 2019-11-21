@@ -10,7 +10,9 @@ module.exports = (config, params, callback) => {
     requestParams.input('Promocode', mssql.NVarChar, params.Promocode);
     // requestParams.input('StatusId', mssql.Int, 1);
     requestParams.input('UserId', mssql.Int, params.systemParams.UserId);
-    requestParams.input('TimeSlot', mssql.Time, params.TimeSlot);
+    requestParams.input('TimeSlot', mssql.NVarChar, params.TimeSlot);
+    requestParams.input('WeeklyDay', mssql.Int, params.WeeklyDay);
+    requestParams.input('ServiceDate', mssql.DateTime, params.ServiceDate);
 
     requestParams.execute('SaveVehicleRequest', (err, result) => {
         if (err) {

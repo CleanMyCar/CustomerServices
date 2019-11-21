@@ -13,7 +13,7 @@
                     isPersonal: true,
                     VehicleId: null,
                     Frequency: null,
-                    TimeSlot: "10:00"
+                    TimeSlot: "1"
                 },
                 newVehicleDetails: null,
                 fourWheelerTypes: [],
@@ -132,21 +132,26 @@
                         ServiceType: vm.serviceType,
                         ServiceId: vm.$route.params.serviceId,
                         Frequency: vm.vehicleInfo.Frequency,
-                        Promocode: vm.vehicleInfo.Promocode
-
+                        Promocode: vm.vehicleInfo.Promocode,
+                        ServiceDate: vm.vehicleInfo.ServiceDate,
+                        TimeSlot: vm.vehicleInfo.TimeSlot,
+                        WeeklyDay: vm.vehicleInfo.WeeklyDay
                     },
                     callback: function (err, response) {
                         if (err) {
                             return;
                         }
                         // vm.vehicleAddress = response;
-                        this.$router.push("/mysubscriptions");
+                        vm.$router.push("/mysubscriptions");
 
                     }
                 });
             },
             navigateToBack() {
                 this.$router.push("/");
+            },
+            updateServiceDate(key, dateObj, objectPassedToParent) {
+                this.vehicleInfo.ServiceDate = dateObj ? dateObj.format("DD MMM YYYY") : null;
             }
         },
 

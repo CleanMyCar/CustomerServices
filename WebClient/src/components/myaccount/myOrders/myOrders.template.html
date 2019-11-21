@@ -3,6 +3,85 @@
         <h4>My Orders</h4>
     </div>
     <div class="cellRow" v-for="product in subscriptions" style="border: 1px solid #65ff00">
-        <orderItem :orderId="product.RequestId"></orderItem>
+        <orderItem :orderId="product.RequestId" :pauseOrder="pauseOrder" :resumeOrder="resumeOrder" :deleteOrder="deleteConfirm"></orderItem>
+    </div>
+
+
+    <div class="modal" data-backdrop="static" role="dialog" id="pauseServiceDetailsPopup">
+        <div class="modal-dialog" v-if="selectedServiceItem">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
+                        data-dismiss="modal">
+                        &times;
+                    </button>
+                    <h4>Pause Service</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label>From</label>
+
+                                <datePickerComponent :keyString="'StartDate'" v-model="selectedServiceItem.StartDate"
+                                    :maximumDate="selectedServiceItem.EndDate" :value="selectedServiceItem.StartDate"
+                                    :format="'Do MMM YYYY'" :onUpdate="updateFilterStartDate" :pickerType="'date'">
+                                </datePickerComponent>
+                            </div>
+                            <div class="form-group">
+                                <label>Till</label>
+                                <datePickerComponent :keyString="'EndDate'" v-model="selectedServiceItem.EndDate"
+                                    :value="selectedServiceItem.EndDate" :format="'Do MMM YYYY'" :onUpdate="updateFilterEndDate"
+                                    :pickerType="'date'"></datePickerComponent>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
+                    <button class="btn btn-success btn-sm pull-right" title="Save User"
+                        @click="pauseSubscription">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" data-backdrop="static" role="dialog" id="deleteConfimationPopup">
+        <div class="modal-dialog" v-if="serviceObj">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
+                        data-dismiss="modal">
+                        &times;
+                    </button>
+                    <h4>Please choose reason</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group" v-for="reason in serviceDeleteReasons">
+                                <input type="checkbox" :value="reason.ReasonId" placeholder="Start Date"
+                                    v-model="selectedReasons">
+                                {{reason.Reason}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" v-if="selectedReasons.indexOf(5) > -1">
+                        <input type="text" v-model="serviceObj.OtherReason" class="form-control"
+                            placeholder="Please specify reason">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
+                    <button class="btn btn-success btn-sm pull-right" title="Save User"
+                        @click="deleteCustomerService">Delete</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

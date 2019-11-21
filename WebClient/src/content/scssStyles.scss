@@ -12567,3 +12567,35 @@ body {
         height: 250px;
      }
  }
+
+ .customradioLabel{
+   & input:after{
+    width: 200px;
+    height: 45px;
+    float: left;
+    position: absolute;
+    border-radius: 3px;
+    margin-top: 0;
+    visibility: visible;
+    background: #4d70e0;
+    cursor: pointer;
+    }
+    & span{
+        position: absolute;
+        margin: 0;
+        width: 100%;
+        text-align: center;
+        top: calc(50% - 2px);
+        cursor: pointer;
+        line-height: 30px;
+        color: #fff;
+        white-space: nowrap;
+    }
+    & input:checked:after{
+        border: 1px solid #4d70e0;
+        background: #fff;
+    }
+    & input:checked~span{
+        color: #4d70e0;
+    }
+ }

@@ -9,17 +9,18 @@
                 subscriptions: [],
                 serviceObj: null,
                 serviceDeleteReasons: [],
-                selectedReasons: []
+                selectedReasons: [],
+                selectedServiceItem: null
             };
         },
 
         methods: {
-            getMySubscriptions() {
+            getMyOrders() {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "GetMyOrders",
                     params: {
-                        
+
                     },
                     callback: function (err, response) {
                         if (err) {
@@ -64,29 +65,53 @@
             deleteCustomerService() {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
-                    key: "DeleteMySubscription",
-                    params: vm.serviceObj,
+                    key: "DeleteSubscription",
+                    params: vm.selectedServiceItem,
                     callback: function (err, response) {
                         if (err) {
                             return;
                         }
                         $("#deleteConfimationPopup").modal("hide");
-                        vm.serviceObj = null
-                        vm.getMySubscriptions();
+                        vm.selectedServiceItem = null
+                        vm.getMyOrders();
                         //vm.serviceDeleteReasons.splice(0, vm.serviceDeleteReasons.length, ...response);
                     }
                 });
             },
             deleteConfirm(serviceObj) {
-                this.serviceObj = serviceObj;
+                this.selectedServiceItem = serviceObj;
                 $("#deleteConfimationPopup").modal("show");
                 this.getDeleteReasons();
             },
+
+            pauseOrder(serviceItem) {
+                this.selectedServiceItem = serviceItem;
+                $("#pauseServiceDetailsPopup").modal("show");
+            },
+            resumeOrder(serviceItem) {
+                this.selectedServiceItem = serviceItem;
+                // $("#pauseServiceDetailsPopup").modal("show");
+            },
             updateFilterStartDate(key, dateObj, objectPassedToParent) {
-                this.serviceObj.StartDate = dateObj ? dateObj.format("DD MMM YYYY") : null;
+                this.selectedServiceItem.StartDate = dateObj ? dateObj.format("DD MMM YYYY") : null;
             },
             updateFilterEndDate(key, dateObj, objectPassedToParent) {
-                this.serviceObj.EndDate = dateObj ? dateObj.format("DD MMM YYYY") : null;
+                this.selectedServiceItem.EndDate = dateObj ? dateObj.format("DD MMM YYYY") : null;
+            },
+            pauseSubscription() {
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "PauseSubscriptionItem",
+                    params: vm.selectedServiceItem,
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+                        $("#pauseServiceDetailsPopup").modal("hide");
+                        vm.selectedServiceItem = null
+                        vm.getMyOrders();
+                    }
+                });
             },
         },
 
@@ -96,7 +121,7 @@
 
         mounted() {
             let vm = this;
-            vm.getMySubscriptions();
+            vm.getMyOrders();
         }
     };
 </script>

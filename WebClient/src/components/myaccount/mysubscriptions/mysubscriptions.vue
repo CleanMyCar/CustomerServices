@@ -38,7 +38,20 @@
                 this.serviceObj = serviceItem;
             },
             pauseSubscription(serviceObj) {
-
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "PauseSubscriptionItem",
+                    params: vm.serviceObj,
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+                        $("#deleteConfimationPopup").modal("hide");
+                        vm.serviceObj = null
+                        vm.getMySubscriptions();
+                        //vm.serviceDeleteReasons.splice(0, vm.serviceDeleteReasons.length, ...response);
+                    }
+                });
             },
             resumeSubscription(serviceObj) {
 
@@ -64,7 +77,7 @@
             deleteCustomerService() {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
-                    key: "DeleteMySubscription",
+                    key: "DeleteSubscription",
                     params: vm.serviceObj,
                     callback: function (err, response) {
                         if (err) {
