@@ -1,6 +1,7 @@
 <template src="./orderItemComponent.template.html"></template>
 
 <script>
+    import moment from "moment-timezone";
     export default {
         name: "orderItem",
         props: ["orderId", "pauseOrder", "resumeOrder", "deleteOrder"],
@@ -45,8 +46,11 @@
             },
             deleteCustomerService(serviceObj) {
                 let vm = this;
-                vm.deleteOrder(serviceObj)                
+                vm.deleteOrder(serviceObj)
             },
+            returnDateTime(date) {
+                return date ? moment(date).format("Do MMM YYYY") : null
+            }
         },
 
         computed: {

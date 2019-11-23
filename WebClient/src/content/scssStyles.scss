@@ -922,7 +922,7 @@ sortable-chosen.sortable-ghost {
 #ratesSummary,
 #roomInventorySummary,
 .notesPanel {
-    width: 419px;
+    width: 300px;
     height: calc(100vh - 55px);
     position: absolute;
     background: #fff;
@@ -937,7 +937,7 @@ sortable-chosen.sortable-ghost {
     padding: 0;
     // overflow-y: auto;
     margin-top: -9px;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 .notofocationBar.expand,
@@ -947,7 +947,7 @@ sortable-chosen.sortable-ghost {
 #ratesSummary.expand,
 #roomInventorySummary.expand,
 .notesPanel.expand {
-    width: 419px;
+    width: 300px;
     padding: 0 0;
     right: 0;
     border-left: #ddd solid 1px;
@@ -4292,7 +4292,7 @@ table.table-bordered tbody tr:hover {
         margin-top: 30px;
     }
     .modal-dialog.customModal .modalPopupInTable {
-        max-height: calc(100vh - 475px);
+        // max-height: calc(100vh - 475px);
     }
     label.form-control.lg-txt,
     label.form-control.md-txt {
@@ -6417,6 +6417,7 @@ th[class*="resTh Source Name"] {
     border: none;
     margin: 0px;
     font-size: 12px;
+    width: 100%;
 }
 
 .searchResultsAmenitiesDiv>input:focus {
@@ -6714,7 +6715,7 @@ table.folioTable {
 .HKnote{
     @media (min-width: 576px){
       .modal-dialog{
-        max-width: unset;
+        // max-width: unset;
         }
     }
     #priorHKnotesModal, #nextHKnotesModal{
@@ -7369,7 +7370,7 @@ input:focus::-webkit-input-placeholder {
 .col-md-12>.form-group,
 .col-md-12>.input-group,
 .col-md-12>.form-group>.input-group {
-    margin-bottom: 0 !important;
+    // margin-bottom: 0 !important;
 }
 
 .col-md-12>.form-group label {
@@ -8606,7 +8607,7 @@ input[class="unitType"] {
 .HKnote {
     @media (min-width: 576px) {
         .modal-dialog {
-            max-width: unset;
+            // max-width: unset;
         }
     }
     #priorHKnotesModal,
@@ -12507,7 +12508,7 @@ body {
   .cellRow{
     display: flex;
     margin: 0 -5px;
-    padding-bottom: 15px;
+    // padding-bottom: 15px;
   }
 
   
@@ -12544,6 +12545,9 @@ body {
 
   .navigationIcon{
       cursor: pointer;
+      float: left;
+      padding: 5px;
+      left: 0px;
   }
 
   .pauseSubscribe{
@@ -12568,9 +12572,9 @@ body {
      }
  }
 
- .customradioLabel{
+ .customradioLabel, .weeklyradioLabel{
    & input:after{
-    width: 200px;
+    width: 150px;
     height: 45px;
     float: left;
     position: absolute;
@@ -12599,3 +12603,112 @@ body {
         color: #4d70e0;
     }
  }
+
+ .defaultCarImage{     
+     background: url(../content/images/car.png);
+ }
+
+
+
+* {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+  width: 55%;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+  opacity: 1 !important;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+
+.radioLabel{
+    font-style: normal;
+    font-size: 14px;
+}

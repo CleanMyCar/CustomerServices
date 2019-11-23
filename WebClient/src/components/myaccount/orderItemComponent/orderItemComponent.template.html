@@ -1,13 +1,13 @@
 <div class="cell" v-if="orderDetails">
     <div class="cell">
         <img :src="orderDetails.ServiceImage" height="100" width="200" @click="showMoreInfo(service)">
-
+        <span style="float: right;" @click="deleteCustomerService(orderDetails)">
+            <i class="far fa-trash-alt"></i>
+        </span>
     </div>
     <div class="cell">
         <div class="form-group">
-            <span style="float: right;" @click="deleteCustomerService(orderDetails)">
-                <i class="far fa-trash-alt"></i>
-            </span>
+            {{returnDateTime(orderDetails.ServiceDate)}}
         </div>
         <div class="form-group">
             {{orderDetails.ServiceName}}
@@ -19,13 +19,13 @@
             <span> {{orderDetails.VehicleName}}</span>
             <span style="color: #004dff; margin-left: 30px;">{{orderDetails.SubscribeType}}</span>
         </div>
-        <div class="form-group" v-if="orderDetails.ServiceStatusId == 1 && orderDetails.ServiceType == 1" @click="addDetailsToPause(orderDetails)"
-            style="cursor: pointer;">
+        <div class="form-group" v-if="orderDetails.ServiceStatusId == 1 && orderDetails.ServiceType == 1"
+            @click="addDetailsToPause(orderDetails)" style="cursor: pointer;">
             <span class="pauseSubscribe"><i class="far fa-pause-circle"></i> </span>
             <span>Pause</span>
         </div>
-        <div class="form-group" v-if="orderDetails.ServiceStatusId == 2 && orderDetails.ServiceType == 1" @click="addDetailsToPauseResume(orderDetails)"
-            style="cursor: pointer;">
+        <div class="form-group" v-if="orderDetails.ServiceStatusId == 2 && orderDetails.ServiceType == 1"
+            @click="addDetailsToPauseResume(orderDetails)" style="cursor: pointer;">
             <span class="pauseSubscribe"><i class="far fa-play-circle"></i></span>
             <span>Resume</span>
         </div>

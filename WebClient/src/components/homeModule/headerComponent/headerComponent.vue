@@ -298,102 +298,6 @@
           scope.notificatoinKeyList.response.splice(index, 1);
         }
       },
-
-      redirectToProperty() {
-        this.$router.push("/propertyList");
-        this.isActiveForCogs = true;
-        this.isActiveForUser = false;
-        this.$store.state.bus.$emit('isActiveForCogs', this.isActiveForCogs);
-        //window.location.href = this.$store.state.uiPageName+"#propertyList";
-      },
-      redirectToClient() {
-        this.$router.push("/clientList");
-        this.isActiveForCogs = true;
-        this.isActiveForUser = false;
-        this.$store.state.bus.$emit('isActiveForCogs', this.isActiveForCogs);
-        //window.location.href = this.$store.state.uiPageName+"#clientList";
-      },
-      redirectToUnit() {
-        this.$router.push("/unitList");
-        this.isActiveForCogs = true;
-        this.isActiveForUser = false;
-        this.$store.state.bus.$emit('isActiveForCogs', this.isActiveForCogs);
-      },
-      redirectToUserTypes() {
-        this.$router.push("/users");
-        this.isActiveForCogs = true;
-        this.isActiveForUser = false;
-        this.$store.state.bus.$emit('isActiveForCogs', this.isActiveForCogs);
-        //window.location.href = this.$store.state.uiPageName + "#users";
-        $("#leftMenu").removeClass("expand");
-        $("#nav-icon3").removeClass("open");
-        $(".menuMask").hide();
-      },
-      redirectToUserGroups() {
-        this.$router.push("/roles");
-        this.isActiveForCogs = true;
-        this.isActiveForUser = false;
-        this.$store.state.bus.$emit('isActiveForCogs', this.isActiveForCogs);
-        //window.location.href = this.$store.state.uiPageName + "#userGroupList";
-        $("#leftMenu").removeClass("expand");
-        $("#nav-icon3").removeClass("open");
-        $(".menuMask").hide();
-      },
-      groupicons() {
-        let vm = this;
-        vm.parentModuleName = "Admin"
-        vm.isActiveForCogs = true
-        vm.isActiveForCalendar = false
-        vm.$store.state.bus.$emit('IsGroupIcons', vm.parentModuleName);
-        if (vm.entitlements.fncClientList.isAssigned === -1 && vm.entitlements.fncPropertyList.isAssigned === 1) {
-          vm.$router.push("/propertyList");
-          vm.$store.state.bus.$emit('cogs', 'PropertyList');
-        }
-        else if (vm.entitlements.fncClientList.isAssigned === -1 && vm.entitlements.fncPropertyList.isAssigned === -1 && vm.entitlements.fncUnitList.isAssigned === 1) {
-          vm.$router.push("/unitList");
-          vm.$store.state.bus.$emit('cogs', 'UnitList');
-        }
-        else if (vm.entitlements.fncClientList.isAssigned === -1 && vm.entitlements.fncPropertyList.isAssigned === -1 && vm.entitlements.fncUnitList.isAssigned === -1 && vm.entitlements.fncRoleList.isAssigned === 1) {
-          vm.$router.push("/roles");
-          vm.$store.state.bus.$emit('cogs', 'RoleList');
-
-        }
-        else if (vm.entitlements.fncClientList.isAssigned === -1 && vm.entitlements.fncPropertyList.isAssigned === -1 && vm.entitlements.fncUnitList.isAssigned === -1 && vm.entitlements.fncRoleList.isAssigned === -1 && vm.entitlements.fncUserList.isAssigned === 1) {
-          vm.$router.push("/users");
-          vm.$store.state.bus.$emit('cogs', 'Users');
-        }
-        else if (vm.entitlements.fncClientList.isAssigned === -1 && vm.entitlements.fncPropertyList.isAssigned === -1 && vm.entitlements.fncUnitList.isAssigned === -1 && vm.entitlements.fncRoleList.isAssigned === -1 && vm.entitlements.fncUserList.isAssigned === -1 && vm.entitlements.fncListManagementView.isAssigned === 1) {
-          vm.$router.push("/ListManagement");
-          vm.$store.state.bus.$emit('cogs', 'listManagement');
-        }
-        else if (vm.entitlements.fncClientList.isAssigned === -1 && vm.entitlements.fncPropertyList.isAssigned === -1 && vm.entitlements.fncUnitList.isAssigned === -1 && vm.entitlements.fncRoleList.isAssigned === -1 && vm.entitlements.fncUserList.isAssigned === -1 && vm.entitlements.fncListManagementView.isAssigned === -1 && vm.entitlements.fncTaxItemsView.isAssigned === 1) {
-          vm.$router.push("/tax");
-          vm.$store.state.bus.$emit('cogs', 'tax');
-        }
-        else {
-          vm.$router.push("/clientList");
-          vm.$store.state.bus.$emit('cogs', 'ClientList');
-        }
-
-
-
-      },
-      calendar() {
-        let vm = this;
-        vm.parentModuleName = "Reservations";
-        vm.isActiveForCalendar = true
-        vm.isActiveForCogs = false
-        vm.$store.state.bus.$emit('IsCalendarIcons', vm.parentModuleName);
-        if (vm.entitlements.fncReservationList.isAssigned === -1) {
-          vm.$router.push("/houseKeepingStatus");
-          vm.$store.state.bus.$emit('calendar', 'HouseKeepingStatus');
-        }
-        else {
-          vm.$router.push("/ReservationList");
-        }
-
-        vm.$store.state.bus.$emit('clearSearchText');
-      },
       searchWithText(event) {
         if (event.key == "Enter") {
           this.clear = true;
@@ -411,32 +315,11 @@
         this.clear = false;
         this.loadGif = !this.loadGif
       },
-      notifyTheRespectiveComponent() {
-        if (this.$route.name === "ReservationList")
-          this.$store.state.bus.$emit('Search-In-Reservation-List', this.searchText)
-        else if (this.$route.name === "Users")
-          this.$store.state.bus.$emit('Search-In-Users-List', this.searchText)
-        else if (this.$route.name === "RoleList")
-          this.$store.state.bus.$emit('Search-In-Role-List', this.searchText)
-        else if (this.$route.name === "PropertyList")
-          this.$store.state.bus.$emit('Search-In-Property-List', this.searchText)
-        else if (this.$route.name === "UnitList")
-          this.$store.state.bus.$emit('Search-In-Unit-List', this.searchText)
+      panelCallback(){
+        this.toggleNotification();
       }
     },
     computed: {
-
-      // fncIsHousekeepingTaskList() {
-      //   let vm = this;
-      //   if (vm.functions.fncHousekeepingTaskList && vm.functions.fncHousekeepingTaskList.isAssigned === 1) {
-      //     // vm.showphone= false;
-      //     return false
-
-      //     console.log("vm.showphone===>", vm.showphone);
-      //   }
-      // },
-
-
 
       notificatoinKeyList() {
         return [];//this.$store.getters.getNotificationKeys({ "params": {} });
@@ -453,10 +336,6 @@
         }
         return 0;
       },
-      // fncIsReservationNew(){
-      // let  vm = this;
-      // return vm.$store.state.userEntitlementList.hasOwnProperty("fncReservationNew");
-      // },
       fncIsMyProfile() {
         let vm = this;
         if (vm.$store.state.userEntitlementList.hasOwnProperty("fncMyProfile")) {

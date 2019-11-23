@@ -38,7 +38,8 @@ const getServiceList = require("./services/getServiceList"),
   getOrderDetails = require("./services/getOrderDetails"),
   pauseSubscriptionItem = require("./services/pauseSubscriptionItem"),
   deleteSubscription = require("./services/deleteSubscription"),
-  getMyProducts = require("./myAccount/getMyProducts");
+  getMyProducts = require("./myAccount/getMyProducts"),
+  getAddressBySearch = require("./services/getAddressBySearch");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -82,4 +83,5 @@ module.exports = [
   { key: "PauseSubscriptionItem", callback: pauseSubscriptionItem, pushkey: null, isLoggingEnabled: false },
   { key: "DeleteSubscription", callback: deleteSubscription, pushkey: null, isLoggingEnabled: false },
   { key: "GetMyProducts", callback: getMyProducts, pushkey: null, isLoggingEnabled: false },
+  { key: "GetAddressBySearch", callback: getAddressBySearch, pushkey: null, isLoggingEnabled: false },
 ];

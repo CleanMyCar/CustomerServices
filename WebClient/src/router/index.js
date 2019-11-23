@@ -28,7 +28,7 @@ import myAccountHome from '../components/myaccount/myaccountHome/myAccountHome.v
 import purchaseService from '../components/services/purchaseService/purchaseService.vue'
 import mysubscriptions from "../components/myaccount/mysubscriptions/mysubscriptions.vue"
 import myOrders from "../components/myaccount/myOrders/myOrders.vue"
-
+import myProducts from "../components/myaccount/myProducts/myProducts.vue"
 
 
 Vue.use(Router);
@@ -139,6 +139,12 @@ export default new Router({
       path: '/myOrders',
       name: 'myOrders',
       component: myOrders,
+      props: {}
+    },
+    {
+      path: '/myProducts',
+      name: 'myProducts',
+      component: myProducts,
       props: {}
     }
   ]

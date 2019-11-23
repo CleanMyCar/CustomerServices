@@ -1,247 +1,273 @@
-<div v-if="serviceDetail">
-    <div class="form-group">
+<div v-if="serviceDetail" class="panel panel-default">
+    <div class="panel-heading">
         <span @click="navigateToBack" class="navigationIcon">
-            <i class="fas fa-caret-left"></i>
+            <i class="fas fa-chevron-left"></i>
         </span>
         <h4>{{serviceType == 1 ? "SUBSCRIBE" : "Service / Delivery Me Once"}}</h4>
     </div>
-    <div class="cell">
-        <img :src="serviceDetail.ServiceImage" height="100" width="200" @click="showMoreInfo(service)">
-        <div class="form-group serviceName">
-            {{serviceDetail.ServiceName}} - ₹ {{serviceDetail.Price}}
-        </div>
-    </div>
+    <div class="panel-body addBg">
+        <div class="row">
+            <div class="col-md-12">
 
-    <div>
-        <div class="row" v-if="serviceType == 2">
-            Personal Vehicle
-            <input type="checkbox" class="personalVehicle" name="personalVehicle" @click="changeSelection($event)"
-                :checked="vehicleInfo.isPersonal"> Yes
-            <input type="checkbox" class="personalVehicle" name="personalVehicle" @click="changeSelection($event)"
-                :checked="!vehicleInfo.isPersonal">No
-        </div>
-    </div>
 
-    <div class="cellRow">
-        <div class="cell" v-for="product in myServiceProducts" v-if="vehicleInfo.isPersonal">
-            <label class="radioLabel">
-                <input type="radio" name="Vechile" :value="product.VehicleId" @click="chooseVehicle(product, $event)">
-            </label>
-            <img :src="product.ServiceImage" height="100" width="200" @click="showMoreInfo(service)">
-            <div class="form-group serviceName">
-                {{product.VehicleNumber}}
+                <div class="modal" data-backdrop="static" role="dialog" id="newVehicleDetailsPopup">
+                    <div class="modal-dialog" v-if="newVehicleDetails">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
+                                    data-dismiss="modal">
+                                    &times;
+                                </button>
+                                <h4>Add Vechile Details</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+
+                                            <div class="col-md-12 searchResultsAmenitiesDiv">
+                                                <input type="text" placeholder="Please type here to choose address..."
+                                                    v-model.trim="searchAddressText">
+                                            </div>
+                                            <div class="form-control searchResultsAmenities"
+                                                @click="$event.stopPropagation()" id="propertyDropDown"
+                                                v-show="showAddressList">
+                                                <ul>
+                                                    <li v-for="address in addressList" v-bind:value="address.AddressId"
+                                                        @click="selectAddress(address)">
+                                                        {{address.AddressLine1 + " " + address.AddressLine2 + ", " + address.Landmark + " " + address.CityName + ", " + address.StateName}}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Vehicle Name"
+                                                v-model="newVehicleDetails.VehicleName">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Vehicle No"
+                                                v-model="newVehicleDetails.VehicleNumber">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Vehicle Make"
+                                                v-model="newVehicleDetails.VehicleMake">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Vehicle Model"
+                                                v-model="newVehicleDetails.VehicleModel">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Parking Lot"
+                                                v-model="newVehicleDetails.Parkinglot">
+                                        </div>
+                                        <div class="form-group">
+                                            <label v-for="vehicleType in vehicleTypes">
+                                                <input type="radio" name="vehicleType"
+                                                    @click="changeVehicleType(vehicleType, $event)"
+                                                    v-model="newVehicleDetails.VehicleTypeId"
+                                                    :value="vehicleType.VehicleTypeId">
+                                                <i class="radioLabel">{{vehicleType.VehicleTypeName}}</i>
+                                            </label>
+
+                                        </div>
+                                        <div class="form-group" v-if="newVehicleDetails.VehicleTypeId == 2">
+                                            <label v-for="type in fourWheelerTypes">
+                                                <input type="radio" name="fourWheelerType"
+                                                    v-model="newVehicleDetails.FourWheelerTypeId" :value="type.Id">
+                                                <i class="radioLabel">{{type.VehicleType}}</i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-danger btn-sm pull-right" title="Cancel"
+                                    @click="cancel">Cancel</button>
+                                <button class="btn btn-success btn-sm pull-right" title="Save User"
+                                    @click="addNewVehicle">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="cell">
-            <img :src="newVehicleImage" height="100" width="200">
-            <div class="form-group serviceName">
-                <a href="javascript:void(0)" @click="addNewVehicleInfo">Add New Car</a>
-            </div>
-        </div>
-    </div>
+        <div class="row">
+            <div class="col-md-12">
 
-    <div class="form-group" v-if="serviceType == 2">
-        <label>
-            Date
-        </label>
-        <datePickerComponent :keyString="'StartDate'" v-model="vehicleInfo.ServiceDate" :value="vehicleInfo.ServiceDate"
-            :format="'Do MMM YYYY'" :onUpdate="updateServiceDate" :pickerType="'date'">
-        </datePickerComponent>
+                <div class="form-group">
+                    <img :src="serviceDetail.ServiceImage ? serviceDetail.ServiceImage : defaultImage" height="150"
+                        width="300" @click="showMoreInfo(service)">
+                    <div class="form-group serviceName">
+                        {{serviceDetail.ServiceName}} - ₹ {{serviceDetail.Price}}
+                    </div>
+                </div>
+                <div class="form-group" v-if="serviceType == 2">
+                    Personal Vehicle
+                    <input type="checkbox" class="personalVehicle" name="personalVehicle"
+                        @click="changeSelection($event)" :checked="vehicleInfo.isPersonal"> Yes
+                    <input type="checkbox" class="personalVehicle" name="personalVehicle"
+                        @click="changeSelection($event)" :checked="!vehicleInfo.isPersonal">No
+                </div>
+                <div class="form-group">
+                    <div class="cellRow" style="width: 100%; overflow: scroll; margin-top: 20px;">
+                        <div class="cell" v-for="product in myServiceProducts" v-if="vehicleInfo.isPersonal"
+                            style="flex: 0 0 12%;">
+                            <label class="radioLabel">
+                                <input type="radio" class="vechiles" name="Vechile" :value="product.VehicleId"
+                                    @click="chooseVehicle(product, $event)">
+                                <img :src="product.ServiceImage ? product.ServiceImage : defaultImage" height="120"
+                                    width="120">
+                            </label>
 
-    </div>
+                            <div class="form-group serviceName">
+                                {{product.VehicleNumber}}
+                            </div>
+                        </div>
+                        <div class="cell" @click="addNewVehicleInfo">
+                            <img :src="defaultImage" height="120" width="120">
+                            <div class="form-group serviceName">
+                                <a href="javascript:void(0)">Add New Car</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" v-if="serviceType == 2" style="padding: 2px;">
+                    <label>
+                        Date
+                    </label>
+                    <datePickerComponent :keyString="'StartDate'" v-model="vehicleInfo.ServiceDate"
+                        :value="vehicleInfo.ServiceDate" :format="'Do MMM YYYY'" :onUpdate="updateServiceDate"
+                        :pickerType="'date'">
+                    </datePickerComponent>
 
-    <div class="form-group" v-if="serviceType == 2">
-        <label>
-            Time Slot
-        </label>
-        <select v-model="vehicleInfo.TimeSlot" class="form-control">
-            <option value="1">6:00 AM - 8:00 AM</option>
-            <option value="2">8:00 AM - 10:00 AM</option>
-            <option value="3">10:00 AM - 12:00 PM</option>
-            <option value="4">12:00 PM - 2:00 PM</option>
-            <option value="5">2:00 PM - 4:00 PM</option>
-            <option value="6">4:00 PM - 6:00 PM</option>
-            <option value="7">6:00 PM - 8:00 PM</option>
-            <option value="8">8:00 PM - 10:00 PM</option>
-        </select>
-
-    </div>
-
-    <div class="" v-if="serviceType == 1">
-        <div class="form-group">
-            <label>
-                Frequency
-            </label>
-
-        </div>
-        <div class="cellRow">
-            <div class="cell" v-for="product in subscriptionTypes" style="flex: 0 0 12%;">
-                <label class="radioLabel customradioLabel">
-                    <input type="radio" name="serviceFrequency" :value="product.SubsribeId"
-                        v-model="vehicleInfo.Frequency">
-                    <span class="form-group serviceName">
-                        {{product.SubscribeType}}
-                    </span>
-                </label>
-
-            </div>
-        </div>
-        <div class="form-group" v-if="vehicleInfo.Frequency == 2">
-            <label>Day</label>
-            <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Sunday
-            <input type="radio" value="1" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Monday
-            <input type="radio" value="2" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Tuesday
-            <input type="radio" value="3" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Wednesday
-            <input type="radio" value="4" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Thursday
-            <input type="radio" value="5" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Friday
-            <input type="radio" value="6" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Saturday
-        </div>
-
-        <div class="form-group">
-            <label>
-                Date
-            </label>
-            <datePickerComponent :keyString="'StartDate'" v-model="vehicleInfo.ServiceDate"
-                :value="vehicleInfo.ServiceDate" :format="'Do MMM YYYY'" :onUpdate="updateServiceDate"
-                :pickerType="'date'">
-            </datePickerComponent>
-
-        </div>
-
-        <div class="form-group">
-            <label>
-                Time Slot
-            </label>
-            <select v-model="vehicleInfo.TimeSlot" class="form-control">
-                <option value="1">6:00 AM - 8:00 AM</option>
-                <option value="2">8:00 AM - 10:00 AM</option>
-                <option value="3">10:00 AM - 12:00 PM</option>
-                <option value="4">12:00 PM - 2:00 PM</option>
-                <option value="5">2:00 PM - 4:00 PM</option>
-                <option value="6">4:00 PM - 6:00 PM</option>
-                <option value="7">6:00 PM - 8:00 PM</option>
-                <option value="8">8:00 PM - 10:00 PM</option>
-            </select>
-
-        </div>
-
-        <div class="form-group">
-            <label>
-                Promo Code
-            </label>
-            <input type="text" v-model="vehicleInfo.Promocode" class="form-control" placeholder="Promo Code">
-
-        </div>
-
-    </div>
-
-    <div class="address">
-        <div>
-            <h5>Delivery/Service Address</h5>
-            <span style="float: right;" v-if="!vehicleAddress">
-                Add
-            </span>
-            <span style="float: right;" v-if="vehicleAddress">
-                Edit
-            </span>
-        </div>
-        <div v-if="vehicleAddress">
-            <div>
-                {{vehicleAddress.AddressLine1 + ", " + vehicleAddress.AddressLine2 }}
-            </div>
-            <div v-if="vehicleAddress.Landmark">
-                Landmark: {{vehicleAddress.Landmark }}
-            </div>
-            <div>
-                {{vehicleAddress.CityName + ", " + vehicleAddress.StateName }}
-            </div>
-            <div>
-                {{vehicleAddress.CountryName + ", " + vehicleAddress.Pincode }}
-            </div>
-        </div>
-
-    </div>
-
-    <div class="form-group">
-        <button class="btn btn-success btn-sm pull-right" :disabled="!vehicleInfo.VehicleId" title="Confirm"
-            @click="confirmServiceOrder">Confirm</button>
-    </div>
-
-    <div class="modal" data-backdrop="static" role="dialog" id="newVehicleDetailsPopup">
-        <div class="modal-dialog" v-if="newVehicleDetails">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
-                        data-dismiss="modal">
-                        &times;
-                    </button>
-                    <h4>Add Vechile Details</h4>
                 </div>
 
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <!-- <input type="text" class="form-control" placeholder="Building/Apartment Name"
-                                    v-model="newVehicleDetails.AddressId"> -->
+                <div class="form-group" v-if="serviceType == 2">
+                    <label>
+                        Time Slot
+                    </label>
+                    <select v-model="vehicleInfo.TimeSlot" class="form-control">
+                        <option value="1">6:00 AM - 8:00 AM</option>
+                        <option value="2">8:00 AM - 10:00 AM</option>
+                        <option value="3">10:00 AM - 12:00 PM</option>
+                        <option value="4">12:00 PM - 2:00 PM</option>
+                        <option value="5">2:00 PM - 4:00 PM</option>
+                        <option value="6">4:00 PM - 6:00 PM</option>
+                        <option value="7">6:00 PM - 8:00 PM</option>
+                        <option value="8">8:00 PM - 10:00 PM</option>
+                    </select>
 
-                                <div class="col-md-12 searchResultsAmenitiesDiv">
-                                    <input type="text" placeholder="Please type here to choose address..."
-                                        v-model.trim="searchAddressText">
-                                </div>
-                                <div class="form-control searchResultsAmenities" @click="$event.stopPropagation()"
-                                    id="propertyDropDown" v-show="showAddressList">
-                                    <ul>
-                                        <li v-for="property in propertyList" v-bind:value="property"
-                                            @click="addPropertyToFilter(property)">{{property.PropertyName}}</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Vehicle Name"
-                                    v-model="newVehicleDetails.VehicleName">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Vehicle No"
-                                    v-model="newVehicleDetails.VehicleNumber">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Vehicle Make"
-                                    v-model="newVehicleDetails.VehicleMake">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Vehicle Model"
-                                    v-model="newVehicleDetails.VehicleModel">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Parking Lot"
-                                    v-model="newVehicleDetails.Parkinglot">
-                            </div>
-                            <div class="form-group">
-                                <span v-for="vehicleType in vehicleTypes">
-                                    <input type="radio" name="vehicleType"
-                                        @click="changeVehicleType(vehicleType, $event)"
-                                        v-model="newVehicleDetails.VehicleTypeId" :value="vehicleType.VehicleTypeId">
-                                    {{vehicleType.VehicleTypeName}}
-                                </span>
+                </div>
 
+                <div class="row" v-if="serviceType == 1">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>
+                                Frequency
+                            </label>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="cellRow">
+                                <div class="cell" v-for="product in subscriptionTypes" style="flex: 0 0 12%;">
+                                    <label class="radioLabel customradioLabel">
+                                        <input type="radio" name="serviceFrequency" :value="product.SubsribeId"
+                                            v-model="vehicleInfo.Frequency">
+                                        <span class="form-group serviceName">
+                                            {{product.SubscribeType}}
+                                        </span>
+                                    </label>
+
+                                </div>
                             </div>
-                            <div class="form-group" v-if="newVehicleDetails.VehicleTypeId == 2">
-                                <span v-for="type in fourWheelerTypes">
-                                    <input type="radio" name="fourWheelerType"
-                                        v-model="newVehicleDetails.FourWheelerTypeId" :value="type.Id">
-                                    {{type.VehicleType}}
-                                </span>
-                            </div>
+                        </div>
+                        <div class="form-group" v-if="vehicleInfo.Frequency == 2">
+                            <label>Day</label>
+
+                            <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Sunday
+                            <input type="radio" value="1" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Monday
+                            <input type="radio" value="2" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Tuesday
+                            <input type="radio" value="3" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Wednesday
+                            <input type="radio" value="4" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Thursday
+                            <input type="radio" value="5" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Friday
+                            <input type="radio" value="6" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Saturday
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Date
+                            </label>
+                            <datePickerComponent :keyString="'StartDate'" v-model="vehicleInfo.ServiceDate"
+                                :value="vehicleInfo.ServiceDate" :format="'Do MMM YYYY'" :onUpdate="updateServiceDate"
+                                :pickerType="'date'">
+                            </datePickerComponent>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Time Slot
+                            </label>
+                            <select v-model="vehicleInfo.TimeSlot" class="form-control">
+                                <option value="1">6:00 AM - 8:00 AM</option>
+                                <option value="2">8:00 AM - 10:00 AM</option>
+                                <option value="3">10:00 AM - 12:00 PM</option>
+                                <option value="4">12:00 PM - 2:00 PM</option>
+                                <option value="5">2:00 PM - 4:00 PM</option>
+                                <option value="6">4:00 PM - 6:00 PM</option>
+                                <option value="7">6:00 PM - 8:00 PM</option>
+                                <option value="8">8:00 PM - 10:00 PM</option>
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                Promo Code
+                            </label>
+                            <input type="text" v-model="vehicleInfo.Promocode" class="form-control"
+                                placeholder="Promo Code">
+
                         </div>
                     </div>
 
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
-                    <button class="btn btn-success btn-sm pull-right" title="Save User"
-                        @click="addNewVehicle">Add</button>
+
+                <div class="address">
+                    <div>
+                        <h5>Delivery/Service Address</h5>
+                        <!-- <span style="float: right;" v-if="!vehicleAddress">
+                            Add
+                        </span>
+                        <span style="float: right;" v-if="vehicleAddress">
+                            Edit
+                        </span> -->
+                    </div>
+                    <div v-if="vehicleAddress">
+                        <div>
+                            {{vehicleAddress.AddressLine1 + ", " + vehicleAddress.AddressLine2 }}
+                        </div>
+                        <div v-if="vehicleAddress.Landmark">
+                            Landmark: {{vehicleAddress.Landmark }}
+                        </div>
+                        <div>
+                            {{vehicleAddress.CityName + ", " + vehicleAddress.StateName }}
+                        </div>
+                        <div>
+                            {{vehicleAddress.CountryName + ", " + vehicleAddress.Pincode }}
+                        </div>
+                    </div>
+
                 </div>
+
+                <div class="form-group">
+                    <button class="btn btn-success btn-sm pull-right" :disabled="!vehicleInfo.VehicleId" title="Confirm"
+                        @click="confirmServiceOrder">Confirm</button>
+                </div>
+
+
             </div>
         </div>
     </div>

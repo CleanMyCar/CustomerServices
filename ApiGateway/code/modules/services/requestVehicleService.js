@@ -1,4 +1,5 @@
 const mssql = require('mssql');
+const moment = require("moment");
 
 module.exports = (config, params, callback) => {
     const requestParams = config.dbwrapper.getNewRequest();
@@ -12,7 +13,7 @@ module.exports = (config, params, callback) => {
     requestParams.input('UserId', mssql.Int, params.systemParams.UserId);
     requestParams.input('TimeSlot', mssql.NVarChar, params.TimeSlot);
     requestParams.input('WeeklyDay', mssql.Int, params.WeeklyDay);
-    requestParams.input('ServiceDate', mssql.DateTime, params.ServiceDate);
+    requestParams.input('ServiceDate', mssql.Date, moment(params.ServiceDate).format("YYYY-MM-DD"));
 
     requestParams.execute('SaveVehicleRequest', (err, result) => {
         if (err) {

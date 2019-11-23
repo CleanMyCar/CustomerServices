@@ -1,0 +1,34 @@
+<div class="">
+    <div>
+        <h4>My Products</h4>
+    </div>
+
+    <div>
+        <h5>Vehicles</h5>
+        <button class="btn btn-default" @click="openVehicleAddPopup">
+            Add +
+        </button>
+    </div>
+    <div class="cellRow" v-for="product in myVehicles" style="border: 1px solid #65ff00">
+        <div class="cell">
+            <span v-if="product.VehicleTypeId == 1" class="defaultBikeImage"></span>
+            <span v-if="product.VehicleTypeId == 2" class="defaultCarImage"></span>
+        </div>
+        <div class="cell">
+            <div class="form-group">
+                <!-- <span style="float: right;" @click="deleteConfirm(product)">
+                    <i class="far fa-trash-alt"></i>
+                </span> -->
+            </div>
+            <div class="form-group">
+                <span> {{product.VehicleName}}</span>
+            </div>
+            <div class="form-group">
+                <span> {{product.VehicleNumber}}</span>
+                <span style="color: #004dff;">{{product.SubscribeType}}</span>
+            </div>
+        </div>
+    </div>
+
+    <vehicleAddComponent v-if="openedVehicleAddPopup" :updateParent="getMyProducts"></vehicleAddComponent>
+</div>

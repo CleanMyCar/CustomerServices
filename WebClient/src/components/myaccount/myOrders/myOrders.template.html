@@ -2,7 +2,7 @@
     <div>
         <h4>My Orders</h4>
     </div>
-    <div class="cellRow" v-for="product in subscriptions" style="border: 1px solid #65ff00">
+    <div class="cellRow" v-for="product in subscriptions" style="border: 1px solid #c5c5c5; margin: 5px; padding: 5px;">
         <orderItem :orderId="product.RequestId" :pauseOrder="pauseOrder" :resumeOrder="resumeOrder" :deleteOrder="deleteConfirm"></orderItem>
     </div>
 

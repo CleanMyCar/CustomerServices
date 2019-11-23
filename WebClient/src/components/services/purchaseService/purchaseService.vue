@@ -13,7 +13,8 @@
                     isPersonal: true,
                     VehicleId: null,
                     Frequency: null,
-                    TimeSlot: "1"
+                    TimeSlot: "1",
+                    AddressId: null
                 },
                 newVehicleDetails: null,
                 fourWheelerTypes: [],
@@ -21,7 +22,10 @@
                 newVehicleImage: null,
                 subscriptionTypes: [],
                 vehicleAddress: null,
-                searchAddressText: null
+                searchAddressText: null,
+                defaultImage: "../../../src/content/images/car.png",
+                addressList: [],
+                showAddressList: false
             };
         },
 
@@ -152,6 +156,27 @@
             },
             updateServiceDate(key, dateObj, objectPassedToParent) {
                 this.vehicleInfo.ServiceDate = dateObj ? dateObj.format("DD MMM YYYY") : null;
+            },
+            getAddressBySearchText(text) {
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "GetAddressBySearch",
+                    params: {
+                        searchText: text
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+                        vm.addressList.splice(0, vm.addressList.length, ...response);
+                        vm.showAddressList = true;
+                    }
+                });
+            },
+            selectAddress(addressObj) {
+                this.vehicleInfo.AddressId = addressObj.AddressId;
+                this.searchAddressText = addressObj.AddressLine1 + " " + addressObj.AddressLine2 + ", " + addressObj.Landmark + " " + addressObj.CityName + ", " + addressObj.StateName
+                this.showAddressList = false;
             }
         },
 
@@ -165,7 +190,33 @@
             vm.fetchData();
         },
         watch: {
-            $route: "fetchData"
+            $route: "fetchData",
+            searchAddressText(value) {
+                if (value && value.trim().length > 2 && value.trim().length < 10) {
+                    this.getAddressBySearchText(value);
+                }
+                else {
+                    this.addressList.splice(0, this.addressList.length)
+                }
+            }
         }
     };
 </script>
+<style>
+    .vechiles {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    /* IMAGE STYLES */
+    .vechiles+img {
+        cursor: pointer;
+    }
+
+    /* CHECKED STYLES */
+    .vechiles:checked+img {
+        outline: 2px solid blue;
+    }
+</style>

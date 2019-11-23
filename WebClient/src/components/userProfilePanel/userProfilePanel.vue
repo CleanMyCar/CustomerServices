@@ -3,7 +3,7 @@
 <script>
     export default {
         name: 'userProfilePanel',
-        props: [],
+        props: ["panelCallback"],
         data() {
             return {
                 userProfile: null
@@ -28,21 +28,30 @@
                     }
                 })
             },
-            fetchData(){
-                
+            fetchData() {
+
             },
-            redirectToHome(){
+            redirectToHome() {
+                this.panelCallback();
                 this.$router.push("/")
             },
-            redirectToMyAccount(){
+            redirectToMyAccount() {
+                this.panelCallback();
                 this.$router.push("/myAccount")
             },
-            redirectToMyProducts(){
+            redirectToMyProducts() {
+                this.panelCallback();
                 this.$router.push("/myProducts")
             },
-            redirectToMyOrders(){
+            redirectToMyOrders() {
+                this.panelCallback();
                 this.$router.push("/myOrders")
             },
+            userLogout() {
+                this.panelCallback();
+                window.localStorage.removeItem('rttoken');
+                window.location.href = "/login.html"
+            }
         },
         computed: {
 

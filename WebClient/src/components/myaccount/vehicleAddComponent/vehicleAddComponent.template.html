@@ -1,0 +1,76 @@
+<div class="modal" data-backdrop="static" role="dialog" id="newVehicleDetailsPopup">
+    <div class="modal-dialog" v-if="newVehicleDetails">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
+                    data-dismiss="modal">
+                    &times;
+                </button>
+                <h4>Add Vechile Details</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <!-- <input type="text" class="form-control" placeholder="Building/Apartment Name"
+                                v-model="newVehicleDetails.AddressId"> -->
+
+                            <div class="col-md-12 searchResultsAmenitiesDiv">
+                                <input type="text" placeholder="Please type here to choose address..."
+                                    v-model.trim="searchAddressText">
+                            </div>
+                            <div class="form-control searchResultsAmenities" @click="$event.stopPropagation()"
+                                id="propertyDropDown" v-show="showAddressList">
+                                <ul>
+                                    <li v-for="property in propertyList" v-bind:value="property"
+                                        @click="addPropertyToFilter(property)">{{property.PropertyName}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Vehicle Name"
+                                v-model="newVehicleDetails.VehicleName">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Vehicle No"
+                                v-model="newVehicleDetails.VehicleNumber">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Vehicle Make"
+                                v-model="newVehicleDetails.VehicleMake">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Vehicle Model"
+                                v-model="newVehicleDetails.VehicleModel">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Parking Lot"
+                                v-model="newVehicleDetails.Parkinglot">
+                        </div>
+                        <div class="form-group">
+                            <span v-for="vehicleType in vehicleTypes">
+                                <input type="radio" name="vehicleType" @click="changeVehicleType(vehicleType, $event)"
+                                    v-model="newVehicleDetails.VehicleTypeId" :value="vehicleType.VehicleTypeId">
+                                {{vehicleType.VehicleTypeName}}
+                            </span>
+
+                        </div>
+                        <div class="form-group" v-if="newVehicleDetails.VehicleTypeId == 2">
+                            <span v-for="type in fourWheelerTypes">
+                                <input type="radio" name="fourWheelerType" v-model="newVehicleDetails.FourWheelerTypeId"
+                                    :value="type.Id">
+                                {{type.VehicleType}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
+                <button class="btn btn-success btn-sm pull-right" title="Save User" @click="addNewVehicle">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
