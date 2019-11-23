@@ -1,8 +1,8 @@
-<template src="./homePageComponent.template.html"></template>
+<template src="./servicePersonHomePageComponent.template.html"></template>
 
 <script>
     export default {
-        name: "homePage",
+        name: "servicePersonHomePage",
         props: [],
         data() {
             return {
@@ -27,9 +27,15 @@
                             });
                             return;
                         }
-                        
-                        if (response.UserRoleId === 2) {
+                        vm.$store.state.loggedInUserDetail = response;
+                        if (vm.$store.state.loggedInUserDetail.UserRoleId === 1) {
                             vm.getServices();
+                        }
+                        else if (vm.$store.state.loggedInUserDetail.UserRoleId === 2) {
+                            vm.getAdminDashborad();
+                        }
+                        else if (vm.$store.state.loggedInUserDetail.UserRoleId === 3) {
+                            vm.getServicePersonDashborad();
                         }
                     }
                 })

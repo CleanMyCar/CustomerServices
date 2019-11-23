@@ -4,7 +4,7 @@
             <div class="logoSection">
                 <a class="mainLogo">
 
-                    <span v-if="selectedClientObj" class="">{{ClientName}}</span>
+                    <!-- <span v-if="selectedClientObj" class="">{{ClientName}}</span> -->
                     <!-- <span v-if="(selectedClientObj && selectedClientObj.ClientId === 1 && ClientId !== 1)"><button title="Client List" @click="showPropertyPanel"><i style="font-size:24px" class="fa">&#xf107;</i></button></span> -->
                 </a>
 
@@ -172,28 +172,4 @@
 
     </div>
     <!-- password -->
-
-    
-    <div class="clientList">
-        <div class="sideBarHeading">
-            <h6>Client List </h6>
-        </div>
-
-
-        <div class="col-md-12 pt-3">
-            <ul class="listMenu">
-                <li v-for="client in clientList" @click="viewClientDetailById(client)" v-if="client.ClientId >= 1">
-                    <img v-if="client.ClientLogo  && client.ClientLogo !== 'null'  && client.ClientLogo !== ''  "
-                        :src="imageURLS(client.ClientLogo)"
-                        style="max-width:61px; height:47px; margin-right: 7px; white-space: nowrap">
-                    <img v-else style="max-width:61px; height:47px; margin-right: 7px; white-space: nowrap"
-                        class="dummyListLogo" />{{client.ClientName}}
-                    <span class="status"
-                        v-bind:class="[client.StatusId == 1 ? 'active' : 'inactive']">{{client.StatusId == 1 ? 'Active' : 'Inactive'}}
-                    </span>
-                </li>
-            </ul>
-        </div>
-    </div>
-
 </div>

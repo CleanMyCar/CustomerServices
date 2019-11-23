@@ -24,7 +24,8 @@ import PaymentsReport from './components/Dashboard/PaymentsReport/PaymentsReport
 import userProfilePanel from './components/userProfilePanel/userProfilePanel.vue'
 import orderItemComponent from './components/myaccount/orderItemComponent/orderItemComponent.vue'
 import vehicleAddComponent from './components/myaccount/vehicleAddComponent/vehicleAddComponent.vue'
-
+import adminHomePage from './components/homeModule/adminHomePageComponent/adminHomePageComponent.vue'
+import servicePersonHomePage from "./components/homeModule/servicePersonHomePageComponent/servicePersonHomePageComponent.vue"
 
 Vue.component(datePickerComponent.name, datePickerComponent);
 Vue.component(pageLoadingComponent.name, pageLoadingComponent);
@@ -42,6 +43,8 @@ Vue.component(VueGoogleAutocomplete.name, VueGoogleAutocomplete);
 Vue.component(userProfilePanel.name, userProfilePanel);
 Vue.component(orderItemComponent.name, orderItemComponent);
 Vue.component(vehicleAddComponent.name, vehicleAddComponent)
+Vue.component(adminHomePage.name, adminHomePage)
+Vue.component(servicePersonHomePage.name, servicePersonHomePage)
 
 
 new Vue({

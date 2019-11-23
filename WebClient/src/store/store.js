@@ -136,8 +136,8 @@ export const store = new Vuex.Store({
     EntityNames: {},
     defaultUserPropertyId: null,
     bus: new Vue(),
-    getFormattedAmount: getFormattedAmount
-
+    getFormattedAmount: getFormattedAmount,
+    loggedInUserDetail: null
 
   },
   mutations: {

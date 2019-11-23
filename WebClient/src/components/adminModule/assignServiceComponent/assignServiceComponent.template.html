@@ -1,0 +1,40 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="btn-group pull-right">
+        </div>
+    </div>
+
+    <div>
+        <span class="defaultView" v-if="pendingServices">
+            <span v-if="serviceType === 1">Showing All Vehicle Pending, </span>
+            <span v-if="serviceType === 2">Showing , </span>
+            <span v-if="serviceType === 3">Showing , </span>
+            <span v-if="serviceType === 4">Showing , </span>
+
+            <span style="font-size: 12px">{{pendingServices.length}} Services</span>
+        </span>
+    </div>
+    <div class="panel-body">
+        <!-- <pageLoadingComponent v-show="loading"></pageLoadingComponent> -->
+
+        <div class="row">
+            <div class="bgCover col-md-12 col-sm-12">
+                <div class="card zoomIn animated" v-for="service in pendingServices" style="margin: 2px">
+                    <div class="card-block">
+                        <div class="cardContent">
+                            <h6 class="card-title">
+                                {{service.ServiceName}}
+                            </h6>
+                            Amount: <span>₹ {{service.ServiceType == 1 ? service.SubscriptionPrice : service.Price}}/-</span> <br>
+                            Service Date: <span>{{returnDateTime(service.ServiceDate)}}</span><br>
+                            Requested Date: <span>{{returnDateTime(service.RequestedOn)}}</span><br>
+                            Vehicle Number: <span>{{service.VehicleNumber}}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

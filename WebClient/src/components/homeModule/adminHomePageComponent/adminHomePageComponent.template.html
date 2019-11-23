@@ -1,0 +1,14 @@
+<div v-if="dashBoardDetails">
+    <div class="card-deck">
+        <div class="card" @click="showPendingVehicleServices">
+            <div class="card-block">
+                <div class="cardContent">
+                    <h6 class="card-title">
+                        Pending Vehicle Services
+                    </h6>
+                    <span class="counter">{{dashBoardDetails.PendingVehicleCount}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -315,9 +315,27 @@
         this.clear = false;
         this.loadGif = !this.loadGif
       },
-      panelCallback(){
+      panelCallback() {
         this.toggleNotification();
-      }
+      },
+      getUserDetails() {
+        let vm = this;
+        vm.$store.dispatch("dataRequestHandler", {
+          key: "GetUserProfile",
+          params: {},
+          callback: function (error, response) {
+            if (error) {
+              vm.$store.dispatch("toastr", {
+                type: "error",
+                header: "user error!",
+                message: error.sqlMessage ? error.sqlMessage : error
+              });
+              return;
+            }
+            vm.$store.state.loggedInUserDetail = response;            
+          }
+        })
+      },
     },
     computed: {
 
@@ -403,6 +421,7 @@
     mounted() {
       //this.getNotifications1();
       let vm = this;
+      vm.getUserDetails();
     }
   }
 

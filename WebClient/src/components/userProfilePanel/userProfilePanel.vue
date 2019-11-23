@@ -6,7 +6,6 @@
         props: ["panelCallback"],
         data() {
             return {
-                userProfile: null
             }
         },
         methods: {
@@ -54,7 +53,10 @@
             }
         },
         computed: {
-
+            userProfile(){
+                return this.$store.state.loggedInUserDetail ? this.$store.state.loggedInUserDetail : null;
+            }
+            
         },
         beforeDestroy() {
 
@@ -63,7 +65,7 @@
             $route: "fetchData"
         },
         mounted() {
-            this.getUserProfileSummary();
+            // this.getUserProfileSummary();
         }
     }
 </script>

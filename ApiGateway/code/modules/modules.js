@@ -39,7 +39,9 @@ const getServiceList = require("./services/getServiceList"),
   pauseSubscriptionItem = require("./services/pauseSubscriptionItem"),
   deleteSubscription = require("./services/deleteSubscription"),
   getMyProducts = require("./myAccount/getMyProducts"),
-  getAddressBySearch = require("./services/getAddressBySearch");
+  getAddressBySearch = require("./services/getAddressBySearch"),
+  getAdminDashboard = require("./admin/getAdminDashboard"),
+  getAllPendingServicesByType = require("./admin/getAllPendingServicesByType");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -84,4 +86,6 @@ module.exports = [
   { key: "DeleteSubscription", callback: deleteSubscription, pushkey: null, isLoggingEnabled: false },
   { key: "GetMyProducts", callback: getMyProducts, pushkey: null, isLoggingEnabled: false },
   { key: "GetAddressBySearch", callback: getAddressBySearch, pushkey: null, isLoggingEnabled: false },
+  { key: "GetAdminDashboard", callback: getAdminDashboard, pushkey: null, isLoggingEnabled: false },
+  { key: "GetAllPendingServicesByType", callback: getAllPendingServicesByType, pushkey: null, isLoggingEnabled: false },
 ];
