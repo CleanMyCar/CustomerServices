@@ -37,7 +37,7 @@ const configParams = (() => {
             server: 'localhost',
             user: 'sa',
             password: 'Apple#123',
-            database: 'RoomTempo_Dev_ISS',            
+            database: 'RoomTempo_Dev_ISS',
             pool: {
                 max: 10,
                 min: 0,
@@ -492,7 +492,6 @@ require('./code/core/core')(configParams)
         const generateOtpForUser = require('./code/modules/user/generateOtpForUser.js');
         const verifyUserOtp = require('./code/modules/user/verifyUserOtp.js');
         const addAppIdToUser = require('./code/modules/user/addAppIdToUser.js');
-        const clientProfile = require('./code/modules/client/getClientProfile.js');
         const registerNewUser = require('./code/modules/user/registerUser');
 
 
@@ -738,56 +737,6 @@ require('./code/core/core')(configParams)
 
         /* Route for writing data to an excel and downloading it */
 
-
-
-
-        app.post('/Validate_Subdomain', function (req, res) {
-            console.log(req)
-            let params = req.body;
-
-            Validate_Subdomain(config, params, function (error, responseObj) {
-                if (error) {
-                    console.log("err in Validate_Subdomain", res.end(JSON.stringify(error)));
-                }
-                if (responseObj) {
-                    console.log("responseObj in Validate_Subdomain", responseObj);
-                    // let responseObjToSend = {
-                    //     folioData: responseObj,
-                    // }
-                    if (responseObj.recordsets.length > 1 && responseObj.recordsets[1].length > 0) {
-                        console.log("responseObj in validate user", responseObj.recordsets[0]);
-                        headerObj = {
-                            ClientId: responseObj.recordsets[1][0]["ClientId"],
-                            ClientName: responseObj.recordsets[1][0]["ClientName"],
-                            BE_Id: responseObj.recordsets[1][0]["BE_Id"],
-                            BE_Name: responseObj.recordsets[1][0]["BE_Name"],
-                            BE_Type: responseObj.recordsets[1][0]["BE_Type"],
-                            SubDomainName: responseObj.recordsets[1][0]["SubDomainName"],
-                            TLD_Name: responseObj.recordsets[1][0]["TLD_Name"],
-
-                            // Source: apiSystemParams.Source
-                        };
-
-                        config.utils.JwtToken.GetToken(config, { "header": headerObj }, function (tokenObj) {
-                            if (tokenObj) {
-                                responseObj.recordsets[1][0]["token"] = tokenObj.token;
-                                res.end(JSON.stringify({ response: responseObj.recordsets[1], token: tokenObj.token }));
-
-                            } else {
-                                res.end(JSON.stringify({ response: { "error": 1, "ErrorMessage": "Invalid Parameters" }, token: null }));
-                            }
-                        });
-                    } else {
-                        console.log("Else condition");
-                        res.end(JSON.stringify({ response: responseObj, token: null }));
-                    }
-                    // res.send(responseObj);
-
-                }
-            });
-
-        });
-
         app.post('/getExcelData', function (req, res) {
             // data which needs to be sent in the response.
             let params = req.body;
@@ -917,47 +866,17 @@ require('./code/core/core')(configParams)
         /* Route for writing data to an excel and downloading it */
 
         // ==================== files uploading =================================
-        app.post('/getFolioInvoiceData', function (req, res) {
-            console.log("req.body in getFolioInvoiceData", req.body);
-            let params = req.body;
-            getFolioInvoice(config, params, function (error, responseObj) {
-                if (error) {
-                    console.log("err in getFolioInvoice", res.end(JSON.stringify(error)));
-                }
-                if (responseObj) {
-                    console.log("responseObj in getFolioInvoice", responseObj);
-                    let responseObjToSend = {
-                        folioData: responseObj,
-                    }
-                    res.send(responseObjToSend);
-
-                }
-            });
-        });
-
-        // call from rentals united for the certification
 
         http.listen(process.env.PORT || 1339);
     })
 
-    /* Route for writing data to an excel and downloading it */
-
-    // ==================== files uploading =================================
-
-
-
-
-
     .catch(reason => {
         console.log(reason);
     });
+
+    
 process.on('uncaughtException', (err) => {
     console.log("uncaughtException", err)
     logger.fatal((new Date).toUTCString() + ' uncaughtException:', err.message, err.stack);
-
-
     process.exit(1);
-    // Using kill instead of exit because couchbase kafka dgraph will have active connections which will not allow the process a clean exit
-    //process.kill(process.pid);
-    // process.abort();
 });

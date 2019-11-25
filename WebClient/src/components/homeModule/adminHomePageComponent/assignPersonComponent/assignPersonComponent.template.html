@@ -1,0 +1,14 @@
+<div>
+    <div class="searchResultsAmenitiesDiv">
+        <input type="text" placeholder="Please type name..." v-model.trim="searchNameText">
+    </div>
+    <div class="form-control searchResultsAmenities" @click="$event.stopPropagation()" id="propertyDropDown"
+        v-show="showServicePersonList">
+        <ul>
+            <li v-for="person in servicePersonList" v-bind:value="person.UserId" @click="selectServicePerson(person)" v-html='person.UserLastName + " " + person.UserFirstName + "<br>" + person.AddressLine1 + " " + person.AddressLine2 + ", " + person.Landmark + " " + person.CityName + ", " + person.StateName'>
+                
+            </li>
+        </ul>
+    </div>
+    <button class="btn btn-default" @click="assignService"><i class="fas fa-check"></i></button>
+</div>

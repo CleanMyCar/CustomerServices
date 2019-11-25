@@ -22,7 +22,6 @@ const getNotificationList = require("./notifications/getNotificationsListByUser"
 const dismissNotification = require("./notifications/dismissNotification");
 const getNotificationDetail = require("./notifications/getNotificationDetail");
 
-const addclientdetails = require("./clientDetails/addClientDetails");
 
 const deleteImages = require("./images/deleteImages");
 const getImages = require("./images/getImages");
@@ -41,7 +40,10 @@ const getServiceList = require("./services/getServiceList"),
   getMyProducts = require("./myAccount/getMyProducts"),
   getAddressBySearch = require("./services/getAddressBySearch"),
   getAdminDashboard = require("./admin/getAdminDashboard"),
-  getAllPendingServicesByType = require("./admin/getAllPendingServicesByType");
+  getAllPendingServicesByType = require("./admin/getAllPendingServicesByType"),
+  getServicePersonList = require("./services/getServicePersonList"),
+  getUserPrimaryAddress = require("./user/getUserPrimaryAddress"),
+  assignPersonToService = require("./services/assignPersonToService");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -69,7 +71,6 @@ module.exports = [
   { key: "GetNotificationList", callback: getNotificationList, pushkey: null },
   { key: "DismissNotification", callback: dismissNotification, pushkey: null, isLoggingEnabled: false },
   { key: "GetNotificationDetail", callback: getNotificationDetail, pushkey: null },
-  { key: "AddClientDetails", callback: addclientdetails, pushkey: null },
   { key: "DeleteImages", callback: deleteImages, pushkey: null },
   { key: "GetImages", callback: getImages, pushkey: null },
   { key: "GetServiceList", callback: getServiceList, pushkey: null, isLoggingEnabled: false },
@@ -88,4 +89,7 @@ module.exports = [
   { key: "GetAddressBySearch", callback: getAddressBySearch, pushkey: null, isLoggingEnabled: false },
   { key: "GetAdminDashboard", callback: getAdminDashboard, pushkey: null, isLoggingEnabled: false },
   { key: "GetAllPendingServicesByType", callback: getAllPendingServicesByType, pushkey: null, isLoggingEnabled: false },
+  { key: "GetServicePersonList", callback: getServicePersonList, pushkey: null, isLoggingEnabled: false },
+  { key: "GetUserPrimaryAddress", callback: getUserPrimaryAddress, pushkey: null, isLoggingEnabled: false },
+  { key: "AssignPersonToService", callback: assignPersonToService, pushkey: null, isLoggingEnabled: false },
 ];

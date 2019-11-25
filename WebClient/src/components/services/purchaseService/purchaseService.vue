@@ -23,7 +23,8 @@
                 subscriptionTypes: [],
                 vehicleAddress: null,
                 searchAddressText: null,
-                defaultImage: "../../../src/content/images/car.png",
+                defaultCarImage: "../../../src/content/images/car.png",
+                defaultBikeImage: "../../../src/content/images/bike.png",
                 addressList: [],
                 showAddressList: false
             };
@@ -145,8 +146,7 @@
                         if (err) {
                             return;
                         }
-                        // vm.vehicleAddress = response;
-                        vm.$router.push("/mysubscriptions");
+                        vm.$router.push("/myOrders");
 
                     }
                 });
@@ -174,9 +174,18 @@
                 });
             },
             selectAddress(addressObj) {
-                this.vehicleInfo.AddressId = addressObj.AddressId;
+                this.newVehicleDetails.AddressId = addressObj.AddressId;
                 this.searchAddressText = addressObj.AddressLine1 + " " + addressObj.AddressLine2 + ", " + addressObj.Landmark + " " + addressObj.CityName + ", " + addressObj.StateName
                 this.showAddressList = false;
+            },
+            filesChange(e) {
+                let files = e.target.files || e.dataTransfer.files;
+                let vm = this;
+                let reader = new FileReader();
+                reader.onload = e => {
+                    vm.newVehicleDetails.VehicleImage = e.target.result;
+                }
+                reader.readAsDataURL(files[0]);
             }
         },
 

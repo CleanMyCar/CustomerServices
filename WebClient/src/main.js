@@ -26,6 +26,7 @@ import orderItemComponent from './components/myaccount/orderItemComponent/orderI
 import vehicleAddComponent from './components/myaccount/vehicleAddComponent/vehicleAddComponent.vue'
 import adminHomePage from './components/homeModule/adminHomePageComponent/adminHomePageComponent.vue'
 import servicePersonHomePage from "./components/homeModule/servicePersonHomePageComponent/servicePersonHomePageComponent.vue"
+import assignPersonComponent from "./components/homeModule/adminHomePageComponent/assignPersonComponent/assignPersonComponent.vue"
 
 Vue.component(datePickerComponent.name, datePickerComponent);
 Vue.component(pageLoadingComponent.name, pageLoadingComponent);
@@ -45,7 +46,7 @@ Vue.component(orderItemComponent.name, orderItemComponent);
 Vue.component(vehicleAddComponent.name, vehicleAddComponent)
 Vue.component(adminHomePage.name, adminHomePage)
 Vue.component(servicePersonHomePage.name, servicePersonHomePage)
-
+Vue.component(assignPersonComponent.name, assignPersonComponent)
 
 new Vue({
   el: '#app',
