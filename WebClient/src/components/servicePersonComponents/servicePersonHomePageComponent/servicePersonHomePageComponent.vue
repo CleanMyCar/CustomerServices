@@ -63,22 +63,6 @@
             chooseOption(serviceObj, optionType) {
                 this.$router.push("/purchaseService/" + serviceObj.ServiceId + "/" + optionType);
             },
-            getAdminDashborad() {
-                let vm = this;
-                vm.$store.dispatch("dataRequestHandler", {
-                    key: "GetAdminDashboard",
-                    params: {
-                    },
-                    callback: function (err, response) {
-                        if (err) {
-                            return;
-                        }
-                        if (response) {
-                            vm.servieList.splice(0, vm.servieList.length, ...response);
-                        }
-                    }
-                });
-            },
             getServicePersonDashborad() {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
@@ -97,9 +81,6 @@
             }
         },
         computed: {
-            role() {
-                return this.$store.state.loggedInUserDetail ? this.$store.state.loggedInUserDetail.UserRoleId : null
-            }
         },
 
         mounted() {

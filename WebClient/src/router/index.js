@@ -8,16 +8,8 @@ import UserList from '../components/userModule/userListModule/userListVue.vue'
 import UserDetail from '../components/userModule/userDetailModule/userDetailVue.vue'
 import UserProfile from '../components/userModule/userProfileComponentVue/userProfileComponentVue.vue'
 
-import ClientDetail from '../components/adminModule/clientVueComponent/clientDetailVue/clientDetailVue.vue'
-import ClientList from '../components/adminModule/clientVueComponent/clientListVue/clientListVue.vue'
-
-
-import Dashboard from '../components/Dashboard/Dashboard.vue'
-
 import UserPasswordValidate from "../components/userModule/userChangePassword/userChangePasswordVue.vue"
 
-import guestProfileList from "../components/guestProfile/guestProfileListVue/guestProfileListVue.vue"
-import guestProfileDetail from "../components/guestProfile/guestProfileDetailVue/guestProfileDetailVue.vue"
 import map from '../components/adminModule/map/map.vue'
 import Lightbox from '../components/Lightbox/Lightbox.vue'
 import timePicker from '../components/timePicker/timepicker.vue'
@@ -35,12 +27,7 @@ import assignServiceComponent from "../components/adminModule/assignServiceCompo
 Vue.use(Router);
 
 export default new Router({
-  routes: [
-    {
-      path: '/clientList',
-      name: 'ClientList',
-      component: ClientList
-    },
+  routes: [    
     {
       path: '/',
       name: 'homePage',
@@ -66,39 +53,9 @@ export default new Router({
       props: {}
     },
     {
-      path: '/Dashboard',
-      name: 'Dashboard',
-      component: Dashboard,
-      props: {}
-    },
-    {
-      path: '/clientList',
-      name: 'ClientList',
-      component: ClientList,
-      props: {}
-    },
-    {
-      path: '/clientDetail/:clientId',
-      name: 'ClientDetail',
-      component: ClientDetail,
-      props: {}
-    },
-    {
       path: '/userValidate',
       name: "UserValidate",
       component: UserPasswordValidate,
-    },
-    {
-      path: '/guestProfileList',
-      name: 'GuestProfileList',
-      component: guestProfileList,
-      props: {}
-    },
-    {
-      path: '/guestProfileDetail/:GuestProfileId/:PartyAddressId',
-      name: 'GuestProfileListDetail',
-      component: guestProfileDetail,
-      props: {}
     },
     {
       path: '/map',

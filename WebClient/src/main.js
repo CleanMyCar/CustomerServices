@@ -12,20 +12,17 @@ import tagComponent from "./components/commonComponents/tagComponent/tagComponen
 import Lightbox from './components/Lightbox/Lightbox.vue';
 import timepicker from './components/timePickerGridView/timePickerGridView.vue';
 import DateRangePicker from './components/DateRangePicker/components/DateRangePicker';
-import tinymce from './components/TinymceVue.vue';
 
 import googleMaps from './components/googleMapsComponent/googleMapsComponent.vue';
 import addMarker from './components/googleMapsComponent/addMarker.vue';
 
 import VueGoogleAutocomplete from './components/VueGoogleAutocomplete.vue';
 
-import SalesReport from './components/Dashboard/SalesReport/SalesReport.vue'
-import PaymentsReport from './components/Dashboard/PaymentsReport/PaymentsReport.vue'
 import userProfilePanel from './components/userProfilePanel/userProfilePanel.vue'
 import orderItemComponent from './components/myaccount/orderItemComponent/orderItemComponent.vue'
 import vehicleAddComponent from './components/myaccount/vehicleAddComponent/vehicleAddComponent.vue'
 import adminHomePage from './components/homeModule/adminHomePageComponent/adminHomePageComponent.vue'
-import servicePersonHomePage from "./components/homeModule/servicePersonHomePageComponent/servicePersonHomePageComponent.vue"
+import servicePersonHomePage from "./components/servicePersonComponents/servicePersonHomePageComponent/servicePersonHomePageComponent.vue"
 import assignPersonComponent from "./components/homeModule/adminHomePageComponent/assignPersonComponent/assignPersonComponent.vue"
 
 Vue.component(datePickerComponent.name, datePickerComponent);
@@ -35,11 +32,8 @@ Vue.component(tagComponent.name, tagComponent);
 Vue.component(Lightbox.name, Lightbox);
 Vue.component(timepicker.name, timepicker);
 Vue.component(DateRangePicker.name, DateRangePicker);
-Vue.component(tinymce.name, tinymce);
 Vue.component(googleMaps.name, googleMaps);
 Vue.component(addMarker.name, addMarker);
-Vue.component(SalesReport.name, SalesReport);
-Vue.component(PaymentsReport.name, PaymentsReport);
 Vue.component(VueGoogleAutocomplete.name, VueGoogleAutocomplete);
 Vue.component(userProfilePanel.name, userProfilePanel);
 Vue.component(orderItemComponent.name, orderItemComponent);
