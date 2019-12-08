@@ -14,7 +14,7 @@
         <div class="row">
             <div class="cold-md-12" style="text-align: center;">
                 <label class="" style="font-size: 25px">Rs.
-                    {{userProfile.Balance ? userProfile.Balance : 'XXX.XX/-'}}</label>
+                    {{userWallet.Amount ? userWallet.Amount : 'XXX.XX'}} /-</label>
             </div>
         </div>
         <div class="row">
@@ -33,11 +33,17 @@
                 <li @click="redirectToMyAccount">
                     My Account
                 </li>
-                <li @click="redirectToMyOrders">
+                <li @click="redirectToMyOrders" v-if="userRole === 2">
                     My Orders
                 </li>
-                <li @click="redirectToMyProducts">
+                <li @click="redirectToMyProducts" v-if="userRole === 2">
                     My Products
+                </li>
+                <li @click="redirectToRequestMaterial" v-if="userRole === 3">
+                    Material Request
+                </li>
+                <li @click="redirectToCompanyAssets" v-if="userRole === 3">
+                    Company Assests with Me
                 </li>
                 <li>
                     Shop By Category

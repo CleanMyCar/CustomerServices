@@ -332,7 +332,9 @@
               });
               return;
             }
-            vm.$store.state.loggedInUserDetail = response;            
+            vm.$store.state.loggedInUserDetail = response.userDetails;
+            vm.$store.state.loggedInUserWallet = response.userWallet;
+
           }
         })
       },

@@ -50,11 +50,25 @@
                 this.panelCallback();
                 window.localStorage.removeItem('rttoken');
                 window.location.href = "/login.html"
+            },
+            redirectToRequestMaterial(){
+                this.panelCallback();
+                this.$router.push("/requestMaterial")
+            },
+            redirectToCompanyAssets(){
+                this.panelCallback();
+                this.$router.push("/assets")
             }
         },
         computed: {
             userProfile(){
                 return this.$store.state.loggedInUserDetail ? this.$store.state.loggedInUserDetail : null;
+            },
+            userRole(){
+                return this.userProfile && this.userProfile.UserRoleId;;
+            },
+            userWallet(){
+                return this.$store.state.loggedInUserWallet;
             }
             
         },

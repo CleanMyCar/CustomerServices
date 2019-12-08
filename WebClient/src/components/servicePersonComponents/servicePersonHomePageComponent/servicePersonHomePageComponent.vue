@@ -1,6 +1,7 @@
 <template src="./servicePersonHomePageComponent.template.html"></template>
 
 <script>
+    import moment from "moment-timezone";
     export default {
         name: "servicePersonHomePage",
         props: [],
@@ -8,42 +9,18 @@
             return {
                 entityNamesdata: {},
                 servieList: [],
-                serviceObj: null
+                serviceObj: null,
+                todayDate: moment().format("DD MMM, YY"),
+                selectedProduct: null,
+                selectedOption: null
             };
         },
 
         methods: {
-            getUserDetails() {
-                let vm = this;
-                vm.$store.dispatch("dataRequestHandler", {
-                    key: "GetUserProfile",
-                    params: {},
-                    callback: function (error, response) {
-                        if (error) {
-                            vm.$store.dispatch("toastr", {
-                                type: "error",
-                                header: "user error!",
-                                message: error.sqlMessage ? error.sqlMessage : error
-                            });
-                            return;
-                        }
-                        vm.$store.state.loggedInUserDetail = response;
-                        if (vm.$store.state.loggedInUserDetail.UserRoleId === 1) {
-                            vm.getServices();
-                        }
-                        else if (vm.$store.state.loggedInUserDetail.UserRoleId === 2) {
-                            vm.getAdminDashborad();
-                        }
-                        else if (vm.$store.state.loggedInUserDetail.UserRoleId === 3) {
-                            vm.getServicePersonDashborad();
-                        }
-                    }
-                })
-            },
             getServices() {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
-                    key: "GetServiceList",
+                    key: "GetAssignedServices",
                     params: {
                     },
                     callback: function (err, response) {
@@ -78,14 +55,64 @@
                         }
                     }
                 });
+            },
+            taskStatusChangePopup(productObj) {
+                this.selectedProduct = productObj;
+                $("#taskStatusChangePopup").modal("show")
+            },
+            updateServiceDetails() {
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "UpdateServiceStatus",
+                    params: {
+                        StatusId: vm.selectedOption == 'yes' ? 5 : 6,
+                        RequestId: vm.selectedProduct.RequestId,
+                        Notes: vm.selectedProduct.notes,
+                        ServiceType: vm.selectedProduct.ServiceType,
+                        Amount: vm.selectedProduct.ServiceType == 2 ? vm.selectedProduct.Price : vm.selectedProduct.SubscriptionPrice,
+                        Attachment: vm.selectedProduct.Attachment
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+                        $("#taskStatusChangePopup").modal("hide");
+                        vm.closeConfirmationPopup();
+                        vm.getServices();
+                    }
+                });
+
+            },
+            cancel() {
+                $("#taskStatusChangePopup").modal("hide")
+            },
+            showConfirmationPopup(flag){
+                $("#serviceNotesPopup").modal("show")
+                this.selectedOption = flag;
+            },
+            closeConfirmationPopup(){
+                this.selectedOption = null;
+                $("#serviceNotesPopup").modal("hide")
+            },
+            filesChange(e) {
+                let files = e.target.files || e.dataTransfer.files;
+                let vm = this;
+                let reader = new FileReader();
+                reader.onload = e => {
+                    vm.selectedProduct.Attachment = e.target.result;
+                }
+                reader.readAsDataURL(files[0]);
             }
         },
         computed: {
+            userProfile() {
+                return this.$store.state.loggedInUserDetail;
+            }
         },
 
         mounted() {
             let vm = this;
-            vm.getUserDetails();
+            vm.getServices();
         },
 
 

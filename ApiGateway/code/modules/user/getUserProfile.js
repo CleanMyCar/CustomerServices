@@ -14,6 +14,11 @@ module.exports = (config, params, callback) => {
             return
         }
 
-        callback(null, result.recordsets && result.recordsets[0] && result.recordsets[0][0]);
+        let responseObj = {
+            userDetails: result.recordsets && result.recordsets[0] && result.recordsets[0][0],
+            userWallet: result.recordsets && result.recordsets[1] && result.recordsets[1][0]
+        }
+
+        callback(null, responseObj);
     })
 };

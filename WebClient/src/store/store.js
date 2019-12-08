@@ -137,8 +137,8 @@ export const store = new Vuex.Store({
     defaultUserPropertyId: null,
     bus: new Vue(),
     getFormattedAmount: getFormattedAmount,
-    loggedInUserDetail: null
-
+    loggedInUserDetail: null,
+    loggedInUserWallet: null
   },
   mutations: {
     setIsCurrentUserAdmin(state, isCurrentUserAdmin) {
