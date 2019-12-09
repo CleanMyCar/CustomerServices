@@ -28,7 +28,7 @@
                             return;
                         }
                         
-                        if (response.UserRoleId === 2) {
+                        if (response.userDetails.UserRoleId === 2) {
                             vm.getServices();
                         }
                     }
