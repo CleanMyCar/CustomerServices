@@ -2,6 +2,8 @@ const mssql = require('mssql');
 
 module.exports = (config, params, callback) => {
     const requestParams = config.dbwrapper.getNewRequest();
+    requestParams.input('SearchText', mssql.NVarChar, params.SearchText);
+    requestParams.input('NumberOfRecords', mssql.Int, params.NumberOfRecords);
 
     requestParams.execute('GetServiceList', (err, result) => {
         if (err) {

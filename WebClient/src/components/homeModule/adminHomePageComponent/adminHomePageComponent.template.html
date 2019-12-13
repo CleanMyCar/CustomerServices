@@ -55,6 +55,7 @@
                 <table style="width: 100%; overflow:scroll;">
                     <thead>
                         <th>Actions</th>
+                        <th>Building</th>
                         <th>Service</th>
                         <th>Requested On</th>
                         <th>Service Date</th>
@@ -67,6 +68,7 @@
                             <td>                                
                                 <assignPersonComponent :service="service" :updateServicePerson="updateServicePerson"></assignPersonComponent>
                             </td>
+                            <td>{{service.AddressLine1 + ', ' + service.ParkingLot}}</td>
                             <td>{{service.ServiceName}}</td>
                             <td>{{returnDateTime(service.RequestedOn)}}</td>
                             <td>{{returnDateTime(service.ServiceDate)}}</td>

@@ -1,7 +1,7 @@
 <div class="cell" v-if="orderDetails">
     <div class="cell">
         <img :src="orderDetails.ServiceImage" height="100" width="200" @click="showMoreInfo(service)">
-        <span style="float: right;" @click="deleteCustomerService(orderDetails)">
+        <span v-if="!disableDelete" style="float: right;" @click="deleteCustomerService(orderDetails)">
             <i class="far fa-trash-alt"></i>
         </span>
     </div>

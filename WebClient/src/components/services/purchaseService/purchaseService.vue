@@ -146,8 +146,12 @@
                         if (err) {
                             return;
                         }
-                        vm.$router.push("/myOrders");
-
+                        if (vm.serviceType == 2) {
+                            vm.$router.push("/myOrders");
+                        }
+                        if (vm.serviceType == 1) {
+                            vm.$router.push("/mysubscriptions");
+                        }
                     }
                 });
             },

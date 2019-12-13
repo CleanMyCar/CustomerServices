@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import HeaderMenu from './components/homeModule/headerComponent/headerComponent.vue';
-import LeftMenu from './components/homeModule/leftMenuComponent/leftMenuComponent.vue';
+// import LeftMenu from './components/homeModule/leftMenuComponent/leftMenuComponent.vue';
 import scss from './content/scssStyles.scss';
 import { store } from "./store/store";
 import datePickerComponent from "./components/datePicker/datePicker.vue";
@@ -61,13 +61,13 @@ new Vue({
   components: { HeaderMenu }
 });
 
-new Vue({
-  el: '#leftMenuPanel',
-  //render: h => h(App),
-  router,
-  template: '<LeftMenu/>',
-  store,
-  bus: "bus123",
-  components: { LeftMenu }
-});
+// new Vue({
+//   el: '#leftMenuPanel',
+//   //render: h => h(App),
+//   router,
+//   template: '<LeftMenu/>',
+//   store,
+//   bus: "bus123",
+//   components: { LeftMenu }
+// });
 

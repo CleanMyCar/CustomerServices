@@ -8,7 +8,8 @@
             return {
                 entityNamesdata: {},
                 servieList: [],
-                serviceObj: null
+                serviceObj: null,
+                SearchText: null
             };
         },
 
@@ -29,16 +30,18 @@
                         }
                         
                         if (response.userDetails.UserRoleId === 2) {
-                            vm.getServices();
+                            vm.getServices(null, 20);
                         }
                     }
                 })
             },
-            getServices() {
+            getServices(searchText, numberOfRecords) {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "GetServiceList",
                     params: {
+                        SearchText: searchText,
+                        NumberOfRecords: numberOfRecords
                     },
                     callback: function (err, response) {
                         if (err) {
@@ -49,6 +52,9 @@
                         }
                     }
                 });
+            },
+            getAllServices(){
+                this.getServices(null, -1)
             },
             showMoreInfo(serviceObj) {
                 this.serviceObj = serviceObj;
@@ -100,6 +106,13 @@
             let vm = this;
             vm.getUserDetails();
         },
+        watch: {
+            SearchText(value){
+                if(value && value.length > 2){
+                    this.getServices(value, -1)
+                }
+            }
+        }
 
 
     };

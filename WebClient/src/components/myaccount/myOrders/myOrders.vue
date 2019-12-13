@@ -10,7 +10,8 @@
                 serviceObj: null,
                 serviceDeleteReasons: [],
                 selectedReasons: [],
-                selectedServiceItem: null
+                selectedServiceItem: null,
+                inactiveOrders: []
             };
         },
 
@@ -27,7 +28,8 @@
                             return;
                         }
 
-                        vm.subscriptions.splice(0, vm.subscriptions.length, ...response);
+                        vm.subscriptions.splice(0, vm.subscriptions.length, ...response.activeOrders);
+                        vm.inactiveOrders.splice(0, vm.inactiveOrders.length, ...response.allOrders);
                     }
                 });
             },

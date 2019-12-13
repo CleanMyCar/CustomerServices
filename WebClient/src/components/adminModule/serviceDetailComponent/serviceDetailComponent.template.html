@@ -1,0 +1,66 @@
+<div v-if="serviceDetail" class="panel panel-default">
+    <div class="panel-heading">
+        <div class="pull-right">
+            <button class="btn btn-danger btn-sm" @click="Cancel">Cancel</button>
+            <button class="btn btn-success btn-sm pull-right" @click="saveService">Save</button>
+        </div>
+    </div>
+    <div class="panel-body addBg">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="form-group">
+                    <img :src="serviceDetail.ServiceImage" v-if="serviceDetail.ServiceImage"
+                        style="height: 100px; width: 200px;" />
+
+                    <label class="custom-file-upload">
+                        <div>
+                            <i class="fa fa-upload" aria-hidden="true"></i>
+                            <input type="file" id="logo" name="logo" accept="image/*" @change="filesChange($event)" />
+                        </div>
+
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Service Name
+                    </label>
+                    <input type="text" v-model="serviceDetail.ServiceName" class="form-control" placeholder="Name">
+
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" v-model="serviceDetail.IsEnabled">Enable Service
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" v-model="isOnceEnabled" @click="togglePrice">Price for Once
+                    </label>
+                    <input type="text" :disabled="!isOnceEnabled" v-model="serviceDetail.Price" class="form-control"
+                        placeholder="Price">
+
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" v-model="isSubscribeEnabled" @click="toggleSubscribe">Subscription Price
+                    </label>
+                    <input type="text" :disabled="!isSubscribeEnabled" v-model="serviceDetail.SubscriptionPrice"
+                        class="form-control" placeholder="Subscription Price">
+
+                </div>
+                <div class="form-group">
+                    <label>
+                        Description
+                    </label>
+                    <textarea v-model="serviceDetail.ServiceDescription" class="form-control"
+                        placeholder="Service Description"></textarea>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

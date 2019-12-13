@@ -45,6 +45,12 @@
                 <li @click="redirectToCompanyAssets" v-if="userRole === 3">
                     Company Assests with Me
                 </li>
+                <li @click="redirectToUsers" v-if="userRole === 1">
+                    Manage Users
+                </li>
+                <li @click="redirectToManageServices" v-if="userRole === 1">
+                    Manage Services
+                </li>
                 <li>
                     Shop By Category
                 </li>

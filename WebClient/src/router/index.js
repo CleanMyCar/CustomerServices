@@ -22,7 +22,8 @@ import mysubscriptions from "../components/myaccount/mysubscriptions/mysubscript
 import myOrders from "../components/myaccount/myOrders/myOrders.vue"
 import myProducts from "../components/myaccount/myProducts/myProducts.vue"
 import assignServiceComponent from "../components/adminModule/assignServiceComponent/assignServiceComponent.vue"
-
+import manageServices from "../components/adminModule/manageServicesComponent/manageServicesComponent.vue"
+import serviceDetailComponent from "../components/adminModule/serviceDetailComponent/serviceDetailComponent.vue"
 
 Vue.use(Router);
 
@@ -109,6 +110,15 @@ export default new Router({
       path: '/assignService/:serviceType',
       name: 'assignServiceComponent',
       component: assignServiceComponent
+    },
+    {
+      path: '/manageServices',
+      name: 'manageServicesComponent',
+      component: manageServices
+    },{
+      path: '/serviceDetail/:serviceId',
+      name: 'serviceDetailComponent',
+      component:serviceDetailComponent
     }
   ]
 })

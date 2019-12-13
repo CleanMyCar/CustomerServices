@@ -1,0 +1,31 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="pull-right">
+            <button class="btn btn-success btn-sm" @click="newService">New Service</button>
+        </div>
+    </div>
+    <div class="panel-body addBg">
+        <div class="ResGrid">
+            <div class="dTable">
+                <table style="width: 100%; overflow:scroll;">
+                    <thead>
+                        <th>Actions</th>
+                        <th>Service</th>
+                        <th>Subscription</th>
+                        <th>Amount</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="service in serviceList" style="height: 50px;">
+                            <td>
+
+                            </td>
+                            <td @click="getServiceDetail(service)" style="cursor: pointer;"><b>{{service.ServiceName}}</b></td>
+                            <td>{{service.SubscribeType ? service.SubscribeType : 'Once'}}</td>
+                            <td>₹ {{service.ServiceType == 1 ? service.SubscriptionPrice : service.Price}}/-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

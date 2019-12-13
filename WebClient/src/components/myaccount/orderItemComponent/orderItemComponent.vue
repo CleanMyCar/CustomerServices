@@ -54,7 +54,9 @@
         },
 
         computed: {
-
+            disableDelete(){
+                return this.orderDetails && moment(this.orderDetails.ServiceDate).diff(moment(), "seconds") < 0;
+            }
         },
 
         mounted() {

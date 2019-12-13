@@ -59,8 +59,13 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="form-group">
-                    <input type="text" placeholder="Search Services..." class="form-control">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="text" placeholder="Search Services..." class="form-control" v-model="SearchText">
+                    </div>
+                    <div class="col-md-6">
+                        <label> <a href="javascript:void(0)" @click="getAllServices">Show All</a></label>
+                    </div>
                 </div>
                 <div class="form-group">
                     <div class="cellRow serviceCards" style="width: 100%; overflow: scroll; margin-top: 20px;">

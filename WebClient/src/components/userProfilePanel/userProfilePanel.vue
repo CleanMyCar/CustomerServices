@@ -58,6 +58,14 @@
             redirectToCompanyAssets(){
                 this.panelCallback();
                 this.$router.push("/assets")
+            },
+            redirectToUsers(){
+                this.panelCallback();
+                this.$router.push("/users")
+            },
+            redirectToManageServices(){
+                this.panelCallback();
+                this.$router.push("/manageServices")
             }
         },
         computed: {

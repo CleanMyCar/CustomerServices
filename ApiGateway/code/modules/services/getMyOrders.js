@@ -1,5 +1,6 @@
 
 const mssql = require('mssql');
+const moment = require("moment")
 
 module.exports = (config, params, callback) => {
     const requestParams = config.dbwrapper.getNewRequest();
@@ -12,7 +13,11 @@ module.exports = (config, params, callback) => {
             return
         }
 
+        let activeOrders = result.recordsets[0].filter((order) => {
+            return moment(order.ServiceDate).diff(moment(), "seconds") > 0;
+        })
+
         // console.log(result);
-        return callback(null, result.recordsets[0]);
+        return callback(null, { activeOrders: activeOrders, allOrders: result.recordsets[0] });
     })
 }
