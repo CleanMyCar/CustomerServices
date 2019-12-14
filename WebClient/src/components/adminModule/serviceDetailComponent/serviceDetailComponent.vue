@@ -47,17 +47,27 @@
             },
             togglePrice(evt) {
                 console.log(evt.currentTarget.checked)
-                if(!evt.currentTarget.checked){
+                if (!evt.currentTarget.checked) {
                     this.serviceDetail.Price = null;
                 }
             },
             toggleSubscribe(evt) {
-                if(!evt.currentTarget.checked){
+                if (!evt.currentTarget.checked) {
                     this.serviceDetail.SubscriptionPrice = null;
                 }
             },
             saveService() {
-
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "SaveServiceDetail",
+                    params: vm.serviceDetail,
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+                        vm.$router.push("/manageServices");
+                    }
+                });
             },
             Cancel() {
 

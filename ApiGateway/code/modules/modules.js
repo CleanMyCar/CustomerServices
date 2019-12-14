@@ -45,7 +45,8 @@ const getServiceList = require("./services/getServiceList"),
   getUserPrimaryAddress = require("./user/getUserPrimaryAddress"),
   assignPersonToService = require("./services/assignPersonToService"),
   getAssignedServices = require("./servicePerson/getAssignedServices"),
-  updateServiceStatus = require("./servicePerson/updateServiceStatus");
+  updateServiceStatus = require("./servicePerson/updateServiceStatus"),
+  saveServiceDetail = require("./services/saveServiceDetail");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -96,4 +97,5 @@ module.exports = [
   { key: "AssignPersonToService", callback: assignPersonToService, pushkey: null, isLoggingEnabled: false },
   { key: "GetAssignedServices", callback: getAssignedServices, pushkey: null, isLoggingEnabled: false },
   { key: "UpdateServiceStatus", callback: updateServiceStatus, pushkey: null, isLoggingEnabled: false },
+  { key: "SaveServiceDetail", callback: saveServiceDetail, pushkey: null, isLoggingEnabled: false }
 ];
