@@ -1,4 +1,4 @@
-const sharp = require('sharp');
+// const sharp = require('sharp');
 const UIDGenerator = require('uid-generator');
 const uidgen = new UIDGenerator();
 
