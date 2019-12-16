@@ -34,10 +34,10 @@ const awsImageService = require('./code/modules/imageUploadServices/awsStorageSe
 const configParams = (() => {
     let p = {
         sql: {
-            server: 'localhost',
+            server: '127.0.0.1',
             user: 'sa',
             password: 'Apple#123',
-            database: 'RoomTempo_Dev_ISS',
+            database: 'master',
             pool: {
                 max: 10,
                 min: 0,
@@ -471,8 +471,8 @@ require('./code/core/core')(configParams)
 
         });
 
-        let embedVideo = require("embed-video");
-        let getVideoId = require('get-video-id');
+        // let embedVideo = require("embed-video");
+        // let getVideoId = require('get-video-id');
         app.post('/getVimeoImage', function (req, res) {
             if (req.body && req.body.videoUrl && req.body.videoUrl !== "")
                 embedVideo.image('https://vimeo.com/' + getVideoId(req.body.videoUrl).id, { image: 'thumbnail_medium' }, function (err, thumbnail) {
