@@ -111,6 +111,9 @@
                 if(value && value.length > 2){
                     this.getServices(value, -1)
                 }
+                else if(value.length == 0){
+                    this.getServices(null, -1)
+                }
             }
         }
 

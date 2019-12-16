@@ -9,26 +9,16 @@
                 serviceDetail: null,
                 isOnceEnabled: false,
                 isSubscribeEnabled: false,
-                defaultImage: null
+                defaultImage: null,
+                vehicleTypes: [],
+                fourWheelerTypes: [],
+                subscribeTypes: []
             };
         },
 
         methods: {
             getServiceDetail() {
                 let vm = this;
-
-                if (vm.$route.params.serviceId == -1) {
-                    vm.serviceDetail = {
-                        ServiceId: -1,
-                        ServiceName: null,
-                        IsEnabled: true,
-                        SubscriptionPrice: null,
-                        Price: null,
-                        ServiceImage: null,
-                        ServiceDescription: null
-                    }
-                    return;
-                }
 
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "GetServiceDetail",
@@ -39,14 +29,33 @@
                         if (err) {
                             return;
                         }
-                        if (response) {
+                        if (vm.$route.params.serviceId == -1) {
+                            vm.serviceDetail = {
+                                ServiceId: -1,
+                                ServiceName: null,
+                                IsEnabled: true,
+                                SubscriptionPrice: null,
+                                Price: null,
+                                ServiceImage: null,
+                                ServiceDescription: null,
+                                VehicleCategoryType: "2",
+                                serviceFourWheelerTypes: [],
+                                serviceSubscribeTypes: [],
+                                IsSubscriptionEnabled: false,
+                                IsPurchaseOnceEnabled: false
+                            }
+                        }
+                        if (response.serviceDetail) {
                             vm.serviceDetail = response.serviceDetail;
                         }
+                        vm.vehicleTypes.splice(0, vm.vehicleTypes.length, ...response.vehicleTypes)
+                        vm.fourWheelerTypes.splice(0, vm.fourWheelerTypes.length, ...response.fourWheelerTypes)
+                        vm.subscribeTypes.splice(0, vm.subscribeTypes.length, ...response.subscribeTypes)
                     }
                 });
             },
             togglePrice(evt) {
-                console.log(evt.currentTarget.checked)
+                // console.log(evt.currentTarget.checked)
                 if (!evt.currentTarget.checked) {
                     this.serviceDetail.Price = null;
                 }
@@ -60,7 +69,10 @@
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "SaveServiceDetail",
-                    params: vm.serviceDetail,
+                    params: {
+                        serviceDetail: vm.serviceDetail,
+                        fourWheelerTypes: vm.fourWheelerTypes
+                    },
                     callback: function (err, response) {
                         if (err) {
                             return;
@@ -70,7 +82,7 @@
                 });
             },
             Cancel() {
-
+                this.$router.push("/manageServices");
             },
             filesChange(e) {
                 let files = e.target.files || e.dataTransfer.files;

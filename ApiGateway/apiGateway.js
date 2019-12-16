@@ -55,7 +55,7 @@ const configParams = (() => {
             // },
         },
         rentalUnitedApiUrl: 'http://localhost:3000',
-        sessionTimeOut: 300, //minutes        
+        sessionTimeOut: 30000, //minutes        
     };
 
     //override from env variables    

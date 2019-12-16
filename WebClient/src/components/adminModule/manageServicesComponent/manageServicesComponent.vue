@@ -14,7 +14,7 @@
             getServices(searchText, numberOfRecords) {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
-                    key: "GetServiceList",
+                    key: "GetAllServices",
                     params: {
                         SearchText: searchText,
                         NumberOfRecords: numberOfRecords

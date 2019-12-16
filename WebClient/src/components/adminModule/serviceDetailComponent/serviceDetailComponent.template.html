@@ -31,24 +31,67 @@
                 </div>
                 <div class="form-group">
                     <label>
+                        Vehicle Type
+                    </label>
+                    <label v-for="type in vehicleTypes">
+                        <input type="radio" name="VehicleCategoryType" v-model="serviceDetail.VehicleCategoryType"
+                            :value="type.VehicleTypeId">
+                        <i class="radioLabel">{{type.VehicleTypeName}}</i>
+                    </label>
+                </div>
+                <div class="form-group" v-if="serviceDetail.VehicleCategoryType == '2'">
+                    <label>
+                        Sub Category
+                    </label>
+                    <label v-for="type in fourWheelerTypes">
+                        <input type="checkbox" v-model="serviceDetail.serviceFourWheelerTypes" :value="type.Id">
+                        <i class="radioLabel">{{type.VehicleType}}</i>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
                         <input type="checkbox" v-model="serviceDetail.IsEnabled">Enable Service
                     </label>
                 </div>
                 <div class="form-group">
                     <label>
-                        <input type="checkbox" v-model="isOnceEnabled" @click="togglePrice">Price for Once
+                        <input type="checkbox" v-model="serviceDetail.IsPurchaseOnceEnabled" @click="togglePrice">Price for Once
                     </label>
-                    <input type="text" :disabled="!isOnceEnabled" v-model="serviceDetail.Price" class="form-control"
-                        placeholder="Price">
+                </div>
 
+                <div class="form-group" v-if="serviceDetail.VehicleCategoryType == '2' && serviceDetail.IsPurchaseOnceEnabled">
+                    <label v-for="type in fourWheelerTypes" v-if="serviceDetail.serviceFourWheelerTypes.indexOf(type.Id) > -1">
+                        <label>{{type.VehicleType}} Price</label>
+                        <input type="number" v-model="type.Price">
+                    </label>
+                </div>
+                <div class="form-group" v-else>
+                    <input type="number" :disabled="!serviceDetail.IsPurchaseOnceEnabled" v-model="serviceDetail.Price" class="form-control"
+                        placeholder="Price">
                 </div>
                 <div class="form-group">
                     <label>
-                        <input type="checkbox" v-model="isSubscribeEnabled" @click="toggleSubscribe">Subscription Price
+                        <input type="checkbox" v-model="serviceDetail.IsSubscriptionEnabled" @click="toggleSubscribe">Subscription
                     </label>
-                    <input type="text" :disabled="!isSubscribeEnabled" v-model="serviceDetail.SubscriptionPrice"
-                        class="form-control" placeholder="Subscription Price">
-
+                </div>
+                <div class="form-group" v-if="serviceDetail.IsSubscriptionEnabled">
+                    <label>
+                        Subscription Types
+                    </label>
+                    <label v-for="type in subscribeTypes">
+                        <input type="checkbox" v-model="serviceDetail.serviceSubscribeTypes" :value="type.SubscribeId">
+                        <i class="radioLabel">{{type.SubscribeType}}</i>
+                    </label>
+                </div>
+                <div class="form-group" v-if="serviceDetail.IsSubscriptionEnabled && serviceDetail.VehicleCategoryType == '2'">
+                    <label v-for="type in fourWheelerTypes" v-if="serviceDetail.serviceFourWheelerTypes.indexOf(type.Id) > -1">
+                        <label>{{type.VehicleType}} Price</label>
+                        <input type="number" v-model="type.SubscriptionPrice">
+                    </label>
+                </div>
+                <div class="form-group" v-else>
+                    <input type="number" :disabled="!serviceDetail.IsSubscriptionEnabled" v-model="serviceDetail.SubscriptionPrice" class="form-control"
+                        placeholder="Subscription Price">
                 </div>
                 <div class="form-group">
                     <label>
@@ -56,8 +99,6 @@
                     </label>
                     <textarea v-model="serviceDetail.ServiceDescription" class="form-control"
                         placeholder="Service Description"></textarea>
-
-
                 </div>
 
             </div>

@@ -10,17 +10,22 @@
                 <table style="width: 100%; overflow:scroll;">
                     <thead>
                         <th>Service</th>
+                        <th>Image</th>
                         <th>Subscription</th>
-                        <th>Amount</th>
+                        <th>Amount(Once)</th>
+                        <th>Amount(Subscription)</th>
                         <th>Status</th>
                     </thead>
                     <tbody>
                         <tr v-for="service in serviceList" style="height: 50px;">
 
                             <td @click="getServiceDetail(service)" style="cursor: pointer;">
-                                <b>{{service.ServiceName}}</b></td>
-                            <td>{{service.SubscribeType ? service.SubscribeType : 'Once'}}</td>
-                            <td>₹ {{service.ServiceType == 1 ? service.SubscriptionPrice : service.Price}}/-</td>
+                                <b>{{service.ServiceName}}</b>                                
+                            </td>
+                            <td><img v-if="service.ServiceImage" :src="service.ServiceImage" height="50" width="50"></td>
+                            <td>{{service.Subscriptions}}</td>
+                            <td> {{service.Price ? '₹' + service.Price + '/-' : 'NA'}}</td>
+                            <td> {{service.SubscriptionPrice ? '₹' + service.SubscriptionPrice + '/-' : 'NA'}}</td>
                             <td>
                                 {{service.IsEnabled ? "Enabled" : "Disabled"}}
                             </td>
