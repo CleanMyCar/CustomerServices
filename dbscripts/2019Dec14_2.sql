@@ -1,19 +1,12 @@
-CREATE PROCEDURE dbo.GetAllServices
-AS 
+ALTER TABLE Services ADD ServiceOrder int NULL GO
 
-	SELECT ServiceId, ServiceName, IsEnabled, SubscriptionPrice, Price, OldPrice, CategoryId, ServiceImage, ServiceDescription
-	FROM Services;
+EXEC sys.sp_rename 'SubscriptionType.SubsribeId' , 'SubscribeId', 'COLUMN' GO
 
 
-    ALTER TABLE Services ADD ServiceOrder int NULL GO
+ALTER TABLE Services ADD VehicleCategoryType int NULL GO
 
-EXEC RoomTempo_Dev_ISS.sys.sp_rename 'RoomTempo_Dev_ISS.dbo.SubscriptionType.SubsribeId' , 'SubscribeId', 'COLUMN' GO
-
-
-ALTER TABLE RoomTempo_Dev_ISS.dbo.Services ADD VehicleCategoryType int NULL GO
-
-ALTER TABLE RoomTempo_Dev_ISS.dbo.Services ADD IsSubscriptionEnabled int NULL GO
-ALTER TABLE RoomTempo_Dev_ISS.dbo.Services ADD IsPurchaseOnceEnabled int NULL GO
+ALTER TABLE Services ADD IsSubscriptionEnabled int NULL GO
+ALTER TABLE Services ADD IsPurchaseOnceEnabled int NULL GO
 
 
 CREATE TABLE VehicleServicePrice (
@@ -49,7 +42,7 @@ CREATE TYPE VehicleServicePrice AS TABLE(
 	Price money
 )
 
-CREATE TYPE ServiceVehicleSubCategories AS TABLE(
+CREATE TYPE ServiceFourWheelerTypes AS TABLE(
     VehicleCategoryType INT
 )
 
@@ -58,6 +51,7 @@ CREATE TYPE ServiceSubscriptionTypes AS TABLE(
 )
 
 
+ALTER TABLE VehicleServicePrice ADD COLUMN SUbscriptionPrice money;
 
 CREATE PROCEDURE dbo.GetAllServices
 AS 
