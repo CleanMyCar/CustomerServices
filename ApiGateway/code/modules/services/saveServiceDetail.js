@@ -36,7 +36,7 @@ module.exports = (config, params, callback) => {
     VehicleServicePrice.columns.add('Price', mssql.Money);
     for (let i = 0; i < params.fourWheelerTypes.length; i++) {
         if (params.fourWheelerTypes[i].Price || params.fourWheelerTypes[i].SubscriptionPrice)
-            VehicleServicePrice.rows.add(params.fourWheelerTypes[i].Id, params.fourWheelerTypes[i].Price, params.fourWheelerTypes[i].SubscriptionPrice);
+            VehicleServicePrice.rows.add(params.fourWheelerTypes[i].Id, params.fourWheelerTypes[i].SubscriptionPrice, params.fourWheelerTypes[i].Price);
     }
     requestParams.input('VehicleServicePrice', VehicleServicePrice);
 
