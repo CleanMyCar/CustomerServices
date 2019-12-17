@@ -1,5 +1,6 @@
 <div class="panel panel-default">
     <div class="panel-heading">
+        <h4>Services</h4>
         <div class="pull-right">
             <button class="btn btn-success btn-sm" @click="newService">New Service</button>
         </div>
@@ -24,8 +25,8 @@
                             </td>
                             <td><img v-if="service.ServiceImage" :src="service.ServiceImage" height="50" width="50"></td>
                             <td>{{service.Subscriptions}}</td>
-                            <td> {{service.Price ? '₹' + service.Price + '/-' : 'NA'}}</td>
-                            <td> {{service.SubscriptionPrice ? '₹' + service.SubscriptionPrice + '/-' : 'NA'}}</td>
+                            <td> {{service.StartingPrice ? '₹' + service.StartingPrice + '/-' : 'NA'}}</td>
+                            <td> {{service.StartingSubscriptionPrice ? '₹' + service.StartingSubscriptionPrice + '/-' : 'NA'}}</td>
                             <td>
                                 {{service.IsEnabled ? "Enabled" : "Disabled"}}
                             </td>
