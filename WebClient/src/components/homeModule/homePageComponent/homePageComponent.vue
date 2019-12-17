@@ -7,9 +7,11 @@
         data() {
             return {
                 entityNamesdata: {},
-                servieList: [],
+                servicesList: null,
                 serviceObj: null,
-                SearchText: null
+                SearchText: null,
+                defaultCarImage: "../../../src/content/images/car.png",
+                defaultBikeImage: "../../../src/content/images/bike.png",
             };
         },
 
@@ -48,7 +50,7 @@
                             return;
                         }
                         if (response) {
-                            vm.servieList.splice(0, vm.servieList.length, ...response);
+                            vm.servicesList = response;;
                         }
                     }
                 });

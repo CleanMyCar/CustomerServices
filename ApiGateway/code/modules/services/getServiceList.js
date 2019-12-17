@@ -13,6 +13,25 @@ module.exports = (config, params, callback) => {
         }
 
         // console.log(result);
-        return callback(null, result.recordsets[0]);
+
+        let vehiclesWithTypes = {};
+
+        for (let vtIndex = 0; vtIndex < result.recordsets[1].length; vtIndex++) {
+            let currVehicleType = result.recordsets[1][vtIndex];
+            if (!vehiclesWithTypes.hasOwnProperty(currVehicleType.VehicleTypeId)) {
+                vehiclesWithTypes[currVehicleType.VehicleTypeId] = {
+                    VehicleCategoryType: currVehicleType.VehicleTypeId,
+                    VehicleCategoryTypeName: currVehicleType.VehicleTypeName,
+                    services: []
+                }
+            }
+        }
+
+        for (let vIndex = 0; vIndex < result.recordsets[0].length; vIndex++) {
+            let currVehicle = result.recordsets[0][vIndex];          
+            vehiclesWithTypes[currVehicle.VehicleCategoryType].services.push(currVehicle);
+        }
+
+        return callback(null, vehiclesWithTypes);
     })
 }

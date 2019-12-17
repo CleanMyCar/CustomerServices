@@ -111,10 +111,10 @@
             <div class="col-md-12">
 
                 <div class="form-group">
-                    <img :src="serviceDetail.ServiceImage ? serviceDetail.ServiceImage : defaultImage" height="150"
+                    <img :src="serviceDetail.ServiceImage ? serviceDetail.ServiceImage : (serviceDetail.VehicleCategoryType == 2 ? defaultCarImage : defaultBikeImage)" height="150"
                         width="300" @click="showMoreInfo(service)">
                     <div class="form-group serviceName">
-                        {{serviceDetail.ServiceName}} - ₹ {{serviceDetail.Price}}
+                        <b>{{serviceDetail.ServiceName}}</b>
                     </div>
                 </div>
                 <div class="form-group" v-if="serviceType == 2">
@@ -277,8 +277,13 @@
                 </div>
 
                 <div class="form-group">
+                    <div style="float: left; background-color: #008aff; color: white; width: 50%; font-weight: bold;">
+                        Amount: ₹ {{servicePrice}}/-
+                    </div>
+                    <div style="float: right; width: 50%;">
                     <button class="btn btn-success btn-sm pull-right" :disabled="!vehicleInfo.VehicleId" title="Confirm"
                         @click="confirmServiceOrder">Confirm</button>
+                    </div>
                 </div>
 
 

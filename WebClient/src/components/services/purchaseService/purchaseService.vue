@@ -26,7 +26,8 @@
                 defaultCarImage: "../../../src/content/images/car.png",
                 defaultBikeImage: "../../../src/content/images/bike.png",
                 addressList: [],
-                showAddressList: false
+                showAddressList: false,
+                selectedVehicle: null
             };
         },
 
@@ -111,7 +112,8 @@
             chooseVehicle(product, event) {
                 let vm = this;
                 if (event.currentTarget.checked) {
-                    this.vehicleInfo.VehicleId = product.VehicleId;
+                    vm.vehicleInfo.VehicleId = product.VehicleId;
+                    vm.selectedVehicle = product;
                     vm.$store.dispatch("dataRequestHandler", {
                         key: "GetVechicleAddress",
                         params: { VehicleId: product.VehicleId },
@@ -125,7 +127,8 @@
                 }
                 else {
                     this.vehicleInfo.VehicleId = null;
-                    vm.vehicleAddress = null
+                    vm.vehicleAddress = null,
+                    vm.selectedVehicle = null
                 }
             },
             confirmServiceOrder() {
@@ -194,7 +197,23 @@
         },
 
         computed: {
-
+            servicePrice() {
+                let vm = this;
+                if (this.selectedVehicle && vm.selectedVehicle.FourWheelerTypeId) {
+                    if (vm.selectedVehicle.FourWheelerTypeId) {
+                        let vehiclePriceInfo = this.fourWheelerTypes.filter((vehicle) => {
+                            return vehicle.Id == vm.selectedVehicle.FourWheelerTypeId;
+                        })
+                        if (vehiclePriceInfo && vehiclePriceInfo.length > 0) {
+                            return vm.serviceType == 2 ? vehiclePriceInfo[0].Price : vehiclePriceInfo[0].SubscriptionPrice;
+                        }
+                    }
+                    else {
+                        return vm.serviceType == 2 ? vm.serviceDetail.Price : vm.serviceDetail.SubscriptionPrice;
+                    }
+                }
+                return 0;
+            }
         },
 
         mounted() {

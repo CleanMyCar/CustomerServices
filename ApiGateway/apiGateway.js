@@ -37,7 +37,7 @@ const configParams = (() => {
             server: '127.0.0.1',
             user: 'sa',
             password: 'Apple#123',
-            database: 'master',
+            database: 'RoomTempo_Dev_ISS',
             pool: {
                 max: 10,
                 min: 0,
