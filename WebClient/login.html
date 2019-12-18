@@ -74,6 +74,31 @@
             <div data-bind="text: errRegisterMsg" class="invalidClient"></div>
           </div>
 
+          <div class="modal" data-backdrop="static" role="dialog" id="validationPopup">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!-- <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
+                            data-dismiss="modal">
+                            &times;
+                        </button> -->
+                        <h4>Validation </h4>
+                    </div>
+        
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">                              
+                                <label>Invalid Credentials</label>
+                            </div>
+                        </div>
+        
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success btn-sm pull-right" title="Cancel" data-bind="click: closeValidationPopup">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         </form>
 
@@ -169,7 +194,7 @@
       self.LoginOnEnter = function (data, event) {
         var keyCode = (event.which ? event.which : event.keyCode);
         if (keyCode === 13) {
-          this.Login();
+          self.Login();
           return false;
         }
         return true;
@@ -218,8 +243,11 @@
                   if (response.response.errno) {
                     self.errLoginMsg("Server Error: " + response.response.errno);
                   }
-                  else
-                    self.errLoginMsg("Invalid credentials");
+                  else{
+                    $("#validationPopup").modal("show")
+                    // self.errLoginMsg("Invalid credentials");
+                  }
+                    
                 }
               }
               else {
@@ -340,16 +368,20 @@
 
       self.showLogin = function () {
         // $(".loginButtonsDynamic input").css({"width": "50%"})
-        $(".loginButtonsDynamic>.loginButton").css({"width": "45%", "float": "left"})
-        $(".loginButtonsDynamic>.registerButton").css({"width": "45%", "float": "right"})
+        $(".loginButtonsDynamic>.loginButton").css({ "width": "45%", "float": "left" })
+        $(".loginButtonsDynamic>.registerButton").css({ "width": "45%", "float": "right" })
         $(".loginScreen").show();
         $(".registerScreen").hide();
       }
       self.showRegister = function () {
-        $(".loginButtonsDynamic>.loginButton").css({"width": "45%", "float": "left"})
-        $(".loginButtonsDynamic>.registerButton").css({"width": "45%", "float": "right"})
+        $(".loginButtonsDynamic>.loginButton").css({ "width": "45%", "float": "left" })
+        $(".loginButtonsDynamic>.registerButton").css({ "width": "45%", "float": "right" })
         $(".registerScreen").show();
         $(".loginScreen").hide();
+      }
+
+      self.closeValidationPopup = function(){
+        $("#validationPopup").modal("hide")
       }
     }
 
