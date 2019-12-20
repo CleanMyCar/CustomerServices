@@ -25,8 +25,8 @@
                             </td>
                             <td><img v-if="service.ServiceImage" :src="service.ServiceImage" height="50" width="50"></td>
                             <td>{{service.Subscriptions}}</td>
-                            <td> {{service.StartingPrice ? '₹' + service.StartingPrice + '/-' : 'NA'}}</td>
-                            <td> {{service.StartingSubscriptionPrice ? '₹' + service.StartingSubscriptionPrice + '/-' : 'NA'}}</td>
+                            <td> {{service.VehicleCategoryType == 1 ? (service.Price + '/-') : (service.StartingPrice ? '₹' + service.StartingPrice + '/-' : 'NA') }}</td>
+                            <td> {{service.VehicleCategoryType == 1 ? (service.SubscriptionPrice + '/-') : (service.StartingSubscriptionPrice ? '₹' + service.StartingSubscriptionPrice + '/-' : 'NA')}}</td>
                             <td>
                                 {{service.IsEnabled ? "Enabled" : "Disabled"}}
                             </td>
