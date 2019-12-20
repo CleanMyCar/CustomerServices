@@ -39,8 +39,7 @@ module.exports = (config, params, callback) => {
             VehicleServicePrice.rows.add(params.fourWheelerTypes[i].Id, params.fourWheelerTypes[i].SubscriptionPrice, params.fourWheelerTypes[i].Price);
     }
     requestParams.input('VehicleServicePrice', VehicleServicePrice);
-
-
+    
     requestParams.execute('SaveServiceDetails', (err, result) => {
         if (err) {
             console.log(err);

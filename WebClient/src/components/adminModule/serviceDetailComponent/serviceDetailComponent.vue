@@ -1,6 +1,11 @@
 <template src="./serviceDetailComponent.template.html"></template>
 
 <script>
+    
+    import Vue from "vue";
+    import VeeValidate from "vee-validate";
+    Vue.use(VeeValidate);
+
     export default {
         name: "serviceDetailComponent",
         props: [],
@@ -67,19 +72,23 @@
             },
             saveService() {
                 let vm = this;
-                vm.$store.dispatch("dataRequestHandler", {
-                    key: "SaveServiceDetail",
-                    params: {
-                        serviceDetail: vm.serviceDetail,
-                        fourWheelerTypes: vm.fourWheelerTypes
-                    },
-                    callback: function (err, response) {
-                        if (err) {
-                            return;
-                        }
-                        vm.$router.push("/manageServices");
-                    }
-                });
+                // vm.$validator.validateAll().then(result => {
+                //     if (result) {
+                        vm.$store.dispatch("dataRequestHandler", {
+                            key: "SaveServiceDetail",
+                            params: {
+                                serviceDetail: vm.serviceDetail,
+                                fourWheelerTypes: vm.fourWheelerTypes
+                            },
+                            callback: function (err, response) {
+                                if (err) {
+                                    return;
+                                }
+                                vm.$router.push("/manageServices");
+                            }
+                        });
+                //     }
+                // });
             },
             Cancel() {
                 this.$router.push("/manageServices");

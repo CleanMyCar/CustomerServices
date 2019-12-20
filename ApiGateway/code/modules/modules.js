@@ -6,7 +6,6 @@ const getUserDetail = require('./user/getUserDetail');
 const updatePassword = require('./user/updateUserPassword');
 const searchUsers = require('./user/searchUsers');
 const userLogout = require('./user/userLogout');
-const getUserEntitlementsAndDefaultProperty = require("./user/getUserEntitlementsAndDefaultProperty");
 const updateLogginPassword = require('./user/updateLogginPassword');
 
 const resetPassword = require('./user/resetUserPassword');
@@ -50,7 +49,9 @@ const getServiceList = require("./services/getServiceList"),
   getAllServices = require("./services/getAllServices"),
   deleteVehicle = require("./myProducts/vehicle/deleteVehicle"),
   getVehicleTypes = require("./myProducts/vehicle/getVehicleTypes"),
-  getVehicleDetail = require("./myProducts/vehicle/getVehicleDetail");
+  getVehicleDetail = require("./myProducts/vehicle/getVehicleDetail"),
+  saveProductToCart = require("./cart/saveProductToCart"),
+  getUserCartProductSummary = require("./cart/getUserCartProductSummary");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -105,5 +106,7 @@ module.exports = [
   { key: "GetAllServices", callback: getAllServices, pushkey: null, isLoggingEnabled: false },
   {key: "DeleteVehicle", callback: deleteVehicle, pushkey: null, isLoggingEnabled: false},
   {key: "GetVehicleTypes", callback: getVehicleTypes, pushkey: null, isLoggingEnabled: false},
-  {key: "GetVehicleDetail", callback: getVehicleDetail, pushkey: null, isLoggingEnabled: false}
+  {key: "GetVehicleDetail", callback: getVehicleDetail, pushkey: null, isLoggingEnabled: false},
+  {key: "SaveProductToCart", callback: saveProductToCart, pushkey: null, isLoggingEnabled: false},
+  {key: "GetUserCartProductSummary", callback: getUserCartProductSummary, pushkey: null, isLoggingEnabled: false},
 ];

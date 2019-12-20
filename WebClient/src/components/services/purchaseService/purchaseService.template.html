@@ -63,7 +63,8 @@
                                         </div>
                                         <div class="form-group">
                                             <img :src="newVehicleDetails.VehicleImage"
-                                                v-if="newVehicleDetails.VehicleImage" style="height: 100px; width: 200px;" />
+                                                v-if="newVehicleDetails.VehicleImage"
+                                                style="height: 100px; width: 200px;" />
 
                                             <label class="custom-file-upload">
                                                 <div>
@@ -111,28 +112,28 @@
             <div class="col-md-12">
 
                 <div class="form-group">
-                    <img :src="serviceDetail.ServiceImage ? serviceDetail.ServiceImage : (serviceDetail.VehicleCategoryType == 2 ? defaultCarImage : defaultBikeImage)" height="150"
-                        width="300" @click="showMoreInfo(service)">
+                    <img :src="serviceDetail.ServiceImage ? serviceDetail.ServiceImage : (serviceDetail.VehicleCategoryType == 2 ? defaultCarImage : defaultBikeImage)"
+                        height="150" width="300" @click="showMoreInfo(service)">
                     <div class="form-group serviceName">
                         <b>{{serviceDetail.ServiceName}}</b>
                     </div>
                 </div>
-                <div class="form-group" v-if="serviceType == 2">
+                <div class="form-group" v-if="serviceType == 2 && serviceDetail.VehicleCategoryType != 3">
                     Personal Vehicle
                     <input type="checkbox" class="personalVehicle" name="personalVehicle"
                         @click="changeSelection($event)" :checked="vehicleInfo.isPersonal"> Yes
                     <input type="checkbox" class="personalVehicle" name="personalVehicle"
                         @click="changeSelection($event)" :checked="!vehicleInfo.isPersonal">No
                 </div>
-                <div class="form-group">
+                <div class="form-group" v-if="serviceDetail.VehicleCategoryType != 3">
                     <div class="cellRow" style="width: 100%; overflow: scroll; margin-top: 20px;">
                         <div class="cell" v-for="product in myServiceProducts" v-if="vehicleInfo.isPersonal"
                             style="flex: 0 0 12%;">
                             <label class="radioLabel">
                                 <input type="radio" class="vechiles" name="Vechile" :value="product.VehicleId"
                                     @click="chooseVehicle(product, $event)">
-                                <img :src="product.VehicleImage ? product.VehicleImage : (product.VehicleTypeId == 2 ? defaultCarImage : defaultBikeImage)" height="120"
-                                    width="120">
+                                <img :src="product.VehicleImage ? product.VehicleImage : (product.VehicleTypeId == 2 ? defaultCarImage : defaultBikeImage)"
+                                    height="120" width="120">
                             </label>
 
                             <div class="form-group serviceName">
@@ -142,10 +143,13 @@
                         <div class="cell" @click="addNewVehicleInfo">
                             <img :src="defaultCarImage" height="120" width="120">
                             <div class="form-group serviceName">
-                                <a href="javascript:void(0)">Add New Car</a>
+                                <a href="javascript:void(0)">Add New Vehicle</a>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div v-else>
+                    <quantityComponent :inputValue="vehicleInfo.Quantity" :updateParent="updateQuantity"></quantityComponent>
                 </div>
                 <div class="form-group" v-if="serviceType == 2" style="padding: 2px;">
                     <label>
@@ -185,9 +189,10 @@
                         </div>
                         <div class="form-group">
                             <div class="cellRow">
-                                <div class="cell" v-for="product in subscriptionTypes" style="flex: 0 0 12%;" v-if="serviceDetail.serviceSubscribeTypes.indexOf(product.SubscribeId) > -1">
+                                <div class="cell" v-for="product in subscriptionTypes" style="flex: 0 0 12%;"
+                                    v-if="serviceDetail.serviceSubscribeTypes.indexOf(product.SubscribeId) > -1">
                                     <label class="radioLabel customradioLabel">
-                                        <input type="radio" name="serviceFrequency" :value="product.SubsribeId"
+                                        <input type="radio" name="serviceFrequency" :value="product.SubscribeId"
                                             v-model="vehicleInfo.Frequency">
                                         <span class="form-group serviceName">
                                             {{product.SubscribeType}}
@@ -211,7 +216,7 @@
 
                         <div class="form-group">
                             <label>
-                               Start Date
+                                Start Date
                             </label>
                             <datePickerComponent :keyString="'StartDate'" v-model="vehicleInfo.ServiceDate"
                                 :value="vehicleInfo.ServiceDate" :format="'Do MMM YYYY'" :onUpdate="updateServiceDate"
@@ -281,9 +286,12 @@
                         Amount: ₹ {{servicePrice}}/-
                     </div>
                     <div style="float: right; width: 50%;">
-                    <button class="btn btn-success btn-sm pull-right" :disabled="!vehicleInfo.VehicleId" title="Confirm"
-                        @click="confirmServiceOrder">Confirm</button>
+                        <addToCartComponent v-if="(serviceDetail.VehicleCategoryType != 3 && vehicleInfo.VehicleId) || (serviceDetail.VehicleCategoryType == 3 && vehicleInfo.Quantity > 0)"
+                        :product="vehicleInfo" :serviceSaved="serviceSaved" :updateParent="confirmServiceOrder"></addToCartComponent>
+                        <button class="btn btn-success btn-sm pull-right" :disabled="(serviceDetail.VehicleCategoryType != 3 && !vehicleInfo.VehicleId) || (serviceDetail.VehicleCategoryType == 3 && vehicleInfo.Quantity < 1)"
+                            title="Confirm" @click="confirmServiceOrder">Confirm</button>
                     </div>
+
                 </div>
 
 
@@ -291,6 +299,6 @@
         </div>
 
         <vehicleAddComponent v-if="openedVehicleAddPopup" :vehicleId="vehicleAddress && vehicleAddress.VehicleId"
-        :updateParent="updateVehicleAddress" :closeVehicleAddPopup="closeVehicleAddPopup"></vehicleAddComponent>
+            :updateParent="updateVehicleAddress" :closeVehicleAddPopup="closeVehicleAddPopup"></vehicleAddComponent>
     </div>
 </div>

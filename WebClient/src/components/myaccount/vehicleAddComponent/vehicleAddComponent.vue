@@ -54,8 +54,6 @@
             },
             addNewVehicle() {
                 let vm = this;
-                var regex = /^[0-9a-zA-Z\_]+$/;
-
                  vm.$validator.validateAll().then(result => {
                     if (result) {                
                         vm.$store.dispatch("dataRequestHandler", {

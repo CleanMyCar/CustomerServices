@@ -14,6 +14,8 @@ module.exports = (config, params, callback) => {
     requestParams.input('TimeSlot', mssql.NVarChar, params.TimeSlot);
     requestParams.input('WeeklyDay', mssql.Int, params.WeeklyDay);
     requestParams.input('ServiceDate', mssql.Date, moment(params.ServiceDate).format("YYYY-MM-DD"));
+    requestParams.input('Quantity', mssql.Int, params.Quantity);
+    requestParams.input('ServiceStausId', mssql.Int, (params.StatusId || params.StatusId == 0) ? params.StatusId : 1);
 
     requestParams.execute('SaveVehicleRequest', (err, result) => {
         if (err) {

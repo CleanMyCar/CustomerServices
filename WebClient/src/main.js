@@ -24,6 +24,8 @@ import vehicleAddComponent from './components/myaccount/vehicleAddComponent/vehi
 import adminHomePage from './components/homeModule/adminHomePageComponent/adminHomePageComponent.vue'
 import servicePersonHomePage from "./components/servicePersonComponents/servicePersonHomePageComponent/servicePersonHomePageComponent.vue"
 import assignPersonComponent from "./components/homeModule/adminHomePageComponent/assignPersonComponent/assignPersonComponent.vue"
+import quantityComponent from "./components/commonComponents/quantityComponent/quantityComponent.vue"
+import addToCartComponent from "./components/commonComponents/addToCartComponent/addToCartComponent.vue"
 
 Vue.component(datePickerComponent.name, datePickerComponent);
 Vue.component(pageLoadingComponent.name, pageLoadingComponent);
@@ -41,6 +43,8 @@ Vue.component(vehicleAddComponent.name, vehicleAddComponent)
 Vue.component(adminHomePage.name, adminHomePage)
 Vue.component(servicePersonHomePage.name, servicePersonHomePage)
 Vue.component(assignPersonComponent.name, assignPersonComponent)
+Vue.component(quantityComponent.name, quantityComponent);
+Vue.component(addToCartComponent.name, addToCartComponent);
 
 new Vue({
   el: '#app',

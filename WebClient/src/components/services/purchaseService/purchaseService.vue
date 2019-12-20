@@ -1,6 +1,10 @@
 <template src="./purchaseService.template.html"></template>
 
 <script>
+    import Vue from "vue";
+    import VeeValidate from "vee-validate";
+    Vue.use(VeeValidate);
+
     export default {
         name: "purchaseService",
         props: [],
@@ -14,7 +18,8 @@
                     VehicleId: null,
                     Frequency: null,
                     TimeSlot: "1",
-                    AddressId: null
+                    AddressId: null,
+                    Quantity: 1
                 },
                 newVehicleDetails: null,
                 fourWheelerTypes: [],
@@ -28,7 +33,8 @@
                 addressList: [],
                 showAddressList: false,
                 selectedVehicle: null,
-                openedVehicleAddPopup: false
+                openedVehicleAddPopup: false,
+                serviceSaved: false
             };
         },
 
@@ -98,15 +104,19 @@
             },
             addNewVehicle() {
                 let vm = this;
-                vm.$store.dispatch("dataRequestHandler", {
-                    key: "SaveVehicleDetails",
-                    params: Object.assign(vm.newVehicleDetails, { IsPersonal: vm.vehicleInfo.isPersonal }),
-                    callback: function (err, response) {
-                        if (err) {
-                            return;
-                        }
-                        vm.getMyProducts();
-                        $("#newVehicleDetailsPopup").modal("hide");
+                vm.$validator.validateAll().then(result => {
+                    if (result) {
+                        vm.$store.dispatch("dataRequestHandler", {
+                            key: "SaveVehicleDetails",
+                            params: Object.assign(vm.newVehicleDetails, { IsPersonal: vm.vehicleInfo.isPersonal }),
+                            callback: function (err, response) {
+                                if (err) {
+                                    return;
+                                }
+                                vm.getMyProducts();
+                                $("#newVehicleDetailsPopup").modal("hide");
+                            }
+                        });
                     }
                 });
 
@@ -133,10 +143,10 @@
                 else {
                     this.vehicleInfo.VehicleId = null;
                     vm.vehicleAddress = null,
-                    vm.selectedVehicle = null
+                        vm.selectedVehicle = null
                 }
             },
-            confirmServiceOrder() {
+            confirmServiceOrder(statusId) {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "RequestVehicleService",
@@ -148,10 +158,17 @@
                         Promocode: vm.vehicleInfo.Promocode,
                         ServiceDate: vm.vehicleInfo.ServiceDate,
                         TimeSlot: vm.vehicleInfo.TimeSlot,
-                        WeeklyDay: vm.vehicleInfo.WeeklyDay
+                        WeeklyDay: vm.vehicleInfo.WeeklyDay,
+                        Quantity: vm.vehicleInfo.Quantity,
+                        StatusId: statusId
                     },
                     callback: function (err, response) {
                         if (err) {
+                            return;
+                        }
+                        if(statusId == 0){                            
+                            vm.vehicleInfo.RequestId = response.RequestId
+                            vm.serviceSaved = true;
                             return;
                         }
                         if (vm.serviceType == 2) {
@@ -199,25 +216,27 @@
                 }
                 reader.readAsDataURL(files[0]);
             },
-            editVehicleAddress(){
+            editVehicleAddress() {
                 this.openedVehicleAddPopup = true;
             },
-            closeVehicleAddPopup(){
+            closeVehicleAddPopup() {
                 this.openedVehicleAddPopup = false;
             },
-            updateVehicleAddress(selectedVehicle){
+            updateVehicleAddress(selectedVehicle) {
                 this.chooseVehicle(selectedVehicle)
                 this.openedVehicleAddPopup = false;
                 this.getMyProducts();
-            }
-            
+            },
+            updateQuantity(value) {
+                this.vehicleInfo.Quantity = value;
+            },
         },
 
         computed: {
             servicePrice() {
                 let vm = this;
                 if (this.selectedVehicle) {
-                    if (vm.selectedVehicle.FourWheelerTypeId) {
+                    if (vm.selectedVehicle.FourWheelerTypeId && this.selectedVehicle.VehicleTypeId == 2) {
                         let vehiclePriceInfo = this.fourWheelerTypes.filter((vehicle) => {
                             return vehicle.Id == vm.selectedVehicle.FourWheelerTypeId;
                         })
@@ -228,6 +247,10 @@
                     else {
                         return vm.serviceType == 2 ? vm.serviceDetail.Price : vm.serviceDetail.SubscriptionPrice;
                     }
+                }
+                else if (this.serviceDetail.VehicleCategoryType == 3 && this.vehicleInfo.Quantity) {
+
+                    return (vm.serviceType == 2 ? this.serviceDetail.Price : vm.serviceDetail.SubscriptionPrice) * this.vehicleInfo.Quantity
                 }
                 return 0;
             }

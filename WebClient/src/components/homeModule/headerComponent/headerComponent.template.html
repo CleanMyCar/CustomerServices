@@ -124,6 +124,12 @@
                 </div>
                 <ul class="topNav">
                     <li>
+                        {{cartSummary ? cartSummary.NoOfProducts : ''}}
+                        <button title="Orders in cart" @click="navigateToCart">                            
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        </button>
+                    </li>
+                    <li>
                         <button title="Support" @click="navigateToHome">
                             <i class="fas fa-home"></i>
                         </button>

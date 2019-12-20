@@ -48,7 +48,8 @@
         entitlements: {},
         showicon: true,
         showsearchText: true,
-        showCalendar: true
+        showCalendar: true,
+        cartSummary: null
       };
     },
     methods: {
@@ -338,6 +339,19 @@
           }
         })
       },
+      getCartProducts() {
+        let vm = this;
+        vm.$store.dispatch("dataRequestHandler", {
+          key: "GetUserCartProductSummary",
+          params: {},
+          callback: function (err, response) {
+            if (err) {
+              return;
+            }
+            vm.cartSummary = response;
+          }
+        });
+      }
     },
     computed: {
 
@@ -424,6 +438,10 @@
       //this.getNotifications1();
       let vm = this;
       vm.getUserDetails();
+      vm.getCartProducts();
+      vm.$store.state.bus.$on('refreshCart', function (params) {
+        vm.getCartProducts();
+      })
     }
   }
 
