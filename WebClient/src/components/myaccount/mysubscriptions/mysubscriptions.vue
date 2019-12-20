@@ -78,7 +78,10 @@
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "DeleteSubscription",
-                    params: vm.serviceObj,
+                    params: {
+                        serviceObj: vm.serviceObj,
+                        selectedReasons: vm.selectedReasons
+                    },
                     callback: function (err, response) {
                         if (err) {
                             return;
@@ -86,7 +89,7 @@
                         $("#deleteConfimationPopup").modal("hide");
                         vm.serviceObj = null
                         vm.getMySubscriptions();
-                        //vm.serviceDeleteReasons.splice(0, vm.serviceDeleteReasons.length, ...response);
+                        vm.selectedReasons.splice(0, vm.selectedReasons.length);
                     }
                 });
             },

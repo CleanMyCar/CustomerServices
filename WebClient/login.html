@@ -244,7 +244,8 @@
                     self.errLoginMsg("Server Error: " + response.response.errno);
                   }
                   else{
-                    $("#validationPopup").modal("show")
+                    $("#validationPopup").modal("show");
+                    return;
                     // self.errLoginMsg("Invalid credentials");
                   }
                     

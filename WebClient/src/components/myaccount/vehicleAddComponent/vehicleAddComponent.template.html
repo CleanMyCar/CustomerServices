@@ -13,28 +13,34 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <!-- <input type="text" class="form-control" placeholder="Building/Apartment Name"
-                                v-model="newVehicleDetails.AddressId"> -->
 
                             <div class="col-md-12 searchResultsAmenitiesDiv">
                                 <input type="text" placeholder="Please type here to choose address..."
-                                    v-model.trim="searchAddressText">
+                                    v-model.trim="searchAddressText" v-validate="'required'" name="addressId">                                    
                             </div>
                             <div class="form-control searchResultsAmenities" @click="$event.stopPropagation()"
                                 id="propertyDropDown" v-show="showAddressList">
                                 <ul>
-                                    <li v-for="property in propertyList" v-bind:value="property"
-                                        @click="addPropertyToFilter(property)">{{property.PropertyName}}</li>
+                                    <li v-for="address in addressList" v-bind:value="address.AddressId"
+                                        @click="selectAddress(address)">
+                                        {{address.AddressLine1 + " " + address.AddressLine2 + ", " + address.Landmark + " " + address.CityName + ", " + address.StateName}}
+                                    </li>
                                 </ul>
                             </div>
+                            <span v-show="errors.has('addressId')" class="invalid-feedback">
+                                <i v-show="errors.has('addressId')" class="fa fa-warning"></i> Please choose address</span>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Vehicle Name"
                                 v-model="newVehicleDetails.VehicleName">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Vehicle No"
-                                v-model="newVehicleDetails.VehicleNumber">
+                            <input type="text" class="form-control" placeholder="Vehicle No" name="VehicleNumber"
+                                v-model="newVehicleDetails.VehicleNumber" v-validate="'required|alpha_num'">
+                                <span v-show="errors.has('VehicleNumber')" class="invalid-feedback">
+                                    <i v-show="errors.has('VehicleNumber')" class="fa fa-warning"></i> 
+                                    Vehicle Number is required and it should not contain spaces or special characters
+                                </span>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Vehicle Make"
@@ -46,22 +52,40 @@
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Parking Lot"
-                                v-model="newVehicleDetails.Parkinglot">
+                                v-model="newVehicleDetails.ParkingLot" name="ParkingLot" v-validate="'required'">
+                                <span v-show="errors.has('ParkingLot')" class="invalid-feedback">
+                                    <i v-show="errors.has('ParkingLot')" class="fa fa-warning"></i> 
+                                    Parking Lot is required
+                                </span>
                         </div>
                         <div class="form-group">
-                            <span v-for="vehicleType in vehicleTypes">
+                            <img :src="newVehicleDetails.VehicleImage" v-if="newVehicleDetails.VehicleImage"
+                                style="height: 100px; width: 200px;" />
+
+                            <label class="custom-file-upload">
+                                <div>
+                                    <i class="fa fa-upload" aria-hidden="true"></i>
+                                    <input type="file" id="logo" name="logo" accept="image/*"
+                                        @change="filesChange($event)" />
+                                </div>
+
+                            </label>
+
+                        </div>
+                        <div class="form-group">
+                            <label v-for="vehicleType in vehicleTypes">
                                 <input type="radio" name="vehicleType" @click="changeVehicleType(vehicleType, $event)"
                                     v-model="newVehicleDetails.VehicleTypeId" :value="vehicleType.VehicleTypeId">
-                                {{vehicleType.VehicleTypeName}}
-                            </span>
+                                <i class="radioLabel">{{vehicleType.VehicleTypeName}}</i>
+                            </label>
 
                         </div>
                         <div class="form-group" v-if="newVehicleDetails.VehicleTypeId == 2">
-                            <span v-for="type in fourWheelerTypes">
+                            <label v-for="type in fourWheelerTypes">
                                 <input type="radio" name="fourWheelerType" v-model="newVehicleDetails.FourWheelerTypeId"
                                     :value="type.Id">
-                                {{type.VehicleType}}
-                            </span>
+                                <i class="radioLabel">{{type.VehicleType}}</i>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -70,6 +94,34 @@
             <div class="modal-footer">
                 <button class="btn btn-danger btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
                 <button class="btn btn-success btn-sm pull-right" title="Save User" @click="addNewVehicle">Add</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" data-backdrop="static" role="dialog" id="vehicleValidationPopup">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Please correct validations</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul v-for="(message, fieldName) in validations">
+                                <li>                                    
+                                    <span><b>{{fieldName}}</b></span>:<span>{{message}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger btn-sm pull-right" title="No"
+                        @click="closeValidationPopup">OK</button>
+                </div>
             </div>
         </div>
     </div>

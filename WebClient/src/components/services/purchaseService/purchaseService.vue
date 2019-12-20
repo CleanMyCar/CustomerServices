@@ -27,7 +27,8 @@
                 defaultBikeImage: "../../../src/content/images/bike.png",
                 addressList: [],
                 showAddressList: false,
-                selectedVehicle: null
+                selectedVehicle: null,
+                openedVehicleAddPopup: false
             };
         },
 
@@ -77,16 +78,20 @@
                 // $(".personalVehicle").not(event.currentTarget).prop('checked', false);
             },
             addNewVehicleInfo() {
-                this.newVehicleDetails = {
-                    AddressId: null,
-                    VehicleNumber: null,
-                    VehicleMake: null,
-                    VehicleModel: null,
-                    ParkingLot: null,
-                    VehicleTypeId: "1",
-                    FourWheelerTypeId: null
+                //this.newVehicleDetails = {
+                //    AddressId: null,
+                //    VehicleNumber: null,
+                //    VehicleMake: null,
+                //    VehicleModel: null,
+                //    ParkingLot: null,
+                //    VehicleTypeId: "1",
+                //    FourWheelerTypeId: null
+                //}
+                //$("#newVehicleDetailsPopup").modal("show");
+                this.openedVehicleAddPopup = true;
+                this.vehicleAddress = {
+                    VehicleId: -1
                 }
-                $("#newVehicleDetailsPopup").modal("show");
             },
             changeVehicleType(vehicleType, event) {
 
@@ -111,7 +116,7 @@
             },
             chooseVehicle(product, event) {
                 let vm = this;
-                if (event.currentTarget.checked) {
+                if ((event && event.currentTarget.checked) || product.VehicleId) {
                     vm.vehicleInfo.VehicleId = product.VehicleId;
                     vm.selectedVehicle = product;
                     vm.$store.dispatch("dataRequestHandler", {
@@ -193,13 +198,25 @@
                     vm.newVehicleDetails.VehicleImage = e.target.result;
                 }
                 reader.readAsDataURL(files[0]);
+            },
+            editVehicleAddress(){
+                this.openedVehicleAddPopup = true;
+            },
+            closeVehicleAddPopup(){
+                this.openedVehicleAddPopup = false;
+            },
+            updateVehicleAddress(selectedVehicle){
+                this.chooseVehicle(selectedVehicle)
+                this.openedVehicleAddPopup = false;
+                this.getMyProducts();
             }
+            
         },
 
         computed: {
             servicePrice() {
                 let vm = this;
-                if (this.selectedVehicle && vm.selectedVehicle.FourWheelerTypeId) {
+                if (this.selectedVehicle) {
                     if (vm.selectedVehicle.FourWheelerTypeId) {
                         let vehiclePriceInfo = this.fourWheelerTypes.filter((vehicle) => {
                             return vehicle.Id == vm.selectedVehicle.FourWheelerTypeId;

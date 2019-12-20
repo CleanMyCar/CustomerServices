@@ -13,22 +13,50 @@
         <div class="cell">
             <span v-if="product.VehicleTypeId == 1" class="defaultBikeImage"></span>
             <span v-if="product.VehicleTypeId == 2" class="defaultCarImage"></span>
+            <img v-if="product.VehicleImage" :src="product.VehicleImage" height="100" width="100">
         </div>
         <div class="cell">
             <div class="form-group">
-                <!-- <span style="float: right;" @click="deleteConfirm(product)">
+                <span style="float: right;" @click="openConfirmationPopup(product)">
                     <i class="far fa-trash-alt"></i>
-                </span> -->
+                </span>
             </div>
-            <div class="form-group">
-                <span> {{product.VehicleName}}</span>
-            </div>
-            <div class="form-group">
-                <span> {{product.VehicleNumber}}</span>
-                <span style="color: #004dff;">{{product.SubscribeType}}</span>
+            <div @click="editProduct(product)">
+                <div class="form-group">
+                    <span> {{product.VehicleName}}</span>
+                </div>
+                <div class="form-group">
+                    <span> {{product.VehicleNumber}}</span>
+                    <span style="color: #004dff;">{{product.SubscribeType}}</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <vehicleAddComponent v-if="openedVehicleAddPopup" :updateParent="getMyProducts"></vehicleAddComponent>
+    <vehicleAddComponent v-if="openedVehicleAddPopup" :vehicleId="selectedVehicle && selectedVehicle.VehicleId"
+        :updateParent="getMyProducts" :closeVehicleAddPopup="closeVehicleAddPopup"></vehicleAddComponent>
+
+    <div class="modal" data-backdrop="static" role="dialog" id="deleteVehiclePopup">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Please confirm before delete </h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Are you sure want to delete ?</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger btn-sm pull-right" title="No"
+                        @click="closeValidationPopup">No</button>
+                    <button class="btn btn-success btn-sm pull-right" title="Yes" @click="deleteVehicle">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

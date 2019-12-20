@@ -1,9 +1,13 @@
 <template src="./vehicleAddComponent.template.html"></template>
 
 <script>
+    import Vue from "vue";
+    import VeeValidate from "vee-validate";
+    Vue.use(VeeValidate);
+
     export default {
         name: "vehicleAddComponent",
-        props: ["updateParent"],
+        props: ["updateParent", "closeVehicleAddPopup", "vehicleId"],
         data() {
             return {
                 serviceDetail: null,
@@ -21,7 +25,10 @@
                 newVehicleImage: null,
                 subscriptionTypes: [],
                 vehicleAddress: null,
-                searchAddressText: null
+                searchAddressText: null,
+                addressList: [],
+                showAddressList: false,
+                validations:{}
             };
         },
 
@@ -37,8 +44,8 @@
                     VehicleMake: null,
                     VehicleModel: null,
                     ParkingLot: null,
-                    VehicleTypeId: "1",
-                    FourWheelerTypeId: null
+                    VehicleTypeId: "2",
+                    FourWheelerTypeId: "2"
                 }
                 $("#newVehicleDetailsPopup").modal("show");
             },
@@ -47,24 +54,32 @@
             },
             addNewVehicle() {
                 let vm = this;
-                vm.$store.dispatch("dataRequestHandler", {
-                    key: "SaveVehicleDetails",
-                    params: Object.assign(vm.newVehicleDetails, { IsPersonal: vm.vehicleInfo.isPersonal }),
-                    callback: function (err, response) {
-                        if (err) {
-                            return;
-                        }
-                        // vm.getMyProducts();
-                        $("#newVehicleDetailsPopup").modal("hide");
-                        if(vm.updateParent){
-                            vm.updateParent();
-                        }
-                    }
-                });
+                var regex = /^[0-9a-zA-Z\_]+$/;
 
+                 vm.$validator.validateAll().then(result => {
+                    if (result) {                
+                        vm.$store.dispatch("dataRequestHandler", {
+                            key: "SaveVehicleDetails",
+                            params: Object.assign(vm.newVehicleDetails, { IsPersonal: 1 }),
+                            callback: function (err, response) {
+                                if (err) {
+                                    return;
+                                }
+                                // vm.getMyProducts();
+                                $("#newVehicleDetailsPopup").modal("hide");
+                                if(vm.updateParent){
+                                    vm.updateParent(vm.newVehicleDetails);
+                                }
+                            }
+                        });
+
+                }   
+                });
+               
             },
             cancel() {
                 $("#newVehicleDetailsPopup").modal("hide");
+                this.closeVehicleAddPopup();
             },
             chooseVehicle(product, event) {
                 let vm = this;
@@ -91,6 +106,73 @@
             },
             updateServiceDate(key, dateObj, objectPassedToParent) {
                 this.vehicleInfo.ServiceDate = dateObj ? dateObj.format("DD MMM YYYY") : null;
+            },
+            getAddressBySearchText(text) {
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "GetAddressBySearch",
+                    params: {
+                        searchText: text
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+                        vm.addressList.splice(0, vm.addressList.length, ...response);
+                        vm.showAddressList = true;
+                    }
+                });
+            },
+            selectAddress(addressObj) {
+                this.newVehicleDetails.AddressId = addressObj.AddressId;
+                this.searchAddressText = addressObj.AddressLine1 + " " + addressObj.AddressLine2 + ", " + addressObj.Landmark + ", " + addressObj.CityName + ", " + addressObj.StateName
+                this.showAddressList = false;
+            },
+            filesChange(e) {
+                let files = e.target.files || e.dataTransfer.files;
+                let vm = this;
+                let reader = new FileReader();
+                reader.onload = e => {
+                    vm.newVehicleDetails.VehicleImage = e.target.result;
+                }
+                reader.readAsDataURL(files[0]);
+            },
+            closeValidationPopup(){
+                $("#vehicleValidationPopup").modal("hide")
+            },
+            getVehicleTypes(){
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "GetVehicleTypes",
+                    params: {
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+
+                        vm.vehicleTypes = response[0];
+                        vm.fourWheelerTypes = response[1];
+                    }
+                });
+            },
+            getVehicleDetails(){
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "GetVehicleDetail",
+                    params: {
+                        VehicleId: vm.vehicleId
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+
+                        vm.newVehicleDetails = response;
+                        vm.selectAddress(response);
+                        $("#newVehicleDetailsPopup").modal("show");
+                    }
+                });
             }
         },
 
@@ -101,9 +183,26 @@
         mounted() {
             let vm = this;
             vm.addNewVehicleInfo();
+            vm.getVehicleTypes();
+            if(vm.vehicleId && vm.vehicleId > 0){
+                vm.getVehicleDetails();
+            }
         },
         watch: {
-            $route: "fetchData"
+            $route: "fetchData",
+            searchAddressText(value) {
+                if (value && value.trim().length > 2 && value.trim().length < 10) {
+                    this.getAddressBySearchText(value);
+                }
+                else {
+                    this.addressList.splice(0, this.addressList.length)
+                }
+            },
+            vehicleId(value){
+                if(value && value > 0){
+                    this.getVehicleDetails();
+                }
+            }
         }
     };
 </script>

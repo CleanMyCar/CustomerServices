@@ -7,7 +7,8 @@
         data() {
             return {
                 myVehicles: [],
-                openedVehicleAddPopup: false
+                openedVehicleAddPopup: false,
+                selectedVehicle: null
             };
         },
 
@@ -60,8 +61,40 @@
                 });
             },
             openVehicleAddPopup(){
-                this.openedVehicleAddPopup = !this.openedVehicleAddPopup
+                this.selectedVehicle = null;
+                this.openedVehicleAddPopup = !this.openedVehicleAddPopup;
+            },
+            closeVehicleAddPopup(){
+                this.openedVehicleAddPopup = !this.openedVehicleAddPopup;
+            },
+            deleteVehicle(){
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "DeleteVehicle",
+                    params: vm.selectedVehicle,
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+                        vm.selectedVehicle = null;
+                        vm.closeValidationPopup();
+                        vm.getMyProducts();   
+                    }
+                });
+            },
+            openConfirmationPopup(vehicle){
+                let vm = this;
+                vm.selectedVehicle = vehicle;
+                $("#deleteVehiclePopup").modal("show");
+            },
+            closeValidationPopup(){
+                $("#deleteVehiclePopup").modal("hide");
+            },
+            editProduct(product){
+                this.selectedVehicle = product;
+                this.openedVehicleAddPopup = !this.openedVehicleAddPopup;
             }
+
         },
 
         computed: {

@@ -47,7 +47,10 @@ const getServiceList = require("./services/getServiceList"),
   getAssignedServices = require("./servicePerson/getAssignedServices"),
   updateServiceStatus = require("./servicePerson/updateServiceStatus"),
   saveServiceDetail = require("./services/saveServiceDetail"),
-  getAllServices = require("./services/getAllServices");
+  getAllServices = require("./services/getAllServices"),
+  deleteVehicle = require("./myProducts/vehicle/deleteVehicle"),
+  getVehicleTypes = require("./myProducts/vehicle/getVehicleTypes"),
+  getVehicleDetail = require("./myProducts/vehicle/getVehicleDetail");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -100,4 +103,7 @@ module.exports = [
   { key: "UpdateServiceStatus", callback: updateServiceStatus, pushkey: null, isLoggingEnabled: false },
   { key: "SaveServiceDetail", callback: saveServiceDetail, pushkey: null, isLoggingEnabled: false },
   { key: "GetAllServices", callback: getAllServices, pushkey: null, isLoggingEnabled: false },
+  {key: "DeleteVehicle", callback: deleteVehicle, pushkey: null, isLoggingEnabled: false},
+  {key: "GetVehicleTypes", callback: getVehicleTypes, pushkey: null, isLoggingEnabled: false},
+  {key: "GetVehicleDetail", callback: getVehicleDetail, pushkey: null, isLoggingEnabled: false}
 ];

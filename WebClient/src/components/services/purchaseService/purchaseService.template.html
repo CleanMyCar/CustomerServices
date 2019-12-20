@@ -10,7 +10,7 @@
             <div class="col-md-12">
 
 
-                <div class="modal" data-backdrop="static" role="dialog" id="newVehicleDetailsPopup">
+                <div class="modal" data-backdrop="static" role="dialog" id="newVehicleDetailsPopup233">
                     <div class="modal-dialog" v-if="newVehicleDetails">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -185,7 +185,7 @@
                         </div>
                         <div class="form-group">
                             <div class="cellRow">
-                                <div class="cell" v-for="product in subscriptionTypes" style="flex: 0 0 12%;">
+                                <div class="cell" v-for="product in subscriptionTypes" style="flex: 0 0 12%;" v-if="serviceDetail.serviceSubscribeTypes.indexOf(product.SubscribeId) > -1">
                                     <label class="radioLabel customradioLabel">
                                         <input type="radio" name="serviceFrequency" :value="product.SubsribeId"
                                             v-model="vehicleInfo.Frequency">
@@ -254,10 +254,10 @@
                         <h5>Delivery/Service Address</h5>
                         <!-- <span style="float: right;" v-if="!vehicleAddress">
                             Add
-                        </span>
-                        <span style="float: right;" v-if="vehicleAddress">
-                            Edit
                         </span> -->
+                        <span style="float: right;" v-if="vehicleAddress" @click="editVehicleAddress">
+                            Edit
+                        </span>
                     </div>
                     <div v-if="vehicleAddress">
                         <div>
@@ -289,5 +289,8 @@
 
             </div>
         </div>
+
+        <vehicleAddComponent v-if="openedVehicleAddPopup" :vehicleId="vehicleAddress && vehicleAddress.VehicleId"
+        :updateParent="updateVehicleAddress" :closeVehicleAddPopup="closeVehicleAddPopup"></vehicleAddComponent>
     </div>
 </div>
