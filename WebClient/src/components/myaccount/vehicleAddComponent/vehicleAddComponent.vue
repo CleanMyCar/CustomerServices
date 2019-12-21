@@ -7,7 +7,7 @@
 
     export default {
         name: "vehicleAddComponent",
-        props: ["updateParent", "closeVehicleAddPopup", "vehicleId"],
+        props: ["updateParent", "closeVehicleAddPopup", "vehicleId", "serviceDetail"],
         data() {
             return {
                 serviceDetail: null,
@@ -44,8 +44,8 @@
                     VehicleMake: null,
                     VehicleModel: null,
                     ParkingLot: null,
-                    VehicleTypeId: "2",
-                    FourWheelerTypeId: "2"
+                    VehicleTypeId: this.serviceDetail ? this.serviceDetail.VehicleCategoryType : "2",
+                    FourWheelerTypeId: this.serviceDetail && this.serviceDetail.VehicleCategoryType == "2" ? "2" : null
                 }
                 $("#newVehicleDetailsPopup").modal("show");
             },

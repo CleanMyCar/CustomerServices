@@ -1,0 +1,23 @@
+<div class="modal" data-backdrop="static" role="dialog" id="deleteConfirmationPopup">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Please confirm before delete </h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Are you sure want to delete ?</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger btn-sm pull-right" title="No"
+                    @click="confirm">No</button>
+                <button class="btn btn-success btn-sm pull-right" title="Yes" @click="confirm(1)">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

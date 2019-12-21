@@ -141,7 +141,7 @@
                             </div>
                         </div>
                         <div class="cell" @click="addNewVehicleInfo">
-                            <img :src="defaultCarImage" height="120" width="120">
+                            <img :src="serviceDetail.VehicleCategoryType == 2 ? defaultCarImage : defaultBikeImage" height="120" width="120">
                             <div class="form-group serviceName">
                                 <a href="javascript:void(0)">Add New Vehicle</a>
                             </div>
@@ -254,7 +254,7 @@
 
                 </div>
 
-                <div class="address">
+                <div class="address" v-if="vehicleAddress && vehicleAddress.VehicleId > 0">
                     <div>
                         <h5>Delivery/Service Address</h5>
                         <!-- <span style="float: right;" v-if="!vehicleAddress">
@@ -286,10 +286,10 @@
                         Amount: ₹ {{servicePrice}}/-
                     </div>
                     <div style="float: right; width: 50%;">
-                        <addToCartComponent v-if="(serviceDetail.VehicleCategoryType != 3 && vehicleInfo.VehicleId) || (serviceDetail.VehicleCategoryType == 3 && vehicleInfo.Quantity > 0)"
+                        <addToCartComponent v-if="serviceType == 2 && ((serviceDetail.VehicleCategoryType != 3 && vehicleInfo.VehicleId) || (serviceDetail.VehicleCategoryType == 3 && vehicleInfo.Quantity > 0))"
                         :product="vehicleInfo" :serviceSaved="serviceSaved" :updateParent="confirmServiceOrder"></addToCartComponent>
                         <button class="btn btn-success btn-sm pull-right" :disabled="(serviceDetail.VehicleCategoryType != 3 && !vehicleInfo.VehicleId) || (serviceDetail.VehicleCategoryType == 3 && vehicleInfo.Quantity < 1)"
-                            title="Confirm" @click="confirmServiceOrder">Confirm</button>
+                            title="Confirm" @click="confirmServiceOrder(1)">Confirm</button>
                     </div>
 
                 </div>
@@ -299,6 +299,6 @@
         </div>
 
         <vehicleAddComponent v-if="openedVehicleAddPopup" :vehicleId="vehicleAddress && vehicleAddress.VehicleId"
-            :updateParent="updateVehicleAddress" :closeVehicleAddPopup="closeVehicleAddPopup"></vehicleAddComponent>
+            :updateParent="updateVehicleAddress" :closeVehicleAddPopup="closeVehicleAddPopup" :serviceDetail="serviceDetail"></vehicleAddComponent>
     </div>
 </div>

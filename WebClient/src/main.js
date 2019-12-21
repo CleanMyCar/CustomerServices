@@ -26,6 +26,8 @@ import servicePersonHomePage from "./components/servicePersonComponents/serviceP
 import assignPersonComponent from "./components/homeModule/adminHomePageComponent/assignPersonComponent/assignPersonComponent.vue"
 import quantityComponent from "./components/commonComponents/quantityComponent/quantityComponent.vue"
 import addToCartComponent from "./components/commonComponents/addToCartComponent/addToCartComponent.vue"
+import userCartPanel from "./components/myaccount/userCartPanel/userCartPanel.vue"
+import deleteConfirmationPopup from "./components/commonComponents/deleteConfirmationPopup/deleteConfirmationPopup.vue"
 
 Vue.component(datePickerComponent.name, datePickerComponent);
 Vue.component(pageLoadingComponent.name, pageLoadingComponent);
@@ -45,6 +47,8 @@ Vue.component(servicePersonHomePage.name, servicePersonHomePage)
 Vue.component(assignPersonComponent.name, assignPersonComponent)
 Vue.component(quantityComponent.name, quantityComponent);
 Vue.component(addToCartComponent.name, addToCartComponent);
+Vue.component(userCartPanel.name, userCartPanel);
+Vue.component(deleteConfirmationPopup.name, deleteConfirmationPopup)
 
 new Vue({
   el: '#app',

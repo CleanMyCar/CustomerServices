@@ -8,7 +8,7 @@
     "debch": "node --inspect-brk=9429 apiGateway.js"
   },
   "author": {
-    "name": "varun"
+    "name": "Rajendra"
   },
   "devDependencies": {},
   "dependencies": {

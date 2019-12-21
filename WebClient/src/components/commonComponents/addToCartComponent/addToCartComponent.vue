@@ -33,6 +33,7 @@
                         }
                         if(response.CartProductId){
                             vm.$store.state.bus.$emit("refreshCart");
+                            vm.$router.push("/");
                         }
                     }
                 });

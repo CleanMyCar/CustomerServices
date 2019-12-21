@@ -1,9 +1,9 @@
-<div>
-    <button class="plus-btn" type="button" name="button" @click="incrementQuantity">
+<div class="quantityComponent">
+    <button class="plus-btn" type="button" name="button" @click="incrementQuantity" :disabled="disabled">
         <i class="fa fa-plus-circle" aria-hidden="true"></i>
     </button>
-    <input type="number" name="name" min="1" v-model="value">
-    <button class="minus-btn" type="button" name="button" @click="decrementQuantity">
+    <input type="number" name="name" min="1" v-model="value" style="text-align: center;" :disabled="disabled">
+    <button class="minus-btn" type="button" name="button" @click="decrementQuantity" :disabled="disabled">
         <i class="fa fa-minus-circle" aria-hidden="true"></i>
     </button>
 </div>

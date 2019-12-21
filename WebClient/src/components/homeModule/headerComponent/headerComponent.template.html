@@ -7,126 +7,17 @@
                     <!-- <span v-if="selectedClientObj" class="">{{ClientName}}</span> -->
                     <!-- <span v-if="(selectedClientObj && selectedClientObj.ClientId === 1 && ClientId !== 1)"><button title="Client List" @click="showPropertyPanel"><i style="font-size:24px" class="fa">&#xf107;</i></button></span> -->
                 </a>
-
-                <span class="FixClientListIcon" v-if="(selectedClientObj && selectedClientObj.ClientId === 1)">
-                    <button title="Client List" @click="showClientPanel">
-                        <i class="fas fa-pencil"></i>
-                    </button>
-                </span>
             </div>
-
-            <form v-if="false" class="search"
-                v-bind:class="{support: (selectedClientObj && selectedClientObj.ClientId === 1)}">
-                <span class="fas fa-search"></span>
-                <input type="text" name="search" v-on:keyup="searchWithText" v-model="searchText"
-                    placeholder="Search for a reservation, guest or availability" autocomplete="off">
-                <!-- <button v-if="clear" class="btn btn-default btn-sm" @click="clearResults">Clear</button> -->
-                <button v-if="clear" class="searchClear" @click="clearResults">
-                    <i class="fas fa-times"></i>
-                </button>
-            </form>
 
 
             <div class="headRightWrap">
-                <ul class="topNav">
 
-                    <!-- <li>
-                        <button @click="redirectToHome">
-                            <i class="fa fa-calendar"></i>
-                        </button>
-                    </li> -->
-                    <!--<li><button @click="toggleNotification" class="notoficationButton"><span class="fa fa-bell"></span> <span class="count">{{notificationCount}}</span></button></li>-->
-                    <!-- <li>
-                        <button @click="toggleNotification" title="Notifications"  class="notoficationButton" :class="{ active: isActiveForNotification }">
-                            <span class="fa fa-bell"></span>
-                            <span class="count" v-text="notificationCount"></span>
-                        </button>
-                    </li> -->
-                    <!-- <li>
-                        <button>
-                            <i class="fa fa-cogs topNavHomeIcon"></i>
-                        </button>
-                    </li> -->
-                    <!-- <li title="calender">
-                        <button v-if="showCalendar" @click="calendar" :class="{ active: parentModuleName === 'Reservations' || parentModuleName === 'HouseKeepingStatus'  }">
-
-                            <i class="fas fa-calendar-alt"></i>
-
-                        </button>
-
-                    </li> -->
-
-                </ul>
-                <div class="dropdown" v-if="false">
-
-                    <button v-show="showicon" class="btn btn-primary dropdown-toggle profilePic" @click="groupicons"
-                        type="button" data-toggle="dropdown" title="Control Panel"
-                        :class="{ active: parentModuleName === 'Admin' }">
-                        <span class="fas fa-cogs "></span>
-                    </button>
-
-                    <!-- <ul class="dropdown-menu">
-                           
-                            <li @click="redirectToClient" >
-                                <a><i class="fa clientIcon"></i>Client</a>
-                            </li>
-                            <li @click="redirectToProperty" :disabled="fncIsPropertyList && (fncIsPropertyList.isAssigned === -1 && fncIsPropertyList.functionState === 2)" v-if="fncIsPropertyList && (fncIsPropertyList.isAssigned === 1 || (fncIsPropertyList.isAssigned === -1 && fncIsPropertyList.functionState === 2)) " >
-                                    
-                                     <a><i class="fa fa-building" aria-hidden="true"></i> Property</a>
-                                </li>
-
-                            <li @click="redirectToUnit" >
-                                <a><div class="fa unitIcon"></div>Unit</a>
-                            </li>
-                            <li @click="redirectToUserGroups" :disabled="fncIsRoleList && (fncIsRoleList.isAssigned === -1 && fncIsRoleList.functionState === 2)" v-if="fncIsRoleList && (fncIsRoleList.isAssigned === 1 || (fncIsRoleList.isAssigned === -1 && fncIsRoleList.functionState === 2)) "  >
-                                    
-                                <a><i class="fa fa-users"></i> Roles</a>
-                            </li>
-                            <li @click="redirectToUserTypes":disabled="fncIsUserList && (fncIsUserList.isAssigned === -1 && fncIsUserList.functionState === 2)" v-if="fncIsUserList && (fncIsUserList.isAssigned === 1 || (fncIsUserList.isAssigned === -1 && fncIsUserList.functionState === 2)) ">
-                                    
-                                <a><i class="fa fa-user"></i>Users</a>
-                                </li>
-                           
-                        </ul> -->
-                </div>
-                <div class="dropdown" v-if="false">
-                    <button class="btn btn-primary dropdown-toggle profilePic" type="button" data-toggle="dropdown"
-                        :title="selectedClientObj.UserFirstName +selectedClientObj.UserLastName"
-                        :class="{ active: isActiveForUser }">
-                        <!-- <img :src="userImage" alt=""> -->
-                        <span class="fas fa-user"></span>
-                        <!-- <span>{{userName}}</span> -->
-                    </button>
-
-                    <ul class="dropdown-menu">
-                        <li @click="navigateToUserProfile"
-                            :disabled="fncIsMyProfile && (fncIsMyProfile.isAssigned === -1 && fncIsMyProfile.functionState === 2)"
-                            v-if="fncIsMyProfile && (fncIsMyProfile.isAssigned === 1 || (fncIsMyProfile.isAssigned === -1 && fncIsMyProfile.functionState === 2))">
-                            <a>
-                                <i class="fas fa-user"></i>
-                                <span>My Profile</span>
-                            </a>
-                        </li>
-                        <li @click="togglepassword" title="changePassword" :class="{ active:isActiveForPassword }">
-
-                            <a>
-                                <i class="fas fa-key"></i>
-                                <span>Change Password</span>
-                            </a>
-                        </li>
-                        <li @click="logout">
-                            <a>
-                                <i class="fas fa-power-off"></i>
-                                <span>Logout</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
                 <ul class="topNav">
                     <li>
-                        {{cartSummary ? cartSummary.NoOfProducts : ''}}
-                        <button title="Orders in cart" @click="navigateToCart">                            
+                        <button  @click="toggleCartPanel" class="notoficationButton">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                            <span class="count" v-if="cartSummary && cartSummary.NoOfProducts"
+                                v-text="cartSummary.NoOfProducts"></span>
                         </button>
                     </li>
                     <li>
@@ -135,20 +26,10 @@
                         </button>
                     </li>
                     <li>
-                        <!-- <button @click="toggleNotification" title="Notifications" class="notoficationButton" :class="{ active: isActiveForNotification }">
-                            <span class="fas fa-bell"></span>
-                            <span class="count" v-text="notificationCount"></span>
-                        </button> -->
-
-                        <button @click="toggleNotification"  style="float: right; ">
+                        <button @click="toggleNotification" style="float: right; ">
                             <i class="fa fa-bars" aria-hidden="true"></i>
                         </button>
                     </li>
-                    <!-- <li>
-                        <button title="Client List" @click="showClientPanel">
-                            <i class="fa fa fa-star"></i>
-                        </button>
-                    </li> -->
                 </ul>
 
             </div>
@@ -157,25 +38,18 @@
         <div class="siteHomepage"> </div>
 
         <div class="menuMaskN" @click="toggleNotification"></div>
+        <div class="menuMask" @click="toggleCartPanel"></div>
 
         <div id="notification" class="notofocationBar">
-            <!--<h6>Notifications</h6><span @click="clearMessages">Clear</span>
-        <ul class="notofiLIst" v-for="notification in userNotifications">
-            <li>
-                <span class="icon"><span class="fa fa-bell"></span></span>
-                <p @click="navigateToNotification(notification)">{{notification.default.message}}</p>
-            </li>
-        </ul>-->
             <div class="">
                 <userProfilePanel :panelCallback="panelCallback"></userProfilePanel>
             </div>
-
-
-            <ul class="notofiLIst" v-if="notificatoinKeyList && notificatoinKeyList.status == 'success'">
-            </ul>
         </div>
-
-
+        <div id="cartPanel" class="reservationSummary">
+            <div class="row">
+                <userCartPanel :panelCallback="panelCallback"></userCartPanel>
+            </div>
+        </div>
     </div>
     <!-- password -->
 </div>

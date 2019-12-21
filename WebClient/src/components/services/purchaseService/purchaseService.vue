@@ -126,7 +126,7 @@
             },
             chooseVehicle(product, event) {
                 let vm = this;
-                if ((event && event.currentTarget.checked) || product.VehicleId) {
+                if ((event && event.currentTarget.checked) || (product.VehicleId && product.VehicleId > -1)) {
                     vm.vehicleInfo.VehicleId = product.VehicleId;
                     vm.selectedVehicle = product;
                     vm.$store.dispatch("dataRequestHandler", {

@@ -51,7 +51,10 @@ const getServiceList = require("./services/getServiceList"),
   getVehicleTypes = require("./myProducts/vehicle/getVehicleTypes"),
   getVehicleDetail = require("./myProducts/vehicle/getVehicleDetail"),
   saveProductToCart = require("./cart/saveProductToCart"),
-  getUserCartProductSummary = require("./cart/getUserCartProductSummary");
+  getUserCartProductSummary = require("./cart/getUserCartProductSummary"),
+  getUserCartItems = require("./cart/getUserCartItems"),
+  deleteCartItem = require("./cart/deleteCartItem"),
+  checkoutUserCartItems = require("./cart/checkoutUserCartItems");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -109,4 +112,7 @@ module.exports = [
   {key: "GetVehicleDetail", callback: getVehicleDetail, pushkey: null, isLoggingEnabled: false},
   {key: "SaveProductToCart", callback: saveProductToCart, pushkey: null, isLoggingEnabled: false},
   {key: "GetUserCartProductSummary", callback: getUserCartProductSummary, pushkey: null, isLoggingEnabled: false},
+  {key: "GetUserCartItems", callback: getUserCartItems, pushkey: null, isLoggingEnabled: false},
+  {key: "DeleteCartItem", callback: deleteCartItem, pushkey: null, isLoggingEnabled: false},
+  {key: "CheckoutUserCartItems", callback: checkoutUserCartItems, pushkey: null, isLoggingEnabled: false},
 ];

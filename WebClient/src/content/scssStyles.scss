@@ -5352,8 +5352,8 @@ button {
 }
 
 .LeftMainSaid li:hover .fa.clientIcon,
-.LeftMainSaid .active .fa.clientIcon, 
-.LeftMainSaid li:hover .fa.dashboard-icon-left, 
+.LeftMainSaid .active .fa.clientIcon,
+.LeftMainSaid li:hover .fa.dashboard-icon-left,
 .LeftMainSaid .active .fa.dashboard-icon-left {
     background-position-y: -21px;
 }
@@ -6724,11 +6724,11 @@ table.folioTable {
      display: none;
      background: #0000003b;
     }
-  
+
     .modal-header{
       padding: 5px 15px;
       border-bottom: unset;
-    } 
+    }
     .modal-body {
         position: relative;
         flex: 1 1 auto;
@@ -7065,7 +7065,7 @@ input:focus::-webkit-input-placeholder {
 }
 
 .ResGrid .dTable .dTHead .dCell:last-child{
-    padding-right: 15px; 
+    padding-right: 15px;
 }
 
 .ResGrid .dTBodyRow .dCell {
@@ -10348,7 +10348,7 @@ input[class="unitType"] {
 //     position: unset;
 //   }
 //   .HKGrid .dTable .dCell {
-//     min-width: 295px; 
+//     min-width: 295px;
 //   }
 // }
 // .HKGrid .dTBodyRow{
@@ -11653,7 +11653,7 @@ body {
         background: url("images/card-VC.png");
         right: 113px;
       }
-      & .disable-Visa.Visa, .disable-American.American.Express, 
+      & .disable-Visa.Visa, .disable-American.American.Express,
       .disable-MasterCard.MasterCard, .disable-Discover.Discover{
         opacity: unset;
         -webkit-filter: unset;
@@ -12213,30 +12213,30 @@ body {
     //   background-image:  url("images/occupancy.png");
     // }
     // .stay-nights{
-    //   background-image:  url("images/stay-nights.png"); 
+    //   background-image:  url("images/stay-nights.png");
     // }
     // .avg-daily-rate{
     //   background-image:  url("images/avg-daily-rate.png");
     // }
     // .revenue{
-    //   background-image:  url("images/revenue.png"); 
+    //   background-image:  url("images/revenue.png");
     // }
     // .amount-authorized{
-    //   background-image:  url("images/amount-authorized.png"); 
+    //   background-image:  url("images/amount-authorized.png");
     // }
     // .amount-failed{
-    //   background-image:  url("images/amount-failed.png"); 
+    //   background-image:  url("images/amount-failed.png");
     // }
-  
-  
+
+
     // .amount-refunded{
-    //     background-image:  url("images/amount-refunded.png"); 
+    //     background-image:  url("images/amount-refunded.png");
     // }
     // .revpar{
-    //     background-image:  url("images/revpar.png");        
+    //     background-image:  url("images/revpar.png");
     // }
     // .transactions{
-    //   background-image:  url("images/transactions.png"); 
+    //   background-image:  url("images/transactions.png");
     // }
     .dashboard-icon{
       width: 28px;
@@ -12245,7 +12245,7 @@ body {
       display: inline-block;
       background-repeat: no-repeat;
       background-position: 50%;
-      background-image:  url("images/dashboard.png"); 
+      background-image:  url("images/dashboard.png");
     }
     & .ResGrid {
         .dTable .dTHead{
@@ -12267,8 +12267,8 @@ body {
                 white-space: normal;
             }
         }
-        .GroupByName, .GuestFullName, .MethodName, 
-        .departureDate, .arrivalDate, .ResStatusName, 
+        .GroupByName, .GuestFullName, .MethodName,
+        .departureDate, .arrivalDate, .ResStatusName,
         .PropertyNickname, .PaymentStatusName{
             text-align: left !important;
         }
@@ -12278,7 +12278,7 @@ body {
         .GuestFullName{
             flex-grow: 2;
             min-width: 150px !important;
-            max-width: 150px;   
+            max-width: 150px;
         }
          .MethodName, .PropertyNickname{
             flex-grow: 2;
@@ -12288,13 +12288,13 @@ body {
         .PaymentDate{
             flex-grow: 2;
             min-width: 170px !important;
-            max-width: 170px;  
+            max-width: 170px;
         }
         .Amount{
             white-space: nowrap;
             flex-grow: 1;
             min-width: 100px !important;
-            max-width: 100px;  
+            max-width: 100px;
         }
 
     }
@@ -12316,15 +12316,15 @@ body {
     }
     .ag-theme-balham .ag-cell{
         line-height: 55px;
-    } 
+    }
     .ag-header-group-cell-label{
         justify-content: center;
-    } 
-    .ag-theme-balham .ag-header-cell::after, 
+    }
+    .ag-theme-balham .ag-header-cell::after,
     .ag-theme-balham .ag-header-group-cell::after{
         margin-top: 0px;
         height: 50px;
-    } 
+    }
     .ag-theme-balham .ag-header-row{
         font-size: 13px;
         text-transform: uppercase;
@@ -12421,7 +12421,7 @@ body {
   randomColorsForBtn{
     .btn-card{
       max-width: unset !important;
-      
+
     }
     >*:nth-child(8n+1) .btn-card {
       background: #f56954;
@@ -12511,7 +12511,7 @@ body {
     // padding-bottom: 15px;
   }
 
-  
+
   .cell{
     max-width: 100%;
     // display: flex;
@@ -12604,7 +12604,7 @@ body {
     }
  }
 
- .defaultCarImage{     
+ .defaultCarImage{
      background: url(../content/images/car.png);
  }
 
@@ -12734,11 +12734,40 @@ body {
     margin-bottom: 4px;
     margin-top: 5px;
   }
-  
+
 .orgLogBgDum{
     width: 300px;
     height: 200px;
     display: block;
     background:#f2f3f2 url(images/default-image.png) no-repeat 50%;
     background-size: contain;
+  }
+
+
+
+  .message-count {
+    color: red;
+    font-size: 10px;
+    font-family: Arial, san-serif;
+    font-weight: bold;
+  }
+
+
+  .badge {
+    position: absolute;
+    // right: 0px;
+    // top: -5px;
+    z-index: 10;
+  }
+
+  .quantityComponent > input{
+      width: 12% !important;
+  }
+
+  .cartTotalAmount{
+    width: 50%;
+    border: 1px solid #CCC;
+    height: 35px;
+    float: left;
+    background-color: skyblue;
   }

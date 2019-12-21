@@ -7,7 +7,7 @@
 
     export default {
         name: "quantityComponent",
-        props: ["updateParent", "closeVehicleAddPopup", "inputValue"],
+        props: ["updateParent", "closeVehicleAddPopup", "inputValue", "disabled", "callbackResponse"],
         data() {
             return {
                 value: null
@@ -16,11 +16,12 @@
 
         methods: {
             incrementQuantity() {
-                this.value = this.value ? this.value + 1 : 1
+                this.value = this.value ? Number(this.value) + 1 : 1
             },
             decrementQuantity() {
-                if (this.value > 1)
-                    this.value = this.value - 1;
+                if (this.value > 1){
+                    this.value = Number(this.value) - 1;
+                }
             }
         },
 
@@ -32,9 +33,11 @@
             this.value = this.inputValue
         },
         watch: {
-            $route: "fetchData",
             value(value) {
-                this.updateParent(value);
+                if(value == 0){
+                    this.value = 1;
+                }
+                this.updateParent(value, this.callbackResponse);
             },
             inputValue() {
                 this.value = this.inputValue;
