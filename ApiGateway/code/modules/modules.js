@@ -54,7 +54,11 @@ const getServiceList = require("./services/getServiceList"),
   getUserCartProductSummary = require("./cart/getUserCartProductSummary"),
   getUserCartItems = require("./cart/getUserCartItems"),
   deleteCartItem = require("./cart/deleteCartItem"),
-  checkoutUserCartItems = require("./cart/checkoutUserCartItems");
+  checkoutUserCartItems = require("./cart/checkoutUserCartItems"),
+  saveAddress = require("./address/saveAddress"),
+  updateUserProfile = require("./user/saveUserProfile"),
+  getUserAddressIds = require("./address/getUserAddressIds"),
+  getAddressDetails = require("./address/getAddressDetails");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -115,4 +119,8 @@ module.exports = [
   {key: "GetUserCartItems", callback: getUserCartItems, pushkey: null, isLoggingEnabled: false},
   {key: "DeleteCartItem", callback: deleteCartItem, pushkey: null, isLoggingEnabled: false},
   {key: "CheckoutUserCartItems", callback: checkoutUserCartItems, pushkey: null, isLoggingEnabled: false},
+  {key: "SaveAddress", callback: saveAddress, pushkey: null, isLoggingEnabled: false},
+  {key: "UpdateUserProfile", callback: updateUserProfile, pushkey: null, isLoggingEnabled: false},
+  {key: "GetUserAddressIds", callback: getUserAddressIds, pushkey: null, isLoggingEnabled: false},
+  {key: "GetAddressDetails", callback: getAddressDetails, pushkey: null, isLoggingEnabled: false},
 ];

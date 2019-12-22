@@ -12,8 +12,31 @@
             </div>
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="card-body">
-                    <div class="cellRow" v-for="product in subscriptions" style="border: 1px solid #c5c5c5; margin: 5px; padding: 5px;">
-                        <orderItem :orderId="product.RequestId" :pauseOrder="pauseOrder" :resumeOrder="resumeOrder" :deleteOrder="deleteConfirm"></orderItem>
+                    <!-- <div class="cellRow" v-for="product in subscriptions" style="border: 1px solid #c5c5c5; margin: 5px; padding: 5px;">
+                        <orderRowComponent :orderId="product.RequestId" :pauseOrder="pauseOrder" :resumeOrder="resumeOrder" :deleteOrder="deleteConfirm"></orderRowComponent>
+                    </div> -->
+
+                    <div class="ResGrid">
+                        <div class="dTable">
+                            <table style="width: 100%; overflow:scroll;">
+                                <thead>
+                                    <th>Service Date</th>
+                                    <th>Service</th>
+                                    <th>Amount</th>
+                                    <th>Quantity</th>
+                                    <th>Product Name</th>
+                                    <th>Status</th>
+                                    <th>
+                                        Actions
+                                    </th>
+                                </thead>
+                                <tbody class="myordersTable">
+                                    
+                                        <orderRowComponent v-for="product in subscriptions" :orderId="product.RequestId" :pauseOrder="pauseOrder" :resumeOrder="resumeOrder" :deleteOrder="deleteConfirm"></orderRowComponent>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -27,9 +50,22 @@
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                 <div class="card-body">
-                    
-                    <div class="cellRow" v-for="product in inactiveOrders" style="border: 1px solid #c5c5c5; margin: 5px; padding: 5px;">
-                        <orderItem :orderId="product.RequestId" :pauseOrder="pauseOrder" :resumeOrder="resumeOrder" :deleteOrder="deleteConfirm"></orderItem>
+                    <div class="ResGrid">
+                        <div class="dTable">
+                            <table style="width: 100%; overflow:scroll;">
+                                <thead>
+                                    <th>Service Date</th>
+                                    <th>Service</th>
+                                    <th>Amount</th>
+                                    <th>Quantity</th>
+                                    <th>Product Name</th>
+                                    <th>Status</th>                                    
+                                </thead>
+                                <tbody class="myordersTable">                                    
+                                        <orderRowComponent v-for="product in inactiveOrders" :orderId="product.RequestId" disableActions="true"></orderRowComponent>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

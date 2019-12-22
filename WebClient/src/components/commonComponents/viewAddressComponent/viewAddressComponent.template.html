@@ -1,0 +1,26 @@
+<div class="" v-if="addressDetails">
+    <div class="col-md-12">
+        <div class="">
+            <div class="pull-right">
+                <span class="pauseSubscribe" style="margin-right: 5px;" @click="editAddress">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </span>
+                <span style="float: right;" @click="deleteAddress">
+                    <i class="far fa-trash-alt"></i>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label>{{addressDetails.AddressLine1}}</label><br>
+                <label>{{addressDetails.AddressLine2 + ", " + addressDetails.Landmark}}</label>
+            </div>
+        </div>
+
+    </div>
+
+    <addressPopupComponent v-if="isOpen" :isOpen="isOpen" :selectedAddress="selectedAddress" :updateParent="addressCallback"
+    :closeAddressPopup="closeAddressPopup"></addressPopupComponent>
+
+    <toastrMessageComponent v-if="isDialogOpen" :message="popupMessage" :headerTitle="headerTitle" :isOpen="isDialogOpen" :closeToastrPopup="closeToastrPopup"></toastrMessageComponent>
+</div>

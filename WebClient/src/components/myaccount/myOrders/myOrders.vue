@@ -82,6 +82,7 @@
             },
             deleteConfirm(serviceObj) {
                 this.selectedServiceItem = serviceObj;
+                this.selectedReasons.splice(0, this.selectedReasons.length);
                 $("#deleteConfimationPopup").modal("show");
                 this.getDeleteReasons();
             },
@@ -102,6 +103,7 @@
             },
             pauseSubscription() {
                 let vm = this;
+
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "PauseSubscriptionItem",
                     params: vm.selectedServiceItem,

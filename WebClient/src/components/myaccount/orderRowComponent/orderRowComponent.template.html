@@ -1,0 +1,38 @@
+<tr v-if="orderDetails">
+    <td class="form-group">
+        {{returnDateTime(orderDetails.ServiceDate)}}
+    </td>
+    <td class="form-group">
+        {{orderDetails.ServiceName}}
+    </td>
+    <td class="form-group">
+        ₹ {{orderDetails.ServiceType == 1 ? orderDetails.SubscriptionPrice : orderDetails.Price}}
+    </td>
+    <td class="form-group">
+        {{orderDetails.Quantity}}
+    </td>
+    <td class="form-group">
+        <span> {{orderDetails.VehicleName}}</span>
+        <span style="color: #004dff; margin-left: 30px;">{{orderDetails.SubscribeType}}</span>
+    </td>
+    <td class="form-group">
+        <span>{{orderDetails.ServiceStatusName}}</span>
+    </td>
+
+    <td class="orderActions" v-if="!disableActions">
+        <span v-if="disableDelete" @click="deleteCustomerService(orderDetails)">
+            <i class="far fa-trash-alt"></i>
+        </span>
+        <span class="pauseSubscribe" v-if="orderDetails.ServiceStatusId == 1 && orderDetails.ServiceType == 1"
+            @click="addDetailsToPause(orderDetails)" style="cursor: pointer;">
+            <i class="far fa-pause-circle"></i>
+        </span>
+        <span class="pauseSubscribe" v-if="orderDetails.ServiceStatusId == 2 && orderDetails.ServiceType == 1"
+            @click="addDetailsToPauseResume(orderDetails)" style="cursor: pointer;">
+            <i class="far fa-play-circle"></i>
+        </span>
+
+
+
+    </td>
+</tr>

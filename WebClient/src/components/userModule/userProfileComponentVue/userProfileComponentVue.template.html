@@ -1,11 +1,17 @@
 <div class="panel panel-default">
     <div class="">
+
         <div class="" v-if="userProfile">
             <div class="panel-heading">
 
                 <h4 class="pull-left">My Profile</h4>
                 <div class="btn-group pull-right">
-                    <button class="btn btn-success btn-sm" title="Save User Profile" @click="saveUserProfile">
+                    <button class="btn btn-success btn-sm" title="Save User Profile" @click="changeToEditMode"
+                        v-if="!editMode">
+                        Edit
+                    </button>
+                    <button class="btn btn-success btn-sm" title="Save User Profile" @click="saveUserProfile"
+                        v-if="editMode">
                         Save
                     </button>
                 </div>
@@ -27,7 +33,7 @@
                                     </vue-avatar>
                                 </div>
 
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" v-show="false">
                                     <div class="form-label userProfileName">
                                         <label>{{userProfile.UserFirstName}} {{userProfile.UserLastName}}</label>
                                     </div>
@@ -41,16 +47,58 @@
                             </div>
                         </div>
                         <div class="row">
-
-                            <div class="form-label profileDesig">
-                                <label class="labels">Email - </label>
-                                <label v-text="userProfile.email"></label>
+                            <div class="form-group">
+                                <label>Name: </label>
+                                <label v-if="!editMode">{{userProfile.UserFirstName}}
+                                    {{userProfile.UserLastName}}</label v-if="!editMode">
+                                <div class="input-group" v-if="editMode">
+                                    <input type="text" v-model="userProfile.UserFirstName">
+                                    <input type="text" v-model="userProfile.UserLastName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group profileDesig">
+                                <label class="labels">Email: </label>
+                                <label v-if="!editMode">
+                                    {{userProfile.Email ? userProfile.Email : "NA"}}
+                                </label>
+                                <input v-if="editMode" type="text" v-model="userProfile.Email" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group profileDesig">
+                                <label class="labels">Mobile Number: </label>
+                                <label v-if="!editMode">
+                                    {{userProfile.MobileNumber ? userProfile.MobileNumber : "NA"}}
+                                </label>
+                                <input v-if="editMode" type="text" v-model="userProfile.MobileNumber" />
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div>
+                                    <h6 style="float: left;">
+                                        Address
+                                    </h6>
+                                    <button class="btn btn-default btn-sm" title="Save User Profile"
+                                        @click="addAddress" style="float: right;">
+                                        +Add
+                                    </button>
+                                </div>
+
+                                <div v-for="userAddress in userAddressList" style="margin-top: 25px;">
+                                    <viewAddressComponent :addressId="userAddress.AddressId"></viewAddressComponent>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <addressPopupComponent v-if="isOpen" :isOpen="isOpen" :selectedAddress="selectedAddress" :updateParent="addressCallback"
+    :closeAddressPopup="closeAddressPopup"></addressPopupComponent>
 </div>

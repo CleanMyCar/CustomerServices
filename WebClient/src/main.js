@@ -28,6 +28,10 @@ import quantityComponent from "./components/commonComponents/quantityComponent/q
 import addToCartComponent from "./components/commonComponents/addToCartComponent/addToCartComponent.vue"
 import userCartPanel from "./components/myaccount/userCartPanel/userCartPanel.vue"
 import deleteConfirmationPopup from "./components/commonComponents/deleteConfirmationPopup/deleteConfirmationPopup.vue"
+import orderRowComponent from "./components/myaccount/orderRowComponent/orderRowComponent.vue"
+import addressPopupComponent from "./components/commonComponents/addressPopupComponent/addressPopupComponent.vue"
+import viewAddressComponent from "./components/commonComponents/viewAddressComponent/viewAddressComponent.vue"
+import toastrMessageComponent from "./components/commonComponents/toastrMessageComponent/toastrMessageComponent.vue"
 
 Vue.component(datePickerComponent.name, datePickerComponent);
 Vue.component(pageLoadingComponent.name, pageLoadingComponent);
@@ -49,6 +53,10 @@ Vue.component(quantityComponent.name, quantityComponent);
 Vue.component(addToCartComponent.name, addToCartComponent);
 Vue.component(userCartPanel.name, userCartPanel);
 Vue.component(deleteConfirmationPopup.name, deleteConfirmationPopup)
+Vue.component(orderRowComponent.name, orderRowComponent);
+Vue.component(addressPopupComponent.name, addressPopupComponent)
+Vue.component(viewAddressComponent.name, viewAddressComponent);
+Vue.component(toastrMessageComponent.name, toastrMessageComponent)
 
 new Vue({
   el: '#app',
@@ -68,14 +76,4 @@ new Vue({
   bus: "bus",
   components: { HeaderMenu }
 });
-
-// new Vue({
-//   el: '#leftMenuPanel',
-//   //render: h => h(App),
-//   router,
-//   template: '<LeftMenu/>',
-//   store,
-//   bus: "bus123",
-//   components: { LeftMenu }
-// });
 

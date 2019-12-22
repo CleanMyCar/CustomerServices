@@ -1,0 +1,27 @@
+<div class="modal" data-backdrop="static" role="dialog" id="toastrMessagePopup" style="top: -30em;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
+                    data-dismiss="modal">
+                    &times;
+                </button>
+                <h5>{{headerTitle}}</h5>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{message}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-sm pull-right" title="OK" @click="cancel">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

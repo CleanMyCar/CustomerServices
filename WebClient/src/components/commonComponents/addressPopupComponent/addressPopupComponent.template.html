@@ -1,0 +1,47 @@
+<div class="modal" data-backdrop="static" role="dialog" id="addAddressPopup" style="top: -30em;">
+    <div class="modal-dialog" v-if="address">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
+                    data-dismiss="modal">
+                    &times;
+                </button>
+                <h5>Add/Edit Address</h5>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="AddressLine1"
+                                placeholder="Building Name / Flat No / Plot No" v-model="address.AddressLine1"
+                                v-validate="'required'">
+                            <span v-show="errors.has('AddressLine1')" class="invalid-feedback">
+                                <i v-show="errors.has('AddressLine1')" class="fa fa-warning"></i>
+                                Please provide Building Name / Plot No. / Flat No.
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Locality" name="AddressLine2"
+                                v-model="address.AddressLine2">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Landmark" v-model="address.Landmark">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" placeholder="Landmark" v-model="address.IsDefault">
+                                Default
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
+                <button class="btn btn-success btn-sm pull-right" title="Save Address" @click="saveAddress(1)">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

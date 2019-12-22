@@ -3245,7 +3245,7 @@ select.form-control {
 .card .card-block .btn.btn-success {
     background: #fff;
     border: #fff solid 1px;
-    color: #6572b8;
+    color: #fff;
 }
 
 .card:nth-child(3n+1) .card-block:after .btn.btn-success {
@@ -12771,3 +12771,18 @@ body {
     float: left;
     background-color: skyblue;
   }
+
+  .orderActions span{
+      margin-right: 15px;
+  }
+
+  .myordersTable tr{
+    height: 40px;
+  }
+
+  .dTable thead{
+      background-color: #484848;
+      color: #FFF;
+  }
+
+  

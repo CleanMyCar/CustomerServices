@@ -115,6 +115,12 @@
         },
         watch: {
             $route: "getServiceDetail",
+            'serviceDetail.VehicleCategoryType'(type){
+                if(type == "2"){
+                    this.serviceDetail.Price = null;
+                    this.serviceDetail.SubscriptionPrice = null;
+                }
+            }
         }
     };
 </script>

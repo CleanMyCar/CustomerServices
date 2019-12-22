@@ -36,41 +36,43 @@
     export default {
         data() {
             return {
-                userProfile: null
+                userProfile: null,
+                editMode: false,
+                userAddressList: [],
+                isOpen: false,
+                selectedAddress: null
             }
         },
-        props: ["parentId", "parentType", "entityId", "clientId", "paramId", "listType"],
+        props: [],
         methods: {
             saveUserProfile: function () {
-                var self = this;
+                var vm = this;
                 var img = this.$refs.vueavatar.getImageScaled()
                 this.$store.dispatch("dataRequestHandler", {
                     key: "SaveUserProfile",
-                    params: {
-                        ProfileImage: img.toDataURL(),
-                        NickName: self.userProfile.NickName,
-                        ModuleAction: "UpdateUserProfile"
-                    },
+                    params: vm.userProfile,
                     callback: function (err, response) {
                         //console.log(response);
+                        vm.changeToEditMode();
                     }
                 });
             },
             getUserProfile: function () {
-                var self = this;
+                var vm = this;
                 this.$store.dispatch("dataRequestHandler", {
                     key: 'GetUserProfile', params: {}, callback: function (err, response) {
-                        self.userProfile = response;
-                        if (self.userProfile.ProfileImage) {
+                        vm.userProfile = response.userDetails;
+                        if (vm.userProfile.ProfileImage) {
                             setTimeout(function () {
-                                self.$refs.vueavatar.loadImage(self.userProfile.ProfileImage)
+                                vm.$refs.vueavatar.loadImage(vm.userProfile.ProfileImage)
                             }, 500);
                         }
                         else {
                             setTimeout(function () {
-                                self.$refs.vueavatar.loadImage("https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png")
+                                vm.$refs.vueavatar.loadImage("https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png")
                             }, 500);
                         }
+                        vm.getUserAddress();
                     }
                 });
             },
@@ -83,6 +85,32 @@
             },
             onImageReady(scale) {
                 this.$refs.vueavatarscale.setScale(scale)
+            },
+            changeToEditMode() {
+                this.editMode = !this.editMode;
+            },
+            addAddress() {
+                this.selectedAddress = {
+                    AddressId: -1
+                }
+                this.isOpen = !this.isOpen
+            },
+            addressCallback() {
+                this.getUserAddress();
+                this.isOpen = !this.isOpen
+            },
+            closeAddressPopup() {
+                this.isOpen = !this.isOpen
+            },
+            getUserAddress() {
+                var vm = this;
+                this.$store.dispatch("dataRequestHandler", {
+                    key: 'GetUserAddressIds', 
+                    params: {}, 
+                    callback: function (err, response) {
+                        vm.userAddressList.splice(0, vm.userAddressList.length, ...response);
+                    }
+                });
             }
         },
         computed: {

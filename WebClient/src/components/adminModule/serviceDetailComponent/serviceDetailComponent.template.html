@@ -89,7 +89,7 @@
                         </span>
                     </label>
                 </div>
-                <div class="form-group">
+                <div class="form-group" v-if="serviceDetail.IsPurchaseOnceEnabled && serviceDetail.VehicleCategoryType != '2' ">
                     <input type="number" :disabled="!serviceDetail.IsPurchaseOnceEnabled" v-model="serviceDetail.Price" class="form-control"
                         placeholder="Price" name="Price" v-validate ="{ rules: { required: serviceDetail.IsPurchaseOnceEnabled ? true:false} }">
                         <span v-show="errors.has('Price')" class="invalid-feedback">
@@ -127,7 +127,7 @@
                         <input type="number" v-model="type.SubscriptionPrice">
                     </label>
                 </div>
-                <div class="form-group">
+                <div class="form-group"  v-if="serviceDetail.IsSubscriptionEnabled && serviceDetail.VehicleCategoryType != '2' ">
                     <input type="number" :disabled="!serviceDetail.IsSubscriptionEnabled" v-model="serviceDetail.SubscriptionPrice" class="form-control"
                         placeholder="Subscription Price" name="SubscriptionPrice" v-validate ="{ rules: { required: serviceDetail.IsSubscriptionEnabled?true:false} }">
                         <span v-show="errors.has('SubscriptionPrice')" class="invalid-feedback">
