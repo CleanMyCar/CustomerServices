@@ -69,7 +69,8 @@
                         RequestId: vm.selectedProduct.RequestId,
                         Notes: vm.selectedProduct.notes,
                         ServiceType: vm.selectedProduct.ServiceType,
-                        Amount: vm.selectedProduct.ServiceType == 2 ? vm.selectedProduct.Price : vm.selectedProduct.SubscriptionPrice,
+                        Amount: vm.selectedProduct.VehicleTypeId == 2 ? (vm.selectedProduct.ServiceType == 2 ? vm.selectedProduct.FourWheelerOncePrice : vm.selectedProduct.FourWheelerSubPrice) : (vm.selectedProduct.ServiceType == 2 ? vm.selectedProduct.Price : vm.selectedProduct.SubscriptionPrice ),
+                        // vm.selectedProduct.ServiceType == 2 ? vm.selectedProduct.Price : vm.selectedProduct.SubscriptionPrice,
                         Attachment: vm.selectedProduct.Attachment
                     },
                     callback: function (err, response) {
@@ -84,7 +85,8 @@
 
             },
             cancel() {
-                $("#taskStatusChangePopup").modal("hide")
+                this.selectedProduct.checked = false;
+                $("#taskStatusChangePopup").modal("hide");
             },
             showConfirmationPopup(flag){
                 $("#serviceNotesPopup").modal("show")

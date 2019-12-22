@@ -19,7 +19,7 @@
                     {{product.AddressLine1}}
                 </div>
                 <div class="col-md-2">
-                    <input type="checkbox" checked="false" @click="taskStatusChangePopup(product)">
+                    <input type="checkbox" v-model="product.checked" @click="taskStatusChangePopup(product)">
                 </div>
             </div>
             <div class="row">

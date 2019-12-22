@@ -73,7 +73,8 @@
                             <td>{{returnDateTime(service.RequestedOn)}}</td>
                             <td>{{returnDateTime(service.ServiceDate)}}</td>
                             <td>{{service.SubscribeType ? service.SubscribeType : 'Once'}}</td>
-                            <td>₹ {{service.ServiceType == 1 ? service.SubscriptionPrice : service.Price}}/-</td>
+                            <td v-if="false">₹ {{service.ServiceType == 1 ? service.SubscriptionPrice : service.Price}}/-</td>
+                            <td>₹ {{service.VehicleTypeId == 2 ? (service.ServiceType == 2 ? service.FourWheelerOncePrice : service.FourWheelerSubPrice) : (service.ServiceType == 2 ? service.Price : service.SubscriptionPrice )}}</td>
                             <td>{{service.VehicleNumber}}</td>
                         </tr>
                     </tbody>

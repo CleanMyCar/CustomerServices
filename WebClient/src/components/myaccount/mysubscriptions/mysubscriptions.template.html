@@ -17,11 +17,13 @@
                 {{product.ServiceName}}
             </div>
             <div class="form-group">
-                ₹ {{product.SubscriptionPrice}}
+                ₹ {{product.VehicleTypeId == 2 ? (product.ServiceType == 2 ? product.FourWheelerOncePrice : product.FourWheelerSubPrice) : (product.ServiceType == 2 ? product.Price : product.SubscriptionPrice )}}
             </div>
             <div class="form-group">
                 <span> {{product.VehicleName}}</span>
-                <span style="color: #004dff; margin-left: 30px;">{{product.SubscribeType}}</span>
+                <span style="color: #004dff; margin-left: 30px;">
+                    {{product.SubscribeType}}
+                </span>
             </div>
             <div class="form-group" v-if="product.ServiceStatusId == 1" @click="addDetailsToPause(product)"
                 style="cursor: pointer;">
