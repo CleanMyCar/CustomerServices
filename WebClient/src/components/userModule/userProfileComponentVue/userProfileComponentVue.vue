@@ -40,7 +40,10 @@
                 editMode: false,
                 userAddressList: [],
                 isOpen: false,
-                selectedAddress: null
+                selectedAddress: null,
+                isDialogOpen: false,
+                popupMessage: null,
+                headerTitle: null
             }
         },
         props: [],
@@ -53,6 +56,12 @@
                     params: vm.userProfile,
                     callback: function (err, response) {
                         //console.log(response);
+                        if (response.ErrorMessage) {
+                            vm.headerTitle = "Validations"
+                            vm.popupMessage = response.ErrorMessage;
+                            vm.isDialogOpen = true;
+                            return;
+                        }
                         vm.changeToEditMode();
                     }
                 });
@@ -105,12 +114,15 @@
             getUserAddress() {
                 var vm = this;
                 this.$store.dispatch("dataRequestHandler", {
-                    key: 'GetUserAddressIds', 
-                    params: {}, 
+                    key: 'GetUserAddressIds',
+                    params: {},
                     callback: function (err, response) {
                         vm.userAddressList.splice(0, vm.userAddressList.length, ...response);
                     }
                 });
+            },
+            closeToastrPopup(){
+                this.isDialogOpen = false
             }
         },
         computed: {

@@ -141,7 +141,8 @@
                             </div>
                         </div>
                         <div class="cell" @click="addNewVehicleInfo">
-                            <img :src="serviceDetail.VehicleCategoryType == 2 ? defaultCarImage : defaultBikeImage" height="120" width="120">
+                            <img :src="serviceDetail.VehicleCategoryType == 2 ? defaultCarImage : defaultBikeImage"
+                                height="120" width="120">
                             <div class="form-group serviceName">
                                 <a href="javascript:void(0)">Add New Vehicle</a>
                             </div>
@@ -149,7 +150,8 @@
                     </div>
                 </div>
                 <div v-else>
-                    <quantityComponent :inputValue="vehicleInfo.Quantity" :updateParent="updateQuantity"></quantityComponent>
+                    <quantityComponent :inputValue="vehicleInfo.Quantity" :updateParent="updateQuantity">
+                    </quantityComponent>
                 </div>
                 <div class="form-group" v-if="serviceType == 2" style="padding: 2px;">
                     <label>
@@ -282,13 +284,18 @@
                 </div>
 
                 <div class="form-group">
-                    <div style="float: left; background-color: #008aff; color: white; width: 50%; font-weight: bold;">
+                    <div style="float: right; background-color: #008aff; color: white; width: 100%; font-weight: bold; text-align: right;">
                         Amount: ₹ {{servicePrice}}/-
                     </div>
-                    <div style="float: right; width: 50%;">
-                        <addToCartComponent v-if="serviceType == 2 && ((serviceDetail.VehicleCategoryType != 3 && vehicleInfo.VehicleId) || (serviceDetail.VehicleCategoryType == 3 && vehicleInfo.Quantity > 0))"
-                        :product="vehicleInfo" :serviceSaved="serviceSaved" :updateParent="confirmServiceOrder"></addToCartComponent>
-                        <button class="btn btn-success btn-sm pull-right" :disabled="(serviceDetail.VehicleCategoryType != 3 && !vehicleInfo.VehicleId) || (serviceDetail.VehicleCategoryType == 3 && vehicleInfo.Quantity < 1)"
+                </div>
+                <div class="form-group">
+                    <div style="margin-top: 40px;">
+                        <addToCartComponent
+                            v-if="serviceType == 2 && ((serviceDetail.VehicleCategoryType != 3 && vehicleInfo.VehicleId) || (serviceDetail.VehicleCategoryType == 3 && vehicleInfo.Quantity > 0))"
+                            :product="vehicleInfo" :serviceSaved="serviceSaved" :updateParent="confirmServiceOrder">
+                        </addToCartComponent>
+                        <button class="btn btn-success btn-sm pull-right"
+                            :disabled="(serviceDetail.VehicleCategoryType != 3 && !vehicleInfo.VehicleId) || (serviceDetail.VehicleCategoryType == 3 && vehicleInfo.Quantity < 1)"
                             title="Confirm" @click="confirmServiceOrder(1)">Confirm</button>
                     </div>
 
@@ -299,6 +306,7 @@
         </div>
 
         <vehicleAddComponent v-if="openedVehicleAddPopup" :vehicleId="vehicleAddress && vehicleAddress.VehicleId"
-            :updateParent="updateVehicleAddress" :closeVehicleAddPopup="closeVehicleAddPopup" :serviceDetail="serviceDetail"></vehicleAddComponent>
+            :updateParent="updateVehicleAddress" :closeVehicleAddPopup="closeVehicleAddPopup"
+            :serviceDetail="serviceDetail"></vehicleAddComponent>
     </div>
 </div>

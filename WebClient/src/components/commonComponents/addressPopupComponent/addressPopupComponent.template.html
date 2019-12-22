@@ -11,7 +11,13 @@
 
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12">                        
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" placeholder="Landmark" v-model="address.IsDefault">
+                                Set As Default Address
+                            </label>
+                        </div>
                         <div class="form-group">
                             <input type="text" class="form-control" name="AddressLine1"
                                 placeholder="Building Name / Flat No / Plot No" v-model="address.AddressLine1"
@@ -28,11 +34,26 @@
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Landmark" v-model="address.Landmark">
                         </div>
+                        <div class="form-group" v-if="false">
+                            <select class="form-control" v-model="address.Country">
+                                <option value=null>Select Country</option>
+                                <option v-for="(country, countryId) in countries" :value="country.CountryId">{{country.CountryName}}</option>
+                            </select>
+                        </div>
                         <div class="form-group">
-                            <label>
-                                <input type="checkbox" placeholder="Landmark" v-model="address.IsDefault">
-                                Default
-                            </label>
+                            <select class="form-control" v-model="address.State">
+                                <option value=null>Select State</option>
+                                <option v-for="(state, stateId) in states" :value="state.StateId">{{state.StateName}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" v-model="address.City">
+                                <option value=null>Select City</option>
+                                <option v-for="(city, cityId) in cities" :value="city.CityId">{{city.CityName}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control" placeholder="Pincode" v-model="address.Pincode">
                         </div>
                     </div>
                 </div>

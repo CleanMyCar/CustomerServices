@@ -138,7 +138,8 @@ export const store = new Vuex.Store({
     bus: new Vue(),
     getFormattedAmount: getFormattedAmount,
     loggedInUserDetail: null,
-    loggedInUserWallet: null
+    loggedInUserWallet: null,
+    countryStateCities: {},
   },
   mutations: {
     setIsCurrentUserAdmin(state, isCurrentUserAdmin) {

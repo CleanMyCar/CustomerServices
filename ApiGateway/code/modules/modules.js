@@ -58,7 +58,9 @@ const getServiceList = require("./services/getServiceList"),
   saveAddress = require("./address/saveAddress"),
   updateUserProfile = require("./user/saveUserProfile"),
   getUserAddressIds = require("./address/getUserAddressIds"),
-  getAddressDetails = require("./address/getAddressDetails");
+  getAddressDetails = require("./address/getAddressDetails"),
+  deleteAddress = require("./address/deleteAddress"),
+  getApplicationMetaData = require("./address/getApplicationMetaData");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -123,4 +125,6 @@ module.exports = [
   {key: "UpdateUserProfile", callback: updateUserProfile, pushkey: null, isLoggingEnabled: false},
   {key: "GetUserAddressIds", callback: getUserAddressIds, pushkey: null, isLoggingEnabled: false},
   {key: "GetAddressDetails", callback: getAddressDetails, pushkey: null, isLoggingEnabled: false},
+  {key: "DeleteAddress", callback: deleteAddress, pushkey: null, isLoggingEnabled: false},
+  {key: "GetApplicationMetaData", callback: getApplicationMetaData, pushkey: null, isLoggingEnabled: false},
 ];

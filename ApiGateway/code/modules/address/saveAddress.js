@@ -6,6 +6,10 @@ module.exports = (config, params, callback) => {
     requestParams.input('AddressLine1', mssql.NVarChar, params.AddressLine1);
     requestParams.input('AddressLine2', mssql.NVarChar, params.AddressLine2);
     requestParams.input('Landmark', mssql.NVarChar, params.Landmark);
+    requestParams.input('CountryId', mssql.Int, params.Country);
+    requestParams.input('StateId', mssql.Int, params.State);
+    requestParams.input('CityId', mssql.Int, params.City);
+    requestParams.input('Pincode', mssql.Int, params.Pincode);
     requestParams.input('IsDefault', mssql.Int, params.IsDefault ? 1 : 0);
     requestParams.input('StatusId', mssql.Int, params.StatusId);
     requestParams.input('UserId', mssql.Int, params.systemParams.UserId);

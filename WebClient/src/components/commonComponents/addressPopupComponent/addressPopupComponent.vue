@@ -21,7 +21,11 @@
                     AddressLine1: null,
                     AddressLine2: null,
                     Landmark: null,
-                    IsDefault: false
+                    IsDefault: false,
+                    Country: 101,
+                    State: 36,
+                    City: 4460,
+                    Pincode: null
                 }
                 $("#addAddressPopup").modal("show");
             },
@@ -76,7 +80,15 @@
         },
 
         computed: {
-
+            countries(){
+                return this.$store.state.countryStateCities;
+            },
+            states(){
+                return this.$store.state.countryStateCities[this.address.Country].states;
+            },
+            cities(){
+                return this.$store.state.countryStateCities[this.address.Country].states[this.address.State].cities;
+            }
         },
 
         mounted() {

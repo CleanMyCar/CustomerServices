@@ -101,4 +101,8 @@
 
     <addressPopupComponent v-if="isOpen" :isOpen="isOpen" :selectedAddress="selectedAddress" :updateParent="addressCallback"
     :closeAddressPopup="closeAddressPopup"></addressPopupComponent>
+
+    <toastrMessageComponent v-if="isDialogOpen" :message="popupMessage" :headerTitle="headerTitle" :isOpen="isDialogOpen" :closeToastrPopup="closeToastrPopup">
+        
+    </toastrMessageComponent>
 </div>

@@ -107,8 +107,18 @@
           }
         });
       },
-      navigateToCart() {
-
+      getApplicationMetaData() {
+        let vm = this;
+        vm.$store.dispatch("dataRequestHandler", {
+          key: "GetApplicationMetaData",
+          params: {},
+          callback: function (err, response) {
+            if (err) {
+              return;
+            }
+            vm.$store.state.countryStateCities = response;
+          }
+        });
       }
     },
     computed: {
@@ -138,6 +148,7 @@
       let vm = this;
       vm.getUserDetails();
       vm.getCartProducts();
+      vm.getApplicationMetaData();
       vm.$store.state.bus.$on('refreshCart', function (params) {
         vm.getCartProducts();
       })
