@@ -42,7 +42,7 @@
                     clear: 'fa fa-trash',
                     close: 'far fa-times'
                 },
-                // minDate: this.minimumDate,
+                // minDate: this.minimumDate && moment(this.minimumDate)._isValid ? this.minimumDate : moment(),
                 // maxDate: this.maximumDate,
                 inline: false,
                 ignoreReadonly: true,

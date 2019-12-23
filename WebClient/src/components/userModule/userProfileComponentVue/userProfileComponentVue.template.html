@@ -88,8 +88,8 @@
                                     </button>
                                 </div>
 
-                                <div v-for="userAddress in userAddressList" style="margin-top: 25px;">
-                                    <viewAddressComponent :addressId="userAddress.AddressId"></viewAddressComponent>
+                                <div v-if="userAddressList.length" v-for="userAddress in userAddressList" style="margin-top: 25px;">
+                                    <viewAddressComponent :addressId="userAddress.AddressId" :isDefault="userAddress.IsDefault" :updateParent="addressCallback"></viewAddressComponent>
                                 </div>
                             </div>
                         </div>

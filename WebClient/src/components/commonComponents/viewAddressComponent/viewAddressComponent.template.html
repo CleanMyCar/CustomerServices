@@ -2,6 +2,7 @@
     <div class="col-md-12">
         <div class="">
             <div class="pull-right">
+                <input type="checkbox" :disabled="addressDetails.IsDefault == 1 ? true: false" :checked="addressDetails.IsDefault" v-model="addressDetails.IsDefault" @click="changeDefaultAddress($event)">
                 <span class="pauseSubscribe" style="margin-right: 5px;" @click="editAddress">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </span>

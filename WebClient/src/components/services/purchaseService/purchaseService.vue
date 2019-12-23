@@ -2,6 +2,7 @@
 
 <script>
     import Vue from "vue";
+    import moment from "moment"
     import VeeValidate from "vee-validate";
     Vue.use(VeeValidate);
 
@@ -19,7 +20,8 @@
                     Frequency: null,
                     TimeSlot: "1",
                     AddressId: null,
-                    Quantity: 1
+                    Quantity: 1,
+                    ServiceDate: moment().add(1, 'days')
                 },
                 newVehicleDetails: null,
                 fourWheelerTypes: [],

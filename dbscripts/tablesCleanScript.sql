@@ -7,6 +7,6 @@ Truncate Table [dbo].[VehicleDetails]
 Truncate Table [dbo].[VehicleRequestedServices]
 Truncate Table [dbo].[VehicleServicePrice]
 Truncate Table  [dbo].[VehicleServiceTransactions]
-Truncate Table  [dbo].[Wallet]
+
 Truncate Table [dbo].[WalletTransactions]
-Truncate Table [dbo].[WalletTransactionsTypes]
+update Wallet set Amount = 0

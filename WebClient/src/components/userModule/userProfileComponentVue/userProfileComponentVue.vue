@@ -106,7 +106,7 @@
             },
             addressCallback() {
                 this.getUserAddress();
-                this.isOpen = !this.isOpen
+                this.isOpen = false
             },
             closeAddressPopup() {
                 this.isOpen = !this.isOpen

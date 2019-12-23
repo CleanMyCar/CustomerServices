@@ -1,6 +1,7 @@
 <template src="./mysubscriptions.template.html"></template>
 
 <script>
+    import moment from "moment";
     export default {
         name: "mysubscriptions",
         props: [],
@@ -31,11 +32,24 @@
                 });
             },
             addDetailsToPause(serviceItem) {
-                this.serviceObj = serviceItem;
+                this.serviceObj = JSON.parse(JSON.stringify(serviceItem));
+                this.$set(this.serviceObj, 'StartDate', moment().add(1, 'days'));
+                this.$set(this.serviceObj, 'EndDate', moment().add(1, 'days'));
+
                 $("#pauseServiceDetailsPopup").modal("show");
             },
-            addDetailsToPauseResume(serviceObj) {
-                this.serviceObj = serviceItem;
+            addDetailsToPauseResume(serviceObj) {                
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "ResumeSubscriptionItem",
+                    params: serviceObj,
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+                        vm.getMySubscriptions();               
+                    }
+                });
             },
             pauseSubscription(serviceObj) {
                 let vm = this;
@@ -46,7 +60,7 @@
                         if (err) {
                             return;
                         }
-                        $("#deleteConfimationPopup").modal("hide");
+                        $("#pauseServiceDetailsPopup").modal("hide");
                         vm.serviceObj = null
                         vm.getMySubscriptions();
                         //vm.serviceDeleteReasons.splice(0, vm.serviceDeleteReasons.length, ...response);
@@ -99,11 +113,18 @@
                 this.getDeleteReasons();
             },
             updateFilterStartDate(key, dateObj, objectPassedToParent) {
-                this.serviceObj.StartDate = dateObj ? dateObj.format("DD MMM YYYY") : null;
+                this.serviceObj.StartDate = dateObj ? dateObj.format("Do MMM YYYY") : null;
+                this.serviceObj.EndDate = dateObj ? dateObj.format("Do MMM YYYY") : null
+                this.serviceObj.ServicePauseDate = dateObj ? dateObj.format("DD MMM YYYY") : null;
+                this.serviceObj.ServiceEndDate = dateObj ? dateObj.format("DD MMM YYYY") : null
             },
             updateFilterEndDate(key, dateObj, objectPassedToParent) {
-                this.serviceObj.EndDate = dateObj ? dateObj.format("DD MMM YYYY") : null;
+                this.serviceObj.EndDate = dateObj ? dateObj.format("Do MMM YYYY") : null;
+                this.serviceObj.ServiceEndDate = dateObj ? dateObj.format("DD MMM YYYY") : null
             },
+            getFormattedDate(date){
+                return moment(date).format("DD MMM, YYYY")
+            }
         },
 
         computed: {

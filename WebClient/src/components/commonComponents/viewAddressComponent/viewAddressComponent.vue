@@ -4,7 +4,7 @@
     import moment from "moment-timezone";
     export default {
         name: "viewAddressComponent",
-        props: ["addressId"],
+        props: ["addressId", "updateParent", "isDefault"],
         data() {
             return {
                 addressDetails: null,
@@ -87,8 +87,33 @@
                     }
                 });
             },
-            closeToastrPopup(){
+            closeToastrPopup() {
                 this.isDialogOpen = !this.isDialogOpen;
+            },
+            changeDefaultAddress(evt) {
+                if(!evt.currentTarget.checked){
+                    vm.headerTitle = "Alert !!";
+                    vm.popupMessage = "You cannot default address";
+                    vm.isDialogOpen = !vm.isDialogOpen;
+                    return;
+                }
+                let vm = this;                
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "ChangeDefaultAddress",
+                    params: { 
+                        AddressId: vm.addressDetails.AddressId,
+                        IsDefault: vm.addressDetails.IsDefault
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }                       
+                       
+                        if (vm.updateParent) {
+                            vm.updateParent(vm.address);
+                        }
+                    }
+                });
             }
         },
 
@@ -104,6 +129,9 @@
         },
         watch: {
             addressId() {
+                this.getAddressDetails();
+            },
+            isDefault(){
                 this.getAddressDetails();
             }
         }
