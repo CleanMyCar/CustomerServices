@@ -1,156 +1,107 @@
 <div class="panel panel-default">
 
     <div class="panel-heading">
-        <h4 class="pull-left">Assign Services</h4>
+        <h4 class="pull-left">To be Assigned Services</h4>
         <div class="btn-group btnGroupScrollWrap tagBtnGrp">
-            <!-- <div class="btn-group " id="tagScrollSection">
-                <label>Property:</label>
-                <select class="form-control" v-model="filterObj.PropertyId" @change="displayUnitList">
-                <option value="-99">All Properties</option>
-                <option v-for="property in propertyList" :value="property.PropertyId">{{property.PropertyName}}</option>
-              </select>
-
-                <label>Unit Type:</label> 
-                 <select class="form-control" v-model="filterObj.UnitTypeId">
-                <option value="-99">All Unit Types</option>
-                <option v-for="unit in unitTypeList" :value="unit.UnitTypeId">{{unit.UnitTypeName}}</option>
-              </select>
-
-               <label v-if="filterObj.ViewListId === 1">Source</label> 
-                 <select class="form-control" v-if="filterObj.ViewListId === -1" v-model="filterObj.resSourceId">
-                <option value="-99">All Sources</option>
-                <option v-for="source in sourceList" :value="source.sourceID">{{source.sourceName}}</option>
-              </select> 
-
-                 <button class="btn btn-default btn-sm" @click="applyFilter()">
-                Apply Filter
-              </button>             
-
-            </div> -->
         </div>
         <div class="btn-group pull-right">
 
         </div>
     </div>
 
-    <div>
-        <span class="defaultView" v-if="false">
-            <span v-if="filterObj.ViewListId === -1">Showing All Reservations View, </span>
-            <span v-if="filterObj.ViewListId === -2">Showing Currently In House View, </span>
-            <span v-if="filterObj.ViewListId === -3">Showing Arriving Today View, </span>
-            <span v-if="filterObj.ViewListId === -4">Showing Departing Today View, </span>
-            <span v-if="filterObj.ViewListId === -5">Showing Upcoming Reservations View, </span>
-            <span v-if="filterObj.ViewListId === -6">Showing Today's Reservations View, </span>
-            <span v-if="filterObj.ViewListId === -7">Showing Departures View, </span>
-            <span v-else>{{selectedViewObj ? selectedViewObj.ViewName : ''}}</span>
-
-            <span v-if="items.length>1" style="font-size: 12px">{{totalLength}} Reservations</span>
-            <span v-else-if="(items.length === 1) || (items.length<1)" style="font-size: 12px">{{totalLength}}
-                Reservation</span>
-        </span>
-    </div>
     <div class="panel-body">
-        <div class="ResGrid">
-            <div class="dTable">
-                <table style="width: 100%; overflow:scroll;">
-                    <thead>
-                        <th>Actions</th>
-                        <th>Building</th>
-                        <th>Service</th>
-                        <th>Requested On</th>
-                        <th>Service Date</th>
-                        <th>Subscription</th>
-                        <th>Amount</th>
-                        <th>Vehicle Number</th>
-                    </thead>
-                    <tbody>
-                        <tr v-for="service in services" style="height: 50px;">
-                            <td>                                
-                                <assignPersonComponent :service="service" :updateServicePerson="updateServicePerson"></assignPersonComponent>
-                            </td>
-                            <td>{{service.AddressLine1 + ', ' + service.ParkingLot}}</td>
-                            <td>{{service.ServiceName}}</td>
-                            <td>{{returnDateTime(service.RequestedOn)}}</td>
-                            <td>{{returnDateTime(service.ServiceDate)}}</td>
-                            <td>{{service.SubscribeType ? service.SubscribeType : 'Once'}}</td>
-                            <td v-if="false">₹ {{service.ServiceType == 1 ? service.SubscriptionPrice : service.Price}}/-</td>
-                            <td>₹ {{service.VehicleTypeId == 2 ? (service.ServiceType == 2 ? service.FourWheelerOncePrice : service.FourWheelerSubPrice) : (service.ServiceType == 2 ? service.Price : service.SubscriptionPrice )}}</td>
-                            <td>{{service.VehicleNumber}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-<!-- 
-        <div class="modal" data-backdrop="static" role="dialog" id="assignServicePopup">
-            <div class="modal-dialog" v-if="assignServiceObj">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
-                            data-dismiss="modal">
-                            &times;
-                        </button>
-                        <h4>Assign Service</h4>
-                    </div>
 
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Vehicle Name"
-                                        v-model="assignServiceObj.VehicleName">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Vehicle No"
-                                        v-model="assignServiceObj.VehicleNumber">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Vehicle Make"
-                                        v-model="assignServiceObj.VehicleMake">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Vehicle Model"
-                                        v-model="assignServiceObj.VehicleModel">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Parking Lot"
-                                        v-model="assignServiceObj.Parkinglot">
-                                </div>
-                                <div class="form-group">
-
-
+        <ul class="nav nav-tabs">
+            <li v-for="tab in detailTabs" v-on:click="" :class="{ active: selectedTab === tab.id }">
+                <a v-text="tab.text" v-on:click="selectTab(tab.id, $event)"></a>
+            </li>
+        </ul>
+        <div class="col-md-12">
+            <div class="tab-content">
+                <div class="tab-pane" v-if="selectedTab === 1" :class="{ active: selectedTab === 1 }">
+                    <div class="panel panel-default">
+                        <div class="panel-body addBg">
+                            <div class="ResGrid">
+                                <div class="dTable">
+                                    <table style="width: 100%; overflow:scroll;">
+                                        <thead>
+                                            <th>Actions</th>
+                                            <th>Building</th>
+                                            <th>Service</th>
+                                            <th>Requested On</th>
+                                            <th>Service Date</th>
+                                            <th>Subscription</th>
+                                            <th>Quantity</th>
+                                            <th>Amount</th>
+                                            <th>Vehicle Number</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="service in services" style="height: 50px;">
+                                                <td>
+                                                    <assignPersonComponent :service="service"
+                                                        :updateServicePerson="updateServicePerson">
+                                                    </assignPersonComponent>
+                                                </td>
+                                                <td>{{service.OtherAddressId ? (service.OtherAddressLine1 + ", " + service.OtherAddressLine2) :  (service.AddressLine1 + ', ' + service.ParkingLot)}}</td>
+                                                <td>{{service.ServiceName}}</td>
+                                                <td>{{returnDateTime(service.RequestedOn)}}</td>
+                                                <td>{{returnDateTime(service.ServiceDate)}}</td>
+                                                <td>{{service.SubscribeType ? service.SubscribeType : 'Once'}}</td>
+                                                <td v-if="false">₹
+                                                    {{service.ServiceType == 1 ? service.SubscriptionPrice : service.Price}}/-
+                                                </td>
+                                                <td>
+                                                    {{service.Quantity}}
+                                                </td>
+                                                <td>₹
+                                                    {{getServiceAmount(service)}}
+                                                </td>
+                                                <td>{{service.VehicleNumber}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-danger btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
-                        <button class="btn btn-success btn-sm pull-right" title="Assign User"
-                            @click="assignService">Assign</button>
                     </div>
                 </div>
-            </div>
-        </div> -->
-
-
-    </div>
-</div>
-
-<!-- <div v-if="dashBoardDetails">
-    <div class="card-deck">
-        <div class="card" @click="showPendingVehicleServices">
-            <div class="card-block">
-                <div class="cardContent">
-                    <h6 class="card-title">
-                        Pending Vehicle Services
-                    </h6>
-                    <span class="counter">{{dashBoardDetails.PendingVehicleCount}}</span>
+                <div class="tab-pane" v-if="selectedTab === 2" :class="{ active: selectedTab === 2 }">
+                    <div class="panel panel-default">
+                        <div class="panel-body addBg">
+                            <div class="ResGrid">
+                                <div class="dTable">
+                                    <table style="width: 100%; overflow:scroll;">
+                                        <thead>
+                                            <th>Building</th>
+                                            <th>Service</th>
+                                            <th>Requested On</th>
+                                            <th>Service Date</th>
+                                            <th>Subscription</th>
+                                            <th>Amount</th>
+                                            <th>Vehicle Number</th>
+                                            <th>Service Person</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="service in services" style="height: 50px;">                                                
+                                                <td>{{service.AddressLine1 + ', ' + service.ParkingLot}}</td>
+                                                <td>{{service.ServiceName}}</td>
+                                                <td>{{returnDateTime(service.RequestedOn)}}</td>
+                                                <td>{{returnDateTime(service.ServiceDate)}}</td>
+                                                <td>{{service.SubscribeType ? service.SubscribeType : 'Once'}}</td>                                                
+                                                <td>₹
+                                                    {{service.VehicleTypeId == 2 ? (service.ServiceType == 2 ? service.FourWheelerOncePrice : service.FourWheelerSubPrice) : (service.ServiceType == 2 ? service.Price : service.SubscriptionPrice )}}
+                                                </td>
+                                                <td>{{service.VehicleNumber}}</td>
+                                                <td>{{service.UserFirstName}} {{service.UserLastName}} <br> {{service.MobileNumber}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div> -->
+</div>

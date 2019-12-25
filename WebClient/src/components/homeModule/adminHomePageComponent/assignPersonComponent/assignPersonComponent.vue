@@ -16,6 +16,14 @@
         methods: {
             assignService() {
                 let vm = this;
+                if (!vm.assignPersonObj || (vm.assignPersonObj && !vm.assignPersonObj.UserId)) {
+                    vm.$store.dispatch("toastr", {
+                        type: "error",
+                        header: "Assign Person !",
+                        message: "Please select Person and assign"
+                    });
+                    return;
+                }
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "AssignPersonToService",
                     params: {
@@ -28,6 +36,7 @@
                         }
                         // vm.servicePersonList.splice(0, vm.servicePersonList.length, ...response);
                         vm.updateServicePerson(vm.service, vm.assignPersonObj);
+                        vm.assignPersonObj = null
                     }
                 });
             },
@@ -80,6 +89,10 @@
         mounted() {
             let vm = this;
             vm.getUserDetail();
+            vm.$store.state.bus.$on("hideAutoSuggest", function () {
+                vm.showServicePersonList = false;
+                vm.searchNameText = null
+            });
         },
         watch: {
             $route: "getServices",

@@ -50,12 +50,18 @@
             },
             returnDateTime(date) {
                 return date ? moment(date).format("Do MMM YYYY") : null
-            }
+            },
         },
 
         computed: {
             disableDelete(){
                 return this.orderDetails != 1;
+            },
+            price(){
+                if(this.orderDetails){
+                    return this.$store.state.getAmountByServiceType(this.orderDetails);
+                }
+                return 0;
             }
         },
 

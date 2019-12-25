@@ -16,6 +16,7 @@ module.exports = (config, params, callback) => {
     requestParams.input('ServiceDate', mssql.Date, moment(params.ServiceDate).format("YYYY-MM-DD"));
     requestParams.input('Quantity', mssql.Int, params.Quantity);
     requestParams.input('ServiceStausId', mssql.Int, (params.StatusId || params.StatusId == 0) ? params.StatusId : 1);
+    requestParams.input('OtherAddressId', mssql.Int, params.OtherAddressId);
 
     requestParams.execute('SaveVehicleRequest', (err, result) => {
         if (err) {

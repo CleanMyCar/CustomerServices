@@ -66,6 +66,14 @@
             redirectToManageServices(){
                 this.panelCallback();
                 this.$router.push("/manageServices")
+            },
+            redirectToUsersWallet(){
+                this.panelCallback();
+                this.$router.push("/addAmountToWallet")
+            },
+            redirectToMySubscriptions(){
+                this.panelCallback();
+                this.$router.push("/mysubscriptions")
             }
         },
         computed: {

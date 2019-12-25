@@ -59,7 +59,7 @@
               data-bind="value: lastName, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
             <!-- <input type="text" placeholder="Phone Number" data-bind="value: mobileNumber, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }"
           /> -->
-            <input id="phone" name="phone" type="tel"
+            <input id="phone" name="phone" type="tel" style="text-align: right;"
               data-bind="value: mobileNumber, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
             <input type="text" placeholder="Email"
               data-bind="value: email, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
@@ -88,7 +88,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">                              
-                                <label>Invalid Credentials</label>
+                                <label data-bind="text: errorMessage"></label>
                             </div>
                         </div>
         
@@ -182,7 +182,7 @@
       //login fields start
       self.loginUsername = ko.observable('');
       self.loginPassword = ko.observable('')
-
+      self.errorMessage = ko.observable('');
       self.loginUsername.extend({
         required: { message: 'Phone Number/Email is required', params: true }
       });
@@ -244,6 +244,7 @@
                     self.errLoginMsg("Server Error: " + response.response.errno);
                   }
                   else{
+                    self.errorMessage("Invalid Credentials");
                     $("#validationPopup").modal("show");
                     return;
                     // self.errLoginMsg("Invalid credentials");
@@ -332,24 +333,22 @@
             window.localStorage.removeItem('rttoken');
             self.showLoading(false);
             console.log(response);
-            if (response) {
-              if (!response.response.error) {
-                console.log("response for login", response);
-                if (response.response.length > 0 && response.response[0]) {
+            if (response && response.length > 0) {
+              if (response[1] && response[1][0] && response[1][0].UserId) {                
                   self.showLogin();
-                }
-                else {
-                  if (response.response.errno) {
-                    self.errLoginMsg("Server Error: " + response.response.errno);
-                  }
-                  else
-                    self.errLoginMsg("Invalid credentials");
-                }
               }
-              else {
-                self.errLoginMsg(response.response.ErrorMessage);
+              else if (response[0] && response[0][0] && response[0][0].ErrorMessage){
+                // self.errLoginMsg(response[0][0].ErrorMessage);
+                self.errorMessage(response[0][0].ErrorMessage);
+                $("#validationPopup").modal("show");
+                  return;
               }
-
+              else{
+                self.errLoginMsg("There is server error, please contact administrator");
+              }
+            }
+            else{
+              self.errLoginMsg("There is server error, please contact administrator");
             }
           },
           error: function (d) {

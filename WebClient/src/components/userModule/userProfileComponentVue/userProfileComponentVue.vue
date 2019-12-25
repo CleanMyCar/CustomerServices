@@ -33,6 +33,9 @@
     import VueAvatar from './vueAvatar/VueAvatar.vue'
     import VueAvatarScale from './vueAvatar/VueAvatarScale.vue'
 
+    import VeeValidate from "vee-validate";
+    Vue.use(VeeValidate);
+
     export default {
         data() {
             return {
@@ -50,19 +53,27 @@
         methods: {
             saveUserProfile: function () {
                 var vm = this;
-                var img = this.$refs.vueavatar.getImageScaled()
-                this.$store.dispatch("dataRequestHandler", {
-                    key: "SaveUserProfile",
-                    params: vm.userProfile,
-                    callback: function (err, response) {
-                        //console.log(response);
-                        if (response.ErrorMessage) {
-                            vm.headerTitle = "Validations"
-                            vm.popupMessage = response.ErrorMessage;
-                            vm.isDialogOpen = true;
-                            return;
-                        }
-                        vm.changeToEditMode();
+                vm.$validator.validateAll().then(result => {
+                    if (result) {
+                        var img = this.$refs.vueavatar.getImageScaled()
+                        vm.userProfile.ProfileImage = img.toDataURL();
+                        this.$store.dispatch("dataRequestHandler", {
+                            key: "SaveUserProfile",
+                            params: vm.userProfile,
+                            callback: function (err, response) {
+                                //console.log(response);
+                                if (response.ErrorMessage) {
+                                    vm.headerTitle = "Validations"
+                                    vm.popupMessage = response.ErrorMessage;
+                                    vm.isDialogOpen = true;
+                                    return;
+                                }
+                                vm.editMode = false;
+                            }
+                        });
+                    }
+                    else{
+                        alert("please fill required fields with proper data")
                     }
                 });
             },

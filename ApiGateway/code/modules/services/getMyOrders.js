@@ -14,10 +14,14 @@ module.exports = (config, params, callback) => {
         }
 
         let activeOrders = result.recordsets[0].filter((order) => {
-            return order.ServiceStatusId == 1;
+            return order.ServiceStatusId == 1 || order.ServiceStatusId == 3;
+        })
+
+        let historyOrders = result.recordsets[0].filter((order) => {
+            return order.ServiceStatusId != 1 && order.ServiceStatusId != 3;
         })
 
         // console.log(result);
-        return callback(null, { activeOrders: activeOrders, allOrders: result.recordsets[0] });
+        return callback(null, { activeOrders: activeOrders, allOrders: historyOrders });
     })
 }

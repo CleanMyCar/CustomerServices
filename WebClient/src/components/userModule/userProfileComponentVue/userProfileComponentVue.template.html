@@ -10,6 +10,10 @@
                         v-if="!editMode">
                         Edit
                     </button>
+                    <button class="btn btn-danger btn-sm" title="Save User Profile" @click="changeToEditMode"
+                        v-if="editMode">
+                        Cancel
+                    </button>
                     <button class="btn btn-success btn-sm" title="Save User Profile" @click="saveUserProfile"
                         v-if="editMode">
                         Save
@@ -28,9 +32,10 @@
                                 class="proMask"></div>
                             <div class="profileHeader">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                    <vue-avatar :width=200 :height=220 ref="vueavatar"
+                                    <vue-avatar v-show="editMode" :width=200 :height=220 ref="vueavatar"
                                         @vue-avatar-editor:image-ready="onImageReady" image=''>
                                     </vue-avatar>
+                                    <img v-show="!editMode" :src="userProfile.ProfileImage" width="200" height="200">
                                 </div>
 
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" v-show="false">
@@ -63,7 +68,11 @@
                                 <label v-if="!editMode">
                                     {{userProfile.Email ? userProfile.Email : "NA"}}
                                 </label>
-                                <input v-if="editMode" type="text" v-model="userProfile.Email" />
+                                <input v-if="editMode" type="text" name="userEmail" v-model="userProfile.Email" v-validate="'required|email'" />
+                                <span v-show="errors.has('userEmail')" class="invalid-feedback">
+                                    <i v-show="errors.has('userEmail')" class="fa fa-warning"></i> 
+                                    Please enter valid Email
+                                </span>
                             </div>
                         </div>
                         <div class="row">
@@ -72,7 +81,11 @@
                                 <label v-if="!editMode">
                                     {{userProfile.MobileNumber ? userProfile.MobileNumber : "NA"}}
                                 </label>
-                                <input v-if="editMode" type="text" v-model="userProfile.MobileNumber" />
+                                <input v-if="editMode" type="number" name="userMobile" v-model="userProfile.MobileNumber" v-validate="'required|digits:10'" />
+                                <span v-show="errors.has('userMobile')" class="invalid-feedback">
+                                    <i v-show="errors.has('userMobile')" class="fa fa-warning"></i> 
+                                    Please enter valid Mobile Number
+                                </span>
                             </div>
                         </div>
 

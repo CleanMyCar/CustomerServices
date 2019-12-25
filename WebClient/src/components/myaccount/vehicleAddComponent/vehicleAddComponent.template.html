@@ -73,7 +73,7 @@
 
                         </div>
                         <div class="form-group" v-if="!serviceDetail">
-                            <label v-for="vehicleType in vehicleTypes">
+                            <label v-for="vehicleType in vehicleTypes" v-if="vehicleType.VehicleTypeId != 3">
                                 <input type="radio" name="vehicleType" @click="changeVehicleType(vehicleType, $event)"
                                     v-model="newVehicleDetails.VehicleTypeId" :value="vehicleType.VehicleTypeId">
                                 <i class="radioLabel">{{vehicleType.VehicleTypeName}}</i>

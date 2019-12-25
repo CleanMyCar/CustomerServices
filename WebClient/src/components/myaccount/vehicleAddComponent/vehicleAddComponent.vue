@@ -7,14 +7,12 @@
 
     export default {
         name: "vehicleAddComponent",
-        props: ["updateParent", "closeVehicleAddPopup", "vehicleId", "serviceDetail"],
+        props: ["updateParent", "closeVehicleAddPopup", "vehicleId", "serviceDetail", "isPersonal"],
         data() {
             return {
-                serviceDetail: null,
                 myServiceProducts: [],
                 serviceType: null,
                 vehicleInfo: {
-                    isPersonal: true,
                     VehicleId: null,
                     Frequency: null,
                     TimeSlot: "1"
@@ -58,7 +56,7 @@
                     if (result) {                
                         vm.$store.dispatch("dataRequestHandler", {
                             key: "SaveVehicleDetails",
-                            params: Object.assign(vm.newVehicleDetails, { IsPersonal: 1 }),
+                            params: Object.assign(vm.newVehicleDetails, { IsPersonal: vm.isPersonal }),
                             callback: function (err, response) {
                                 if (err) {
                                     return;

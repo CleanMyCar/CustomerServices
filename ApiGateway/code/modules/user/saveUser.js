@@ -13,7 +13,7 @@ module.exports = (config, params, callback) => {
     requestParams.input('UserPassword', mssql.NVarChar, md5(params.UserPassword));
     requestParams.input('StatusId', mssql.Int, params.StatusId);
     requestParams.input('MobileNumber', mssql.NVarChar, params.MobileNumber);
-    requestParams.input('ProfileImage', mssql.NVarChar, params.profileImage);
+    requestParams.input('ProfileImage', mssql.NVarChar, params.ProfileImage);
     requestParams.input('LoggedinUser', mssql.Int, params.systemParams.UserId);
     requestParams.input('ReferralCode', mssql.NVarChar, params.ReferralCode);
     requestParams.input('UserOtp', mssql.NVarChar, params.UserOtp);

@@ -15,7 +15,7 @@
                 myServiceProducts: [],
                 serviceType: null,
                 vehicleInfo: {
-                    isPersonal: true,
+                    IsPersonal: true,
                     VehicleId: null,
                     Frequency: null,
                     TimeSlot: "1",
@@ -36,7 +36,10 @@
                 showAddressList: false,
                 selectedVehicle: null,
                 openedVehicleAddPopup: false,
-                serviceSaved: false
+                serviceSaved: false,
+                userAddressList: [],
+                isAddressPopup: false,
+                selectedPersonAddress: null
             };
         },
 
@@ -77,13 +80,32 @@
                         vm.vehicleTypes = response.vehicleTypes;
                         vm.fourWheelerTypes = response.fourWheelerTypes;
                         vm.subscriptionTypes = response.subscribeTypes
+
+                        if (vm.serviceDetail.VehicleCategoryType == "3") {
+                            vm.$store.dispatch("dataRequestHandler", {
+                                key: 'GetUserAddressIds',
+                                params: {},
+                                callback: function (err, response) {
+                                    if(response.length> 0){
+                                        let defaultAddress = response.filter((addr) =>{
+                                            return addr.IsDefault;
+                                        })
+                                        vm.selectedPersonAddress = defaultAddress[0]
+                                    }
+                                }
+                            });
+                        }
+
                     }
                 });
 
+
             },
-            changeSelection(event) {
-                this.vehicleInfo.isPersonal = !this.vehicleInfo.isPersonal;
+            changeSelection(flag, event) {
+                this.vehicleInfo.IsPersonal = flag;
                 // $(".personalVehicle").not(event.currentTarget).prop('checked', false);
+                this.selectedVehicle = null;
+                this.vehicleInfo.VehicleId = null
             },
             addNewVehicleInfo() {
                 //this.newVehicleDetails = {
@@ -110,7 +132,7 @@
                     if (result) {
                         vm.$store.dispatch("dataRequestHandler", {
                             key: "SaveVehicleDetails",
-                            params: Object.assign(vm.newVehicleDetails, { IsPersonal: vm.vehicleInfo.isPersonal }),
+                            params: Object.assign(vm.newVehicleDetails, { IsPersonal: vm.vehicleInfo.IsPersonal }),
                             callback: function (err, response) {
                                 if (err) {
                                     return;
@@ -150,35 +172,40 @@
             },
             confirmServiceOrder(statusId) {
                 let vm = this;
-                vm.$store.dispatch("dataRequestHandler", {
-                    key: "RequestVehicleService",
-                    params: {
-                        VehicleId: vm.vehicleInfo.VehicleId,
-                        ServiceType: vm.serviceType,
-                        ServiceId: vm.$route.params.serviceId,
-                        Frequency: vm.vehicleInfo.Frequency,
-                        Promocode: vm.vehicleInfo.Promocode,
-                        ServiceDate: vm.vehicleInfo.ServiceDate,
-                        TimeSlot: vm.vehicleInfo.TimeSlot,
-                        WeeklyDay: vm.vehicleInfo.WeeklyDay,
-                        Quantity: vm.vehicleInfo.Quantity,
-                        StatusId: statusId
-                    },
-                    callback: function (err, response) {
-                        if (err) {
-                            return;
-                        }
-                        if(statusId == 0){                            
-                            vm.vehicleInfo.RequestId = response.RequestId
-                            vm.serviceSaved = true;
-                            return;
-                        }
-                        if (vm.serviceType == 2) {
-                            vm.$router.push("/myOrders");
-                        }
-                        if (vm.serviceType == 1) {
-                            vm.$router.push("/mysubscriptions");
-                        }
+                vm.$validator.validateAll().then(result => {
+                    if (result) {
+                        vm.$store.dispatch("dataRequestHandler", {
+                            key: "RequestVehicleService",
+                            params: {
+                                VehicleId: vm.vehicleInfo.VehicleId,
+                                ServiceType: vm.serviceType,
+                                ServiceId: vm.$route.params.serviceId,
+                                Frequency: vm.vehicleInfo.Frequency,
+                                Promocode: vm.vehicleInfo.Promocode,
+                                ServiceDate: vm.vehicleInfo.ServiceDate,
+                                TimeSlot: vm.vehicleInfo.TimeSlot,
+                                WeeklyDay: vm.vehicleInfo.WeeklyDay,
+                                Quantity: vm.vehicleInfo.Quantity,
+                                StatusId: statusId,
+                                OtherAddressId: vm.selectedPersonAddress && vm.selectedPersonAddress.AddressId
+                            },
+                            callback: function (err, response) {
+                                if (err) {
+                                    return;
+                                }
+                                if (statusId == 0) {
+                                    vm.vehicleInfo.RequestId = response.RequestId
+                                    vm.serviceSaved = true;
+                                    return;
+                                }
+                                if (vm.serviceType == 2) {
+                                    vm.$router.push("/myOrders");
+                                }
+                                if (vm.serviceType == 1) {
+                                    vm.$router.push("/mysubscriptions");
+                                }
+                            }
+                        });
                     }
                 });
             },
@@ -232,8 +259,17 @@
             updateQuantity(value) {
                 this.vehicleInfo.Quantity = value;
             },
+            choosePersonAddress() {
+                this.isAddressPopup = true;
+            },
+            updateSelectedAddress(address) {
+                this.selectedPersonAddress = address;
+                this.isAddressPopup = false;
+            },
+            closeSelectAddressPopup() {
+                this.isAddressPopup = false;
+            }
         },
-
         computed: {
             servicePrice() {
                 let vm = this;

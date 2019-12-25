@@ -121,13 +121,14 @@
                 <div class="form-group" v-if="serviceType == 2 && serviceDetail.VehicleCategoryType != 3">
                     Personal Vehicle
                     <input type="checkbox" class="personalVehicle" name="personalVehicle"
-                        @click="changeSelection($event)" :checked="vehicleInfo.isPersonal"> Yes
+                        @click="changeSelection(true, $event)" :checked="vehicleInfo.IsPersonal"> Yes
                     <input type="checkbox" class="personalVehicle" name="personalVehicle"
-                        @click="changeSelection($event)" :checked="!vehicleInfo.isPersonal">No
+                        @click="changeSelection(false, $event)" :checked="!vehicleInfo.IsPersonal">No
                 </div>
                 <div class="form-group" v-if="serviceDetail.VehicleCategoryType != 3">
                     <div class="cellRow" style="width: 100%; overflow: scroll; margin-top: 20px;">
-                        <div class="cell" v-for="product in myServiceProducts" v-if="vehicleInfo.isPersonal"
+                        <div class="cell" v-for="product in myServiceProducts"
+                            v-if="vehicleInfo.IsPersonal === (product.IsPersonal == 0 ? false : true)"
                             style="flex: 0 0 12%;">
                             <label class="radioLabel">
                                 <input type="radio" class="vechiles" name="Vechile" :value="product.VehicleId"
@@ -195,14 +196,21 @@
                                     v-if="serviceDetail.serviceSubscribeTypes.indexOf(product.SubscribeId) > -1">
                                     <label class="radioLabel customradioLabel">
                                         <input type="radio" name="serviceFrequency" :value="product.SubscribeId"
-                                            v-model="vehicleInfo.Frequency">
+                                            v-model="vehicleInfo.Frequency" v-validate="'required'">
                                         <span class="form-group serviceName">
                                             {{product.SubscribeType}}
                                         </span>
                                     </label>
 
                                 </div>
+
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <span v-show="errors.has('serviceFrequency')" class="invalid-feedback">
+                                <i v-show="errors.has('serviceFrequency')" class="fa fa-warning"></i>
+                                Please select Subscription Frequency
+                            </span>
                         </div>
                         <div class="form-group" v-if="vehicleInfo.Frequency == 2">
                             <label>Day</label>
@@ -256,6 +264,18 @@
 
                 </div>
 
+                <div class="address">
+
+                    <div v-if="selectedPersonAddress" 
+                        style="margin-top: 25px;float: left;">
+                        <viewAddressComponent v-if="selectedPersonAddress" :addressId="selectedPersonAddress.AddressId"
+                            :isDefault="selectedPersonAddress.IsDefault" disabled="true"></viewAddressComponent>
+                    </div>
+                    <div style="float: right;">
+                        <a href="javascript: void(0)" @click="choosePersonAddress">Change</a>
+                    </div>
+                </div>
+
                 <div class="address" v-if="vehicleAddress && vehicleAddress.VehicleId > 0">
                     <div>
                         <h5>Delivery/Service Address</h5>
@@ -267,6 +287,8 @@
                         </span>
                     </div>
                     <div v-if="vehicleAddress">
+                        <div v-if="selectedVehicle">
+                            Parking Lot: {{selectedVehicle.ParkingLot}}</div>
                         <div>
                             {{vehicleAddress.AddressLine1 + ", " + vehicleAddress.AddressLine2 }}
                         </div>
@@ -284,7 +306,8 @@
                 </div>
 
                 <div class="form-group">
-                    <div style="float: right; background-color: #008aff; color: white; width: 100%; font-weight: bold; text-align: right;">
+                    <div
+                        style="float: right; background-color: #008aff; color: white; width: 100%; font-weight: bold; text-align: right;">
                         Amount: ₹ {{servicePrice}}/-
                     </div>
                 </div>
@@ -300,13 +323,15 @@
                     </div>
 
                 </div>
-
-
             </div>
         </div>
 
         <vehicleAddComponent v-if="openedVehicleAddPopup" :vehicleId="vehicleAddress && vehicleAddress.VehicleId"
-            :updateParent="updateVehicleAddress" :closeVehicleAddPopup="closeVehicleAddPopup"
-            :serviceDetail="serviceDetail"></vehicleAddComponent>
+            :updateParent="updateVehicleAddress" :isPersonal="vehicleInfo.IsPersonal"
+            :closeVehicleAddPopup="closeVehicleAddPopup" :serviceDetail="serviceDetail"></vehicleAddComponent>
+
+        <addressChooseComponent v-if="isAddressPopup"
+            :selectedAddress="updateSelectedAddress" 
+            :closeVehicleAddPopup="closeSelectAddressPopup"></addressChooseComponent>
     </div>
 </div>

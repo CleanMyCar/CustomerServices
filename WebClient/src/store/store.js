@@ -110,6 +110,10 @@ let getFormattedAmount = function (currency, amount) {
   }
 }
 
+let getAmountByServiceType = function(service){
+  return service.VehicleTypeId == 2 ? (service.ServiceType == 2 ? service.SubscribeItemPrice : service.SubscribeSubscriptionPrice) : (service.ServiceType == 2 ? service.Price : service.SubscriptionPrice )
+}
+
 export const store = new Vuex.Store({
   state: {
     isCurrentUserAdmin: false,
@@ -140,6 +144,7 @@ export const store = new Vuex.Store({
     loggedInUserDetail: null,
     loggedInUserWallet: null,
     countryStateCities: {},
+    getAmountByServiceType: getAmountByServiceType
   },
   mutations: {
     setIsCurrentUserAdmin(state, isCurrentUserAdmin) {

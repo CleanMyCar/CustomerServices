@@ -32,6 +32,7 @@ import orderRowComponent from "./components/myaccount/orderRowComponent/orderRow
 import addressPopupComponent from "./components/commonComponents/addressPopupComponent/addressPopupComponent.vue"
 import viewAddressComponent from "./components/commonComponents/viewAddressComponent/viewAddressComponent.vue"
 import toastrMessageComponent from "./components/commonComponents/toastrMessageComponent/toastrMessageComponent.vue"
+import addressChooseComponent from "./components/commonComponents/addressChooseComponent/addressChooseComponent.vue"
 
 Vue.component(datePickerComponent.name, datePickerComponent);
 Vue.component(pageLoadingComponent.name, pageLoadingComponent);
@@ -57,6 +58,7 @@ Vue.component(orderRowComponent.name, orderRowComponent);
 Vue.component(addressPopupComponent.name, addressPopupComponent)
 Vue.component(viewAddressComponent.name, viewAddressComponent);
 Vue.component(toastrMessageComponent.name, toastrMessageComponent)
+Vue.component(addressChooseComponent.name, addressChooseComponent)
 
 new Vue({
   el: '#app',

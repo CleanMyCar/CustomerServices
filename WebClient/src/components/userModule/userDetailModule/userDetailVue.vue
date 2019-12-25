@@ -108,17 +108,7 @@
           Repassword: "",
           OldPassword: null,
           ProfileImage: "",
-          StatusId: null,
-
-          DeviceIds: {
-            apps: {
-              Android: [],
-              IOS: [],
-              Web: [],
-              Email: [],
-              SMS: []
-            }
-          }
+          StatusId: 1
         },
         phoneNumberRegEx: /^\d{10}$/,
         passwordVerification: {
@@ -235,22 +225,9 @@
           });
         }
         else {
-
-          let userObject = {
-            UserId: vm.$route.params.userId,
-            UserFirstName: vm.userDetail.UserFirstName,
-            UserLastName: vm.userDetail.UserLastName,
-            Email: vm.userDetail.Email,
-            UserPassword: vm.userDetail.UserPassword,
-            profileImage: vm.userDetail.ProfileImage,
-            StatusId: vm.user_Status.StatusId,
-            MobileNumber: vm.userDetail.MobileNumber
-          };
-
-
           vm.$store.dispatch("dataRequestHandler", {
             key: "CreateUser",
-            params: userObject,
+            params: vm.userDetail,
             callback: function (error, response) {
               if (error) {
                 vm.$store.dispatch("toastr", {
@@ -267,9 +244,9 @@
                   header: "Success!",
                   message: "user saved sucessfully"
                 });
-                let userUrl = response[2][0].UserId;
-                vm.$router.push("/userDetail/" + userUrl);
-                location.reload();
+                // let userUrl = response[2][0].UserId;
+                vm.$router.push("/users");
+                // location.reload();
               }
 
               else {

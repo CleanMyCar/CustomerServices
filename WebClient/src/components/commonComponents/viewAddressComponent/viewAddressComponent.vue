@@ -4,7 +4,7 @@
     import moment from "moment-timezone";
     export default {
         name: "viewAddressComponent",
-        props: ["addressId", "updateParent", "isDefault"],
+        props: ["addressId", "updateParent", "isDefault", "disabled", "isAddressToSelect"],
         data() {
             return {
                 addressDetails: null,
@@ -114,6 +114,11 @@
                         }
                     }
                 });
+            },
+            selectAddress(){
+                if(this.isAddressToSelect && this.updateParent){
+                    this.updateParent(this.addressDetails);
+                }
             }
         },
 

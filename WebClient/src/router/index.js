@@ -24,7 +24,7 @@ import myProducts from "../components/myaccount/myProducts/myProducts.vue"
 import assignServiceComponent from "../components/adminModule/assignServiceComponent/assignServiceComponent.vue"
 import manageServices from "../components/adminModule/manageServicesComponent/manageServicesComponent.vue"
 import serviceDetailComponent from "../components/adminModule/serviceDetailComponent/serviceDetailComponent.vue"
-
+import addAmountToWallet from "../components/adminModule/addAmountToWallet/addAmountToWallet.vue"
 Vue.use(Router);
 
 export default new Router({
@@ -119,6 +119,11 @@ export default new Router({
       path: '/serviceDetail/:serviceId',
       name: 'serviceDetailComponent',
       component:serviceDetailComponent
+    },
+    {
+      path: '/addAmountToWallet',
+      name: 'addAmountToWallet',
+      component: addAmountToWallet
     }
   ]
 })
