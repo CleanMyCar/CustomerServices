@@ -33,8 +33,8 @@
             },
             addDetailsToPause(serviceItem) {
                 this.serviceObj = JSON.parse(JSON.stringify(serviceItem));
-                this.$set(this.serviceObj, 'StartDate', moment().add(1, 'days'));
-                this.$set(this.serviceObj, 'EndDate', moment().add(1, 'days'));
+                this.$set(this.serviceObj, 'StartDate', moment.utc().add(1, 'days'));
+                this.$set(this.serviceObj, 'EndDate', moment.utc().add(1, 'days'));
 
                 $("#pauseServiceDetailsPopup").modal("show");
             },
@@ -123,7 +123,7 @@
                 this.serviceObj.ServiceEndDate = dateObj ? dateObj.format("DD MMM YYYY") : null
             },
             getFormattedDate(date){
-                return moment(date).format("DD MMM, YYYY")
+                return moment.utc(date).format("DD MMM, YYYY")
             }
         },
 

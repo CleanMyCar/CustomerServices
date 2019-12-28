@@ -10,7 +10,7 @@
                 entityNamesdata: {},
                 servieList: [],
                 serviceObj: null,
-                todayDate: moment().format("DD MMM, YY"),
+                todayDate: moment.utc().format("DD MMM, YY"),
                 selectedProduct: null,
                 selectedOption: null
             };

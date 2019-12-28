@@ -271,7 +271,10 @@
                         <viewAddressComponent v-if="selectedPersonAddress" :addressId="selectedPersonAddress.AddressId"
                             :isDefault="selectedPersonAddress.IsDefault" disabled="true"></viewAddressComponent>
                     </div>
-                    <div style="float: right;">
+                    <div v-if="userAddressList.length == 0">
+                        You don't have any address to deliver this product, please add Address in <a href="javascript: void(0)" @click="navigateToMyProfile">My Profile</a> and confirm
+                    </div>
+                    <div style="float: right;" v-if="userAddressList.length > 1">
                         <a href="javascript: void(0)" @click="choosePersonAddress">Change</a>
                     </div>
                 </div>
@@ -314,11 +317,11 @@
                 <div class="form-group">
                     <div style="margin-top: 40px;">
                         <addToCartComponent
-                            v-if="serviceType == 2 && ((serviceDetail.VehicleCategoryType != 3 && vehicleInfo.VehicleId) || (serviceDetail.VehicleCategoryType == 3 && vehicleInfo.Quantity > 0))"
+                            v-if="serviceType == 2 && ((serviceDetail.VehicleCategoryType != 3 && vehicleInfo.VehicleId) || (serviceDetail.VehicleCategoryType == 3 && (vehicleInfo.Quantity > 0 && selectedPersonAddress) ))"
                             :product="vehicleInfo" :serviceSaved="serviceSaved" :updateParent="confirmServiceOrder">
                         </addToCartComponent>
                         <button class="btn btn-success btn-sm pull-right"
-                            :disabled="(serviceDetail.VehicleCategoryType != 3 && !vehicleInfo.VehicleId) || (serviceDetail.VehicleCategoryType == 3 && vehicleInfo.Quantity < 1)"
+                            :disabled="(serviceDetail.VehicleCategoryType != 3 && !vehicleInfo.VehicleId) || (serviceDetail.VehicleCategoryType == 3 && (vehicleInfo.Quantity < 1 || !selectedPersonAddress) )"
                             title="Confirm" @click="confirmServiceOrder(1)">Confirm</button>
                     </div>
 

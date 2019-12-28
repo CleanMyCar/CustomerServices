@@ -1,50 +1,46 @@
-<template src="./assignServiceComponent.template.html"></template>
+<template src="./myWallet.template.html"></template>
 
 <script>
     import moment from "moment-timezone";
     export default {
-        name: "assignServiceComponent",
+        name: "myWallet",
         props: [],
         data() {
             return {
-                pendingServices: [],
-                serviceType: null,
-            };
+                myWalletTransactions: [],
+            }
         },
 
         methods: {
-            getServices() {
+            getMyWalletTransactions() {
                 let vm = this;
-                vm.serviceType = vm.$route.params.serviceType
-
                 vm.$store.dispatch("dataRequestHandler", {
-                    key: "GetAllPendingServicesByType",
+                    key: "GetMyWalletTransactions",
                     params: {
-                        serviceType: vm.$route.params.serviceType
+
                     },
                     callback: function (err, response) {
                         if (err) {
                             return;
                         }
-                        vm.pendingServices.splice(0, vm.pendingServices.length, ...response);
+
+                        vm.myWalletTransactions.splice(0, vm.myWalletTransactions.length, ...response);
                     }
                 });
             },
             returnDateTime(date) {
                 return date ? moment.utc(date).format("Do MMM YYYY") : null
-            }
+            },
+
         },
+
         computed: {
+
         },
 
         mounted() {
             let vm = this;
-            vm.getServices();
-        },
-        watch: {
-            $route: "getServices",
+            vm.getMyWalletTransactions();
         }
-
-
     };
 </script>

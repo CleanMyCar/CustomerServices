@@ -34,7 +34,7 @@
     </div>
 
     <vehicleAddComponent v-if="openedVehicleAddPopup" :vehicleId="selectedVehicle && selectedVehicle.VehicleId"
-        :updateParent="getMyProducts" :closeVehicleAddPopup="closeVehicleAddPopup"></vehicleAddComponent>
+        :updateParent="getMyProducts" :closeVehicleAddPopup="closeVehicleAddPopup" isPersonal="1"></vehicleAddComponent>
 
     <div class="modal" data-backdrop="static" role="dialog" id="deleteVehiclePopup">
         <div class="modal-dialog">

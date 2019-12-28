@@ -1,0 +1,28 @@
+<div class="">
+    <div>
+        <h4>My Wallet</h4>
+    </div>
+    <div class="ResGrid">
+        <div class="dTable">
+            <table style="width: 100%; overflow:scroll;">
+                <thead>
+                    <th>Transaction Date</th>
+                    <th>Amount</th>
+                    <th>Credit/Debit</th>
+                    <th>Transaction Type</th>                    
+                </thead>
+                <tbody class="myordersTable">
+
+                    <tr v-for="transaction in myWalletTransactions">
+                        <td>{{returnDateTime(transaction.TransactionDate)}}</td>
+                        <td>₹ {{transaction.Amount}}</td>
+                        <td>{{transaction.IsCredited ? "Credited": "Debited"}}</td>
+                        <td> {{transaction.TransactionType}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

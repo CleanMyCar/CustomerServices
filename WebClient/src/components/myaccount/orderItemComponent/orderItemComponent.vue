@@ -49,13 +49,13 @@
                 vm.deleteOrder(serviceObj)
             },
             returnDateTime(date) {
-                return date ? moment(date).format("Do MMM YYYY") : null
+                return date ? moment.utc(date).format("Do MMM YYYY") : null
             }
         },
 
         computed: {
             disableDelete(){
-                return this.orderDetails && moment(this.orderDetails.ServiceDate).diff(moment(), "seconds") < 0;
+                return this.orderDetails && moment.utc(this.orderDetails.ServiceDate).diff(moment.utc(), "seconds") < 0;
             }
         },
 

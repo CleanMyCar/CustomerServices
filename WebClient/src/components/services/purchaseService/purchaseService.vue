@@ -21,7 +21,7 @@
                     TimeSlot: "1",
                     AddressId: null,
                     Quantity: 1,
-                    ServiceDate: moment().add(1, 'days')
+                    ServiceDate: moment.utc().add(1, 'days')
                 },
                 newVehicleDetails: null,
                 fourWheelerTypes: [],
@@ -87,6 +87,7 @@
                                 params: {},
                                 callback: function (err, response) {
                                     if(response.length> 0){
+                                        vm.userAddressList.splice(0, vm.userAddressList.length, ...response);
                                         let defaultAddress = response.filter((addr) =>{
                                             return addr.IsDefault;
                                         })
@@ -268,6 +269,9 @@
             },
             closeSelectAddressPopup() {
                 this.isAddressPopup = false;
+            },
+            navigateToMyProfile(){
+                this.$router.push("/userprofile")
             }
         },
         computed: {

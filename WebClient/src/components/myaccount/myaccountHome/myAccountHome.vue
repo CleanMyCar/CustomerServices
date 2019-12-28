@@ -18,6 +18,9 @@
             },
             navigateToMyProducts(){
                 this.$router.push("/myproducts");
+            },
+            navigateToMyWallet(){
+                this.$router.push("/myWallet");
             }
         },
 

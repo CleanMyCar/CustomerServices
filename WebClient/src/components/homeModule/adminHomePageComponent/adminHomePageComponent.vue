@@ -54,7 +54,7 @@
                 this.$router.push("/assignService/1");
             },
             returnDateTime(date) {
-                return date ? moment(date).format("Do MMM YYYY") : null
+                return date ? moment.utc(date).format("Do MMM YYYY") : null
             },
             getServices(serviceStatusId) {
                 let vm = this;
