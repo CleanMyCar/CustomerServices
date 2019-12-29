@@ -21,8 +21,9 @@ $sideBarBg: #232730;
 /* #5690c1; */
 
 $sidebarExpBtn: #5187b6;
-$hearerIconColour: #5b6a98;
-$headerColor: #2980b9;
+$hearerIconColour: #FAC705;
+$headerColor: #1C3957;
+$borderColor:#65809c;
 
 /*#3083d0; */
 
@@ -154,7 +155,7 @@ p {
 
 #custom-nav-bar {
     /* background:$headerColor; */
-    background: #fff;
+    background: $headerColor;
     box-shadow: none;
     height: 55px;
     width: calc(100%);
@@ -5227,16 +5228,16 @@ label.checkLabel>label {
 
 .topNav button:hover,
 .notoficationButton:hover {
-    background: #4d70e0;
-    color: #fff;
+    background: #FAC705;
+    color: $headerColor;
 }
 
 #custom-nav-bar .dropdown button:hover {
-    background: #4d70e0 !important;
+    background: #FAC705 !important;
 }
 
 #custom-nav-bar .dropdown button.active {
-    background: #4d70e0 !important;
+    background: #FAC705 !important;
 }
 
 #custom-nav-bar .dropdown button:hover span,
@@ -12520,14 +12521,14 @@ body {
   }
 
   .purchaseButton{
-      background-color: #808080;
       padding: 5px;
-      color: white;
+      color: $hearerIconColour;
       font-style: italic;
-      height: 25px;
-      font-size: 12px;
+      font-size: 13px;
       cursor: pointer;
+      border-radius: 3px;
       margin-bottom: 5px;
+      background: $headerColor;
   }
 
 //   .serviceName{
@@ -12789,3 +12790,28 @@ body {
 .chooseAddress div{
     cursor: pointer;
 }
+.res{
+    display: flex;
+    .respno{
+        min-width: 100%;
+        border:1px solid $borderColor;
+        border-radius: 5px;
+        .mt-3{
+            color:$headerColor
+        }
+        img{
+            height: 130px;
+        }
+    }
+}
+.ind{
+    background: $headerColor;
+    color: $hearerIconColour;
+    padding: 4px;
+    padding-left: 12px;
+    border-radius: 3px;
+
+}
+
+
+
