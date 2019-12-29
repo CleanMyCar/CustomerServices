@@ -11,14 +11,13 @@ let io = socketio(http);
 let log4js = require("log4js");
 let logger = log4js.getLogger();
 const fileUpload = require('express-fileupload');
-let cors = require('cors')
+
 let config = require('./code/core/core');
 
 config.socketIo = io;
 config.logger = logger;
 
 //config.moment = moment;
-app.use(cors());
 app.use(fileUpload());
 app.use(bodyParser.json({ limit: 1024 * 1024 * 20, type: 'application/json' }));
 app.use(bodyParser.urlencoded(bodyParser.urlencoded({ extended: true, limit: 1024 * 1024 * 20, type: 'application/x-www-form-urlencoding' })));
@@ -39,6 +38,7 @@ const configParams = (() => {
             user: 'sa',
             password: 'Apple#123',
             database: 'master',
+			port:1433,
             pool: {
                 max: 10,
                 min: 0,
@@ -71,8 +71,8 @@ const configParams = (() => {
         //console.log(process.env.sqldatabase);
         console.log("p", p);
     }
-    if (process.env.port) {
-        p.sql.port = process.env.port;
+    if (process.env.sqlPort) {
+        p.sql.port = process.env.sqlPort;
     }
     if (process.env.rentalUnitedApiUrl) {
         p.rentalUnitedApiUrl = process.env.rentalUnitedApiUrl;
@@ -299,7 +299,7 @@ require('./code/core/core')(configParams)
         });
 
 
-        console.log("port: " + process.env.PORT);
+        console.log("applicationPort: " + process.env.PORT);
 
 
 

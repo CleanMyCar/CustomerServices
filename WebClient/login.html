@@ -51,6 +51,9 @@
               <input type="button" value="Login" class="loginButton" data-bind="click: Login" />
             </div>
             <div data-bind="text: errLoginMsg" class="invalidClient"></div>
+            <div class="form-group">
+                <a style="cursor: pointer;" href="javascript: void(0)" data-bind="click: showForgotPasswordSection">Forgot Password ?</a>
+            </div>
           </div>
           <div class="registerScreen" style="display: none">
             <input type="text" placeholder="First Name"
@@ -72,6 +75,17 @@
             </div>
 
             <div data-bind="text: errRegisterMsg" class="invalidClient"></div>
+          </div>
+
+          <div class="forgotPasswordScreen" style="display: none">
+            <input type="text" placeholder="Email/Mobile Number"
+              data-bind="value: forgotPasswordValue, valueUpdate: 'afterkeydown'" />
+              
+            <div class="form-group" style="text-align: center;">
+              <input type="button" value="Submit" class="registerButton" data-bind="click: SendOtpToRegisteredUser" />
+            </div>
+
+            <div data-bind="text: errForgotPasswordMsg" class="invalidClient"></div>
           </div>
 
           <div class="modal" data-backdrop="static" role="dialog" id="validationPopup">
@@ -156,8 +170,8 @@
       }
     }
 
-    //let apiUrl = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':1339' : '')
-    let apiUrl = "http://104.211.158.101"
+    let apiUrl = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':1339' : '')
+    // let apiUrl = "http://104.211.158.101"
 
     let viewModel = function () {
       let self = this;
@@ -371,18 +385,30 @@
         $(".loginButtonsDynamic>.loginButton").css({ "width": "45%", "float": "left" })
         $(".loginButtonsDynamic>.registerButton").css({ "width": "45%", "float": "right" })
         $(".loginScreen").show();
-        $(".registerScreen").hide();
+        $(".registerScreen, .forgotPasswordScreen").hide();
       }
       self.showRegister = function () {
         $(".loginButtonsDynamic>.loginButton").css({ "width": "45%", "float": "left" })
         $(".loginButtonsDynamic>.registerButton").css({ "width": "45%", "float": "right" })
         $(".registerScreen").show();
-        $(".loginScreen").hide();
+        $(".loginScreen, .forgotPasswordScreen").hide();
+      }
+
+      self.showForgotPasswordSection = function(){
+        $(".forgotPasswordScreen").show();
+        $(".loginScreen, .registerScreen").hide();
       }
 
       self.closeValidationPopup = function(){
         $("#validationPopup").modal("hide")
       }
+
+      self.errForgotPasswordMsg = ko.observable()
+      self.forgotPasswordValue = ko.observable();
+      self.SendOtpToRegisteredUser = function(){
+
+      }
+
     }
 
     ko.extenders.isEmail = function (elm, customMessage) {

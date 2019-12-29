@@ -75,7 +75,7 @@
                             <h5>{{serviceCategory.VehicleCategoryTypeName}}</h5>
                         </div>
                         <div class="cellrow">
-                            <div class="cellCol" v-for="(service, vehicleCategoryType) in serviceCategory.services"
+                            <div v-if="serviceCategory.services.length > 0" class="cellCol" v-for="(service, vehicleCategoryType) in serviceCategory.services"
                                 style="padding: 5px; border: 1px solid #ddd;flex: 0 0 12%;">
 
                                 <img :src="service.ServiceImage ? service.ServiceImage : (service.VehicleCategoryType == 2 ? defaultCarImage : defaultBikeImage)"
@@ -94,6 +94,9 @@
                                     <span class="">Purchase Once</span>
                                 </div>
 
+                            </div>
+                            <div class="row" v-else>
+                                <label>There are no services under this category</label>
                             </div>
                         </div>
                     </div>

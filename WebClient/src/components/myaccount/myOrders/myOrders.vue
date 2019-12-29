@@ -1,17 +1,21 @@
 <template src="./myOrders.template.html"></template>
 
 <script>
+    import moment from "moment"
     export default {
         name: "myOrders",
         props: [],
         data() {
             return {
-                subscriptions: [],
+                myOrders: [],
                 serviceObj: null,
                 serviceDeleteReasons: [],
                 selectedReasons: [],
                 selectedServiceItem: null,
-                inactiveOrders: []
+                orderFilters:{
+                    FilterDate: moment.utc(),
+                    ActualDate: moment.utc()
+                }
             };
         },
 
@@ -21,15 +25,14 @@
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "GetMyOrders",
                     params: {
-
+                        Date: vm.orderFilters.ActualDate
                     },
                     callback: function (err, response) {
                         if (err) {
                             return;
                         }
 
-                        vm.subscriptions.splice(0, vm.subscriptions.length, ...response.activeOrders);
-                        vm.inactiveOrders.splice(0, vm.inactiveOrders.length, ...response.allOrders);
+                        vm.myOrders.splice(0, vm.myOrders.length, ...response);
                     }
                 });
             },
@@ -117,6 +120,10 @@
                     }
                 });
             },
+            updateOrdersFilterDate(key, dateObj, objectPassedToParent) {
+                this.orderFilters.FilterDate = dateObj ? dateObj.format("Do MMM YYYY") : null;
+                this.orderFilters.ActualDate = dateObj ? dateObj.format("DD MMM YYYY") : null;
+            }
         },
 
         computed: {

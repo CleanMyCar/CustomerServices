@@ -134,5 +134,5 @@ module.exports = [
   {key: "ResumeSubscriptionItem", callback: resumeSubscriptionItem, pushkey: null, isLoggingEnabled: false},
   {key: "ChangeDefaultAddress", callback: changeDefaultAddress, pushkey: null, isLoggingEnabled: false},
   {key: "ManualRechargeToUser", callback: manualRechargeToUser, pushkey: null, isLoggingEnabled: false},
-  {key: "GetMyWalletTransactions", callback: getMyWalletTransactions, pushkey: null, isLoggingEnabled: false},
+  {key: "GetMyWalletTransactions", callback: getMyWalletTransactions, pushkey: null, isLoggingEnabled: false},  
 ];

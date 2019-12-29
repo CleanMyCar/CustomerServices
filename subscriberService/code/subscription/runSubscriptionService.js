@@ -1,5 +1,6 @@
 let getSubscriptionDetails = require("./getSubscriptionDetails");
 let moment = require("moment")
+let mssql = require("mssql");
 
 module.exports = async (config, params) => {
     let subscriptionDetail = await getSubscriptionDetails(config, params)
@@ -8,17 +9,17 @@ module.exports = async (config, params) => {
         let noOfExecutions = 0;
         requestParams.input('RequestId', mssql.Int, subscriptionDetail.ParentId);
         requestParams.input('Frequency', mssql.Int, subscriptionDetail.Frequency);
-        requestParams.input('LastDateOfSubscription', mssql.date, moment.utc(subscriptionDetail.LastDateOfSubscription).format("YYYY-MM-DD"));
+        requestParams.input('LastDateOfSubscription', mssql.Date, moment.utc(subscriptionDetail.LastDateOfSubscription).format("YYYY-MM-DD"));
         
         if(subscriptionDetail.RemainingCount){
             if(subscriptionDetail.Frequency == 1){
-                noOfExecutions =  15 - subscriptionDetail.RemainingCount;
+                noOfExecutions =  60 - subscriptionDetail.RemainingCount;
             }
             else if(subscriptionDetail.Frequency == 2){
-                noOfExecutions =  20 - subscriptionDetail.RemainingCount;
+                noOfExecutions =  60 - subscriptionDetail.RemainingCount;
             }
             else if(subscriptionDetail.Frequency == 3){
-                noOfExecutions =  4 - subscriptionDetail.RemainingCount;
+                noOfExecutions =  10 - subscriptionDetail.RemainingCount;
             }
             else if(subscriptionDetail.Frequency == 4){
                 noOfExecutions =  3 - subscriptionDetail.RemainingCount;
@@ -32,7 +33,7 @@ module.exports = async (config, params) => {
         }
 
         if(noOfExecutions){
-            requestParams.input('NoOfExecutions', mssql.int, noOfExecutions);
+            requestParams.input('NoOfExecutions', mssql.Int, noOfExecutions);
                 requestParams.execute("ExecuteSubscribeFromCronJob", (err, result) => {
                     if (err) {
                         console.log(err);
