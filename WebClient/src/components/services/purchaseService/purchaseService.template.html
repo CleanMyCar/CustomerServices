@@ -271,7 +271,7 @@
                         <viewAddressComponent v-if="selectedPersonAddress" :addressId="selectedPersonAddress.AddressId"
                             :isDefault="selectedPersonAddress.IsDefault" disabled="true"></viewAddressComponent>
                     </div>
-                    <div v-if="userAddressList.length == 0">
+                    <div v-if="serviceDetail.VehicleCategoryType == 3 && userAddressList.length == 0">
                         You don't have any address to deliver this product, please add Address in <a href="javascript: void(0)" @click="navigateToMyProfile">My Profile</a> and confirm
                     </div>
                     <div style="float: right;" v-if="userAddressList.length > 1">

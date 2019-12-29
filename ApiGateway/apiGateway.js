@@ -11,13 +11,14 @@ let io = socketio(http);
 let log4js = require("log4js");
 let logger = log4js.getLogger();
 const fileUpload = require('express-fileupload');
-
+let cors = require('cors')
 let config = require('./code/core/core');
 
 config.socketIo = io;
 config.logger = logger;
 
 //config.moment = moment;
+app.use(cors());
 app.use(fileUpload());
 app.use(bodyParser.json({ limit: 1024 * 1024 * 20, type: 'application/json' }));
 app.use(bodyParser.urlencoded(bodyParser.urlencoded({ extended: true, limit: 1024 * 1024 * 20, type: 'application/x-www-form-urlencoding' })));
