@@ -108,10 +108,22 @@ p {
     border-radius: 2px !important;
 }
 
-.btn-primary {
-    color: #fff;
-    background-color: $primary-blue;
-    border-color: $primary-blue;
+.btn-primary,.btn-primary:active,.btn-primary:focus {
+    color:$hearerIconColour;
+    background-color: $headerColor ;
+    border-color: $headerColor;
+    outline: none;
+}
+.flex-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+.radioPadg{
+    padding:3px;
+ 
+    input{
+        margin-right: 6px;
+    }
+}
 }
 
 .btn-sm {
@@ -125,8 +137,8 @@ p {
 .btn-default:hover,
 .btn-default:active,
 .btn-default:focus {
-    background-color: #4d70e0;
-    color: #fff !important;
+    background-color:$hearerIconColour;
+    color: $headerColor !important;
 }
 
 .btn-link {
@@ -263,9 +275,7 @@ form {
     background-color: inherit;
 }
 
-.form-control.param-label-config:focus {
-    border-color: #3083d0;
-}
+
 
 .droppable-column>div {
     width: 100%;
@@ -973,6 +983,18 @@ h6 {
     font-family: $primary-font;
     color: #616161;
     color: #484848;
+}
+.header-subscribe{
+    color: $headerColor;
+}
+.fa-chevron-left{
+    color:$headerColor;
+}
+.fa-chevron-right{
+    color:$headerColor;
+}
+.fa-calendar:checked{
+    color:$hearerIconColour;
 }
 
 .panel-heading h4 {
@@ -2175,13 +2197,7 @@ textarea {
     background-position: bottom;
 }
 
-.btn-default:hover,
-.btn-default:focus,
-.btn-default:active {
-    color: #fff;
-    border-color: #3083D0;
-    cursor: pointer;
-}
+
 
 .btn-default[disabled="disabled"]:hover,
 .btn-default[disabled="disabled"]:focus,
@@ -2475,10 +2491,7 @@ $border-color: #c5c5c5;
     width: auto;
 }
 
-.sectionHeading .section-input-label:active,
-.sectionHeading .section-input-label:focus {
-    background: #4196e0;
-}
+
 
 .sectionHeading .section-input-label::-webkit-input-placeholder {
     color: rgba(255, 255, 255, 0.71);
@@ -3943,7 +3956,8 @@ i.approveLeaveCount+h6,
 }
 
 .input-group-addon.btn.btn-primary {
-    background: #4d70e0 !important;
+    background: $headerColor !important;
+    color:$hearerIconColour;
 }
 
 .event-item {
@@ -4332,13 +4346,18 @@ table.table-bordered tbody tr:hover {
 }
 
 .nonWorkDays .bootstrap-datetimepicker-widget td span:hover {
-    background-color: unset !important;
+    background-color: $headerColor !important;
 }
 
 .nonWorkDays .bootstrap-datetimepicker-widget td span.active {
-    background-color: #428bca !important;
+    background-color: $headerColor !important;
 }
-
+.bootstrap-datetimepicker-widget table td.active, .bootstrap-datetimepicker-widget table td.active:hover{
+    background-color: $headerColor !important;
+}
+.bootstrap-datetimepicker-widget table td.today:before{
+    border-bottom-color: $headerColor !important;
+}
 
 /*---------DeeDee---------------*/
 
@@ -4500,7 +4519,7 @@ select.form-control {
 .radioLabel {
     position: relative;
     input {
-        margin-right: 15px;
+        margin-right: 5px;
         visibility: hidden;
     }
     input:after {
@@ -8454,7 +8473,7 @@ input[class="unitType"] {
         margin-right: 0px;
     }
     .btn-primary:not(:disabled):not(.disabled).active {
-        color: #4d70e0 !important;
+        // color: #4d70e0 !important;
     }
     .form-control {
         box-shadow: none;
@@ -8752,9 +8771,7 @@ input[class="unitType"] {
     padding: 3px 15px !important;
 }
 
-.toggleCstmBtn.btn-default.active {
-    background: #4d6fe0 !important
-}
+
 
 .clickCell {
     cursor: pointer;
@@ -10099,7 +10116,7 @@ input[class="unitType"] {
 // }
 .bootstrap-datetimepicker-widget table td span.day.active,
 .bootstrap-datetimepicker-widget table td span.daytoday {
-    background: #1000d4 !important;
+    background: $headerColor !important;
 }
 
 .tapeChat .RatesGrid .Table+.Table .RightColumn .ReactVirtualized__Grid__innerScrollContainer>div {
@@ -12532,10 +12549,19 @@ body {
   }
 
 //   .serviceName{
-//       background-color: #3083d01c;
+//       background-color: $headerColor;
 //       margin-top: 5px;
 //       margin-bottom: 5px;
 //   }
+    .subscribeTop{
+        background-color: $headerColor;
+        color: #fff;
+        margin-bottom: 0px;
+        padding: 6px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    
+    }
   .services{
     padding: 9px 0 0 0;
   }
@@ -12572,44 +12598,88 @@ body {
         height: 250px;
      }
  }
+ .tabs-custom{
+     height: 50px;
+     width:130px;
+     margin-right: 10px;
+ }
+ .flex-wrapm{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+ }
 
- .customradioLabel, .weeklyradioLabel{
+ .customradioLabel{
+     margin-top:0px !important;
+     margin-bottom:0px !important;
+     width: 100%;
+     height: 100%;
    & input:after{
-    width: 150px;
-    height: 45px;
+    width: 130px;
+    height: 30px;
+    border-radius: 50px !important;
     float: left;
     position: absolute;
     border-radius: 3px;
     margin-top: 0;
     visibility: visible;
-    background: #4d70e0;
+    background: #fff;
+    border:1px solid $headerColor;
     cursor: pointer;
     }
     & span{
         position: absolute;
-        margin: 0;
-        width: 100%;
-        text-align: center;
-        top: calc(50% - 2px);
+        margin: 4px;
         cursor: pointer;
         line-height: 30px;
-        color: #fff;
         white-space: nowrap;
     }
     & input:checked:after{
         border: 1px solid #4d70e0;
-        background: #fff;
+        background: $headerColor;
     }
     & input:checked~span{
-        color: #4d70e0;
+        color: #fff;
     }
  }
 
  .defaultCarImage{
      background: url(../content/images/car.png);
  }
+ .border-line{
+     border: 1px solid $borderColor;
+     border-radius: 5px;
+     padding:5px;
+ }
+.purchase-vehical{
+    color:$headerColor;
+    display: flex;
+    justify-content: space-between;
 
+    input{
+        // float:right;
+        margin-left: 20px;
+    }
+}
+.bold{
+    font-weight: bold !important;
+    color: $headerColor !important;
+}
+.mg-r-15{
+    margin-right: 15px;
+}
 
+a{
+    color:$headerColor ;
+    text-decoration:underline ;
+    text-decoration-color: $headerColor;
+   
+}
+.clrbtn{
+    a{
+    color:#FFF !important;
+    }
+}
 
 * {box-sizing:border-box}
 

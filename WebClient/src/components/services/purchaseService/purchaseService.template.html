@@ -3,7 +3,7 @@
         <span @click="navigateToBack" class="navigationIcon">
             <i class="fas fa-chevron-left"></i>
         </span>
-        <h4>{{serviceType == 1 ? "SUBSCRIBE" : "Service / Delivery Me Once"}}</h4>
+        <h4 class="header-subscribe">{{serviceType == 1 ? "SUBSCRIBE" : "Service / Delivery Me Once"}}</h4>
     </div>
     <div class="panel-body addBg">
         <div class="row">
@@ -111,19 +111,21 @@
         <div class="row">
             <div class="col-md-12">
 
-                <div class="form-group">
+                <div class="form-group border-line">
                     <img :src="serviceDetail.ServiceImage ? serviceDetail.ServiceImage : (serviceDetail.VehicleCategoryType == 2 ? defaultCarImage : defaultBikeImage)"
-                        height="150" width="300" @click="showMoreInfo(service)">
-                    <div class="form-group serviceName">
+                        height="150" width="100%" @click="showMoreInfo(service)">
+                    <div class="form-group serviceName subscribeTop">
                         <b>{{serviceDetail.ServiceName}}</b>
                     </div>
                 </div>
-                <div class="form-group" v-if="serviceType == 2 && serviceDetail.VehicleCategoryType != 3">
-                    Personal Vehicle
+                <div class="form-group purchase-vehical" v-if="serviceType == 2 && serviceDetail.VehicleCategoryType != 3">
+                    <div class="bold">Personal Vehicle</div>
+                    <div class="mg-r-15">
                     <input type="checkbox" class="personalVehicle" name="personalVehicle"
                         @click="changeSelection(true, $event)" :checked="vehicleInfo.IsPersonal"> Yes
                     <input type="checkbox" class="personalVehicle" name="personalVehicle"
                         @click="changeSelection(false, $event)" :checked="!vehicleInfo.IsPersonal">No
+                    </div>
                 </div>
                 <div class="form-group" v-if="serviceDetail.VehicleCategoryType != 3">
                     <div class="cellRow" style="width: 100%; overflow: scroll; margin-top: 20px;">
@@ -144,7 +146,7 @@
                         <div class="cell" @click="addNewVehicleInfo">
                             <img :src="serviceDetail.VehicleCategoryType == 2 ? defaultCarImage : defaultBikeImage"
                                 height="120" width="120">
-                            <div class="form-group serviceName">
+                            <div class="form-group serviceName btn btn-primary clrbtn">
                                 <a href="javascript:void(0)">Add New Vehicle</a>
                             </div>
                         </div>
@@ -185,22 +187,22 @@
                 <div class="row" v-if="serviceType == 1">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>
+                            <label class="bold"  style="font-size: 1rem;">
                                 Frequency
                             </label>
 
                         </div>
                         <div class="form-group">
-                            <div class="cellRow">
-                                <div class="cell" v-for="product in subscriptionTypes" style="flex: 0 0 12%;"
+                            <div class="flex-wrapm">
+                                <div class="tabs-custom" v-for="product in subscriptionTypes"
                                     v-if="serviceDetail.serviceSubscribeTypes.indexOf(product.SubscribeId) > -1">
-                                    <label class="radioLabel customradioLabel">
+                                    <span class="radioLabel customradioLabel">
                                         <input type="radio" name="serviceFrequency" :value="product.SubscribeId"
                                             v-model="vehicleInfo.Frequency" v-validate="'required'">
                                         <span class="form-group serviceName">
                                             {{product.SubscribeType}}
                                         </span>
-                                    </label>
+                                    </span>
 
                                 </div>
 
@@ -213,15 +215,42 @@
                             </span>
                         </div>
                         <div class="form-group" v-if="vehicleInfo.Frequency == 2">
-                            <label>Day</label>
+                            <div class="bold">Day</div>
+                            <div class="flex-wrapper">
+                            <div class="radioPadg">
+                                <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Sunday
+                            </div>
+                            <div  class="radioPadg">
+                                <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Monday
+                            </div>
+                            
+                            <div  class="radioPadg">
+                                <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Tuesday
+                            </div>
+                            
+                            <div  class="radioPadg">
+                                <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Wednesday
+                            </div>
+                            
+                            <div  class="radioPadg">
+                                <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Thursday
+                            </div>
+                            <div  class="radioPadg">
+                                <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Friday
+                            </div>
+                            <div  class="radioPadg">
+                                <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">saturday
+                            </div>
+                        </div>
+                            
 
-                            <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Sunday
-                            <input type="radio" value="1" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Monday
+                            
+                            <!-- <input type="radio" value="1" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Monday
                             <input type="radio" value="2" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Tuesday
                             <input type="radio" value="3" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Wednesday
                             <input type="radio" value="4" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Thursday
                             <input type="radio" value="5" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Friday
-                            <input type="radio" value="6" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Saturday
+                            <input type="radio" value="6" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Friday -->
                         </div>
 
                         <div class="form-group">
@@ -310,7 +339,7 @@
 
                 <div class="form-group">
                     <div
-                        style="float: right; background-color: #008aff; color: white; width: 100%; font-weight: bold; text-align: right;">
+                        style="font-weight: bold; text-align: right;">
                         Amount: ₹ {{servicePrice}}/-
                     </div>
                 </div>
@@ -320,7 +349,7 @@
                             v-if="serviceType == 2 && ((serviceDetail.VehicleCategoryType != 3 && vehicleInfo.VehicleId) || (serviceDetail.VehicleCategoryType == 3 && (vehicleInfo.Quantity > 0 && selectedPersonAddress) ))"
                             :product="vehicleInfo" :serviceSaved="serviceSaved" :updateParent="confirmServiceOrder">
                         </addToCartComponent>
-                        <button class="btn btn-success btn-sm pull-right"
+                        <button class="btn btn-primary btn-sm pull-right"
                             :disabled="(serviceDetail.VehicleCategoryType != 3 && !vehicleInfo.VehicleId) || (serviceDetail.VehicleCategoryType == 3 && (vehicleInfo.Quantity < 1 || !selectedPersonAddress) )"
                             title="Confirm" @click="confirmServiceOrder(1)">Confirm</button>
                     </div>
