@@ -74,6 +74,10 @@
             redirectToMySubscriptions(){
                 this.panelCallback();
                 this.$router.push("/mysubscriptions")
+            },
+            redirectToSupport(){
+                this.panelCallback();
+                this.$router.push("/support")
             }
         },
         computed: {

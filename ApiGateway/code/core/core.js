@@ -5,8 +5,8 @@ let _createSqlParams = require('./db/sql/sqlParamsRequest');
 
 module.exports = async function (configParams) {
     try {
-
-        const config = {
+		console.log("configParams:" + JSON.stringify(configParams))
+        var config = {
             server: configParams.sql.server,
             user: configParams.sql.user,
             password: configParams.sql.password,
@@ -29,18 +29,17 @@ module.exports = async function (configParams) {
             config.port = configParams.sql.port;
         }
 
-        console.log("config" + JSON.stringify(config))
+        console.log("config:" + JSON.stringify(config))
 
-        mssql.connect(config).then((_pool) => {
-            console.log("MSSQLSERVER Connection Established..!", configParams.sql.database);
-        });
+        var pool = new mssql.ConnectionPool(config);
+		pool.connect().catch(err => {
+			// ... error handler
+            console.log('SQLConnError:',err);
+		});
 
-        mssql.on('error', err => {
-            // ... error handler
-            console.log(err)
-        });
+        
 
-        let dbwrapper = await _dbwrapper(mssql);
+        let dbwrapper = await _dbwrapper(pool);
         let createSqlParams = await _createSqlParams(dbwrapper);
 
         return {

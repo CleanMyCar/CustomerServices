@@ -5,16 +5,24 @@
 
     <div class="accordion" id="accordionExample">
         <div class="card">
-            <div class="card-header" id="headingOne">
+            <!-- <div class="card-header" id="headingOne">
                 <h2 class="mb-0" data-toggle="collapse" data-target="#collapseOne">
-                    <h5>Active Orders</h5>								
+                    <h5>Active Orders</h5>
                 </h2>
-            </div>
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            </div> -->
+            <!-- <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample"> -->
                 <div class="card-body">
-                    <!-- <div class="cellRow" v-for="product in subscriptions" style="border: 1px solid #c5c5c5; margin: 5px; padding: 5px;">
-                        <orderRowComponent :orderId="product.RequestId" :pauseOrder="pauseOrder" :resumeOrder="resumeOrder" :deleteOrder="deleteConfirm"></orderRowComponent>
-                    </div> -->
+                    <div class="row">
+                        <div class="input-group">
+                            
+                        <datePickerComponent :keyString="'StartDate'" v-model="orderFilters.FilterDate"
+                            :value="orderFilters.FilterDate" :format="'Do MMM YYYY'" :onUpdate="updateOrdersFilterDate"
+                            :pickerType="'date'">
+                        </datePickerComponent>
+                    
+                        <button style="float: right;" class="btn btn-default" @click="getMyOrders">Apply</button>
+                    </div>
+                    </div>
 
                     <div class="ResGrid">
                         <div class="dTable">
@@ -31,21 +39,23 @@
                                     </th>
                                 </thead>
                                 <tbody class="myordersTable">
-                                    
-                                        <orderRowComponent v-for="product in subscriptions" :orderId="product.RequestId" :pauseOrder="pauseOrder" :resumeOrder="resumeOrder" :deleteOrder="deleteConfirm"></orderRowComponent>
-                                    
+
+                                    <orderRowComponent v-for="product in myOrders" :orderId="product.RequestId"
+                                        :pauseOrder="pauseOrder" :resumeOrder="resumeOrder"
+                                        :deleteOrder="deleteConfirm"></orderRowComponent>
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-            </div>
+            <!-- </div> -->
         </div>
-        <div class="card">
+        <div class="card"  v-if="false">
             <div class="card-header" id="headingTwo">
                 <h2 class="mb-0" data-toggle="collapse" data-target="#collapseTwo">
                     <!-- <button type="button" class="btn btn-link collapsed">History</button> -->
-                    <h5>History</h5>	
+                    <h5>History</h5>
                 </h2>
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
@@ -59,11 +69,12 @@
                                     <th>Amount</th>
                                     <th>Quantity</th>
                                     <th>Product Name</th>
-                                    <th>Status</th> 
-                                    <th>Notes</th>                                   
+                                    <th>Status</th>
+                                    <th>Notes</th>
                                 </thead>
-                                <tbody class="myordersTable">                                    
-                                        <orderRowComponent v-for="product in inactiveOrders" :orderId="product.RequestId" disableActions="true"></orderRowComponent>
+                                <tbody class="myordersTable">
+                                    <orderRowComponent v-for="product in inactiveOrders" :orderId="product.RequestId"
+                                        disableActions="true"></orderRowComponent>
                                 </tbody>
                             </table>
                         </div>
@@ -74,7 +85,7 @@
     </div>
 
 
-    
+
 
 
     <div class="modal" data-backdrop="static" role="dialog" id="pauseServiceDetailsPopup">
@@ -103,8 +114,8 @@
                             <div class="form-group">
                                 <label>Till</label>
                                 <datePickerComponent :keyString="'EndDate'" v-model="selectedServiceItem.EndDate"
-                                    :value="selectedServiceItem.EndDate" :format="'Do MMM YYYY'" :onUpdate="updateFilterEndDate"
-                                    :pickerType="'date'"></datePickerComponent>
+                                    :value="selectedServiceItem.EndDate" :format="'Do MMM YYYY'"
+                                    :onUpdate="updateFilterEndDate" :pickerType="'date'"></datePickerComponent>
                             </div>
                         </div>
                     </div>

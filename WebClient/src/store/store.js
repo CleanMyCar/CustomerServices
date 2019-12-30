@@ -16,8 +16,8 @@ Toastr.options.positionClass = "toast-bottom-right";
 Toastr.options.preventDuplicates = true;
 
 let apiIp = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ":1339" : '');// "/dev/socket.io/";
-//let apiIp = "http://104.211.158.101";
-let socket = io(apiIp);
+// let apiIp = "http://104.211.158.101";
+let socket = io(apiIp); //, {path: "/"}
 //let socket = io('http://192.168.1.9:1337');
 
 

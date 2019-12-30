@@ -75,8 +75,8 @@
                             <h5 class="ind">{{serviceCategory.VehicleCategoryTypeName}}</h5>
                         </div>
                         <div class="cellrow res">
-                            <div class="cellCol respno" v-for="(service, vehicleCategoryType) in serviceCategory.services"
-                                style="padding: 5px">
+                            <div v-if="serviceCategory.services.length > 0" class="cellCol respno" v-for="(service, vehicleCategoryType) in serviceCategory.services"
+                                style="padding: 5px;">
 
                                 <img :src="service.ServiceImage ? service.ServiceImage : (service.VehicleCategoryType == 2 ? defaultCarImage : defaultBikeImage)"
                                     class="serviceCardImg" @click="showMoreInfo(service)" height="auto" width="100%">
@@ -94,6 +94,9 @@
                                     <span class="">Purchase Once</span>
                                 </div>
 
+                            </div>
+                            <div class="row" v-else>
+                                <label>There are no services under this category</label>
                             </div>
                         </div>
                     </div>
