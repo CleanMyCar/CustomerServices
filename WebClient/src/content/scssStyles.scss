@@ -1310,7 +1310,7 @@ h6 {
     padding: 10px 15px;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-    color: #333;
+    // color: #333;
     border-color: #ddd;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -1806,20 +1806,94 @@ label {
 .radioGroup label {
     margin: 0 15px 0 0
 }
-
+.Address-pad{
+    padding:0px;
+}
+.btn,.btn-primary,.btn-sm:focus{
+    color:$headerColor;
+    color:white;
+}
+.btn,.btn-primary,.btn-sm:hover{
+    color:$headerColor !important;
+    color:white !important;
+}
+.btn,.btn-primary,.btn-sm:active{
+    color:$headerColor !important;
+    color:white !important;
+}
+.btn,.btn-primary,.btn-sm{
+    color:$headerColor !important;
+    color:white !important;
+}
+label{
+    color:#101010 !important;
+}
 .form-group.custom {
     width: auto;
     float: left;
     padding: 15px;
 }
-
+.outer{
+    width: 90vw;
+    overflow: hidden;
+.product-row{
+    overflow-x: scroll;
+    display: flex;
+    .flec-colpro{
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0px 0px 8px black;
+        margin: 6px;
+        border-radius: 5px;
+        padding-top:5px;
+        min-width:120px;
+        background-color: $headerColor;
+        color: white;
+        .cell{
+            text-align: center;
+        img{
+            border-radius: 50%;
+            margin: 5px;
+        }
+    }
+    }
+}
+}
+.add-new-outer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+.add-new{
+    width: 50px;
+    height: 50px;
+    border: 2px dashed $headerColor;
+    border-radius: 50%;
+    background: white;
+    font-size: 40px;
+    line-height: 1;
+    color: $headerColor;
+}
+}
+.card-botm{
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid $border-color;
+    div{
+        width:50%;
+        padding:10px
+    }
+    div:first-child{
+        border-right: 1px solid $border-color;
+    }
+}
 .form-group {
     clear: left;
 }
 
 .form-group label {
     min-width: 30%;
-    font-size: 12px;
+    font-size: 14px;
     color: #868686;
 }
 
@@ -4103,6 +4177,17 @@ table.table-bordered tbody tr:hover {
     border-left: 1px solid #abaeb0;
     cursor: not-allowed !important;
 }
+.sub-headre{
+    width:100px;
+    font-size: 13px !important;
+}
+.profileDesig{
+    margin-bottom:0px;
+   
+}
+.hearaa{
+        margin-top:30px;
+}
 
 // Hover btn button
 .btn-default[disabled="disabled"]:hover,
@@ -4124,10 +4209,40 @@ table.table-bordered tbody tr:hover {
 // User Profile
 .profileHeader {
     background: #595959;
-    height: 220px;
+    height: 130px;
     display: flex;
     flex-wrap: wrap;
+    border-radius: 50%;
     color: #fff;
+}
+.profile-name{
+    justify-content: center;
+    border-bottom: 1px solid $borderColor;
+    margin:-7px;
+    label{
+        font-size: 14px;
+        margin-top: 10px;
+    }
+    .form-group{
+        display: flex;
+        .input-group{
+            input{
+            width: 50%;
+            }
+        }
+    }
+}
+.profilr-con{
+    border:1px solid $borderColor;
+    border-radius: 4px;
+    margin-top:10px
+}
+.row-padding{
+    padding:0px 15px;
+}
+.header-row{
+    display: flex;
+    justify-content:center;
 }
 
 .profileHeader .userProfileName label {
@@ -8776,6 +8891,9 @@ input[class="unitType"] {
 .clickCell {
     cursor: pointer;
 }
+h4{
+    color:$headerColor;
+}
 
 .sideFilterPanel {
     height: calc(100vh - 106px);
@@ -12650,6 +12768,14 @@ body {
      border: 1px solid $borderColor;
      border-radius: 5px;
      padding:5px;
+     display: flex;
+     justify-content: space-between;
+     .info{
+         width: 30%;
+         b{
+             font-size: 11px;
+         }
+     }
  }
 .purchase-vehical{
     color:$headerColor;

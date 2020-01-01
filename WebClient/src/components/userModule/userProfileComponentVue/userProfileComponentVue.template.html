@@ -1,20 +1,20 @@
-<div class="panel panel-default">
+<div class="panel panel-default profilr-con">
     <div class="">
 
         <div class="" v-if="userProfile">
-            <div class="panel-heading">
+            <div class="panel-heading header-subscribe">
 
                 <h4 class="pull-left">My Profile</h4>
                 <div class="btn-group pull-right">
-                    <button class="btn btn-success btn-sm" title="Save User Profile" @click="changeToEditMode"
+                    <button class="btn btn-primary btn-sm" title="Save User Profile" @click="changeToEditMode"
                         v-if="!editMode">
                         Edit
                     </button>
-                    <button class="btn btn-danger btn-sm" title="Save User Profile" @click="changeToEditMode"
+                    <button class="btn btn-primary btn-sm" title="Save User Profile" @click="changeToEditMode"
                         v-if="editMode">
                         Cancel
                     </button>
-                    <button class="btn btn-success btn-sm" title="Save User Profile" @click="saveUserProfile"
+                    <button class="btn btn-primary btn-sm" title="Save User Profile" @click="saveUserProfile"
                         v-if="editMode">
                         Save
                     </button>
@@ -24,7 +24,7 @@
             <div class="panel-body addBg">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="row">
+                        <div class="row header-row">
                             <!-- <div class="">
                             <label class="labels">Profile Picture:</label>
                             </div> -->
@@ -32,10 +32,10 @@
                                 class="proMask"></div>
                             <div class="profileHeader">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                    <vue-avatar v-show="editMode" :width=200 :height=220 ref="vueavatar"
+                                    <vue-avatar v-show="editMode" :width=130 :height=130 ref="vueavatar"
                                         @vue-avatar-editor:image-ready="onImageReady" image=''>
                                     </vue-avatar>
-                                    <img v-show="!editMode" :src="userProfile.ProfileImage" width="200" height="200">
+                                    <img v-show="!editMode" :src="userProfile.ProfileImage" width="130" height="130">
                                 </div>
 
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" v-show="false">
@@ -51,20 +51,20 @@
 
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row profile-name">
                             <div class="form-group">
-                                <label>Name: </label>
-                                <label v-if="!editMode">{{userProfile.UserFirstName}}
+                                <label class="bold">Name: </label>
+                                <label class="bold" v-if="!editMode">{{userProfile.UserFirstName}}
                                     {{userProfile.UserLastName}}</label v-if="!editMode">
-                                <div class="input-group" v-if="editMode">
+                                <div v-if="editMode">
                                     <input type="text" v-model="userProfile.UserFirstName">
                                     <input type="text" v-model="userProfile.UserLastName">
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="form-group profileDesig">
-                                <label class="labels">Email: </label>
+                        <div class="row row-padding">
+                            <div class="form-group profileDesig hearaa">
+                                <label class="labels sub-headre">Email: </label>
                                 <label v-if="!editMode">
                                     {{userProfile.Email ? userProfile.Email : "NA"}}
                                 </label>
@@ -75,9 +75,9 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row row-padding">
                             <div class="form-group profileDesig">
-                                <label class="labels">Mobile Number: </label>
+                                <label class="labels sub-headre">Mobile Number: </label>
                                 <label v-if="!editMode">
                                     {{userProfile.MobileNumber ? userProfile.MobileNumber : "NA"}}
                                 </label>
@@ -95,7 +95,7 @@
                                     <h6 style="float: left;">
                                         Address
                                     </h6>
-                                    <button class="btn btn-default btn-sm" title="Save User Profile"
+                                    <button class="btn btn-primary btn-sm" title="Save User Profile"
                                         @click="addAddress" style="float: right;">
                                         +Add
                                     </button>
