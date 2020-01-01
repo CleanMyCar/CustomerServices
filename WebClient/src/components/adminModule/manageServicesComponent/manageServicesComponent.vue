@@ -34,7 +34,40 @@
             },
             getServiceDetail(service) {
                 this.$router.push("/serviceDetail/" + service.ServiceId);
-            }
+            },
+            updateServiceFrequent(service, evt){
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "UpdateServiceFrequencyFlag",
+                    params: {
+                        ServiceId: service.ServiceId,
+                        IsFrequent: evt.currentTarget.checked
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }                        
+                        vm.getServices(null, -1);                        
+                    }
+                });
+            },
+            
+            updateServiceFrequent(service){
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "UpdateServiceOrder",
+                    params: {
+                        ServiceId: service.ServiceId,
+                        ServiceOrder: service.ServiceOrder
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }                        
+                        vm.getServices(null, -1);                        
+                    }
+                });
+            },            
         },
         computed: {
             role() {

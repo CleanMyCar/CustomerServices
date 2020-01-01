@@ -65,7 +65,10 @@ const getServiceList = require("./services/getServiceList"),
   changeDefaultAddress = require("./address/changeDefaultAddress"),
   manualRechargeToUser = require("./myAccount/manualRechargeToUser"),
   getMyWalletTransactions = require("./myAccount/getMyWalletTransactions"),
-  submitFeedback = require("./support/submitFeedback");
+  submitFeedback = require("./support/submitFeedback"),
+  updateServiceFrequencyFlag = require("./services/updateServiceFrequencyFlag"),
+  getFrequentServices = require("./services/getFrequentServices"),
+  updateServiceOrder = require("./services/updateServiceOrder");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -137,4 +140,7 @@ module.exports = [
   {key: "ManualRechargeToUser", callback: manualRechargeToUser, pushkey: null, isLoggingEnabled: false},
   {key: "GetMyWalletTransactions", callback: getMyWalletTransactions, pushkey: null, isLoggingEnabled: false},
   {key: "SubmitFeedback", callback: submitFeedback, pushkey: null, isLoggingEnabled: false},
+  {key: "UpdateServiceFrequencyFlag", callback: updateServiceFrequencyFlag, pushkey: null, isLoggingEnabled: false},
+  {key: "GetFrequentServices", callback: getFrequentServices, pushkey: null, isLoggingEnabled: false},
+  {key: "UpdateServiceOrder", callback: updateServiceOrder, pushkey: null, isLoggingEnabled: false},
 ];

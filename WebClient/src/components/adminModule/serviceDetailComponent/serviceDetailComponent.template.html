@@ -67,6 +67,15 @@
                     <label>
                         <input type="checkbox" v-model="serviceDetail.IsEnabled">Enable Service
                     </label>
+                    <label>
+                        <input type="checkbox" v-model="serviceDetail.IsFrequent">Frequent Service
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Order(Displayed in customer screen)
+                    </label>
+                    <input type="number" v-model="serviceDetail.ServiceOrder" class="form-control" placeholder="Service Order" name="ServiceOrder">                    
                 </div>
                 <div class="form-group">
                     <label>
