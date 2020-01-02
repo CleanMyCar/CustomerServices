@@ -5,7 +5,7 @@
 
 
     <div class="btn-group pull-right">
-      <button class="btn btn-default btn-sm" title="New Role" style="float: right" @click="createNewInstance" :disabled="fncIsRoleNew && (fncIsRoleNew.isAssigned === -1 && fncIsRoleNew.functionState === 2)"
+      <button class="btn btn-primary btn-sm" title="New Role" style="float: right" @click="createNewInstance" :disabled="fncIsRoleNew && (fncIsRoleNew.isAssigned === -1 && fncIsRoleNew.functionState === 2)"
         v-if="fncIsRoleNew && (fncIsRoleNew.isAssigned === 1 || (fncIsRoleNew.isAssigned === -1  && fncIsRoleNew.functionState === 2)) ">
         <i class="fa fa-plus "></i> Add new role
       </button>
@@ -32,7 +32,7 @@
       </button> -->
 
       <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle  btn-sm btn-sm-icon" :disabled="fncIsRoleList && (fncIsRoleList.isAssigned === -1 && fncIsRoleList.functionState === 2)"
+        <button class="btn btn-primary dropdown-toggle  btn-sm btn-sm-icon" :disabled="fncIsRoleList && (fncIsRoleList.isAssigned === -1 && fncIsRoleList.functionState === 2)"
           v-if="fncIsRoleList && (fncIsRoleList.isAssigned === 1 || (fncIsRoleList.isAssigned === -1 && fncIsRoleList.functionState === 2))"
           type="button" data-toggle="dropdown">
           <i class="fa fa-columns"></i>
@@ -78,7 +78,7 @@
       </div> -->
 
 
-      <button class="btn btn-default btn-sm" v-if="false">
+      <button class="btn btn-primary btn-sm" v-if="false">
         <i v-if="tempListType == 'list'" class="fa fa-th-large"></i>
         <i v-if="tempListType != 'list'" class="fa fa-table"></i>
       </button>
@@ -255,10 +255,10 @@
 			</div>
 			
 
-			<button class="btn btn-default btn-sm" >
+			<button class="btn btn-primary btn-sm" >
 				Apply Filter
 			</button>
-			<button class="btn btn-default btn-sm" @click="closeFilter()">
+			<button class="btn btn-primary btn-sm" @click="closeFilter()">
 				Cancel
 			</button>
 		</div>

@@ -105,13 +105,13 @@
               <span>
                 <button
                   v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2)) && $route.params.userId !== '-1' &&  $route.params.userId !== selectedUser"
-                  class="btn btn-default btn-sm" id="show-modal" @click="showModal = true">
+                  class="btn btn-primary btn-sm" id="show-modal" @click="showModal = true">
                   <i class="fa fa-key"></i> Reset
                 </button>
               </span>
 
               <span>
-                <button class="btn btn-default btn-sm" id="show-modal"
+                <button class="btn btn-primary btn-sm" id="show-modal"
                   v-if="fncIsUserSave && (fncIsUserSave.isAssigned === 1 || (fncIsUserSave.isAssigned === -1 && fncIsUserSave.functionState === 2))  && $route.params.userId !== '-1' && $route.params.userId === selectedUser"
                   @click="showModal = true">
                   <i class="fa fa-key"></i> Change Password</button>
@@ -150,7 +150,7 @@
                   {{ errors.first('password_confirmation') }}
                 </div>
               </div>
-              <button class="btn btn-default danger btn-sm mt-2" @click="showModal = false">
+              <button class="btn btn-primary danger btn-sm mt-2" @click="showModal = false">
                 Cancel
               </button>
               <button type="submit" class="btn btn-success btn-sm mt-2" @click="changePassword">
@@ -185,7 +185,7 @@
                   {{ errors.first('password_confirmation') }}
                 </div>
               </div>
-              <button class="btn btn-default danger btn-sm mt-2" @click="showModal = false">
+              <button class="btn btn-primary danger btn-sm mt-2" @click="showModal = false">
                 Cancel
               </button>
               <button type="submit" class="btn btn-success btn-sm mt-2" @click="resetPassword">
@@ -216,8 +216,8 @@
           <div class="form-group">
             <label>Password:</label>
             <input class="form-control" type="password" v-model="userDetail.UserPassword" disabled />
-            <button class="btn btn-default" id="show-modal" @click="showModal = true">Edit</button>
-            <button class="btn btn-default" id="show-modal">Reset</button>
+            <button class="btn btn-primary" id="show-modal" @click="showModal = true">Edit</button>
+            <button class="btn btn-primary" id="show-modal">Reset</button>
           </div>
         </section>
 

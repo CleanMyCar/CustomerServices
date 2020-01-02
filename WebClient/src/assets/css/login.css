@@ -112,7 +112,7 @@ body{
 
 .loginButton{
     background-color:  #1C3957 ;
-    color:#FAC705;
+    color:white;
 }
 .btm-btn{
     display: flex;
@@ -133,7 +133,7 @@ body{
     justify-content: space-between;
     padding: 10px 20px;
     background: #1C3957;
-    color: #FAC705;
+    color: white;
     height: 10vh;
 }
 /* @media only screen and (max-width: 600px) {

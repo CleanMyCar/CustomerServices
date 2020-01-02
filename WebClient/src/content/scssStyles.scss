@@ -12654,10 +12654,20 @@ body {
     flex: 0 0 20%;
     padding: 0 5px;
   }
-
+  .my-product-screen{
+      border: 1px solid $borderColor;
+    padding: 8px;
+    border-radius: 7px;
+  }
+  .my-products{
+      margin-bottom:0px;
+  }
+  th{
+      background-color: $headerColor;
+  }
   .purchaseButton{
       padding: 5px;
-      color: $hearerIconColour;
+      color: white;
       font-style: italic;
       font-size: 13px;
       cursor: pointer;
@@ -13002,7 +13012,7 @@ a{
 }
 .ind{
     background: $headerColor;
-    color: $hearerIconColour;
+    color: white;
     padding: 4px;
     padding-left: 12px;
     border-radius: 3px;
