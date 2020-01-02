@@ -368,5 +368,7 @@
         <addressChooseComponent v-if="isAddressPopup"
             :selectedAddress="updateSelectedAddress" 
             :closeVehicleAddPopup="closeSelectAddressPopup"></addressChooseComponent>
+            
+        <toastrMessageComponent v-if="isDialogOpen" :message="popupMessage" :headerTitle="headerTitle" :isOpen="isDialogOpen" :closeToastrPopup="closeToastrPopup"></toastrMessageComponent>
     </div>
 </div>

@@ -50,7 +50,7 @@
 
             },
             cancel() {
-                $("#pauseServiceDetailsPopup, #deleteConfimationPopup").modal("hide");
+                $("#pauseServiceDetailsPopup, #deleteOrderConfimationPopup").modal("hide");
             },
             getDeleteReasons() {
                 let vm = this;
@@ -67,16 +67,19 @@
                     }
                 });
             },
-            deleteCustomerService() {
+            deleteMyOrder() {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "DeleteSubscription",
-                    params: vm.selectedServiceItem,
+                    params: {
+                        serviceObj: vm.selectedServiceItem,
+                        selectedReasons: vm.selectedReasons
+                    },
                     callback: function (err, response) {
                         if (err) {
                             return;
                         }
-                        $("#deleteConfimationPopup").modal("hide");
+                        $("#deleteOrderConfimationPopup").modal("hide");
                         vm.selectedServiceItem = null
                         vm.getMyOrders();
                         //vm.serviceDeleteReasons.splice(0, vm.serviceDeleteReasons.length, ...response);
@@ -86,7 +89,7 @@
             deleteConfirm(serviceObj) {
                 this.selectedServiceItem = serviceObj;
                 this.selectedReasons.splice(0, this.selectedReasons.length);
-                $("#deleteConfimationPopup").modal("show");
+                $("#deleteOrderConfimationPopup").modal("show");
                 this.getDeleteReasons();
             },
 

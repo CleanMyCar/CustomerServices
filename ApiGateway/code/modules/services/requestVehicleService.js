@@ -5,7 +5,7 @@ module.exports = (config, params, callback) => {
   try {
     const requestParams = config.dbwrapper.getNewRequest();
     requestParams.input("RequestId", mssql.Int, params.RequestId);
-    requestParams.input("VehicleId", mssql.Int, params.VehicleId);
+    requestParams.input("VehicleId", mssql.Int, params.VehicleId ? params.VehicleId: null);
     requestParams.input("ServiceType", mssql.NVarChar, params.ServiceType);
     requestParams.input("ServiceId", mssql.NVarChar, params.ServiceId);
     requestParams.input("Frequency", mssql.NVarChar, params.Frequency);

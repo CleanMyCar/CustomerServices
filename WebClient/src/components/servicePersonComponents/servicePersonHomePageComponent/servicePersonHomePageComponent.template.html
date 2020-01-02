@@ -15,8 +15,11 @@
         </div>
         <div class="" v-for="product in servieList" style="border: 1px solid #65ff00">
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-8">
                     {{product.OtherAddressId ? product.OtherAddressLine1 : product.AddressLine1}}
+                </div>
+                <div class="col-md-2">
+                    {{timeslots[product.TimeSlot]}}
                 </div>
                 <div class="col-md-2">
                     <input type="checkbox" v-model="product.checked" @click="taskStatusChangePopup(product)">
