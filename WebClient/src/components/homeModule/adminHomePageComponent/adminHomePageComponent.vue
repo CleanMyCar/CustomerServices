@@ -115,6 +115,9 @@
         computed: {
             selectedTab() {
                 return this.selectedTabId;
+            },
+            timeslots(){
+                return this.$store.state.timeslots;
             }
         },
 

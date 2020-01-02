@@ -42,6 +42,7 @@
                     VehicleMake: null,
                     VehicleModel: null,
                     ParkingLot: null,
+                    VehicleImage: null,
                     VehicleTypeId: this.serviceDetail ? this.serviceDetail.VehicleCategoryType : "2",
                     FourWheelerTypeId: this.serviceDetail && this.serviceDetail.VehicleCategoryType == "2" ? "2" : null
                 }

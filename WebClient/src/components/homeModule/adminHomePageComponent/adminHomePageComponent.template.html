@@ -28,8 +28,9 @@
                                             <th>Actions</th>
                                             <th>Building</th>
                                             <th>Service</th>
-                                            <th>Requested On</th>
+                                            
                                             <th>Service Date</th>
+                                            <th>Time Slot</th>
                                             <th>Subscription</th>
                                             <th>Quantity</th>
                                             <th>Amount</th>
@@ -44,8 +45,9 @@
                                                 </td>
                                                 <td>{{service.OtherAddressId ? (service.OtherAddressLine1 + ", " + service.OtherAddressLine2) :  (service.AddressLine1 + ', ' + service.ParkingLot)}}</td>
                                                 <td>{{service.ServiceName}}</td>
-                                                <td>{{returnDateTime(service.RequestedOn)}}</td>
+                                                <!-- <td>{{returnDateTime(service.RequestedOn)}}</td> -->
                                                 <td>{{returnDateTime(service.ServiceDate)}}</td>
+                                                <td>{{timeslots[service.TimeSlot]}}</td>
                                                 <td>{{service.SubscribeType ? service.SubscribeType : 'Once'}}</td>
                                                 <td v-if="false">₹
                                                     {{service.ServiceType == 1 ? service.SubscriptionPrice : service.Price}}/-
