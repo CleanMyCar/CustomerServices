@@ -7,7 +7,7 @@
 
     export default {
         name: "vehicleAddComponent",
-        props: ["updateParent", "closeVehicleAddPopup", "vehicleId", "serviceDetail", "isPersonal"],
+        props: ["updateParent", "closeVehicleAddPopup", "vehicleId", "serviceDetail", "isPersonal", "isOpen"],
         data() {
             return {
                 myServiceProducts: [],
@@ -42,6 +42,7 @@
                     VehicleMake: null,
                     VehicleModel: null,
                     ParkingLot: null,
+                    VehicleImage: null,
                     VehicleTypeId: this.serviceDetail ? this.serviceDetail.VehicleCategoryType : "2",
                     FourWheelerTypeId: this.serviceDetail && this.serviceDetail.VehicleCategoryType == "2" ? "2" : null
                 }
@@ -197,6 +198,20 @@
             vehicleId(value){
                 if(value && value > 0){
                     this.getVehicleDetails();
+                }
+            },
+            isOpen() {
+                let vm = this;
+                if (this.isOpen) {
+                    vm.addNewVehicleInfo();
+                    vm.getVehicleTypes();
+                    if(vm.vehicleId && vm.vehicleId > 0){
+                        vm.getVehicleDetails();
+                    }
+                    $("#chooseAddressPopup").modal("show")
+                }
+                else {
+                    $("#chooseAddressPopup").modal("hide")
                 }
             }
         }

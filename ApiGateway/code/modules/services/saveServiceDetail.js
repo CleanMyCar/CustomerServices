@@ -39,7 +39,9 @@ module.exports = (config, params, callback) => {
             VehicleServicePrice.rows.add(params.fourWheelerTypes[i].Id, params.fourWheelerTypes[i].SubscriptionPrice, params.fourWheelerTypes[i].Price);
     }
     requestParams.input('VehicleServicePrice', VehicleServicePrice);
-    
+    requestParams.input('ServiceOrder', mssql.INT, params.serviceDetail.ServiceOrder);
+    requestParams.input('IsFrequent', mssql.INT, params.serviceDetail.IsFrequent ? 1 : 0);
+
     requestParams.execute('SaveServiceDetails', (err, result) => {
         if (err) {
             console.log(err);

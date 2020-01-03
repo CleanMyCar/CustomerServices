@@ -47,7 +47,9 @@
                                 serviceFourWheelerTypes: [],
                                 serviceSubscribeTypes: [],
                                 IsSubscriptionEnabled: false,
-                                IsPurchaseOnceEnabled: false
+                                IsPurchaseOnceEnabled: false,
+                                ServiceOrder: 1,
+                                IsFrequent: 0
                             }
                         }
                         if (response.serviceDetail) {
@@ -119,6 +121,11 @@
                 if(type == "2"){
                     this.serviceDetail.Price = null;
                     this.serviceDetail.SubscriptionPrice = null;
+                }
+            },
+            'serviceDetail.ServiceOrder'(value){
+                if(value <= 0){
+                    this.serviceDetail.ServiceOrder = null;
                 }
             }
         }

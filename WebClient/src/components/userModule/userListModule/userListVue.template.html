@@ -1,14 +1,14 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class=" btn-group pull-right">
-      <button class="btn btn-default btn-sm" @click="switchView"
+      <button class="btn btn-primary btn-sm" @click="switchView"
         :disabled="fncIsUserList && (fncIsUserList.isAssigned === -1 && fncIsUserList.functionState === 2)"
         v-if="fncIsUserList && (fncIsUserList.isAssigned === 1 || (fncIsUserList.isAssigned === -1 && fncIsUserList.functionState === 2))">
         <i v-if="listType == 'list'" class="fa fa-th-large"></i>
         <i v-if="listType != 'list'" class="fa fa-table"></i>
       </button>
 
-      <button class="btn btn-default btn-sm" title="Add New User" style="float: right" @click="createNewInstance">
+      <button class="btn btn-primary btn-sm" title="Add New User" style="float: right" @click="createNewInstance">
         <i class="fa fa-plus "></i> New User
       </button>
     </div>
@@ -20,7 +20,7 @@
 
     <div class="btn-group pull-right">
       <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle  btn-sm btn-sm-icon"
+        <button class="btn btn-primary dropdown-toggle  btn-sm btn-sm-icon"
           :disabled="fncIsUserList && (fncIsUserList.isAssigned === -1 && fncIsUserList.functionState === 2)"
           v-if="fncIsUserList && (fncIsUserList.isAssigned === 1 || (fncIsUserList.isAssigned === -1 && fncIsUserList.functionState === 2))"
           type="button" data-toggle="dropdown">
@@ -45,7 +45,7 @@
       </div>
 
 
-      <button class="btn btn-default btn-sm" v-if="false">
+      <button class="btn btn-primary btn-sm" v-if="false">
         <i v-if="tempListType == 'list'" class="fa fa-th-large"></i>
         <i v-if="tempListType != 'list'" class="fa fa-table"></i>
       </button>
@@ -207,10 +207,10 @@
         </div>
       </div>
 
-      <button class="btn btn-default btn-sm">
+      <button class="btn btn-primary btn-sm">
         Apply Filter
       </button>
-      <button class="btn btn-default btn-sm" @click="closeFilter()">
+      <button class="btn btn-primary btn-sm" @click="closeFilter()">
         Cancel
       </button>
     </div>

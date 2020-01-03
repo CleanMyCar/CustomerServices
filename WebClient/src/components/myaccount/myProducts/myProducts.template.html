@@ -1,37 +1,52 @@
-<div class="">
+<div class="my-products">
     <div>
-        <h4>My Products</h4>
+        <h4 class="header-subscribe">My Products</h4>
     </div>
 
     <div>
-        <h5>Vehicles</h5>
-        <button class="btn btn-default" @click="openVehicleAddPopup">
-            Add +
-        </button>
+        <h5 class="header-subscribe">Vehicles</h5>
+
     </div>
-    <div class="cellRow" v-for="product in myVehicles" style="border: 1px solid #65ff00">
-        <div class="cell">
-            <span v-if="product.VehicleTypeId == 1" class="defaultBikeImage"></span>
-            <span v-if="product.VehicleTypeId == 2" class="defaultCarImage"></span>
-            <img v-if="product.VehicleImage" :src="product.VehicleImage" height="100" width="100">
-        </div>
-        <div class="cell">
-            <div class="form-group">
-                <span style="float: right;" @click="openConfirmationPopup(product)">
-                    <i class="far fa-trash-alt"></i>
-                </span>
+    <div class="outer">
+    <div class="product-row">
+        <div class="flec-colpro" v-for="product in myVehicles">
+            <div class="cell">
+                <span v-if="product.VehicleTypeId == 1" class="defaultBikeImage"></span>
+                <span v-if="product.VehicleTypeId == 2" class="defaultCarImage"></span>
+                <img v-if="product.VehicleImage" :src="product.VehicleImage" height="60" width="60">
             </div>
-            <div @click="editProduct(product)">
-                <div class="form-group">
-                    <span> {{product.VehicleName}}</span>
-                </div>
-                <div class="form-group">
-                    <span> {{product.VehicleNumber}}</span>
-                    <span style="color: #004dff;">{{product.SubscribeType}}</span>
+            <div class="cell">
+
+                <div @click="editProduct(product)">
+                    <div>
+                        <span> {{product.VehicleName}}</span>
+                    </div>
+                    <div class="form-group">
+                        <span> {{product.VehicleNumber}}</span>
+                        <span style="color: #004dff;">{{product.SubscribeType}}</span>
+                    </div>
                 </div>
             </div>
+            <div class="cell card-botm">
+                <div>
+                    <span @click="openConfirmationPopup(product)">
+                        <i class="far fa-trash-alt"></i>
+                    </span>
+                </div>
+                <div>
+                    <span @click="openConfirmationPopup(product)">
+                        <i class="far fa-trash-alt"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="add-new-outer">
+            <button class="add-new" @click="openVehicleAddPopup">
+                +
+            </button>
         </div>
     </div>
+</div>
 
     <vehicleAddComponent v-if="openedVehicleAddPopup" :vehicleId="selectedVehicle && selectedVehicle.VehicleId"
         :updateParent="getMyProducts" :closeVehicleAddPopup="closeVehicleAddPopup" isPersonal="1"></vehicleAddComponent>
@@ -52,9 +67,9 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-danger btn-sm pull-right" title="No"
+                    <button class="btn btn-primary btn-sm pull-right" title="No"
                         @click="closeValidationPopup">No</button>
-                    <button class="btn btn-success btn-sm pull-right" title="Yes" @click="deleteVehicle">Yes</button>
+                    <button class="btn btn-primary btn-sm pull-right" title="Yes" @click="deleteVehicle">Yes</button>
                 </div>
             </div>
         </div>

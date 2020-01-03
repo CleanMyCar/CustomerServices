@@ -109,6 +109,9 @@
         computed: {
             userProfile() {
                 return this.$store.state.loggedInUserDetail;
+            },
+            timeslots(){
+                return this.$store.state.timeslots;
             }
         },
 

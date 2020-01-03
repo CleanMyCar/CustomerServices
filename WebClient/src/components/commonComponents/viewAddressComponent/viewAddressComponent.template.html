@@ -1,5 +1,5 @@
 <div class="" v-if="addressDetails" @click="selectAddress">
-    <div class="col-md-12">
+    <div class="col-md-12 Address-pad">
         <div class="">
             <div class="pull-right" v-if="!disabled">
                 <input type="checkbox" :disabled="addressDetails.IsDefault == 1 ? true: false" :checked="addressDetails.IsDefault" v-model="addressDetails.IsDefault" @click="changeDefaultAddress($event)">

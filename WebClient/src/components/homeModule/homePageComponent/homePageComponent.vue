@@ -6,7 +6,7 @@
         props: [],
         data() {
             return {
-                entityNamesdata: {},
+                frequentServices: [],
                 servicesList: null,
                 serviceObj: null,
                 SearchText: null,
@@ -51,6 +51,24 @@
                         }
                         if (response) {
                             vm.servicesList = response;;
+                        }
+                    }
+                });
+            },
+            getFrequentServices(searchText, numberOfRecords) {
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "GetFrequentServices",
+                    params: {
+                        SearchText: searchText,
+                        NumberOfRecords: numberOfRecords
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+                        if (response) {
+                            vm.frequentServices.splice(0, vm.frequentServices.length, ...response);
                         }
                     }
                 });
@@ -107,6 +125,7 @@
         mounted() {
             let vm = this;
             vm.getUserDetails();
+            vm.getFrequentServices();
         },
         watch: {
             SearchText(value){

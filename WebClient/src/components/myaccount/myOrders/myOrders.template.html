@@ -20,7 +20,7 @@
                             :pickerType="'date'">
                         </datePickerComponent>
                     
-                        <button style="float: right;" class="btn btn-default" @click="getMyOrders">Apply</button>
+                        <button style="float: right;" class="btn btn-primary" @click="getMyOrders">Apply</button>
                     </div>
                     </div>
 
@@ -33,6 +33,7 @@
                                     <th>Amount</th>
                                     <th>Quantity</th>
                                     <th>Product Name</th>
+                                    <th>Subscription</th>
                                     <th>Status</th>
                                     <th>
                                         Actions
@@ -122,16 +123,16 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-danger btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
-                    <button class="btn btn-success btn-sm pull-right" title="Save User"
+                    <button class="btn btn-primary btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
+                    <button class="btn btn-primary btn-sm pull-right" title="Save User"
                         @click="pauseSubscription">Confirm</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal" data-backdrop="static" role="dialog" id="deleteConfimationPopup">
-        <div class="modal-dialog" v-if="serviceObj">
+    <div class="modal" data-backdrop="static" role="dialog" id="deleteOrderConfimationPopup">
+        <div class="modal-dialog" v-if="selectedServiceItem">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
@@ -152,15 +153,15 @@
                         </div>
                     </div>
                     <div class="form-group" v-if="selectedReasons.indexOf(5) > -1">
-                        <input type="text" v-model="serviceObj.OtherReason" class="form-control"
+                        <input type="text" v-model="selectedServiceItem.OtherReason" class="form-control"
                             placeholder="Please specify reason">
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-danger btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
-                    <button class="btn btn-success btn-sm pull-right" title="Save User"
-                        @click="deleteCustomerService">Delete</button>
+                    <button class="btn btn-primary btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
+                    <button class="btn btn-primary btn-sm pull-right" title="Save User"
+                        @click="deleteMyOrder">Delete</button>
                 </div>
             </div>
         </div>

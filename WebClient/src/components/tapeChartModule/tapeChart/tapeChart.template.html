@@ -74,14 +74,14 @@
                     :format="'Do MMM YYYY'" :onUpdate="updateEndDate" :pickerType="'date'" :isRequired="true" :errorMessage="'Required.'"></datePickerComponent>
             </div>
 
-            <button class="btn btn-default btn-sm" @click="applyFilters">Apply Filter</button>
+            <button class="btn btn-primary btn-sm" @click="applyFilters">Apply Filter</button>
         </div>
         <div class="pull-right">
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <button class="btn btn-default btn-sm toggleCstmBtn" :class="{active: resGrid}" @click="showResBtn">
+                <button class="btn btn-primary btn-sm toggleCstmBtn" :class="{active: resGrid}" @click="showResBtn">
                     <i class="fas fa-bed"></i>
                 </button>
-                <button class="btn btn-default btn-sm toggleCstmBtn" :class="{active: rateGrid}" @click="showRateBtn">
+                <button class="btn btn-primary btn-sm toggleCstmBtn" :class="{active: rateGrid}" @click="showRateBtn">
                     <i class="fas fa-dollar-sign"></i>
                 </button>
                 <!-- <label class="btn btn-default btn-sm active">
@@ -488,7 +488,7 @@
                 </div>
                 <div class="col-md-12" v-if="false">
                     <div class="addMoreBtn dropdown">
-                        <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" @click="">
+                        <button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" @click="">
                             <i class="fa fa-plus"></i>
                             <span>Add More</span>
                         </button>

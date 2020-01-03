@@ -39,7 +39,10 @@
                 serviceSaved: false,
                 userAddressList: [],
                 isAddressPopup: false,
-                selectedPersonAddress: null
+                selectedPersonAddress: null,
+                isDialogOpen: false,
+                popupMessage: null,
+                headerTitle: null
             };
         },
 
@@ -86,9 +89,9 @@
                                 key: 'GetUserAddressIds',
                                 params: {},
                                 callback: function (err, response) {
-                                    if(response.length> 0){
+                                    if (response.length > 0) {
                                         vm.userAddressList.splice(0, vm.userAddressList.length, ...response);
-                                        let defaultAddress = response.filter((addr) =>{
+                                        let defaultAddress = response.filter((addr) => {
                                             return addr.IsDefault;
                                         })
                                         vm.selectedPersonAddress = defaultAddress[0]
@@ -194,16 +197,23 @@
                                 if (err) {
                                     return;
                                 }
-                                if (statusId == 0) {
-                                    vm.vehicleInfo.RequestId = response.RequestId
-                                    vm.serviceSaved = true;
-                                    return;
+                                if (response.RequestId) {
+                                    if (statusId == 0) {
+                                        vm.vehicleInfo.RequestId = response.RequestId
+                                        vm.serviceSaved = true;
+                                        return;
+                                    }
+                                    if (vm.serviceType == 2) {
+                                        vm.$router.push("/myOrders");
+                                    }
+                                    if (vm.serviceType == 1) {
+                                        vm.$router.push("/mysubscriptions");
+                                    }
                                 }
-                                if (vm.serviceType == 2) {
-                                    vm.$router.push("/myOrders");
-                                }
-                                if (vm.serviceType == 1) {
-                                    vm.$router.push("/mysubscriptions");
+                                else if (response.ErrorMessage) {
+                                    vm.headerTitle = "Alert !!";
+                                    vm.popupMessage = response.ErrorMessage;
+                                    vm.isDialogOpen = !vm.isDialogOpen;
                                 }
                             }
                         });
@@ -270,9 +280,12 @@
             closeSelectAddressPopup() {
                 this.isAddressPopup = false;
             },
-            navigateToMyProfile(){
+            navigateToMyProfile() {
                 this.$router.push("/userprofile")
-            }
+            },
+            closeToastrPopup() {
+                this.isDialogOpen = !this.isDialogOpen;
+            },
         },
         computed: {
             servicePrice() {

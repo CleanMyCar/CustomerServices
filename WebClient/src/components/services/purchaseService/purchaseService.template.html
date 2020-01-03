@@ -98,9 +98,9 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-danger btn-sm pull-right" title="Cancel"
+                                <button class="btn btn-primary btn-sm pull-right" title="Cancel"
                                     @click="cancel">Cancel</button>
-                                <button class="btn btn-success btn-sm pull-right" title="Save User"
+                                <button class="btn btn-primary btn-sm pull-right" title="Save User"
                                     @click="addNewVehicle">Add</button>
                             </div>
                         </div>
@@ -112,11 +112,14 @@
             <div class="col-md-12">
 
                 <div class="form-group border-line">
+                    <div class="info">
                     <img :src="serviceDetail.ServiceImage ? serviceDetail.ServiceImage : (serviceDetail.VehicleCategoryType == 2 ? defaultCarImage : defaultBikeImage)"
-                        height="150" width="100%" @click="showMoreInfo(service)">
+                        height="70" width="100%" @click="showMoreInfo(service)">
                     <div class="form-group serviceName subscribeTop">
                         <b>{{serviceDetail.ServiceName}}</b>
                     </div>
+                    
+                </div>
                 </div>
                 <div class="form-group purchase-vehical" v-if="serviceType == 2 && serviceDetail.VehicleCategoryType != 3">
                     <div class="bold">Personal Vehicle</div>
@@ -358,12 +361,14 @@
             </div>
         </div>
 
-        <vehicleAddComponent v-if="openedVehicleAddPopup" :vehicleId="vehicleAddress && vehicleAddress.VehicleId"
-            :updateParent="updateVehicleAddress" :isPersonal="vehicleInfo.IsPersonal"
+        <vehicleAddComponent v-if="openedVehicleAddPopup" :vehicleId="vehicleAddress && vehicleAddress.VehicleId == -1"
+            :updateParent="updateVehicleAddress" :isPersonal="vehicleInfo.IsPersonal" :isOpen="openedVehicleAddPopup"
             :closeVehicleAddPopup="closeVehicleAddPopup" :serviceDetail="serviceDetail"></vehicleAddComponent>
 
         <addressChooseComponent v-if="isAddressPopup"
             :selectedAddress="updateSelectedAddress" 
             :closeVehicleAddPopup="closeSelectAddressPopup"></addressChooseComponent>
+            
+        <toastrMessageComponent v-if="isDialogOpen" :message="popupMessage" :headerTitle="headerTitle" :isOpen="isDialogOpen" :closeToastrPopup="closeToastrPopup"></toastrMessageComponent>
     </div>
 </div>

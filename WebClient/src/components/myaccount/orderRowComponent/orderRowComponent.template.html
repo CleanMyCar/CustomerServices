@@ -12,25 +12,27 @@
         {{orderDetails.Quantity}}
     </td>
     <td class="form-group">
-        <span> {{orderDetails.VehicleName}}</span>
-        <span style="color: #004dff; margin-left: 30px;">{{orderDetails.SubscribeType}}</span>
+        <span> {{orderDetails.VehicleName}}</span>        
+    </td>
+    <td>
+        <span style="color: #004dff;">{{orderDetails.SubscribeType}}</span>
     </td>
     <td class="form-group">
         <span>{{orderDetails.ServiceStatusName}}</span>
     </td>
 
-    <td class="orderActions" v-if="!disableActions">
+    <td class="orderActions" v-if="[5,6].indexOf(orderDetails.ServiceStatusId) == -1">
         <span v-if="disableDelete" @click="deleteCustomerService(orderDetails)">
             <i class="far fa-trash-alt"></i>
         </span>
-        <span class="pauseSubscribe" v-if="orderDetails.ServiceStatusId == 1 && orderDetails.ServiceType == 1"
+        <!-- <span class="pauseSubscribe" v-if="orderDetails.ServiceStatusId == 1 && orderDetails.ServiceType == 1"
             @click="addDetailsToPause(orderDetails)" style="cursor: pointer;">
             <i class="far fa-pause-circle"></i>
         </span>
         <span class="pauseSubscribe" v-if="orderDetails.ServiceStatusId == 2 && orderDetails.ServiceType == 1"
             @click="addDetailsToPauseResume(orderDetails)" style="cursor: pointer;">
             <i class="far fa-play-circle"></i>
-        </span>
+        </span> -->
     </td>
     <td>
         {{orderDetails.ServiceNotes}}
