@@ -34,7 +34,7 @@ const awsImageService = require('./code/modules/imageUploadServices/awsStorageSe
 const configParams = (() => {
     let p = {
         sql: {
-            server: '127.0.0.1',
+            server: '14.192.1.221',
             user: 'sa',
             password: 'Apple#123',
             database: 'master',

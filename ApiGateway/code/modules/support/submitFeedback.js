@@ -1,4 +1,5 @@
 const mssql = require('mssql');
+let sendEmail = require("./sendEmail");
 
 module.exports = (config, params, callback) => {
     const requestParams = config.dbwrapper.getNewRequest();
@@ -14,7 +15,17 @@ module.exports = (config, params, callback) => {
             callback(err);
             return
         }
-        
+
+        sendEmail(config, {
+            Email: 'contact@cleanmycar.in',
+            MessageTitle: "Feedback",
+            MessageBody: params.Message
+        }, function (err, response) {
+            if (err) {
+                console.log("Support email sending failed ", err)
+            }
+        });
+
         return callback(null, result.recordsets[0][0]);
     })
 }
