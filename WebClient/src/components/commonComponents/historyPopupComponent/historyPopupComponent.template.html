@@ -1,0 +1,41 @@
+<div class="modal" data-backdrop="static" role="dialog" id="historyComponentPopup" style="top: -5em;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
+                    data-dismiss="modal" @click="cancel">
+                    &times;
+                </button>
+                <h5>Vehicle History</h5>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" v-if="vehicleDetails">
+                            <label>{{vehicleDetails.VehicleName}}</label><br>
+                            <label>{{vehicleDetails.VehicleNumber}}</label><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 outer" style="margin: 0; padding: 5px">
+                        <div class="chooseAddress product-row" v-if="productOrders.length > 0" v-for="order in productOrders" style="margin-top: 25px; display: inline;">
+                            <div class="row flec-colpro" style="padding: 5px">
+                                <div class="form-group">
+                                    <label>{{order.ServiceName}}</label><br>                                    
+                                    <label>{{getFormattedDate(order.ServiceCompletedDate)}}</label><br>
+                                    <label>{{order.ServiceStatusName}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="productOrders.length == 0">
+                            <label> There are no past records for the selected product</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

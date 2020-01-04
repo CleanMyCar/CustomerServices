@@ -39,6 +39,7 @@
     </div>
 
     <div v-if="false">
-        <deleteConfirmationPopup :updateParent="callbackFromConfirmation" :isOpen="selectedIndex && selectedIndex > -1"></deleteConfirmationPopup>
+        <deleteConfirmationPopup :updateParent="callbackFromConfirmation" :isOpen="selectedIndex && selectedIndex > -1"
+            headerTitle="'Please confirm before delete'" message="'Are you sure want to delete ?'"></deleteConfirmationPopup>
     </div>
 </div>

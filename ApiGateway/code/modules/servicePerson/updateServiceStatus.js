@@ -8,7 +8,6 @@ module.exports = (config, params, callback) => {
     requestParams.input('Reason', mssql.NVarChar, params.Notes);
     requestParams.input('StatusId', mssql.Int, params.StatusId);
     requestParams.input('UserId', mssql.Int, params.systemParams.UserId);
-    requestParams.input('Amount', mssql.Money, params.Amount);
     requestParams.input('ServiceProofImage', mssql.Text, params.Attachment);
 
     requestParams.execute('UpdateServiceStatus', (err, result) => {

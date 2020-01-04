@@ -16,7 +16,7 @@
 
                             <div class="col-md-12 searchResultsAmenitiesDiv">
                                 <input type="text" placeholder="Please type here to choose address..."
-                                    v-model.trim="searchAddressText" v-validate="'required'" name="addressId">                                    
+                                    v-model.trim="searchAddressText" autocomplete="off" v-validate="'required'" name="addressId">                                    
                             </div>
                             <div class="form-control searchResultsAmenities" @click="$event.stopPropagation()"
                                 id="propertyDropDown" v-show="showAddressList">
@@ -93,7 +93,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
-                <button class="btn btn-primary btn-sm pull-right" title="Save User" @click="addNewVehicle">Add</button>
+                <button class="btn btn-primary btn-sm pull-right" title="Save User" @click="addNewVehicle">Save</button>
             </div>
         </div>
     </div>
@@ -125,4 +125,7 @@
             </div>
         </div>
     </div>
+
+    <deleteConfirmationPopup :updateParent="callbackFromConfirmation" :isOpen="vechileTypeChangePopup" v-if="vechileTypeChangePopup"
+        headerTitle="'Please confirm before change vehicle type'" message="'Changing vehicle type will delete all existing subscriptions for this vehicle. Are you sure want to change it ?'"></deleteConfirmationPopup>
 </div>

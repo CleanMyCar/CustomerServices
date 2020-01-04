@@ -26,7 +26,9 @@
                 searchAddressText: null,
                 addressList: [],
                 showAddressList: false,
-                validations:{}
+                validations: {},
+                vechileTypeChangePopup: false,
+                selectedVehicleType: null
             };
         },
 
@@ -49,12 +51,15 @@
                 $("#newVehicleDetailsPopup").modal("show");
             },
             changeVehicleType(vehicleType, event) {
-
+                this.selectedVehicleType = vehicleType;
+                if (this.newVehicleDetails.VehicleId > 0) {
+                    this.vechileTypeChangePopup = true;
+                }
             },
             addNewVehicle() {
                 let vm = this;
-                 vm.$validator.validateAll().then(result => {
-                    if (result) {                
+                vm.$validator.validateAll().then(result => {
+                    if (result) {
                         vm.$store.dispatch("dataRequestHandler", {
                             key: "SaveVehicleDetails",
                             params: Object.assign(vm.newVehicleDetails, { IsPersonal: vm.isPersonal }),
@@ -64,15 +69,15 @@
                                 }
                                 // vm.getMyProducts();
                                 $("#newVehicleDetailsPopup").modal("hide");
-                                if(vm.updateParent){
+                                if (vm.updateParent) {
                                     vm.updateParent(vm.newVehicleDetails);
                                 }
                             }
                         });
 
-                }   
+                    }
                 });
-               
+
             },
             cancel() {
                 $("#newVehicleDetailsPopup").modal("hide");
@@ -134,10 +139,10 @@
                 }
                 reader.readAsDataURL(files[0]);
             },
-            closeValidationPopup(){
+            closeValidationPopup() {
                 $("#vehicleValidationPopup").modal("hide")
             },
-            getVehicleTypes(){
+            getVehicleTypes() {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "GetVehicleTypes",
@@ -153,7 +158,7 @@
                     }
                 });
             },
-            getVehicleDetails(){
+            getVehicleDetails() {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "GetVehicleDetail",
@@ -170,7 +175,28 @@
                         $("#newVehicleDetailsPopup").modal("show");
                     }
                 });
-            }
+            },
+            callbackFromConfirmation(flag) {
+                if (flag == 1) {
+                    if (this.selectedVehicleType.VehicleTypeId == 1)
+                        this.newVehicleDetails.FourWheelerTypeId = null;
+                    else
+                        this.newVehicleDetails.FourWheelerTypeId = "2";
+                }
+                else {
+                    if (this.selectedVehicleType.VehicleTypeId == 1) {
+                        this.newVehicleDetails.VehicleTypeId = "2"
+                        this.newVehicleDetails.FourWheelerTypeId = "2";
+                    }
+                    else if (this.selectedVehicleType.VehicleTypeId == 2) {
+                        this.newVehicleDetails.VehicleTypeId = "1"
+                        this.newVehicleDetails.FourWheelerTypeId = null;
+                    }
+
+                }
+
+                this.vechileTypeChangePopup = false
+            },
         },
 
         computed: {
@@ -181,7 +207,7 @@
             let vm = this;
             vm.addNewVehicleInfo();
             vm.getVehicleTypes();
-            if(vm.vehicleId && vm.vehicleId > 0){
+            if (vm.vehicleId && vm.vehicleId > 0) {
                 vm.getVehicleDetails();
             }
         },
@@ -195,8 +221,8 @@
                     this.addressList.splice(0, this.addressList.length)
                 }
             },
-            vehicleId(value){
-                if(value && value > 0){
+            vehicleId(value) {
+                if (value && value > 0) {
                     this.getVehicleDetails();
                 }
             },
@@ -205,7 +231,7 @@
                 if (this.isOpen) {
                     vm.addNewVehicleInfo();
                     vm.getVehicleTypes();
-                    if(vm.vehicleId && vm.vehicleId > 0){
+                    if (vm.vehicleId && vm.vehicleId > 0) {
                         vm.getVehicleDetails();
                     }
                     $("#chooseAddressPopup").modal("show")

@@ -8,7 +8,10 @@
             return {
                 myVehicles: [],
                 openedVehicleAddPopup: false,
-                selectedVehicle: null
+                selectedVehicle: null,
+                defaultCarImage: "../../../src/content/images/car.png",
+                defaultBikeImage: "../../../src/content/images/bike.png",
+                openHistoryPopup: false
             };
         },
 
@@ -93,12 +96,34 @@
             editProduct(product){
                 this.selectedVehicle = product;
                 this.openedVehicleAddPopup = !this.openedVehicleAddPopup;
+            },
+            navigateToProductHistory(product){                
+                this.openHistoryPopup = true;
+                this.selectedVehicle = product
+            },
+            changeNotificationFlg(product, flag){
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "UpdateVehicleNotificationFlag",
+                    params: {
+                        VehicleId: product.VehicleId,
+                        Flag: flag
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }                        
+                        vm.getMyProducts();
+                    }
+                });
+            },
+            callbackFromHistoryPopup(){
+                this.openHistoryPopup = false;
             }
 
         },
 
         computed: {
-
         },
 
         mounted() {

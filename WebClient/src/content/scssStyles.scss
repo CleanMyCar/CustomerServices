@@ -1834,8 +1834,9 @@ label{
     padding: 15px;
 }
 .outer{
-    width: 90vw;
+    width: 95vw;
     overflow: hidden;
+    margin-top: 65px;
 .product-row{
     overflow-x: scroll;
     display: flex;
@@ -1846,9 +1847,9 @@ label{
         margin: 6px;
         border-radius: 5px;
         padding-top:5px;
-        min-width:120px;
-        background-color: $headerColor;
-        color: white;
+        min-width:160px;
+        // background-color: $headerColor;        
+        color: cadetblue;
         .cell{
             text-align: center;
         img{
@@ -13019,5 +13020,15 @@ a{
 
 }
 
+.defaultBikeImage{
+    background: url("../content/images/bike.png");
+}
 
+.defaultCarImage{
+    background: url("../content/images/car.png");
+}
 
+.btn-default{
+    color: black !important;
+    cursor: pointer;
+}

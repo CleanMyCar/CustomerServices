@@ -33,6 +33,7 @@ import addressPopupComponent from "./components/commonComponents/addressPopupCom
 import viewAddressComponent from "./components/commonComponents/viewAddressComponent/viewAddressComponent.vue"
 import toastrMessageComponent from "./components/commonComponents/toastrMessageComponent/toastrMessageComponent.vue"
 import addressChooseComponent from "./components/commonComponents/addressChooseComponent/addressChooseComponent.vue"
+import historyPopupComponent from "./components/commonComponents/historyPopupComponent/historyPopupComponent.vue"
 
 Vue.component(datePickerComponent.name, datePickerComponent);
 Vue.component(pageLoadingComponent.name, pageLoadingComponent);
@@ -59,6 +60,7 @@ Vue.component(addressPopupComponent.name, addressPopupComponent)
 Vue.component(viewAddressComponent.name, viewAddressComponent);
 Vue.component(toastrMessageComponent.name, toastrMessageComponent)
 Vue.component(addressChooseComponent.name, addressChooseComponent)
+Vue.component(historyPopupComponent.name, historyPopupComponent);
 
 new Vue({
   el: '#app',

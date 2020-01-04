@@ -4,53 +4,75 @@
     </div>
 
     <div>
-        <h5 class="header-subscribe">Vehicles</h5>
-
+        <span style="float: left;">
+            <h5 class="header-subscribe">Vehicles</h5>
+        </span>
+        <button class="btn btn-default" style="float: right;" @click="openVehicleAddPopup">
+            Add
+        </button>
     </div>
     <div class="outer">
-    <div class="product-row">
-        <div class="flec-colpro" v-for="product in myVehicles">
-            <div class="cell">
-                <span v-if="product.VehicleTypeId == 1" class="defaultBikeImage"></span>
-                <span v-if="product.VehicleTypeId == 2" class="defaultCarImage"></span>
-                <img v-if="product.VehicleImage" :src="product.VehicleImage" height="60" width="60">
-            </div>
-            <div class="cell">
-
-                <div @click="editProduct(product)">
+        <div class="product-row">
+            <div class="flec-colpro" v-for="product in myVehicles">
+                <div class="cell">
+                    <div class="" style="margin: 0px;">
+                        <span style="float: left;" @click="editProduct(product)">
+                            <i class="fas fa-edit"></i>
+                        </span>
+                        <span style="float: right;" @click="openConfirmationPopup(product)">
+                            <i class="far fa-trash-alt"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="cell" style="margin-top: -10px;">
+                    <!-- <span v-if="product.VehicleTypeId == 1" class="defaultBikeImage"></span>
+                    <span v-if="product.VehicleTypeId == 2" class="defaultCarImage"></span> -->
+                    <img :src="product.VehicleImage ? product.VehicleImage : (product.VehicleTypeId == 1 ? defaultBikeImage : defaultCarImage)"
+                        height="60" width="60">
+                </div>
+                <div class="cell">
                     <div>
-                        <span> {{product.VehicleName}}</span>
+                        <div>
+
+                        </div>
+                        <div style="text-align: center;white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">
+                            <span> {{product.VehicleName}}</span>
+                        </div>
+                        <div style="text-align: center;white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">
+                            <span> {{product.VehicleNumber}}</span>
+                            <span style="color: #004dff;">{{product.SubscribeType}}</span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <span> {{product.VehicleNumber}}</span>
-                        <span style="color: #004dff;">{{product.SubscribeType}}</span>
+                </div>
+                <div class="cell card-botm">
+                    <div>
+                        <span v-if="product.NotificationsOn" @click="changeNotificationFlg(product, 0)">
+                            <i class="fas fa-bell"></i>
+                        </span>
+                        <span v-else @click="changeNotificationFlg(product, 1)">
+                            <i class="fas fa-bell-slash"></i>
+                        </span>
+                    </div>
+                    <div>
+                        <span @click="navigateToProductHistory(product)">
+                            <i class="fas fa-ellipsis-v"></i>
+                            <i class="fas fa-bars"></i>
+                        </span>
                     </div>
                 </div>
             </div>
-            <div class="cell card-botm">
-                <div>
-                    <span @click="openConfirmationPopup(product)">
-                        <i class="far fa-trash-alt"></i>
-                    </span>
-                </div>
-                <div>
-                    <span @click="openConfirmationPopup(product)">
-                        <i class="far fa-trash-alt"></i>
-                    </span>
-                </div>
+            <div class="add-new-outer">
+                <button class="add-new" @click="openVehicleAddPopup">
+                    +
+                </button>
             </div>
-        </div>
-        <div class="add-new-outer">
-            <button class="add-new" @click="openVehicleAddPopup">
-                +
-            </button>
         </div>
     </div>
-</div>
 
     <vehicleAddComponent v-if="openedVehicleAddPopup" :vehicleId="selectedVehicle && selectedVehicle.VehicleId"
         :updateParent="getMyProducts" :closeVehicleAddPopup="closeVehicleAddPopup" isPersonal="1"></vehicleAddComponent>
 
+    <historyPopupComponent v-if="openHistoryPopup && selectedVehicle && selectedVehicle.VehicleId" :vehicleId="selectedVehicle && selectedVehicle.VehicleId" :isOpen="openHistoryPopup" :updateParent="callbackFromHistoryPopup"></historyPopupComponent>
     <div class="modal" data-backdrop="static" role="dialog" id="deleteVehiclePopup">
         <div class="modal-dialog">
             <div class="modal-content">

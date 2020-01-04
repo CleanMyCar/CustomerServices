@@ -11,7 +11,7 @@
 
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12">                        
+                    <div class="col-md-12">
                         <div class="chooseAddress" v-if="userAddressList.length" v-for="userAddress in userAddressList" style="margin-top: 25px;">
                             <viewAddressComponent :addressId="userAddress.AddressId" disabled="true" :isDefault="userAddress.IsDefault" :updateParent="addressCallback" isAddressToSelect="true"></viewAddressComponent>
                         </div>

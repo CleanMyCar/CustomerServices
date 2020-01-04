@@ -3,7 +3,7 @@
 <script>
     export default {
         name: "deleteConfirmationPopup",
-        props: ["updateParent", "isOpen"],
+        props: ["updateParent", "isOpen", "headerTitle", "message"],
         data() {
             return {
                 value: null

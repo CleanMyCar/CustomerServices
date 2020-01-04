@@ -19,7 +19,7 @@ module.exports = (config, params, callback) => {
 
     };
 
-    config.logger.info("mail sent with these params => ", mailOptions)
+    // config.logger.info("mail sent with these params => ", mailOptions)
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {

@@ -6,16 +6,16 @@
         {{orderDetails.ServiceName}}
     </td>
     <td class="form-group">
-        ₹ {{price}}
+        <span> {{orderDetails.VehicleName ? orderDetails.VehicleName : orderDetails.VehicleNumber}}</span>        
+    </td>
+    <td>
+        <span style="color: #004dff;">{{orderDetails.SubscribeType}}</span>
     </td>
     <td class="form-group">
         {{orderDetails.Quantity}}
     </td>
     <td class="form-group">
-        <span> {{orderDetails.VehicleName}}</span>        
-    </td>
-    <td>
-        <span style="color: #004dff;">{{orderDetails.SubscribeType}}</span>
+        ₹ {{orderDetails.Quantity * price}}
     </td>
     <td class="form-group">
         <span>{{orderDetails.ServiceStatusName}}</span>

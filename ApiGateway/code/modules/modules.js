@@ -68,7 +68,9 @@ const getServiceList = require("./services/getServiceList"),
   submitFeedback = require("./support/submitFeedback"),
   updateServiceFrequencyFlag = require("./services/updateServiceFrequencyFlag"),
   getFrequentServices = require("./services/getFrequentServices"),
-  updateServiceOrder = require("./services/updateServiceOrder");
+  updateServiceOrder = require("./services/updateServiceOrder"),
+  updateVehicleNotificationFlag = require("./vehicles/updateVehicleNotificationFlag"),
+  getVehicleHistory = require("./vehicles/getVehicleHistory");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -143,4 +145,6 @@ module.exports = [
   {key: "UpdateServiceFrequencyFlag", callback: updateServiceFrequencyFlag, pushkey: null, isLoggingEnabled: false},
   {key: "GetFrequentServices", callback: getFrequentServices, pushkey: null, isLoggingEnabled: false},
   {key: "UpdateServiceOrder", callback: updateServiceOrder, pushkey: null, isLoggingEnabled: false},
+  {key: "UpdateVehicleNotificationFlag", callback: updateVehicleNotificationFlag, pushkey: null, isLoggingEnabled: false},
+  {key: "GetVehicleHistory", callback: getVehicleHistory, pushkey: null, isLoggingEnabled: false},
 ];

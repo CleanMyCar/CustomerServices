@@ -154,7 +154,7 @@ export const store = new Vuex.Store({
       6: "4:00 PM - 6:00 PM",
       7: "6:00 PM - 8:00 PM",
       8: "8:00 PM - 10:00 PM"
-    }
+    },
   },
   mutations: {
     setIsCurrentUserAdmin(state, isCurrentUserAdmin) {
