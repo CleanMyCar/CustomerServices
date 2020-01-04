@@ -4219,7 +4219,7 @@ table.table-bordered tbody tr:hover {
 .profile-name{
     justify-content: center;
     border-bottom: 1px solid $borderColor;
-    margin:-7px;
+    margin: 0px -6px;
     label{
         font-size: 14px;
         margin-top: 10px;
@@ -6434,7 +6434,14 @@ th[class*="resTh Source Name"] {
     -webkit-box-shadow: -1px -1px 2px #4d70e0;
     box-shadow: -1px -1px 2px #4d70e0;
 }
+.orderActions{
+    text-align: center;
+}
 
+
+.edit-profile{
+    margin-top:8px;
+}
 .todo-list .tags.resTags span:before {
     top: -1px;
 }
@@ -7130,9 +7137,13 @@ input:focus::-webkit-input-placeholder {
 /* Sort - styles End*/
 
 .dTable {
-    width: 100%;
+    width: 90vw;
     float: left;
     overflow-x: auto;
+    margin-left: -13px;
+    th,td{
+        padding:5px;
+    }
 }
 
 .dTBody {
@@ -12656,9 +12667,14 @@ body {
     padding: 0 5px;
   }
   .my-product-screen{
-      border: 1px solid $borderColor;
+      border: 1px solid cadetblue;
     padding: 8px;
     border-radius: 7px;
+    margin:5px 0px;
+    i{
+        color:cadetblue;
+    }
+    
   }
   .my-products{
       margin-bottom:0px;
@@ -12997,17 +13013,38 @@ a{
 .chooseAddress div{
     cursor: pointer;
 }
+.serv-pad{
+    padding:5px;
+}
 .res{
     display: flex;
     .respno{
-        min-width: 100%;
+        // min-width: 100%;
+        width:140px;
         border:1px solid $borderColor;
         border-radius: 5px;
+        margin:5px;
+        min-width: 140px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0px 0px 6px #69737d;
         .mt-3{
             color:$headerColor
         }
         img{
-            height: 130px;
+            // height: 125px;
+            width:100%;
+            border-radius: 10px;
+        }
+        .inerhtml{
+            margin: 0px;
+           overflow-wrap: break-word;
+        }
+        .outer-img{
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
 }
@@ -13017,9 +13054,23 @@ a{
     padding: 4px;
     padding-left: 12px;
     border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h5,span{
+        color: white;
+
+    }
 
 }
-
+.edit-img{
+    canvas{
+        border-radius: 50%;
+    }
+    img{
+        border-radius: 50%;  
+    }
+}
 .defaultBikeImage{
     background: url("../content/images/bike.png");
 }
