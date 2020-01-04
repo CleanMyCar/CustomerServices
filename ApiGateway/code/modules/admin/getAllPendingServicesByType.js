@@ -7,6 +7,8 @@ module.exports = (config, params, callback) => {
         sp_name = "GetPendingVehicleServices"
     }
     requestParams.input('ServiceStatusId', mssql.Int, params.serviceStatusId);
+    requestParams.input('ServiceDate', mssql.Date, params.ServiceDate);
+    requestParams.input('ServiceId', mssql.Int, params.ServiceId);
 
     requestParams.execute(sp_name, (err, result) => {
         if (err) {

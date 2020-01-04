@@ -6,7 +6,8 @@
         props: [],
         data() {
             return {
-                serviceList: []
+                serviceList: [],
+                selectedStatus: 1
             };
         },
 
@@ -17,7 +18,8 @@
                     key: "GetAllServices",
                     params: {
                         SearchText: searchText,
-                        NumberOfRecords: numberOfRecords
+                        NumberOfRecords: numberOfRecords,
+                        SelectedStatus: vm.selectedStatus
                     },
                     callback: function (err, response) {
                         if (err) {
@@ -52,7 +54,7 @@
                 });
             },
             
-            updateServiceFrequent(service){
+            updateServiceOrder(service){
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "UpdateServiceOrder",
@@ -72,6 +74,9 @@
         computed: {
             role() {
                 return this.$store.state.loggedInUserDetail ? this.$store.state.loggedInUserDetail.UserRoleId : null
+            },
+            statusList(){
+                return this.$store.state.status;
             }
         },
 

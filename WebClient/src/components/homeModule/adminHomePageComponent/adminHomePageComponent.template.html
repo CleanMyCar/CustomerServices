@@ -1,16 +1,32 @@
 <div class="panel panel-default">
 
     <div class="panel-heading">
-        <h4 class="pull-left">To be Assigned Services</h4>
-        <div class="btn-group btnGroupScrollWrap tagBtnGrp">
-        </div>
-        <div class="btn-group pull-right">
-
-        </div>
+        <h4 class="pull-left">Customer Services</h4>
+        
+        
     </div>
 
     <div class="panel-body">
-
+        <div class="">
+            <div class="row">
+                <div class="col-md-4">
+                    <select class="form-control" v-model="pendingServiceFilter.ServiceId">
+                        <option v-for="service in adminServiceList" :value="service.ServiceId">{{service.ServiceName}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <datePickerComponent :keyString="'StartDate'" v-model="pendingServiceFilter.ServiceDate"
+                        :value="pendingServiceFilter.ServiceDate" :format="'Do MMM YYYY'"
+                        :onUpdate="updateServiceDate" :pickerType="'date'">
+                    </datePickerComponent>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-success btn-sm" @click="getRequestedServices(1)">Search</button>
+                </div>
+            </div>
+        </div>
         <ul class="nav nav-tabs">
             <li v-for="tab in detailTabs" v-on:click="" :class="{ active: selectedTab === tab.id }">
                 <a v-text="tab.text" v-on:click="selectTab(tab.id, $event)"></a>
@@ -20,7 +36,7 @@
             <div class="tab-content">
                 <div class="tab-pane" v-if="selectedTab === 1" :class="{ active: selectedTab === 1 }">
                     <div class="panel panel-default">
-                        <div class="panel-body addBg">
+                        <div class="panel-body addBg">                            
                             <div class="ResGrid">
                                 <div class="dTable">
                                     <table style="width: 100%; overflow:scroll;">
@@ -28,7 +44,7 @@
                                             <th>Actions</th>
                                             <th>Building</th>
                                             <th>Service</th>
-                                            
+
                                             <th>Service Date</th>
                                             <th>Time Slot</th>
                                             <th>Subscription</th>
@@ -37,13 +53,15 @@
                                             <th>Vehicle Number</th>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="service in services" style="height: 50px;" v-if="service.ServiceType == 2 || (service.ServiceType == 1 && service.ParentId)">
+                                            <tr v-for="service in services" style="height: 50px;"
+                                                v-if="service.ServiceType == 2 || (service.ServiceType == 1 && service.ParentId)">
                                                 <td>
                                                     <assignPersonComponent :service="service"
                                                         :updateServicePerson="updateServicePerson">
                                                     </assignPersonComponent>
                                                 </td>
-                                                <td>{{service.OtherAddressId ? (service.OtherAddressLine1 + ", " + service.OtherAddressLine2) :  (service.AddressLine1 + ', ' + service.ParkingLot)}}</td>
+                                                <td>{{service.OtherAddressId ? (service.OtherAddressLine1 + ", " + service.OtherAddressLine2) :  (service.AddressLine1 + ', ' + service.ParkingLot)}}
+                                                </td>
                                                 <td>{{service.ServiceName}}</td>
                                                 <!-- <td>{{returnDateTime(service.RequestedOn)}}</td> -->
                                                 <td>{{returnDateTime(service.ServiceDate)}}</td>
@@ -84,17 +102,18 @@
                                             <th>Service Person</th>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="service in services" style="height: 50px;">                                                
+                                            <tr v-for="service in services" style="height: 50px;">
                                                 <td>{{service.AddressLine1 + ', ' + service.ParkingLot}}</td>
                                                 <td>{{service.ServiceName}}</td>
                                                 <td>{{returnDateTime(service.RequestedOn)}}</td>
                                                 <td>{{returnDateTime(service.ServiceDate)}}</td>
-                                                <td>{{service.SubscribeType ? service.SubscribeType : 'Once'}}</td>                                                
+                                                <td>{{service.SubscribeType ? service.SubscribeType : 'Once'}}</td>
                                                 <td>₹
                                                     {{service.VehicleTypeId == 2 ? (service.ServiceType == 2 ? service.FourWheelerOncePrice : service.FourWheelerSubPrice) : (service.ServiceType == 2 ? service.Price : service.SubscriptionPrice )}}
                                                 </td>
                                                 <td>{{service.VehicleNumber}}</td>
-                                                <td>{{service.UserFirstName}} {{service.UserLastName}} <br> {{service.MobileNumber}}</td>
+                                                <td>{{service.UserFirstName}} {{service.UserLastName}} <br>
+                                                    {{service.MobileNumber}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
