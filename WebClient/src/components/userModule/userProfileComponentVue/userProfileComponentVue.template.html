@@ -32,10 +32,12 @@
                                 class="proMask"></div>
                             <div class="profileHeader">
                                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                    <vue-avatar v-show="editMode" :width=130 :height=130 ref="vueavatar"
+                                    <vue-avatar class="edit-img" v-show="editMode" :width=130 :height=130 ref="vueavatar"
                                         @vue-avatar-editor:image-ready="onImageReady" image=''>
                                     </vue-avatar>
-                                    <img v-show="!editMode" :src="userProfile.ProfileImage" width="130" height="130">
+                                   
+                                    <img v-show="!editMode" :src="userProfile.ProfileImage" width="130" height="130" style="border-radius: 50%;">
+                                
                                 </div>
 
                                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" v-show="false">
@@ -56,7 +58,7 @@
                                 <label class="bold">Name: </label>
                                 <label class="bold" v-if="!editMode">{{userProfile.UserFirstName}}
                                     {{userProfile.UserLastName}}</label v-if="!editMode">
-                                <div v-if="editMode">
+                                <div class="edit-profile" v-if="editMode">
                                     <input type="text" v-model="userProfile.UserFirstName">
                                     <input type="text" v-model="userProfile.UserLastName">
                                 </div>
