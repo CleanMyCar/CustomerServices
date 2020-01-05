@@ -58,11 +58,10 @@
                                     Parking Lot is required
                                 </span>
                         </div>
-                        <div class="form-group">
-                            <img :src="newVehicleDetails.VehicleImage" v-if="newVehicleDetails.VehicleImage"
-                                style="height: 100px; width: 150px;" />
-
+                        <div class="form-group img-upload-cls">
                             <label class="custom-file-upload">
+                                <img  :src="newVehicleDetails.VehicleImage" v-if="newVehicleDetails.VehicleImage"
+                                 />
                                 <div>
                                     <i class="fa fa-upload" aria-hidden="true"></i>
                                     <input type="file" id="logo" name="logo" accept="image/*"
@@ -70,8 +69,10 @@
                                 </div>
 
                             </label>
+                          
+                        </div> 
 
-                        </div>
+                    
                         <div class="form-group" v-if="!serviceDetail">
                             <label v-for="vehicleType in vehicleTypes" v-if="vehicleType.VehicleTypeId != 3">
                                 <input type="radio" name="vehicleType" @click="changeVehicleType(vehicleType, $event)"

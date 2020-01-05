@@ -112,11 +112,11 @@
             <div class="col-md-12">
 
                 <div class="form-group border-line">
-                    <div class="info">
+                    <div class="info subscribe-field">
                     <img :src="serviceDetail.ServiceImage ? serviceDetail.ServiceImage : (serviceDetail.VehicleCategoryType == 2 ? defaultCarImage : defaultBikeImage)"
                         height="70" width="100%" @click="showMoreInfo(service)">
                     <div class="form-group serviceName subscribeTop">
-                        <b>{{serviceDetail.ServiceName}}</b>
+                        <div class="bold">{{serviceDetail.ServiceName}}</div>
                     </div>
                     
                 </div>
@@ -132,26 +132,29 @@
                 </div>
                 <div class="form-group" v-if="serviceDetail.VehicleCategoryType != 3">
                     <div class="cellRow" style="width: 100%; overflow: scroll; margin-top: 20px;">
-                        <div class="cell" v-for="product in myServiceProducts"
+                        <div class="cell flec-popoo" v-for="product in myServiceProducts"
                             v-if="vehicleInfo.IsPersonal === (product.IsPersonal == 0 ? false : true)"
                             style="flex: 0 0 12%;">
                             <label class="radioLabel">
                                 <input type="radio" class="vechiles" name="Vechile" :value="product.VehicleId"
                                     @click="chooseVehicle(product, $event)">
+                                    <div class="inner-pp">
                                 <img :src="product.VehicleImage ? product.VehicleImage : (product.VehicleTypeId == 2 ? defaultCarImage : defaultBikeImage)"
-                                    height="120" width="120">
+                                    height="100" width="100">
+                                </div>
                             </label>
 
-                            <div class="form-group serviceName">
+                            <div class="form-group serviceName clcc-Text">
                                 {{product.VehicleNumber}}
                             </div>
                         </div>
-                        <div class="cell" @click="addNewVehicleInfo">
-                            <img :src="serviceDetail.VehicleCategoryType == 2 ? defaultCarImage : defaultBikeImage"
-                                height="120" width="120">
-                            <div class="form-group serviceName btn btn-primary clrbtn">
-                                <a href="javascript:void(0)">Add New Vehicle</a>
+                        <div class="cell sub-vehicle" @click="addNewVehicleInfo">
+                            <!-- <img :src="serviceDetail.VehicleCategoryType == 2 ? defaultCarImage : defaultBikeImage"
+                                height="120" width="120"> -->
+                            <div class="add-new">
+                                <!-- <a href="javascript:void(0)">Add New Vehicle</a> -->
                             </div>
+                            <p class="bold" style="text-align: center;">Add Vehicle</p>
                         </div>
                     </div>
                 </div>
