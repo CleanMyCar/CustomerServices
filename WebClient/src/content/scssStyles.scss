@@ -784,10 +784,24 @@ sortable-chosen.sortable-ghost {
 }
 
 .logoSection {
-    width: 241px;
+    width: 50%;
     height: 55px;
     float: left;
     // background: #75c62e;
+}
+.img-upload-cls{
+    width:200px;
+    height:115px;
+    position: relative;
+    .custom-file-upload{
+        width:100%;
+    }
+    img{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 8px;
+    }
 }
 
 .mainLogo {
@@ -796,6 +810,10 @@ sortable-chosen.sortable-ghost {
     float: left;
     margin: 0;
     padding: 0;
+    img{
+        margin-top:10px;
+        margin-left:20px;
+    }
 }
 
 .mainLogo span {
@@ -989,12 +1007,19 @@ h6 {
 }
 .fa-chevron-left{
     color:$headerColor;
+    left:0px !important;
 }
 .fa-chevron-right{
     color:$headerColor;
 }
 .fa-calendar:checked{
     color:$hearerIconColour;
+}
+.dropdown-menu li .fa{
+   
+}
+.bootstrap-datetimepicker-widget table thead tr:first-child th{
+    margin-left: -12px;
 }
 
 .panel-heading h4 {
@@ -1849,7 +1874,7 @@ label{
         padding-top:5px;
         min-width:160px;
         // background-color: $headerColor;        
-        color: cadetblue;
+        color: $headerColor;
         .cell{
             text-align: center;
         img{
@@ -1859,12 +1884,29 @@ label{
     }
     }
 }
+.product-row{
+    padding:0px 10px;
+}
+
+}
+.text-color{
+    color: #929191 !important;
+}
+.close-btn{
+    position: absolute;
+    right: 32px;
+    top: 34px;
+    padding: 0px !important;
+    color:$headerColor !important;
 }
 .add-new-outer{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
+    width: 150px;
+    flex-direction: column;
+
+}
 .add-new{
     width: 50px;
     height: 50px;
@@ -1874,7 +1916,18 @@ label{
     font-size: 40px;
     line-height: 1;
     color: $headerColor;
+    margin: 40px;
+    box-shadow: 0px 0px 10px #848383;
+    margin-bottom:20px;
 }
+.bootstrap-datetimepicker-widget{
+    th{
+    background-color: white !important;
+    }
+}
+.flex-drp{
+    display: flex;
+    justify-content: space-between;
 }
 .card-botm{
     display: flex;
@@ -6955,6 +7008,7 @@ table.folioTable {
     font-size: 13px;
     color: #615f5f;
 }
+
 
 .inputSearch .input-group-btn:first-child {
     padding: 0px 10px;
@@ -12667,12 +12721,12 @@ body {
     padding: 0 5px;
   }
   .my-product-screen{
-      border: 1px solid cadetblue;
+      border: 1px solid $headerColor;
     padding: 8px;
     border-radius: 7px;
     margin:5px 0px;
     i{
-        color:cadetblue;
+        color:$headerColor;
     }
     
   }
@@ -12698,15 +12752,7 @@ body {
 //       margin-top: 5px;
 //       margin-bottom: 5px;
 //   }
-    .subscribeTop{
-        background-color: $headerColor;
-        color: #fff;
-        margin-bottom: 0px;
-        padding: 6px;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
     
-    }
   .services{
     padding: 9px 0 0 0;
   }
@@ -12714,7 +12760,10 @@ body {
   .carImage{
       background: url('./images/car.png');
   }
-
+  .bottom-text{
+      font-size: 13px;
+    font-weight: 500;
+  }
   .navigationIcon{
       cursor: pointer;
       float: left;
@@ -12747,6 +12796,7 @@ body {
      height: 30px;
      width:130px;
      margin-right: 10px;
+     margin-bottom: 14px;
  }
  .flex-wrapm{
     display: flex;
@@ -12798,12 +12848,43 @@ body {
      display: flex;
      justify-content: space-between;
      .info{
-         width: 30%;
+         width: 100%;
          b{
              font-size: 11px;
          }
      }
  }
+ .subscribe-field{
+    width:100%;
+    display: flex;
+    img{
+        padding-right: 5px;
+        border-radius: 5px;
+        width:30%;
+    }
+}
+.clcc-Text{
+    text-align: center;;
+}
+.inner-pp{
+    display: flex;
+    justify-content: center;
+    margin-top:15px;
+}
+.flec-popoo{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 8px black;
+    margin: 6px;
+    border-radius: 5px;
+    padding-top: 5px;
+    min-width: 160px;
+    color: #1C3957;
+    justify-content: center;
+    img{
+        border-radius: 50%;
+    }
+}
 .purchase-vehical{
     color:$headerColor;
     display: flex;
@@ -12985,9 +13066,17 @@ a{
   }
 
   .quantityComponent > input{
-      width: 12% !important;
+      width: 50px !important;
+      
   }
-
+  .quantityComponent{
+      i{
+      color:$headerColor;
+      }
+  }
+  .icon-color{
+      color:$headerColor
+  }
   .cartTotalAmount{
     width: 50%;
     border: 1px solid #CCC;
@@ -13024,7 +13113,7 @@ a{
         border:1px solid $borderColor;
         border-radius: 5px;
         margin:5px;
-        min-width: 140px;
+        min-width: calc(50vw - 39px);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -13039,6 +13128,7 @@ a{
         }
         .inerhtml{
             margin: 0px;
+            margin-top:0px !important;
            overflow-wrap: break-word;
         }
         .outer-img{
@@ -13047,6 +13137,19 @@ a{
             align-items: center;
         }
     }
+}
+.width-form{
+    width:120px;
+}
+.cart-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 15px;
+}
+.plus-btn{
+    margin-right: 0px;
+    margin:0px;
 }
 .ind{
     background: $headerColor;

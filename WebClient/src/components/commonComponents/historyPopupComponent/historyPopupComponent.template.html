@@ -2,19 +2,19 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
+                <button type="button" class="close close-btn" 
                     data-dismiss="modal" @click="cancel">
                     &times;
                 </button>
-                <h5>Vehicle History</h5>
+                <h5 class="header-subscribe">Vehicle History</h5>
             </div>
 
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="" v-if="vehicleDetails" style="text-align: center;">
-                            <label>{{vehicleDetails.VehicleName}}</label><br>
-                            <label>{{vehicleDetails.VehicleNumber}}</label><br>
+                        <div class="flex-drp" v-if="vehicleDetails">
+                            <label class="bold">{{vehicleDetails.VehicleName}}</label>
+                            <label class="bold">{{vehicleDetails.VehicleNumber}}</label>
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <div v-if="productOrders.length == 0">
-                            <label> There are no past records for the selected product</label>
+                            <label class="text-color"> There are no past records for the selected product</label>
                         </div>
                     </div>
                 </div>
