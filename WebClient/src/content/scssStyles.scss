@@ -801,6 +801,7 @@ sortable-chosen.sortable-ghost {
         height: 100%;
         width: 100%;
         top: 8px;
+        z-index: 10;
     }
 }
 
@@ -1907,6 +1908,14 @@ label{
     flex-direction: column;
 
 }
+.custom-model-style{
+    position: absolute;
+    // top:0px;
+}
+.modal-open .modal{
+    position: absolute;
+    top:50px;
+}
 .add-new{
     width: 50px;
     height: 50px;
@@ -1919,6 +1928,9 @@ label{
     margin: 40px;
     box-shadow: 0px 0px 10px #848383;
     margin-bottom:20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .bootstrap-datetimepicker-widget{
     th{
@@ -10636,8 +10648,18 @@ h4{
 .modal-backdrop .modal-header h4 {
     margin-top: 24px;
     margin-left: 15px;
+   
 }
-
+.modal-header h4{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(100% - 16px);
+}
+.profil-img-ii{
+    display: flex;
+    justify-content: center;
+    
+}
 .modal-backdrop .modal-body {
     padding: 50px 25px;
 }
@@ -10647,6 +10669,31 @@ h4{
     margin: -2px 0 0 10px;
     * {
         color: #4d70e0;
+    }
+}
+.activeSelected{
+    box-shadow: 0px 0px 5px $headerColor !important;
+    border:2px solid $headerColor;
+}
+.custom-bbtn{
+    width: 120px;
+    border: 1px solid $headerColor;
+    padding: 5px;
+    background: white;
+    border-radius: 5px;
+}
+.flxxx-tm{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.profile-name-ed{
+    display: flex;
+    justify-content: center;
+    width:100%;
+    margin:0px;
+    div{
+        padding-right: 6px;
     }
 }
 
@@ -12860,7 +12907,12 @@ body {
     img{
         padding-right: 5px;
         border-radius: 5px;
-        width:30%;
+        width:40%;
+    }
+    .subscribeTop{
+        div{
+            word-break: break-all;
+        }
     }
 }
 .clcc-Text{

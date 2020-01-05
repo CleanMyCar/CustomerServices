@@ -1,23 +1,24 @@
 <div class="userProfile" v-if="userProfile">
 
     <div class="col-md-10" style="padding: 35px; margin-top: -25px;">
-        <div class="row" style="width: 200px">
-            <img class="profilePicture" v-if="userProfile.ProfileImage" :src="userProfile.ProfileImage" alt="">
+        <div class="row profil-img-ii">
+            <img class="profilePicture" width="100px" height="100px" v-if="userProfile.ProfileImage" :src="userProfile.ProfileImage" alt="">
             <span class="iconUser" v-if="!userProfile.ProfileImage"><i class="far fa-user"></i></span>
         </div>
         <div class="row">
-            <div class="cold-md-12" style="text-align: center; font-size:24px">
-                <label class="name">{{userProfile.UserFirstName}}</label>
-                <label class="name">{{userProfile.UserLastName}}</label>
+            <div class="cold-md-12 flxxx-tm" style="text-align: center; font-size:24px;">
+                <div>
+                <label class="name" style="font-size: 24px;margin-bottom: 0px; margin-right:10px">{{userProfile.UserFirstName}} {{userProfile.UserLastName}}</label>
+            </div>
             </div>
         </div>
-        <div class="row">
-            <div class="cold-md-12" style="text-align: center;">
-                <label class="" style="font-size: 25px">Rs.
+        <div class="row profile-name-ed">
+            <div class="cold-md-12" style="text-align: center; margin-top:-10px">
+                <label class="" style="font-size: 25px; margin-bottom: 0px">Rs.
                     {{userWallet && userWallet.Amount != null ? userWallet.Amount : 'XXX.XX'}} /-</label>
             </div>
         </div>
-        <div class="row">
+        <div class="row profile-name-ed">
             <div class="cold-md-12" style="text-align: center;">
                 <button class="btn btn-primary">Recharge</button>
             </div>
