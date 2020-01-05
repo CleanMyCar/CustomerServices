@@ -6,11 +6,17 @@
         name: "adminHomePage",
         props: [],
         data() {
-            let detailTabs = [], tobeAssignedTabs = { text: 'To be Assigned Services', id: 1 },
-                assignedTab = { text: 'Assigned Services', id: 2 };
+            let detailTabs = [], 
+                tobeAssignedTabs = { text: 'To be Assigned Services', id: 1 },
+                assignedTab = { text: 'Assigned Services', id: 4 },
+                compltedTab = { text: 'Completed Services', id: 5 },
+                notcompletedTab = { text: 'Not Completed Services', id: 6 };
 
             detailTabs.push(tobeAssignedTabs);
             detailTabs.push(assignedTab);
+            detailTabs.push(compltedTab);
+            detailTabs.push(notcompletedTab);
+
             return {
                 detailTabs,
                 dashBoardDetails: null,
@@ -20,7 +26,17 @@
                 searchNameText: null,
                 showServicePersonList: false,
                 servicePersonList: [],
-                selectedTabId: 1
+                selectedTabId: 1,
+                pendingServiceFilter: {
+                    ServiceDate: moment.utc(),
+                    ActualServiceDate: moment.utc().format("YYYY-MM-DD"),
+                    ServiceId: null,
+                    AddressId: null,
+                    PersonId: null
+                },
+                adminServiceList: [],
+                buildingList: [],
+                servicePerons: []
             };
         },
 
@@ -29,12 +45,8 @@
                 let vm  = this;
                 this.selectedTabId = tabId;
                 vm.services.splice(0, vm.services.length);
-                if(tabId == 1){
-                    this.getServices(1);
-                }
-                else if(tabId == 2){
-                    this.getServices(3);
-                }
+                vm.pendingServiceFilter.PersonId = null;                
+                vm.getRequestedServices();                
             },
             getAdminDashborad() {
                 let vm = this;
@@ -56,16 +68,22 @@
             returnDateTime(date) {
                 return date ? moment(date).format("Do MMM YYYY") : null
             },
-            getServices(serviceStatusId) {
+            getRequestedServices(serviceStatusId) {
                 let vm = this;
                 vm.serviceType = vm.$route.params.serviceType
 
+                let filterItems = {
+                    serviceType: vm.$route.params.serviceType,
+                    serviceStatusId: vm.selectedTab,
+                    ServiceDate: vm.pendingServiceFilter.ActualServiceDate,
+                    ServiceId: vm.pendingServiceFilter.ServiceId,
+                    AddressId: vm.pendingServiceFilter.AddressId,
+                    PersonId: vm.pendingServiceFilter.PersonId
+                }                
+
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "GetAllPendingServicesByType",
-                    params: {
-                        serviceType: vm.$route.params.serviceType,
-                        serviceStatusId: serviceStatusId
-                    },
+                    params: filterItems,
                     callback: function (err, response) {
                         if (err) {
                             return;
@@ -104,13 +122,53 @@
             },
             updateServicePerson(service, servicePersonObj) {
                 // service.ServicePersonId = servicePersonObj.UserId;
-                this.getServices(1);
-                // this.getServices(3);
+                this.getRequestedServices(1);
+                // this.getRequestedServices(3);
             },
             getServiceAmount(service){
                 let amount = service.VehicleTypeId == 2 ? (service.ServiceType == 2 ? service.FourWheelerOncePrice : service.FourWheelerSubPrice) : (service.ServiceType == 2 ? service.Price : service.SubscriptionPrice )
                 return amount * service.Quantity;
-            }
+            },
+            updateServiceDate(key, dateObj, objectPassedToParent) {
+                this.pendingServiceFilter.ServiceDate = dateObj ? dateObj.format("DD MMM YYYY") : null;
+                this.pendingServiceFilter.ActualServiceDate = dateObj ? dateObj.format("YYYY-MM-DD") : null;
+            },
+            getAdminServices(){                
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "GetAllServices",
+                    params: {
+                        SelectedStatus: 1
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+                        if (response) {
+                            vm.adminServiceList.splice(0, vm.adminServiceList.length, ...response);
+                            vm.pendingServiceFilter.ServiceId = vm.adminServiceList[0]["ServiceId"];
+                            vm.getRequestedServices(1);
+                        }
+                    }
+                });            
+            },
+            getBuildingsAndServicePersons(){                
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "GetBuildingsAndServicePersons",
+                    params: {                        
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+                        if (response) {
+                            vm.buildingList.splice(0, vm.buildingList.length, ...response.buildings);
+                            vm.servicePerons.splice(0, vm.servicePerons.length, ...response.servicePerons);
+                        }
+                    }
+                });            
+            },
         },
         computed: {
             selectedTab() {
@@ -123,8 +181,8 @@
 
         mounted() {
             let vm = this;
-            // vm.getAdminDashborad();
-            vm.getServices(1);
+            vm.getAdminServices();
+            vm.getBuildingsAndServicePersons();
             $(this.$el).click(function () {
                 vm.$store.state.bus.$emit("hideAutoSuggest");
             })

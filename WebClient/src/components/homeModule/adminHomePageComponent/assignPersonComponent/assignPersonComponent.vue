@@ -42,7 +42,7 @@
             },
             selectServicePerson(person) {
                 let vm = this;
-                console.log(person);
+                // console.log(person);
                 vm.searchNameText = person.UserLastName + " " + person.UserFirstName + ", " + person.AddressLine1 + " " + person.AddressLine2 + ", " + person.Landmark + " " + person.CityName + ", " + person.StateName;
                 vm.showServicePersonList = false;
                 vm.assignPersonObj = person;

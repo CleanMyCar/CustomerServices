@@ -10,7 +10,8 @@
                 subscriptions: [],
                 serviceObj: null,
                 serviceDeleteReasons: [],
-                selectedReasons: []
+                selectedReasons: [],
+                newbtn: "../../../src/content/images/subscribe.png"
             };
         },
 
@@ -124,6 +125,9 @@
             },
             getFormattedDate(date){
                 return moment.utc(date).format("DD MMM, YYYY")
+            },
+            navigateToHomePage(){
+                this.$router.push("/")
             }
         },
 

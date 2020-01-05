@@ -2,7 +2,7 @@
     <div>
         <h4>My Subscriptions</h4>
     </div>
-    <div class="my-product-screen" v-for="product in subscriptions">
+    <div v-if="subscriptions.length > 0" class="my-product-screen" v-for="product in subscriptions">
         <div class="row">
             <div class="col-5" style="padding-right: 0px;">
                 <img :src="product.ServiceImage" height="100" width="100%" @click="showMoreInfo(service)">
@@ -19,8 +19,8 @@
                 </div>
                 <div>
                     <label class="my-products">₹
-                    {{product.VehicleTypeId == 2 ? (product.ServiceType == 2 ? product.FourWheelerOncePrice : product.FourWheelerSubPrice) : (product.ServiceType == 2 ? product.Price : product.SubscriptionPrice )}}
-                </label>
+                        {{product.VehicleTypeId == 2 ? (product.ServiceType == 2 ? product.FourWheelerOncePrice : product.FourWheelerSubPrice) : (product.ServiceType == 2 ? product.Price : product.SubscriptionPrice )}}
+                    </label>
                 </div>
                 <div>
                     
@@ -29,8 +29,8 @@
                     </span>
                     <span> <label>{{product.VehicleName}}</label></span>
                 </div>
-                <div class="form-group" v-if="product.ServiceStatusId == 1 || product.ServiceStatusId == 4" @click="addDetailsToPause(product)"
-                    style="cursor: pointer;">
+                <div class="form-group" v-if="product.ServiceStatusId == 1 || product.ServiceStatusId == 4"
+                    @click="addDetailsToPause(product)" style="cursor: pointer;">
                     <span class="pauseSubscribe"><i class="far fa-pause-circle"></i> </span>
                     <span>Pause</span>
                 </div>
@@ -50,6 +50,26 @@
 
             </div>
         </div>
+    </div>
+    <div class="my-product-screen" v-if="subscriptions.length == 0" style="height: 100px;" @click="navigateToHomePage">
+        <div class="row">
+            <div class="col-3" style="text-align: center;">
+                <div>
+                    <div class="add-new-outer">
+                        <img :src="newbtn" style="height: 60px;">
+                    </div>
+                </div>
+            </div>    
+            <div class="col-9">
+                <span>Currently you do not have any subscriptions.</span>
+            </div>        
+        </div>
+        <div class="row" style="text-align: center;">
+            <div class="col-12 bold">
+                <span>+ Add Subscriptions</span>
+            </div>
+        </div>
+        
     </div>
 
     <div class="modal" data-backdrop="static" role="dialog" id="pauseServiceDetailsPopup">
@@ -71,15 +91,16 @@
                                 <label>From</label>
 
                                 <datePickerComponent :keyString="'StartDate'" v-model="serviceObj.StartDate"
-                                    :value="serviceObj.StartDate"
-                                    :format="'Do MMM YYYY'" :onUpdate="updateFilterStartDate" :pickerType="'date'">
+                                    :value="serviceObj.StartDate" :format="'Do MMM YYYY'"
+                                    :onUpdate="updateFilterStartDate" :pickerType="'date'">
                                 </datePickerComponent>
                             </div>
                             <div class="form-group">
                                 <label>Till</label>
                                 <datePickerComponent :keyString="'EndDate'" v-model="serviceObj.EndDate"
-                                    :value="serviceObj.EndDate" :minimumDate="serviceObj.ServicePauseDate" :format="'Do MMM YYYY'" :onUpdate="updateFilterEndDate"
-                                    :pickerType="'date'"></datePickerComponent>
+                                    :value="serviceObj.EndDate" :minimumDate="serviceObj.ServicePauseDate"
+                                    :format="'Do MMM YYYY'" :onUpdate="updateFilterEndDate" :pickerType="'date'">
+                                </datePickerComponent>
                             </div>
                         </div>
                     </div>

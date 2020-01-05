@@ -6,6 +6,16 @@
         </div>
     </div>
     <div class="panel-body addBg">
+        <div class="row">
+            <div class="col-md-4">
+                <select class="form-control" v-model="selectedStatus">
+                    <option v-for="(status, statusId) in statusList" :value="statusId">{{status}}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-success btn-sm" @click="getServices">Search</button>
+            </div>
+        </div>
         <div class="ResGrid">
             <div class="dTable">
                 <table style="width: 100%; overflow:scroll;">
@@ -32,7 +42,7 @@
                             <td>
                                 {{service.IsEnabled ? "Enabled" : "Disabled"}}
                             </td>
-                            <td><input type="number" :disabled="!service.IsEnabled" v-model="service.ServiceOrder" class="form-control" @change="updateServiceFrequent(service)" ></td>
+                            <td><input type="number" :disabled="!service.IsEnabled" v-model="service.ServiceOrder" class="form-control" @change="updateServiceOrder(service)" ></td>
                             <td>
                                 <input type="checkbox" :disabled="!service.IsEnabled" v-model="service.IsFrequent" @click="updateServiceFrequent(service, $event)" />
                             </td>

@@ -155,6 +155,11 @@ export const store = new Vuex.Store({
       7: "6:00 PM - 8:00 PM",
       8: "8:00 PM - 10:00 PM"
     },
+    status:{
+      "-2":	"Deleted",      
+      "0":	"Disabled",
+      "1":	"Enabled"
+    }
   },
   mutations: {
     setIsCurrentUserAdmin(state, isCurrentUserAdmin) {
