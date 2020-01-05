@@ -71,7 +71,8 @@ const getServiceList = require("./services/getServiceList"),
   updateServiceOrder = require("./services/updateServiceOrder"),
   updateVehicleNotificationFlag = require("./vehicles/updateVehicleNotificationFlag"),
   getVehicleHistory = require("./vehicles/getVehicleHistory"),
-  getBuildingsAndServicePersons = require("./admin/getBuildingsAndServicePersons");
+  getBuildingsAndServicePersons = require("./admin/getBuildingsAndServicePersons"),
+  updateSubscription = require("./customer/updateSubscription");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -149,4 +150,5 @@ module.exports = [
   {key: "UpdateVehicleNotificationFlag", callback: updateVehicleNotificationFlag, pushkey: null, isLoggingEnabled: false},
   {key: "GetVehicleHistory", callback: getVehicleHistory, pushkey: null, isLoggingEnabled: false},
   {key: "GetBuildingsAndServicePersons", callback: getBuildingsAndServicePersons, pushkey: null, isLoggingEnabled: false},
+  {key: "UpdateSubscription", callback: updateSubscription, pushkey: null, isLoggingEnabled: false}
 ];

@@ -9,11 +9,6 @@
             </div>
             <div class="col-7">
 
-                <div>
-                    <span style="float: right;" @click="deleteConfirm(product)">
-                        <i class="far fa-trash-alt"></i>
-                    </span>
-                </div>
                 <div class="bold">
                     {{product.ServiceName}}
                 </div>
@@ -26,12 +21,29 @@
                     </label>
                 </div>
                 <div>
-                    
                     <span class="bold">
                         {{product.SubscribeType}}
                     </span>
                     <span> <label>{{product.VehicleName}}</label></span>
                 </div>
+            </div>
+        </div>
+        <div class="row" v-if="product.ServiceStatusId == 2">
+            <div>
+                The subscription is modified from {{getFormattedDate(product.ServicePauseDate)}} to
+                {{getFormattedDate(product.ServiceEndDate)}}. Clicking on Resume will delete this modification.
+                <br>
+                You can pause/update only after resuming the service.
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group" @click="opneModifyPopup(product)" style="cursor: pointer;">
+                    <span class="pauseSubscribe"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </span>
+                    <span>Modify</span>
+                </div>
+            </div>
+            <div class="col-4">
                 <div class="form-group" v-if="product.ServiceStatusId == 1 || product.ServiceStatusId == 4"
                     @click="addDetailsToPause(product)" style="cursor: pointer;">
                     <span class="pauseSubscribe"><i class="far fa-pause-circle"></i> </span>
@@ -39,18 +51,17 @@
                 </div>
                 <div class="form-group" v-if="product.ServiceStatusId == 2" @click="addDetailsToPauseResume(product)"
                     style="cursor: pointer;">
-                    <div>
-                        The subscription is modified from {{getFormattedDate(product.ServicePauseDate)}} to
-                        {{getFormattedDate(product.ServiceEndDate)}}. Clicking on Resume will delete this modification.
-                        <br>
-                        You can pause/update only after resuming the service.
-                    </div>
                     <div style="float: right">
                         <span class="pauseSubscribe"><i class="far fa-play-circle"></i></span>
                         <span>Resume</span>
                     </div>
                 </div>
-
+            </div>
+            <div class="col-4">
+                <span @click="deleteConfirm(product)">
+                    <i class="far fa-trash-alt"></i>
+                    <span>Delete</span>
+                </span>
             </div>
         </div>
     </div>
@@ -62,17 +73,17 @@
                         <img :src="newbtn" style="height: 60px;">
                     </div>
                 </div>
-            </div>    
+            </div>
             <div class="col-9">
                 <span>Currently you do not have any subscriptions.</span>
-            </div>        
+            </div>
         </div>
         <div class="row" style="text-align: center;">
             <div class="col-12 bold">
                 <span>+ Add Subscriptions</span>
             </div>
         </div>
-        
+
     </div>
 
     <div class="modal" data-backdrop="static" role="dialog" id="pauseServiceDetailsPopup">
@@ -94,8 +105,9 @@
                                 <label>From</label>
 
                                 <datePickerComponent :keyString="'StartDate'" v-model="serviceObj.StartDate"
-                                    :value="serviceObj.StartDate" :format="'Do MMM YYYY'" :minimumDate="calendarStartDate"
-                                    :onUpdate="updateFilterStartDate" :pickerType="'date'">
+                                    :value="serviceObj.StartDate" :format="'Do MMM YYYY'"
+                                    :minimumDate="calendarStartDate" :onUpdate="updateFilterStartDate"
+                                    :pickerType="'date'">
                                 </datePickerComponent>
                             </div>
                             <div class="form-group">
@@ -149,6 +161,137 @@
                     <button class="btn btn-primary btn-sm pull-right" title="Cancel" @click="cancel">Cancel</button>
                     <button class="btn btn-primary btn-sm pull-right" title="Save User"
                         @click="deleteCustomerService">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" data-backdrop="static" role="dialog" id="modifyServiceDetailsPopup">
+        <div class="modal-dialog" v-if="serviceObj">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
+                        data-dismiss="modal" @click="closeModifyPopup(0)">
+                        &times;
+                    </button>
+                    <h4>Modify Subscription</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>
+                                    <b>Vehicle Name </b> :
+                                </label>
+                                <label>
+                                    {{serviceObj.VehicleName}}
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="bold" style="font-size: 1rem;">
+                                    Frequency
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <div class="flex-wrapm">
+                                    <div class="tabs-custom" v-for="product in subscriptionTypes"
+                                        v-if="serviceDetail.serviceSubscribeTypes.indexOf(product.SubscribeId) > -1">
+                                        <label class="radioLabel customradioLabel">
+                                            <button v-bind:class="['btn-default serviceName custom-bbtn', serviceObj.Frequency == product.SubscribeId ? 'active': '']"  @click="selectSubscribeType(product)">
+                                                {{product.SubscribeType}}
+                                            </button>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" v-if="errors.has('serviceFrequency')">
+                                <span v-show="errors.has('serviceFrequency')" class="invalid-feedback">
+                                    <i v-show="errors.has('serviceFrequency')" class="fa fa-warning"></i>
+                                    Please select Subscription Frequency
+                                </span>
+                            </div>
+                            <div class="form-group" v-if="serviceObj.Frequency == 2">
+
+                                <div class="bold">Day</div>
+                                <div class="flex-wrapper">
+                                    <div class="radioPadg">
+                                        <label>
+                                            <button
+                                                v-bind:class="['btn-default custom-bbtn', serviceObj.WeeklyDay == 1 ? 'active': '']"
+                                                @click="selectWeeklyday(1)">Sunday</button>
+                                        </label>
+                                    </div>
+                                    <div class="radioPadg">
+                                        <label>
+                                            <button
+                                                v-bind:class="['btn-default custom-bbtn', serviceObj.WeeklyDay == 2 ? 'active': '']"
+                                                @click="selectWeeklyday(2)">Monday</button>
+                                        </label>
+                                    </div>
+
+                                    <div class="radioPadg">
+                                        <label>
+                                            <button
+                                                v-bind:class="['btn-default custom-bbtn', serviceObj.WeeklyDay == 3 ? 'active': '']"
+                                                @click="selectWeeklyday(3)">Tuesday</button>
+                                        </label>
+                                    </div>
+                                    <div class="radioPadg">
+                                        <label>
+                                            <button
+                                                v-bind:class="['btn-default custom-bbtn', serviceObj.WeeklyDay == 4 ? 'active': '']"
+                                                @click="selectWeeklyday(4)">Wednesday</button>
+                                        </label>
+                                    </div>
+
+                                    <div class="radioPadg">
+                                        <label>
+                                            <button
+                                                v-bind:class="['btn-default custom-bbtn', serviceObj.WeeklyDay == 5 ? 'active': '']"
+                                                @click="selectWeeklyday(5)">Thursday</button>
+                                        </label>
+                                    </div>
+                                    <div class="radioPadg">
+                                        <label>
+                                            <button
+                                                v-bind:class="['btn-default custom-bbtn', serviceObj.WeeklyDay == 6 ? 'active': '']"
+                                                @click="selectWeeklyday(6)">Friday</button>
+                                        </label>
+                                    </div>
+                                    <div class="radioPadg">
+                                        <label>
+                                            <button
+                                                v-bind:class="['btn-default custom-bbtn', serviceObj.WeeklyDay == 7 ? 'active': '']"
+                                                @click="selectWeeklyday(7)">Saturday</button>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    Time Slot
+                                </label>
+                                <select v-model="serviceObj.TimeSlot" class="form-control">
+                                    <option value="1">6:00 AM - 8:00 AM</option>
+                                    <option value="2">8:00 AM - 10:00 AM</option>
+                                    <option value="3">10:00 AM - 12:00 PM</option>
+                                    <option value="4">12:00 PM - 2:00 PM</option>
+                                    <option value="5">2:00 PM - 4:00 PM</option>
+                                    <option value="6">4:00 PM - 6:00 PM</option>
+                                    <option value="7">6:00 PM - 8:00 PM</option>
+                                    <option value="8">8:00 PM - 10:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary btn-sm pull-right" title="Cancel"
+                        @click="closeModifyPopup(0)">Cancel</button>
+                    <button class="btn btn-primary btn-sm pull-right" title="Modify Service"
+                        @click="closeModifyPopup(1)">Confirm</button>
                 </div>
             </div>
         </div>

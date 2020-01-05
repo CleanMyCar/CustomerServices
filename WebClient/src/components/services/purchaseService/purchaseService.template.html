@@ -206,7 +206,7 @@
                                     <span class="radioLabel customradioLabel">
                                         <!-- <input type="radio" name="serviceFrequency" :value="product.SubscribeId"
                                             v-model="vehicleInfo.Frequency" v-validate="'required'"> -->
-                                        <button class="btn-default serviceName custom-bbtn" @click="selectSubscribeType">
+                                        <button v-bind:class="['btn-default serviceName custom-bbtn', vehicleInfo.Frequency == product.SubscribeId ? 'active': '']"  @click="selectSubscribeType(product)">
                                             {{product.SubscribeType}}
                                         </button>
                                     </span>
@@ -226,39 +226,39 @@
                             <div class="flex-wrapper">
                             <div class="radioPadg">
                                 <label>
-                                    <button class="btn-default custom-bbtn">Sunday</button>
+                                    <button v-bind:class="['btn-default custom-bbtn', vehicleInfo.WeeklyDay == 1 ? 'active': '']" @click="selectWeeklyday(1)">Sunday</button>
                                 </label>
                             </div>
                             <div class="radioPadg">
                                 <label>
-                                    <button class="btn-default custom-bbtn">Monday</button>
+                                    <button v-bind:class="['btn-default custom-bbtn', vehicleInfo.WeeklyDay == 2 ? 'active': '']" @click="selectWeeklyday(2)">Monday</button>
                                 </label>
                             </div>
                             
                             <div class="radioPadg">
                                 <label>
-                                    <button class="btn-default custom-bbtn">Tuesday</button>Tuesday
+                                    <button v-bind:class="['btn-default custom-bbtn', vehicleInfo.WeeklyDay == 3 ? 'active': '']" @click="selectWeeklyday(3)">Tuesday</button>
                                 </label>
                             </div>                            
                             <div class="radioPadg">
                                 <label>
-                                    <button class="btn-default custom-bbtn">Wednesday</button>Wednesday
+                                    <button v-bind:class="['btn-default custom-bbtn', vehicleInfo.WeeklyDay == 4 ? 'active': '']" @click="selectWeeklyday(4)">Wednesday</button>
                                 </label>
                             </div>
                             
                             <div class="radioPadg">
                                 <label>
-                                    <button class="btn-default custom-bbtn">Thursday</button>Thursday
+                                    <button v-bind:class="['btn-default custom-bbtn', vehicleInfo.WeeklyDay == 5 ? 'active': '']" @click="selectWeeklyday(5)">Thursday</button>
                                 </label>
                             </div>
                             <div class="radioPadg">
                                 <label>
-                                    <button class="btn-default custom-bbtn">Friday</button>Friday
+                                    <button v-bind:class="['btn-default custom-bbtn', vehicleInfo.WeeklyDay == 6 ? 'active': '']" @click="selectWeeklyday(6)">Friday</button>
                                 </label>
                             </div>
                             <div class="radioPadg">
                                 <label>
-                                    <button class="btn-default custom-bbtn">Saturday</button>Saturday
+                                    <button v-bind:class="['btn-default custom-bbtn', vehicleInfo.WeeklyDay == 7 ? 'active': '']" @click="selectWeeklyday(7)">Saturday</button>
                                 </label>
                             </div>
                         </div>
