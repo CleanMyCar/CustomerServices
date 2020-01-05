@@ -121,8 +121,8 @@
         width: 50%;
         height: 50%; */
         display: inline-block;
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
         border-radius: 50%;
 
         background-repeat: no-repeat;

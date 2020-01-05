@@ -73,7 +73,7 @@
     <vehicleAddComponent v-if="openedVehicleAddPopup" :vehicleId="selectedVehicle && selectedVehicle.VehicleId"
         :updateParent="getMyProducts" :closeVehicleAddPopup="closeVehicleAddPopup" isPersonal="1"></vehicleAddComponent>
 
-    <historyPopupComponent v-if="openHistoryPopup && selectedVehicle && selectedVehicle.VehicleId" :vehicleId="selectedVehicle && selectedVehicle.VehicleId" :isOpen="openHistoryPopup" :updateParent="callbackFromHistoryPopup"></historyPopupComponent>
+    <historyPopupComponent class="custom-model-style"  v-if="openHistoryPopup && selectedVehicle && selectedVehicle.VehicleId" :vehicleId="selectedVehicle && selectedVehicle.VehicleId" :isOpen="openHistoryPopup" :updateParent="callbackFromHistoryPopup"></historyPopupComponent>
     <div class="modal" data-backdrop="static" role="dialog" id="deleteVehiclePopup">
         <div class="modal-dialog">
             <div class="modal-content">
