@@ -784,7 +784,7 @@ sortable-chosen.sortable-ghost {
 }
 
 .logoSection {
-    width: 241px;
+    width: 50%;
     height: 55px;
     float: left;
     // background: #75c62e;
@@ -1007,12 +1007,19 @@ h6 {
 }
 .fa-chevron-left{
     color:$headerColor;
+    left:0px !important;
 }
 .fa-chevron-right{
     color:$headerColor;
 }
 .fa-calendar:checked{
     color:$hearerIconColour;
+}
+.dropdown-menu li .fa{
+   
+}
+.bootstrap-datetimepicker-widget table thead tr:first-child th{
+    margin-left: -12px;
 }
 
 .panel-heading h4 {
@@ -7002,6 +7009,7 @@ table.folioTable {
     color: #615f5f;
 }
 
+
 .inputSearch .input-group-btn:first-child {
     padding: 0px 10px;
     background: #fff;
@@ -12788,6 +12796,7 @@ body {
      height: 30px;
      width:130px;
      margin-right: 10px;
+     margin-bottom: 14px;
  }
  .flex-wrapm{
     display: flex;
