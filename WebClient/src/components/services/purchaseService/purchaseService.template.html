@@ -199,19 +199,19 @@
                             <div class="flex-wrapm">
                                 <div class="tabs-custom" v-for="product in subscriptionTypes"
                                     v-if="serviceDetail.serviceSubscribeTypes.indexOf(product.SubscribeId) > -1">
-                                    <span class="radioLabel customradioLabel">
+                                    <label class="radioLabel customradioLabel">
                                         <input type="radio" name="serviceFrequency" :value="product.SubscribeId"
                                             v-model="vehicleInfo.Frequency" v-validate="'required'">
                                         <span class="form-group serviceName">
                                             {{product.SubscribeType}}
                                         </span>
-                                    </span>
+                                    </label>
 
                                 </div>
 
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" v-if="errors.has('serviceFrequency')">
                             <span v-show="errors.has('serviceFrequency')" class="invalid-feedback">
                                 <i v-show="errors.has('serviceFrequency')" class="fa fa-warning"></i>
                                 Please select Subscription Frequency
@@ -221,28 +221,41 @@
                             <div class="bold">Day</div>
                             <div class="flex-wrapper">
                             <div class="radioPadg">
-                                <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Sunday
+                                <label>
+                                    <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Sunday
+                                </label>
                             </div>
+                            <div class="radioPadg">
+                                <label>
+                                    <input type="radio" value="1" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Monday
+                                </label>
+                            </div>
+                            
+                            <div class="radioPadg">
+                                <label>
+                                    <input type="radio" value="2" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Tuesday
+                                </label>
+                            </div>                            
                             <div  class="radioPadg">
-                                <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Monday
+                                <label>
+                                    <input type="radio" value="3" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Wednesday
+                                </label>
                             </div>
                             
                             <div  class="radioPadg">
-                                <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Tuesday
-                            </div>
-                            
-                            <div  class="radioPadg">
-                                <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Wednesday
-                            </div>
-                            
-                            <div  class="radioPadg">
-                                <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Thursday
+                                <label>
+                                    <input type="radio" value="4" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Thursday
+                                </label>
                             </div>
                             <div  class="radioPadg">
-                                <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Friday
+                                <label>
+                                    <input type="radio" value="5" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Friday
+                                </label>
                             </div>
                             <div  class="radioPadg">
-                                <input type="radio" value="0" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">saturday
+                                <label>
+                                    <input type="radio" value="6" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Saturday
+                                </label>
                             </div>
                         </div>
                             

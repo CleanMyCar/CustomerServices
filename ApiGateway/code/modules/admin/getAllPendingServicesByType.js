@@ -9,6 +9,8 @@ module.exports = (config, params, callback) => {
     requestParams.input('ServiceStatusId', mssql.Int, params.serviceStatusId);
     requestParams.input('ServiceDate', mssql.Date, params.ServiceDate);
     requestParams.input('ServiceId', mssql.Int, params.ServiceId);
+    requestParams.input('AddressId', mssql.Int, params.AddressId);
+    requestParams.input('PersonId', mssql.Int, params.PersonId);
 
     requestParams.execute(sp_name, (err, result) => {
         if (err) {

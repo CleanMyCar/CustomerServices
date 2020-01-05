@@ -6,11 +6,17 @@
         name: "adminHomePage",
         props: [],
         data() {
-            let detailTabs = [], tobeAssignedTabs = { text: 'To be Assigned Services', id: 1 },
-                assignedTab = { text: 'Assigned Services', id: 2 };
+            let detailTabs = [], 
+                tobeAssignedTabs = { text: 'To be Assigned Services', id: 1 },
+                assignedTab = { text: 'Assigned Services', id: 4 },
+                compltedTab = { text: 'Completed Services', id: 5 },
+                notcompletedTab = { text: 'Not Completed Services', id: 6 };
 
             detailTabs.push(tobeAssignedTabs);
             detailTabs.push(assignedTab);
+            detailTabs.push(compltedTab);
+            detailTabs.push(notcompletedTab);
+
             return {
                 detailTabs,
                 dashBoardDetails: null,
@@ -24,9 +30,13 @@
                 pendingServiceFilter: {
                     ServiceDate: moment.utc(),
                     ActualServiceDate: moment.utc().format("YYYY-MM-DD"),
-                    ServiceId: null
+                    ServiceId: null,
+                    AddressId: null,
+                    PersonId: null
                 },
-                adminServiceList: []
+                adminServiceList: [],
+                buildingList: [],
+                servicePerons: []
             };
         },
 
@@ -35,12 +45,8 @@
                 let vm  = this;
                 this.selectedTabId = tabId;
                 vm.services.splice(0, vm.services.length);
-                if(tabId == 1){
-                    this.getRequestedServices(1);
-                }
-                else if(tabId == 2){
-                    this.getRequestedServices(3);
-                }
+                vm.pendingServiceFilter.PersonId = null;                
+                vm.getRequestedServices();                
             },
             getAdminDashborad() {
                 let vm = this;
@@ -68,11 +74,12 @@
 
                 let filterItems = {
                     serviceType: vm.$route.params.serviceType,
-                    serviceStatusId: serviceStatusId
-                }
-                
-                filterItems.ServiceDate = vm.pendingServiceFilter.ActualServiceDate                
-                filterItems.ServiceId = vm.pendingServiceFilter.ServiceId
+                    serviceStatusId: vm.selectedTab,
+                    ServiceDate: vm.pendingServiceFilter.ActualServiceDate,
+                    ServiceId: vm.pendingServiceFilter.ServiceId,
+                    AddressId: vm.pendingServiceFilter.AddressId,
+                    PersonId: vm.pendingServiceFilter.PersonId
+                }                
 
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "GetAllPendingServicesByType",
@@ -144,7 +151,24 @@
                         }
                     }
                 });            
-            }
+            },
+            getBuildingsAndServicePersons(){                
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "GetBuildingsAndServicePersons",
+                    params: {                        
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+                        if (response) {
+                            vm.buildingList.splice(0, vm.buildingList.length, ...response.buildings);
+                            vm.servicePerons.splice(0, vm.servicePerons.length, ...response.servicePerons);
+                        }
+                    }
+                });            
+            },
         },
         computed: {
             selectedTab() {
@@ -157,7 +181,8 @@
 
         mounted() {
             let vm = this;
-            vm.getAdminServices();            
+            vm.getAdminServices();
+            vm.getBuildingsAndServicePersons();
             $(this.$el).click(function () {
                 vm.$store.state.bus.$emit("hideAutoSuggest");
             })
