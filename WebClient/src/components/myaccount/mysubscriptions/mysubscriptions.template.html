@@ -17,6 +17,9 @@
                 <div class="bold">
                     {{product.ServiceName}}
                 </div>
+                <div class="">
+                    {{getFormattedDate(product.ServiceDate)}}
+                </div>
                 <div>
                     <label class="my-products">₹
                         {{product.VehicleTypeId == 2 ? (product.ServiceType == 2 ? product.FourWheelerOncePrice : product.FourWheelerSubPrice) : (product.ServiceType == 2 ? product.Price : product.SubscriptionPrice )}}
@@ -90,7 +93,7 @@
                                 <label>From</label>
 
                                 <datePickerComponent :keyString="'StartDate'" v-model="serviceObj.StartDate"
-                                    :value="serviceObj.StartDate" :format="'Do MMM YYYY'"
+                                    :value="serviceObj.StartDate" :format="'Do MMM YYYY'" :minimumDate="calendarStartDate"
                                     :onUpdate="updateFilterStartDate" :pickerType="'date'">
                                 </datePickerComponent>
                             </div>

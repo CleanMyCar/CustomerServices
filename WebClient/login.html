@@ -117,7 +117,7 @@
         
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-success btn-sm pull-right" title="Cancel" data-bind="click: closeValidationPopup">OK</button>
+                        <button class="btn btn-success btn-sm pull-right okbutton" title="Cancel" data-bind="click: closeValidationPopup">OK</button>
                     </div>
                 </div>
             </div>
@@ -268,6 +268,7 @@
                   else{
                     self.errorMessage("Invalid Credentials");
                     $("#validationPopup").modal("show");
+                    $(".okbutton").focus();
                     return;
                     // self.errLoginMsg("Invalid credentials");
                   }
@@ -362,7 +363,7 @@
               else if (response[0] && response[0][0] && response[0][0].ErrorMessage){
                 // self.errLoginMsg(response[0][0].ErrorMessage);
                 self.errorMessage(response[0][0].ErrorMessage);
-                $("#validationPopup").modal("show");
+                $("#validationPopup").modal("show");                
                   return;
               }
               else{

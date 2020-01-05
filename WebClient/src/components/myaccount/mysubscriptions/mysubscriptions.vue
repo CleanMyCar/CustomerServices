@@ -11,7 +11,8 @@
                 serviceObj: null,
                 serviceDeleteReasons: [],
                 selectedReasons: [],
-                newbtn: "../../../src/content/images/subscribe.png"
+                newbtn: "../../../src/content/images/subscribe.png",
+                calendarStartDate: moment.utc().add(1, 'days')
             };
         },
 
@@ -124,7 +125,7 @@
                 this.serviceObj.ServiceEndDate = dateObj ? dateObj.format("DD MMM YYYY") : null
             },
             getFormattedDate(date){
-                return moment.utc(date).format("DD MMM, YYYY")
+                return moment(date).format("DD MMM, YYYY")
             },
             navigateToHomePage(){
                 this.$router.push("/")

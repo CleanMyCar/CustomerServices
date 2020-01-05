@@ -42,7 +42,7 @@
                     clear: 'fa fa-trash',
                     close: 'far fa-times'
                 },
-                // minDate: this.minimumDate && moment(this.minimumDate)._isValid ? this.minimumDate : moment(),
+                minDate: this.minimumDate && moment(this.minimumDate)._isValid ? this.minimumDate : moment(),
                 // maxDate: this.maximumDate,
                 inline: false,
                 ignoreReadonly: true,
@@ -63,11 +63,11 @@
                 if (this.pickerType == 'date') {
                     this.control.date(this.sourceFormat ? moment(this.value, this.sourceFormat).format(this.format) : moment(this.value).format(this.format));
                     if (this.maximumDate){
-                        $(this.$el).data("DateTimePicker").maxDate(moment(this.maximumDate).format("DD MMM YYYY"));
+                        $(this.$el).data("DateTimePicker").maxDate(moment(this.maximumDate).format("Do MMM, YYYY"));
                     }
                     
                     if (this.minimumDate){
-                        $(this.$el).data("DateTimePicker").minDate(moment(this.minimumDate).format("DD MMM YYYY"));
+                        $(this.$el).data("DateTimePicker").minDate(moment(this.minimumDate).format("Do MMM, YYYY"));
                     }
                        
                 }
@@ -155,7 +155,13 @@
             // },
             value(newValue) {
                 //set date if changed
-                this.control.date(newValue ? (this.sourceFormat ? moment(newValue, this.sourceFormat).format(this.format) : moment(newValue).format(this.format)) : null);
+                if(moment() instanceof moment){
+                    this.control.date(newValue);
+                }
+                else{
+                    this.control.date(newValue ? (this.sourceFormat ? moment(newValue, this.sourceFormat).format(this.format) : moment(newValue).format(this.format)) : null);
+                }
+                
                 // if (this.maximumDate)
                 //     $(this.$el).data("DateTimePicker").maxDate(this.maximumDate);
                 // if (this.minimumDate)
@@ -166,11 +172,11 @@
             },
             maximumDate(maxDate) {
                 if (maxDate)
-                    $(this.$el).data("DateTimePicker").maxDate(moment(maxDate).format("DD MMM YYYY"));
+                    $(this.$el).data("DateTimePicker").maxDate(moment(maxDate).format("Do MMM, YYYY"));
             },
             minimumDate(minDate) {
                 if (minDate)
-                    $(this.$el).data("DateTimePicker").minDate(moment(minDate).format("DD MMM YYYY"));
+                    $(this.$el).data("DateTimePicker").minDate(moment(minDate).format("Do MMM, YYYY"));
             }
             // isDisabled: {
             //     handler: function (check) {

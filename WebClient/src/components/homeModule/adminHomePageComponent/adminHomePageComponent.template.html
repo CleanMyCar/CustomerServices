@@ -68,8 +68,7 @@
                                             <th>Vehicle Number</th>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="service in services" style="height: 50px;"
-                                                v-if="service.ServiceType == 2 || (service.ServiceType == 1 && service.ParentId)">
+                                            <tr v-for="service in services" style="height: 50px;">
                                                 <td>
                                                     <assignPersonComponent :service="service"
                                                         :updateServicePerson="updateServicePerson">
