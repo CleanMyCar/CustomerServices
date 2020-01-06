@@ -1,14 +1,17 @@
 module.exports = (config, params, callback) => {
     let otp = config.utils.GenerateOtp();    
+    
+    const requestParams = config.dbwrapper.getNewRequest();
+    requestParams.input('UserId', mssql.Int, params.UserId);
+    requestParams.input('Otp', mssql.Int, otp);
 
-    config.mysqlDb.connection.query("CALL SaveUserOtp(?, ?)", [params.vwUserIdText, otp.toString()], function (err, rows, fields) {
-        if (!err) {
-            //console.log('OTP is saved: ', rows);
-            callback(undefined, rows);
+    requestParams.execute('SaveUserOtp', (err, result) => {
+        if (err) {
+            console.log(err);
+            callback(err);
+            return
         }
-        else {
-            console.log('Error while performing Query.', err);
-            callback(err, undefined);
-        }
-    });
+
+        return callback(null, result.recordsets[0]);
+    })
 }
