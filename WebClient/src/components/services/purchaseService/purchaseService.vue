@@ -21,7 +21,8 @@
                     TimeSlot: "1",
                     AddressId: null,
                     Quantity: 1,
-                    ServiceDate: moment.utc().add(1, 'days')
+                    ServiceDate: moment.utc().add(1, 'days'),
+                    WeeklyDay: null
                 },
                 newVehicleDetails: null,
                 fourWheelerTypes: [],
@@ -286,6 +287,15 @@
             closeToastrPopup() {
                 this.isDialogOpen = !this.isDialogOpen;
             },
+            selectSubscribeType(product){
+                this.vehicleInfo.Frequency = product.SubscribeId;
+                if (product.SubscribeId != 2) {
+                    this.serviceObj.WeeklyDay = null;
+                }
+            },
+            selectWeeklyday(day){
+                this.vehicleInfo.WeeklyDay = day;
+            }
         },
         computed: {
             servicePrice() {

@@ -91,7 +91,7 @@
               data-bind="value: forgotPasswordValue, valueUpdate: 'afterkeydown'" />
               
             <div class="form-group" style="text-align: center;">
-              <input type="button" value="Submit" class="registerButton" data-bind="click: SendOtpToRegisteredUser" />
+              <input type="button" value="Submit" class="loginButton" data-bind="click: SendOtpToRegisteredUser" />
             </div>
 
             <div data-bind="text: errForgotPasswordMsg" class="invalidClient"></div>
@@ -117,7 +117,7 @@
         
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-success btn-sm pull-right" title="Cancel" data-bind="click: closeValidationPopup">OK</button>
+                        <button class="btn btn-success btn-sm pull-right okbutton" title="Cancel" data-bind="click: closeValidationPopup">OK</button>
                     </div>
                 </div>
             </div>
@@ -268,6 +268,7 @@
                   else{
                     self.errorMessage("Invalid Credentials");
                     $("#validationPopup").modal("show");
+                    $(".okbutton").focus();
                     return;
                     // self.errLoginMsg("Invalid credentials");
                   }
@@ -362,7 +363,7 @@
               else if (response[0] && response[0][0] && response[0][0].ErrorMessage){
                 // self.errLoginMsg(response[0][0].ErrorMessage);
                 self.errorMessage(response[0][0].ErrorMessage);
-                $("#validationPopup").modal("show");
+                $("#validationPopup").modal("show");                
                   return;
               }
               else{
@@ -415,7 +416,57 @@
       self.errForgotPasswordMsg = ko.observable()
       self.forgotPasswordValue = ko.observable();
       self.SendOtpToRegisteredUser = function(){
-
+        let loginParams = {
+          requestParams: {
+            'APIReg': "10000",
+            'firstName': self.firstName(),
+            'lastName': self.lastName(),
+            'mobileNumber': self.mobileNumber(),
+            'email': self.email(),
+            'password': self.password(),
+            'referralCode': self.referralCode()
+          },
+          systemParams: {
+            'Source': 'Web',
+            'SourceId': window.location.hostname
+          }
+        };
+        $.ajax({
+          dataType: "json",
+          type: 'POST',
+          //crossDomain: true,
+          contentType: "application/json;charset=utf-8",
+          url: apiUrl + '/api', 		// Location of the service
+          data: JSON.stringify(loginParams),
+          success: function (response) {
+            window.localStorage.removeItem('rttoken');
+            self.showLoading(false);
+            console.log(response);
+            if (response && response.length > 0) {
+              if (response[1] && response[1][0] && response[1][0].UserId) {                
+                  self.showLogin();
+              }
+              else if (response[0] && response[0][0] && response[0][0].ErrorMessage){
+                // self.errLoginMsg(response[0][0].ErrorMessage);
+                self.errorMessage(response[0][0].ErrorMessage);
+                $("#validationPopup").modal("show");                
+                  return;
+              }
+              else{
+                self.errLoginMsg("There is server error, please contact administrator");
+              }
+            }
+            else{
+              self.errLoginMsg("There is server error, please contact administrator");
+            }
+          },
+          error: function (d) {
+            window.localStorage.removeItem('vwtoken');
+            self.showLoading(false);
+            console.log(d.responseJSON);
+            self.errRegisterMsg(d.responseJSON.ErrorMessage.message);
+          },
+        });
       }
 
     }

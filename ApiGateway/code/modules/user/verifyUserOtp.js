@@ -1,15 +1,16 @@
 module.exports = (config, params, callback) => {
 
-    let query = 'SELECT * FROM `UserOtp` WHERE vwUserIdText = "' + params.UserId     + '" and `Otp` = "' + params.Otp + '"';
+    const requestParams = config.dbwrapper.getNewRequest();
+    requestParams.input('Email', mssql.NVarChar, params.Email);
+    requestParams.input('Otp', mssql.INT, params.Otp);
 
-    config.mysqlDb.connection.query(query, [], function (err, rows, fields) {
-        if (!err) {
-            console.log('get OTP : ', rows);
-            callback(undefined, rows);
+    requestParams.execute('ValidateUserOtp', (err, result) => {
+        if (err) {
+            console.log(err);
+            callback(err);
+            return
         }
-        else {
-            console.log('Error while performing Query.', err);
-            callback(err, undefined);
-        }
-    });
+
+        return callback(null, result.recordsets[0]);
+    })
 }

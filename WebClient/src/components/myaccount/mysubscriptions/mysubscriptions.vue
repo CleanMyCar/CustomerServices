@@ -11,7 +11,10 @@
                 serviceObj: null,
                 serviceDeleteReasons: [],
                 selectedReasons: [],
-                newbtn: "../../../src/content/images/subscribe.png"
+                newbtn: "../../../src/content/images/subscribe.png",
+                calendarStartDate: moment.utc().add(1, 'days'),
+                subscriptionTypes: [],
+                serviceDetail: null
             };
         },
 
@@ -39,7 +42,7 @@
 
                 $("#pauseServiceDetailsPopup").modal("show");
             },
-            addDetailsToPauseResume(serviceObj) {                
+            addDetailsToPauseResume(serviceObj) {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "ResumeSubscriptionItem",
@@ -48,7 +51,7 @@
                         if (err) {
                             return;
                         }
-                        vm.getMySubscriptions();               
+                        vm.getMySubscriptions();
                     }
                 });
             },
@@ -68,7 +71,24 @@
                     }
                 });
             },
-            resumeSubscription(serviceObj) {
+            opneModifyPopup(serviceObj) {
+                let vm = this;
+                vm.serviceObj = serviceObj;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "GetServiceDetail",
+                    params: {
+                        serviceId: vm.serviceObj.ServiceId
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+
+                        vm.serviceDetail = response.serviceDetail;
+                        vm.subscriptionTypes = response.subscribeTypes
+                        $("#modifyServiceDetailsPopup").modal("show");
+                    }
+                });
 
             },
             cancel() {
@@ -123,11 +143,39 @@
                 this.serviceObj.EndDate = dateObj ? dateObj.format("Do MMM YYYY") : null;
                 this.serviceObj.ServiceEndDate = dateObj ? dateObj.format("DD MMM YYYY") : null
             },
-            getFormattedDate(date){
-                return moment.utc(date).format("DD MMM, YYYY")
+            getFormattedDate(date) {
+                return moment(date).format("DD MMM, YYYY")
             },
-            navigateToHomePage(){
+            navigateToHomePage() {
                 this.$router.push("/")
+            },
+            closeModifyPopup(flag) {
+                if (flag) {
+                    this.updateSubscription();
+                }
+                $("#modifyServiceDetailsPopup").modal("hide")
+            },
+            updateSubscription() {
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "UpdateSubscription",
+                    params: vm.serviceObj,
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+                        vm.getMySubscriptions();
+                    }
+                });
+            },
+            selectSubscribeType(product) {
+                this.serviceObj.Frequency = product.SubscribeId;
+                if (product.SubscribeId != 2) {
+                    this.serviceObj.WeeklyDay = null;
+                }
+            },
+            selectWeeklyday(day) {
+                this.serviceObj.WeeklyDay = day;
             }
         },
 
