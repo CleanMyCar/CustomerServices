@@ -1,11 +1,11 @@
-<div class="">
+<div class="panel panel-default">
     <div>
-        <h4>My Subscriptions</h4>
+        <h4 class="header-subscribe">My Subscriptions</h4>
     </div>
     <div v-if="subscriptions.length > 0" class="my-product-screen" v-for="product in subscriptions">
         <div class="row">
             <div class="col-5" style="padding-right: 0px;">
-                <img :src="product.ServiceImage" height="100" width="100%" @click="showMoreInfo(service)">
+                <img src="product.ServiceImage" height="100" width="100%" @click="showMoreInfo(service)">
             </div>
             <div class="col-7">
 
@@ -36,15 +36,15 @@
                 You can pause/update only after resuming the service.
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top:8px">
             <div class="col-4">
-                <div class="form-group" @click="opneModifyPopup(product)" style="cursor: pointer;">
+                <div  @click="opneModifyPopup(product)" style="cursor: pointer;">
                     <span class="pauseSubscribe"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </span>
                     <span>Modify</span>
                 </div>
             </div>
             <div class="col-4">
-                <div class="form-group" v-if="product.ServiceStatusId == 1 || product.ServiceStatusId == 4"
+                <div  v-if="product.ServiceStatusId == 1 || product.ServiceStatusId == 4"
                     @click="addDetailsToPause(product)" style="cursor: pointer;">
                     <span class="pauseSubscribe"><i class="far fa-pause-circle"></i> </span>
                     <span>Pause</span>
