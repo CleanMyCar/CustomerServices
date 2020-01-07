@@ -1836,19 +1836,19 @@ label {
     padding:0px;
 }
 .btn,.btn-primary,.btn-sm:focus{
-    color:$headerColor;
+    background:$headerColor;
     color:white;
 }
 .btn,.btn-primary,.btn-sm:hover{
-    color:$headerColor !important;
+    background:$headerColor !important;
     color:white !important;
 }
 .btn,.btn-primary,.btn-sm:active{
-    color:$headerColor !important;
+    background:$headerColor !important;
     color:white !important;
 }
 .btn,.btn-primary,.btn-sm{
-    color:$headerColor !important;
+    background:$headerColor !important;
     color:white !important;
 }
 label{
@@ -2349,7 +2349,7 @@ textarea {
 }
 
 .btn-default.active {
-    background: #2196F3 !important;
+    background: $headerColor !important;
     color: #fff !important;
 }
 
@@ -12339,7 +12339,7 @@ body {
             .btn-default:hover,
             .btn-default:active,
             .btn-default:focus {
-                color: #4d70e0 !important;
+                color:white !important;
             }
             & .dropdown-menu {
                 padding: 15px 0 15px;
