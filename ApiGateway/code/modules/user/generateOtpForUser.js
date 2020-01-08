@@ -30,14 +30,16 @@ module.exports = async (config, params, callback) => {
 
                 request(options)
                     .then(function (parsedBody) {
-                        // POST succeeded...
+                        return callback(null, result.recordsets[0]);
                     })
                     .catch(function (err) {
                         console.log(err)
+                        return callback(err, result.recordsets[0]);
                     });
             }
         }
-
-        return callback(null, result.recordsets[0]);
+        else{
+            callback("no user found")
+        }        
     })
 }

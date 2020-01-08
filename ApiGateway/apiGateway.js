@@ -572,20 +572,29 @@ require('./code/core/core')(configParams)
                                 res.end(JSON.stringify(apiRequestParams));
                                 return;
                             }
-                            sendSms(config,
-                                {
-                                    MobileNumber: userOtpObj[0]["MobileNumber"],
-                                    Message: "Please use this OTP " + userOtpObj[0]["UserOtp"] + " to change password"
-                                },
-                                function (err, response) {
-                                    let clientResponseObj = {
-                                        UserId: responseObj[0]["UserId"],
-                                        ErrorMessage: response.type === "success" ? "" : "OTP not sent",
-                                        SuccessMessage: response.type === "success" ? "OTP sent to registered mobile number" : ""
-                                    };
 
-                                    res.end(JSON.stringify(clientResponseObj));
-                                });
+                            let clientResponseObj = {
+                                UserId: responseObj[0]["UserId"],
+                                ErrorMessage: "OTP not sent",
+                                SuccessMessage: "OTP sent to registered mobile number"
+                            };
+
+                            res.end(JSON.stringify(clientResponseObj));
+
+                            // sendSms(config,
+                            //     {
+                            //         MobileNumber: userOtpObj[0]["MobileNumber"],
+                            //         Message: "Please use this OTP " + userOtpObj[0]["UserOtp"] + " to change password"
+                            //     },
+                            //     function (err, response) {
+                            //         let clientResponseObj = {
+                            //             UserId: responseObj[0]["UserId"],
+                            //             ErrorMessage: response.type === "success" ? "" : "OTP not sent",
+                            //             SuccessMessage: response.type === "success" ? "OTP sent to registered mobile number" : ""
+                            //         };
+
+                            //         res.end(JSON.stringify(clientResponseObj));
+                            //     });
                         });
 
                     } else {
