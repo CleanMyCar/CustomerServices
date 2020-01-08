@@ -558,9 +558,8 @@ require('./code/core/core')(configParams)
                         res.end(JSON.stringify(error));
                         return;
                     }
-
-                    if (responseObj && responseObj.length === 0) {
-                        apiRequestParams.ErrorMessage = "Please provide valid Email/Mobile Number";
+                    if (responseObj && responseObj.length === 0 || (responseObj[0] && responseObj[0].ErrorMessage)) {
+                        apiRequestParams.ErrorMessage = "Please provide registered Email/Mobile Number";
                         res.end(JSON.stringify(apiRequestParams));
                     }
 
@@ -580,9 +579,9 @@ require('./code/core/core')(configParams)
                                 },
                                 function (err, response) {
                                     let clientResponseObj = {
-                                        userId: responseObj[0]["UserId"],
+                                        UserId: responseObj[0]["UserId"],
                                         ErrorMessage: response.type === "success" ? "" : "OTP not sent",
-                                        successMessage: response.type === "success" ? "OTP sent to registered mobile number" : ""
+                                        SuccessMessage: response.type === "success" ? "OTP sent to registered mobile number" : ""
                                     };
 
                                     res.end(JSON.stringify(clientResponseObj));
@@ -599,7 +598,7 @@ require('./code/core/core')(configParams)
             } else if (apiRequestParams.APIReg === "10006" || apiRequestParams.APIReg === 10006) { //Validate OTP which is entered by user        
 
                 verifyUserOtp(config, apiRequestParams, function (error, response) {
-                    if (response.length > 0 && response[0].userId) {
+                    if (response.length > 0 && response[0].UserId) {
                         apiRequestParams.successMessage = "OTP verified successfully, please change password";
                         apiRequestParams.ErrorMessage = "";
                     } else {
@@ -612,7 +611,7 @@ require('./code/core/core')(configParams)
 
             } else if (apiRequestParams.APIReg === "10007" || apiRequestParams.APIReg === 10007) { // Change user password
                 updateUserPassword(config, apiRequestParams, function (error, responseObj) {
-                    if (err) {
+                    if (error) {
                         apiRequestParams.ErrorMessage = "There is an error while updating password";
                         return res.end(JSON.stringify(apiRequestParams));
                     }

@@ -2,550 +2,773 @@
 <html>
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Services</title>
-  <link rel="stylesheet" href="src/assets/css/bootstrap.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-  <link rel="stylesheet" href="dist/css/intlTelInput.css">
-  <link rel="stylesheet" href="src/assets/css/login.css">
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Services</title>
+	<link rel="stylesheet" href="src/assets/css/bootstrap.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+	<link rel="stylesheet" href="dist/css/intlTelInput.css">
+	<link rel="stylesheet" href="src/assets/css/login.css">
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 
-  <script src="src/assets/scripts/jquery-2.1.4.min.js"></script>
-  <script src="src/assets/scripts/knockout-3.4.0.js"></script>
-  <script src="src/assets/scripts/knockout.validations.js"></script>
-  <script src="src/assets/scripts/bootstrap.min.js"></script>
-  <script src="dist/js/intlTelInput.js"></script>
+	<script src="src/assets/scripts/jquery-2.1.4.min.js"></script>
+	<script src="src/assets/scripts/knockout-3.4.0.js"></script>
+	<script src="src/assets/scripts/knockout.validations.js"></script>
+	<script src="src/assets/scripts/bootstrap.min.js"></script>
+	<script src="dist/js/intlTelInput.js"></script>
 </head>
 
 <body>
-  <div class="authfyLogin">
-    <div class="loginBoxDiv">
-      <div class="innerForm">
-        <div class="brandLogo">
-          <div>
-          <img src="dist/img/Logo_Service.jpg" height="100" >
-        </div>
-        <div>
-          <h2 class="header">My Project</h2>
-        </div>
-        </div>
-        <!-- <hr style="border: 1px solid"> -->
-        <form class="form-styles">
+	<div class="authfyLogin">
+		<div class="loginBoxDiv">
+			<div class="innerForm">
+				<div class="brandLogo">
+					<div>
+						<img src="dist/img/Logo_Service.jpg" height="100">
+					</div>
+					<div>
+						<h2 class="header">My Project</h2>
+					</div>
+				</div>
+				<!-- <hr style="border: 1px solid"> -->
+				<form class="form-styles">
 
-          <div class="row login-style">
-            <div class="col-md-6 loginButtonsDynamic" class="" style="text-align: center;">
-              <input type="button" value="Login" class="loginButton" data-bind="click: showLogin" />
-            </div>
-            <div class="col-md-6 loginButtonsDynamic" style="text-align: center;">
-              <input type="button" value="Register" class="loginButton" data-bind="click: showRegister" />
-            </div>
-          </div>
+					<div class="row login-style">
+						<div class="col-md-6 loginButtonsDynamic" class="" style="text-align: center;">
+							<input type="button" value="Login" class="loginButton" data-bind="click: showLogin" />
+						</div>
+						<div class="col-md-6 loginButtonsDynamic" style="text-align: center;">
+							<input type="button" value="Register" class="loginButton" data-bind="click: showRegister" />
+						</div>
+					</div>
 
-          <div class="loginScreen" style="display: none">
-            <div class="form-group">
-              <input type="text" placeholder="Phone Number/Email"
-                data-bind="value: loginUsername, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password"
-                data-bind="value: loginPassword, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
-            </div>
-            <div class="form-group" style="text-align: center;">
-              <input type="button" value="Login" class="loginButton" data-bind="click: Login" />
-            </div>
-            <div class="form-group" style="text-align: center;">
-              <input type="button" value="To Register Screen" class="loginButton" data-bind="click: showRegister" />
-            </div>
-            <div data-bind="text: errLoginMsg" class="invalidClient"></div>
-            <div class="form-group">
-                <a style="cursor: pointer;" href="javascript: void(0)" data-bind="click: showForgotPasswordSection">Forgot Password ?</a>
-            </div>
-          </div>
-          <div class="registerScreen" style="display: none">
-            <input type="text" placeholder="First Name"
-              data-bind="value: firstName, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
-            <input type="text" placeholder="Last Name"
-              data-bind="value: lastName, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
-            <!-- <input type="text" placeholder="Phone Number" data-bind="value: mobileNumber, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }"
+					<div class="loginScreen" style="display: none">
+						<div class="form-group">
+							<input type="text" placeholder="Phone Number/Email"
+								data-bind="value: loginUsername, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
+						</div>
+						<div class="form-group">
+							<input type="password" placeholder="Password"
+								data-bind="value: loginPassword, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
+						</div>
+						<div class="form-group" style="text-align: center;">
+							<input type="button" value="Login" class="loginButton" data-bind="click: Login" />
+						</div>
+						<div class="form-group" style="text-align: center;">
+							<input type="button" value="To Register Screen" class="loginButton"
+								data-bind="click: showRegister" />
+						</div>
+						<div data-bind="text: errLoginMsg" class="invalidClient"></div>
+						<div class="form-group">
+							<a style="cursor: pointer;" href="javascript: void(0)"
+								data-bind="click: showForgotPasswordSection">Forgot
+								Password ?</a>
+						</div>
+					</div>
+					<div class="registerScreen" style="display: none">
+						<input type="text" placeholder="First Name"
+							data-bind="value: firstName, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
+						<input type="text" placeholder="Last Name"
+							data-bind="value: lastName, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
+						<!-- <input type="text" placeholder="Phone Number" data-bind="value: mobileNumber, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }"
           /> -->
-            <input id="phone" name="phone" type="tel" style="text-align: right;"
-              data-bind="value: mobileNumber, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
-            <input type="text" placeholder="Email"
-              data-bind="value: email, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
-            <input type="password" minlength="8" placeholder="Password (Min 8 Characters)"
-              data-bind="value: password, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
-            <input type="text" placeholder="Referral Code (Optional)"
-              data-bind="value: referralCode, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
-              
-            <div class="form-group" style="text-align: center;">
-              <input type="button" value="Register" class="loginButton" data-bind="click: Register" />
-            </div>
-            <div class="form-group" style="text-align: center;">
-              <input type="button" value="To Login Screen" class="loginButton" data-bind="click: showLogin" />
-            </div>
-            <div data-bind="text: errRegisterMsg" class="invalidClient"></div>
-          </div>
+						<input id="phone" name="phone" type="tel" style="text-align: right;"
+							data-bind="value: mobileNumber, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
+						<input type="text" placeholder="Email"
+							data-bind="value: email, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
+						<input type="password" minlength="8" placeholder="Password (Min 8 Characters)"
+							data-bind="value: password, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
+						<input type="text" placeholder="Referral Code (Optional)"
+							data-bind="value: referralCode, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
 
-          <div class="forgotPasswordScreen" style="display: none">
-            <input type="text" placeholder="Email/Mobile Number"
-              data-bind="value: forgotPasswordValue, valueUpdate: 'afterkeydown'" />
-              
-            <div class="form-group" style="text-align: center;">
-              <input type="button" value="Submit" class="loginButton" data-bind="click: SendOtpToRegisteredUser" />
-            </div>
+						<div class="form-group" style="text-align: center;">
+							<input type="button" value="Register" class="loginButton" data-bind="click: Register" />
+						</div>
+						<div class="form-group" style="text-align: center;">
+							<input type="button" value="To Login Screen" class="loginButton"
+								data-bind="click: showLogin" />
+						</div>
+						<div data-bind="text: errRegisterMsg" class="invalidClient"></div>
+					</div>
 
-            <div data-bind="text: errForgotPasswordMsg" class="invalidClient"></div>
-          </div>
+					<div class="forgotPasswordScreen" style="display: none">
+						<input type="text" placeholder="Email/Mobile Number"
+							data-bind="value: forgotPasswordValue, valueUpdate: 'afterkeydown'" />
 
-          <div class="modal custom-model-style" data-backdrop="static" role="dialog" id="validationPopup">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <!-- <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
+						<div class="form-group" style="text-align: center;">
+							<input type="button" value="Submit" class="loginButton"
+								data-bind="click: SendOtpToRegisteredUser" />
+						</div>
+
+						<div data-bind="text: errForgotPasswordMsg" class="invalidClient"></div>
+					</div>
+					<div class="forgotPasswordOtpScreen" style="display: none">
+						<input type="password" placeholder="OTP" data-bind="value: otp, valueUpdate: 'afterkeydown'" />
+
+						<div class="form-group" style="text-align: center;">
+							<input type="button" value="Verify OTP" class="loginButton" data-bind="click: ValidateOtp" />
+						</div>
+
+						<div data-bind="text: errForgotPasswordMsg" class="invalidClient"></div>
+
+						<div class="col-md-12" data-bind="if: otpSent">
+							<div class="form-group" style="text-align: right">
+								<span id="forgotpasswordTimer"></span>
+							</div>
+						</div>
+						<div class="col-md-12" data-bind="if: otpTimeExpired">
+							<div class="form-group">
+								<span>OTP not yet received ? 
+									<a href="" data-bind="click: SendOtpToRegisteredUser">Resend OTP</a>
+								</span>                                    
+							</div>
+						</div>
+					</div>
+					<div class="updatePasswordScreen" style="display: none">
+						<div class="col-md-12">
+							<label>Password</label>
+							<div class="form-group">
+								<input type="password" data-bind='value: newPassword' class="form-control"
+									placeholder="Password">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<label>Password</label>
+							<div class="form-group">
+								<input type="password" data-bind='value: confirmPassword' class="form-control "
+									placeholder="Confirm Password">
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<input type="button" data-bind='click: UpdatePassword'
+									class="btn btn-primary btn-block nextButton" value="Update Password">
+							</div>
+						</div>
+						<div data-bind="text: errForgotPasswordMsg" class="invalidClient"></div>
+						<div class="col-md-12">
+							<div class="form-group backToLogin">
+								<a href="" data-bind="click: showLogin"> <svg style="    margin: 6px 0 -6px;"
+										fill="currentColor" height="24" icon="" viewBox="0 0 24 24" width="24"
+										xmlns="http://www.w3.org/2000/svg" class="_ngcontent-lac-0">
+										<path d="M10 12l6-6-1-1-6.5 6.5-.5.5 7 7 1-1-6-6z" fill-rule="evenodd"
+											class="_ngcontent-lac-0"></path>
+									</svg> Back to login</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="modal custom-model-style" data-backdrop="static" role="dialog" id="validationPopup">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<!-- <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
                             data-dismiss="modal">
                             &times;
                         </button> -->
-                        <h4>Validation </h4>
-                    </div>
-        
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">                              
-                                <label data-bind="text: errorMessage"></label>
-                            </div>
-                        </div>
-        
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success btn-sm pull-right okbutton" title="Cancel" data-bind="click: closeValidationPopup">OK</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+									<h4 data-bind="text: validationHeader"></h4>
+								</div>
 
-        </form>
+								<div class="modal-body">
+									<div class="row">
+										<div class="col-md-12">
+											<label data-bind="text: errorMessage"></label>
+										</div>
+									</div>
 
-        <div class="adsBanner">
-          <div class="slideshow-container">
+								</div>
+								<div class="modal-footer">
+									<button class="btn btn-success btn-sm pull-right okbutton" title="Cancel"
+										data-bind="click: closeValidationPopup">OK</button>
+								</div>
+							</div>
+						</div>
+					</div>
 
-            <!-- Full-width images with number and caption text -->
-            <div class="mySlides fade">
-              <div class="numbertext">1 / 3</div>
-              <img src="dist/img/img1.jpeg" style="width:100%">
-              <div class="text">Caption Text</div>
-            </div>
+				</form>
 
-            <div class="mySlides fade">
-              <div class="numbertext">2 / 3</div>
-              <img src="dist/img/img2.jpeg" style="width:100%">
-              <div class="text">Caption Two</div>
-            </div>
+				<div class="adsBanner">
+					<div class="slideshow-container">
 
-            <div class="mySlides fade">
-              <div class="numbertext">3 / 3</div>
-              <img src="dist/img/img3.jpeg" style="width:100%">
-              <div class="text">Caption Three</div>
-            </div>
+						<!-- Full-width images with number and caption text -->
+						<div class="mySlides fade">
+							<div class="numbertext">1 / 3</div>
+							<img src="dist/img/img1.jpeg" style="width:100%">
+							<div class="text">Caption Text</div>
+						</div>
 
-            <!-- Next and previous buttons -->
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-          </div>
+						<div class="mySlides fade">
+							<div class="numbertext">2 / 3</div>
+							<img src="dist/img/img2.jpeg" style="width:100%">
+							<div class="text">Caption Two</div>
+						</div>
 
-          <!-- The dots/circles -->
-          <div class="banner-dots">
-            <span class="dot" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2)"></span>
-            <span class="dot" onclick="currentSlide(3)"></span>
-          </div>
-        </div>
-      </div>
-    </div>
+						<div class="mySlides fade">
+							<div class="numbertext">3 / 3</div>
+							<img src="dist/img/img3.jpeg" style="width:100%">
+							<div class="text">Caption Three</div>
+						</div>
 
-  </div>
+						<!-- Next and previous buttons -->
+						<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+						<a class="next" onclick="plusSlides(1)">&#10095;</a>
+					</div>
 
-  <script type="text/javascript">
+					<!-- The dots/circles -->
+					<div class="banner-dots">
+						<span class="dot" onclick="currentSlide(1)"></span>
+						<span class="dot" onclick="currentSlide(2)"></span>
+						<span class="dot" onclick="currentSlide(3)"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript">
 
 
-    function GetQueryStringParams(sParam) {
-      let sPageURL = window.location.search.substring(1);
-      let sURLVariables = sPageURL.split('&');
-      for (let i = 0; i < sURLVariables.length; i++) {
-        let sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0].toLowerCase() === sParam.toLowerCase()) {
-          return sParameterName[1];
-        }
-      }
-    }
+		function GetQueryStringParams(sParam) {
+			let sPageURL = window.location.search.substring(1);
+			let sURLVariables = sPageURL.split('&');
+			for (let i = 0; i < sURLVariables.length; i++) {
+				let sParameterName = sURLVariables[i].split('=');
+				if (sParameterName[0].toLowerCase() === sParam.toLowerCase()) {
+					return sParameterName[1];
+				}
+			}
+		}
 
-    let apiUrl = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':1339' : '')
-    // let apiUrl = "http://104.211.158.101"
+		let apiUrl = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':1339' : '')
+		// let apiUrl = "http://104.211.158.101"
 
-    let viewModel = function () {
-      let self = this;
+		let viewModel = function () {
+			let self = this;
 
-      let APIRootUrl = '/';
-      self.showLoading = ko.observable(false);
+			let APIRootUrl = '/';
+			self.showLoading = ko.observable(false);
 
-      self.errLoginMsg = ko.observable('');
-      self.errRegisterMsg = ko.observable('');
+			self.errLoginMsg = ko.observable('');
+			self.errRegisterMsg = ko.observable('');
+			self.validationHeader = ko.observable("Validation")
 
-      self.showMessage = function (errMsg, success) {
-        if (errMsg) {
-          self.activateMsg(errMsg);
-          self.activateMsgCss('alert alert-danger');
-        }
-        else {
-          self.activateMsg(success);
-          self.activateMsgCss('alert alert-success');
-        }
-      };
-      // appUrl
-      //login fields start
-      self.loginUsername = ko.observable('');
-      self.loginPassword = ko.observable('')
-      self.errorMessage = ko.observable('');
-      self.loginUsername.extend({
-        required: { message: 'Phone Number/Email is required', params: true }
-      });
-      self.loginPassword.extend({
-        required: { message: 'Password is required', params: true }
-      });
+			self.showMessage = function (errMsg, success) {
+				if (errMsg) {
+					self.activateMsg(errMsg);
+					self.activateMsgCss('alert alert-danger');
+				}
+				else {
+					self.activateMsg(success);
+					self.activateMsgCss('alert alert-success');
+				}
+			};
+			// appUrl
+			//login fields start
+			self.loginUsername = ko.observable('');
+			self.loginPassword = ko.observable('')
+			self.errorMessage = ko.observable('');
+			self.loginUsername.extend({
+				required: { message: 'Phone Number/Email is required', params: true }
+			});
+			self.loginPassword.extend({
+				required: { message: 'Password is required', params: true }
+			});
 
-      self.loginerrors = ko.validation.group([self.loginUsername, self.loginPassword]);
-      self.LoginOnEnter = function (data, event) {
-        var keyCode = (event.which ? event.which : event.keyCode);
-        if (keyCode === 13) {
-          self.Login();
-          return false;
-        }
-        return true;
-      }
-      self.Login = function () {
+			self.loginerrors = ko.validation.group([self.loginUsername, self.loginPassword]);
+			self.LoginOnEnter = function (data, event) {
+				var keyCode = (event.which ? event.which : event.keyCode);
+				if (keyCode === 13) {
+					self.Login();
+					return false;
+				}
+				return true;
+			}
+			self.Login = function () {
 
-        if (self.loginerrors().length) {
-          self.loginerrors.showAllMessages();
-          return;
-        }
-        // appUrl
-        self.errLoginMsg('');
-        self.showLoading(true);
+				if (self.loginerrors().length) {
+					self.loginerrors.showAllMessages();
+					return;
+				}
+				// appUrl
+				self.errLoginMsg('');
+				self.showLoading(true);
 
-        //ajax call
-        let loginParams = {
-          requestParams: {
-            'APIReg': "10001",
-            'email': self.loginUsername(),
-            'password': self.loginPassword(),
-          },
-          systemParams: {
-            'Source': 'Web',
-            'SourceId': window.location.hostname
-          }
-        };
-        $.ajax({
-          dataType: "json",
-          type: 'POST',
-          //crossDomain: true,
-          contentType: "application/json;charset=utf-8",
-          url: apiUrl + '/api', 		// Location of the service
-          data: JSON.stringify(loginParams),
-          success: function (response) {
-            window.localStorage.removeItem('rttoken');
-            window.localStorage.removeItem('CName');
-            self.showLoading(false);
-            console.log(response);
-            if (response) {
-              if (!response.response.error) {
-                if (response.response.length > 0 && response.response[0] && response.response[0].hasOwnProperty("UserId")) {
-                  window.localStorage.setItem('rttoken', response.response[0]["token"]);
-                  window.location.href = "/index.html";
+				//ajax call
+				let loginParams = {
+					requestParams: {
+						'APIReg': "10001",
+						'email': self.loginUsername(),
+						'password': self.loginPassword(),
+					},
+					systemParams: {
+						'Source': 'Web',
+						'SourceId': window.location.hostname
+					}
+				};
+				$.ajax({
+					dataType: "json",
+					type: 'POST',
+					//crossDomain: true,
+					contentType: "application/json;charset=utf-8",
+					url: apiUrl + '/api', 		// Location of the service
+					data: JSON.stringify(loginParams),
+					success: function (response) {
+						window.localStorage.removeItem('rttoken');
+						window.localStorage.removeItem('CName');
+						self.showLoading(false);
+						console.log(response);
+						if (response) {
+							if (!response.response.error) {
+								if (response.response.length > 0 && response.response[0] && response.response[0].hasOwnProperty("UserId")) {
+									window.localStorage.setItem('rttoken', response.response[0]["token"]);
+									window.location.href = "/index.html";
+								}
+								else {
+									if (response.response.errno) {
+										self.errLoginMsg("Server Error: " + response.response.errno);
+									}
+									else {
+										self.validationHeader("Login Failed !!")	
+										self.errorMessage("Invalid Credentials");
+										$("#validationPopup").modal("show");
+										$(".okbutton").focus();
+										return;
+										// self.errLoginMsg("Invalid credentials");
+									}
+
+								}
+							}
+							else {
+								self.errLoginMsg(response.response.ErrorMessage);
+							}
+						}
+					},
+					error: function (d) {
+						window.localStorage.removeItem('vwtoken');
+						self.showLoading(false);
+						console.log(d.responseJSON);
+						self.errRegisterMsg(d.responseJSON.ErrorMessage.message);
+					},
+				});
+			};
+
+
+			self.firstName = ko.observable('');
+			self.lastName = ko.observable('')
+			self.mobileNumber = ko.observable('');
+			self.email = ko.observable('')
+			self.password = ko.observable('');
+			self.referralCode = ko.observable('')
+
+			self.firstName.extend({
+				required: { message: 'First Name is required', params: true }
+			});
+			self.lastName.extend({
+				required: { message: 'Last Name is required', params: true }
+			});
+			self.mobileNumber.extend({
+				required: { message: 'Phone Number is required', params: true },
+				pattern: {
+					message: 'Invalid phone number.',
+					params: /^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$/
+				}
+			});
+			self.email.extend({
+				required: { message: 'Email is required', params: true },
+				email: { message: 'Please enter valid Email', params: true },
+			});
+			self.password.extend({
+				required: { message: 'Password is required', params: true },
+				minLength: { params: 8, message: "Password should be minimun 8 characters" }
+			});
+
+			self.registerErrors = ko.validation.group([self.firstName, self.lastName, self.mobileNumber, self.email, self.password]);
+
+			self.Register = function () {
+				if (self.registerErrors().length) {
+					self.registerErrors.showAllMessages();
+					return;
+				}
+				// appUrl
+				self.errRegisterMsg('');
+				self.showLoading(true);
+
+				let loginParams = {
+					requestParams: {
+						'APIReg': "10000",
+						'firstName': self.firstName(),
+						'lastName': self.lastName(),
+						'mobileNumber': self.mobileNumber(),
+						'email': self.email(),
+						'password': self.password(),
+						'referralCode': self.referralCode()
+					},
+					systemParams: {
+						'Source': 'Web',
+						'SourceId': window.location.hostname
+					}
+				};
+				$.ajax({
+					dataType: "json",
+					type: 'POST',
+					//crossDomain: true,
+					contentType: "application/json;charset=utf-8",
+					url: apiUrl + '/api', 		// Location of the service
+					data: JSON.stringify(loginParams),
+					success: function (response) {
+						window.localStorage.removeItem('rttoken');
+						self.showLoading(false);
+						console.log(response);
+						if (response && response.length > 0) {
+							if (response[1] && response[1][0] && response[1][0].UserId) {
+								self.showLogin();
+							}
+							else if (response[0] && response[0][0] && response[0][0].ErrorMessage) {
+								self.validationHeader("Registration failed !!")	
+								self.errorMessage(response[0][0].ErrorMessage);
+								$("#validationPopup").modal("show");
+								return;
+							}
+							else {
+								self.errLoginMsg("There is server error, please contact administrator");
+							}
+						}
+						else {
+							self.errLoginMsg("There is server error, please contact administrator");
+						}
+					},
+					error: function (d) {
+						window.localStorage.removeItem('vwtoken');
+						self.showLoading(false);
+						console.log(d.responseJSON);
+						self.errRegisterMsg(d.responseJSON.ErrorMessage.message);
+					},
+				});
+			};
+
+			self.IsValidCss = function (field) {
+				if (!field.isValid() && field.isModified())
+					return 'has-error';
+				return '';
+			};
+
+			self.showLogin = function () {
+				// $(".loginButtonsDynamic input").css({"width": "50%"})
+				$(".loginButtonsDynamic>.loginButton").css({ "width": "45%", "float": "left" })
+				$(".loginButtonsDynamic>.registerButton").css({ "width": "45%", "float": "right" })
+				$(".loginScreen").show();
+				$(".registerScreen, .forgotPasswordScreen").hide();
+				$(".login-style").hide();
+			}
+			self.showRegister = function () {
+				$(".loginButtonsDynamic>.loginButton").css({ "width": "45%", "float": "left" })
+				$(".loginButtonsDynamic>.registerButton").css({ "width": "45%", "float": "right" })
+				$(".registerScreen").show();
+				$(".loginScreen, .forgotPasswordScreen").hide();
+			}
+
+			self.showForgotPasswordSection = function () {
+				$(".forgotPasswordScreen").show();
+				$(".loginScreen, .registerScreen, .login-style").hide();
+			}
+
+			self.closeValidationPopup = function () {
+				$("#validationPopup").modal("hide")
+			}
+
+			self.errForgotPasswordMsg = ko.observable()
+			self.forgotPasswordValue = ko.observable();
+			self.otp = ko.observable();
+			self.newPassword = ko.observable();
+			self.confirmPassword = ko.observable();
+
+			self.newPassword.extend(
+                {
+                    required: { message: 'Password is required', params: true },
+                    pattern: {
+                        message: 'Password should contain at least one uppercase letter, one number and one special character',
+                        params: /^(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&_^~,.;:"'])[A-Za-z\d$@$!%*#?&_^~,.;:"']{7,}$/
+                    }
                 }
-                else {
-                  if (response.response.errno) {
-                    self.errLoginMsg("Server Error: " + response.response.errno);
-                  }
-                  else{
-                    self.errorMessage("Invalid Credentials");
-                    $("#validationPopup").modal("show");
-                    $(".okbutton").focus();
-                    return;
-                    // self.errLoginMsg("Invalid credentials");
-                  }
-                    
+            );
+            self.confirmPassword.extend({
+                required: { message: 'Confirm Password is required', params: true },
+                equal: { message: 'Confirm Password should match', params: self.newPassword }
+            });
+
+
+			self.UserId = ko.observable();
+
+			self.otpSent = ko.observable(false);
+            self.otpTimeExpired = ko.observable(false);
+            self.showOtpTimer = function(){
+                self.otpSent(true)
+                self.otpTimeExpired(false);
+                var seconds = new Date().getSeconds();
+                var countDownDate = new Date().setSeconds(seconds + 15);
+                countDownDate = new Date(countDownDate).getTime()
+                // Update the count down every 1 second
+                var x = setInterval(function() {
+                    // Get today's date and time
+                    var now = new Date().getTime();
+                        
+                    // Find the distance between now and the count down date
+                    var distance = countDownDate - now;
+                        
+                    // Time calculations for days, hours, minutes and seconds
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                        
+                    // Output the result in an element with id="demo"
+                    document.getElementById("forgotpasswordTimer").innerHTML = "00:" + (seconds < 10 ? "0" + seconds : seconds) + " s";
+                        
+                    // If the count down is over, write some text 
+                    if (distance < 0) {
+                        clearInterval(x);
+                        // document.getElementById("demo").innerHTML = "EXPIRED";
+                        self.otpTimeExpired(true);
+                        self.otpSent(false)
+                    }
+                }, 1000);
+            }; 
+
+			self.sendOtpErrors = ko.validation.group([self.forgotPasswordValue]);
+			self.SendOtpToRegisteredUser = function () {
+				if (self.sendOtpErrors().length) {
+					self.sendOtpErrors.showAllMessages();
+					return;
+				}
+				self.errRegisterMsg('');
+
+				let loginParams = {
+					requestParams: {
+						'APIReg': "10005",
+						'email': self.forgotPasswordValue()
+					},
+					systemParams: {
+						'Source': 'Web',
+						'SourceId': window.location.hostname
+					}
+				};
+				$.ajax({
+					dataType: "json",
+					type: 'POST',
+					//crossDomain: true,
+					contentType: "application/json;charset=utf-8",
+					url: apiUrl + '/api', 		// Location of the service
+					data: JSON.stringify(loginParams),
+					success: function (response) {
+
+						if (response && response.ErrorMessage) {
+							self.validationHeader("OTP not sent ")	
+							self.errorMessage(response.ErrorMessage);
+							$("#validationPopup").modal("show");
+							return;
+						}
+						else if (response && response.UserId) {
+							self.UserId(response.UserId)
+							$(".forgotPasswordOtpScreen").show();
+							$(".forgotPasswordScreen").hide();
+							self.showOtpTimer();
+						}
+						else {
+							self.errLoginMsg("There is server error, please contact administrator");
+						}
+					},
+					error: function (d) {
+						window.localStorage.removeItem('vwtoken');
+						self.showLoading(false);
+						console.log(d.responseJSON);
+						self.errRegisterMsg(d.responseJSON.ErrorMessage.message);
+					},
+				});
+			}
+
+			self.validateOtpErrors = ko.validation.group([self.otp]);
+			self.ValidateOtp = function () {
+				if (self.validateOtpErrors().length) {
+					self.validateOtpErrors.showAllMessages();
+					return;
+				}
+				self.errRegisterMsg('');
+
+				let loginParams = {
+					requestParams: {
+						'APIReg': "10006",
+						'UserId': self.UserId(),
+						'Otp': self.otp()
+					},
+					systemParams: {
+						'Source': 'Web',
+						'SourceId': window.location.hostname
+					}
+				};
+				$.ajax({
+					dataType: "json",
+					type: 'POST',
+					//crossDomain: true,
+					contentType: "application/json;charset=utf-8",
+					url: apiUrl + '/api', 		// Location of the service
+					data: JSON.stringify(loginParams),
+					success: function (response) {
+
+						if (response && response.ErrorMessage) {
+							self.validationHeader("OTP validation failed")	
+							self.errorMessage(response.ErrorMessage);
+							$("#validationPopup").modal("show");
+							return;
+						}
+						else if (response && response.UserId) {
+							self.UserId(response.UserId);
+							$(".updatePasswordScreen").show();
+							$(".forgotPasswordOtpScreen").hide();
+							$(".forgotPasswordScreen").hide();
+						}
+						else {
+							self.errLoginMsg("There is server error, please contact administrator");
+						}
+					},
+					error: function (d) {
+						window.localStorage.removeItem('vwtoken');
+						self.showLoading(false);
+						console.log(d.responseJSON);
+						self.errRegisterMsg(d.responseJSON.ErrorMessage.message);
+					},
+				});
+			}
+			
+			self.changePasswordErrors = ko.validation.group([self.newPassword, self.confirmPassword]);
+			self.UpdatePassword = function () {
+
+				if(self.changePasswordErrors().length > 0){
+                    return;                    
                 }
-              }
-              else {
-                self.errLoginMsg(response.response.ErrorMessage);
-              }
-            }
-          },
-          error: function (d) {
-            window.localStorage.removeItem('vwtoken');
-            self.showLoading(false);
-            console.log(d.responseJSON);
-            self.errRegisterMsg(d.responseJSON.ErrorMessage.message);
-          },
-        });
-      };
+
+				let loginParams = {
+					requestParams: {
+						'APIReg': "10007",
+						'UserId': self.UserId(),
+						'Password': self.newPassword()
+					},
+					systemParams: {
+						'Source': 'Web',
+						'SourceId': window.location.hostname
+					}
+				};
+				$.ajax({
+					dataType: "json",
+					type: 'POST',
+					//crossDomain: true,
+					contentType: "application/json;charset=utf-8",
+					url: apiUrl + '/api', 		// Location of the service
+					data: JSON.stringify(loginParams),
+					success: function (response) {
+
+						if (response && response.ErrorMessage) {
+							self.validationHeader("Change password failed")	
+							self.errorMessage(response.ErrorMessage);
+							$("#validationPopup").modal("show");
+							return;
+						}
+						else if (response && response.UserId) {
+							$(".forgotPasswordOtpScreen, .forgotPasswordScreen, .updatePasswordScreen").hide();
+							self.validationHeader("Sucess")							
+							self.errorMessage("Password updated successfully, please login.");
+							$("#validationPopup").modal("show");
+							self.showLogin();
+						}
+						else {
+							self.errLoginMsg("There is server error, please contact administrator");
+						}
+					},
+					error: function (d) {
+						window.localStorage.removeItem('vwtoken');
+						self.showLoading(false);
+						console.log(d.responseJSON);
+						self.errRegisterMsg(d.responseJSON.ErrorMessage.message);
+					},
+				});
+			}
+
+		}
+
+		ko.extenders.isEmail = function (elm, customMessage) {
+			//add some sub-observables to our observable
+			elm.hasError = ko.observable();
+			elm.message = ko.observable();
+			//This is the function to validate the value entered in the text boxes
+			function validateEmail(valEntered) {
+				var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+				//If the value entered is a valid mail id, return fals or return true
+				elm.hasError((emailPattern.test(valEntered) === false) ? true : false);
+				//If not a valid mail id, return custom message
+				elm.message((emailPattern.test(valEntered) === true) ? "" : customMessage);
+			}
+			//Call the validation function for the initial validation
+			validateEmail(elm());
+			//Validate the value whenever there is a change in value
+			elm.subscribe(validateEmail);
+			return elm;
+		};
+
+		ko.applyBindings(viewModel);
 
 
-      self.firstName = ko.observable('');
-      self.lastName = ko.observable('')
-      self.mobileNumber = ko.observable('');
-      self.email = ko.observable('')
-      self.password = ko.observable('');
-      self.referralCode = ko.observable('')
+		var input = document.querySelector("#phone");
+		window.intlTelInput(input, {
+			// allowDropdown: false,
+			// autoHideDialCode: false,
+			// autoPlaceholder: "off",
+			// dropdownContainer: document.body,
+			// excludeCountries: ["us"],
+			// formatOnDisplay: false,
+			// geoIpLookup: function(callback) {
+			//   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+			//     var countryCode = (resp && resp.country) ? resp.country : "";
+			//     callback(countryCode);
+			//   });
+			// },
+			// hiddenInput: "full_number",
+			initialCountry: "in",
+			// localizedCountries: { 'de': 'Deutschland' },
+			// nationalMode: false,
+			// onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+			// placeholderNumberType: "MOBILE",
+			// preferredCountries: ['cn', 'jp'],
+			// separateDialCode: true,
+			utilsScript: "dist/js/utils.js",
+		});
 
-      self.firstName.extend({
-        required: { message: 'First Name is required', params: true }
-      });
-      self.lastName.extend({
-        required: { message: 'Last Name is required', params: true }
-      });
-      self.mobileNumber.extend({
-        required: { message: 'Phone Number is required', params: true },
-        pattern: {
-          message: 'Invalid phone number.',
-          params: /^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$/
-        }
-      });
-      self.email.extend({
-        required: { message: 'Email is required', params: true },
-        email: { message: 'Please enter valid Email', params: true },
-      });
-      self.password.extend({
-        required: { message: 'Password is required', params: true },
-        minLength: { params: 8, message: "Password should be minimun 8 characters" }
-      });
+		var slideIndex = 1;
+		showSlides(slideIndex);
 
-      self.registerErrors = ko.validation.group([self.firstName, self.lastName, self.mobileNumber, self.email, self.password]);
+		function plusSlides(n) {
+			showSlides(slideIndex += n);
+		}
 
-      self.Register = function () {
-        if (self.registerErrors().length) {
-          self.registerErrors.showAllMessages();
-          return;
-        }
-        // appUrl
-        self.errRegisterMsg('');
-        self.showLoading(true);
+		function currentSlide(n) {
+			showSlides(slideIndex = n);
+		}
 
-        let loginParams = {
-          requestParams: {
-            'APIReg': "10000",
-            'firstName': self.firstName(),
-            'lastName': self.lastName(),
-            'mobileNumber': self.mobileNumber(),
-            'email': self.email(),
-            'password': self.password(),
-            'referralCode': self.referralCode()
-          },
-          systemParams: {
-            'Source': 'Web',
-            'SourceId': window.location.hostname
-          }
-        };
-        $.ajax({
-          dataType: "json",
-          type: 'POST',
-          //crossDomain: true,
-          contentType: "application/json;charset=utf-8",
-          url: apiUrl + '/api', 		// Location of the service
-          data: JSON.stringify(loginParams),
-          success: function (response) {
-            window.localStorage.removeItem('rttoken');
-            self.showLoading(false);
-            console.log(response);
-            if (response && response.length > 0) {
-              if (response[1] && response[1][0] && response[1][0].UserId) {                
-                  self.showLogin();
-              }
-              else if (response[0] && response[0][0] && response[0][0].ErrorMessage){
-                // self.errLoginMsg(response[0][0].ErrorMessage);
-                self.errorMessage(response[0][0].ErrorMessage);
-                $("#validationPopup").modal("show");                
-                  return;
-              }
-              else{
-                self.errLoginMsg("There is server error, please contact administrator");
-              }
-            }
-            else{
-              self.errLoginMsg("There is server error, please contact administrator");
-            }
-          },
-          error: function (d) {
-            window.localStorage.removeItem('vwtoken');
-            self.showLoading(false);
-            console.log(d.responseJSON);
-            self.errRegisterMsg(d.responseJSON.ErrorMessage.message);
-          },
-        });
-      };
+		function showSlides(n) {
+			var i;
+			var slides = document.getElementsByClassName("mySlides");
+			var dots = document.getElementsByClassName("dot");
+			if (n > slides.length) { slideIndex = 1 }
+			if (n < 1) { slideIndex = slides.length }
+			for (i = 0; i < slides.length; i++) {
+				slides[i].style.display = "none";
+			}
+			for (i = 0; i < dots.length; i++) {
+				dots[i].className = dots[i].className.replace(" active", "");
+			}
+			slides[slideIndex - 1].style.display = "block";
+			dots[slideIndex - 1].className += " active";
+		}
 
-      self.IsValidCss = function (field) {
-        if (!field.isValid() && field.isModified())
-          return 'has-error';
-        return '';
-      };
-
-      self.showLogin = function () {
-        // $(".loginButtonsDynamic input").css({"width": "50%"})
-        $(".loginButtonsDynamic>.loginButton").css({ "width": "45%", "float": "left" })
-        $(".loginButtonsDynamic>.registerButton").css({ "width": "45%", "float": "right" })
-        $(".loginScreen").show();
-        $(".registerScreen, .forgotPasswordScreen").hide();
-        $(".login-style").hide();
-      }
-      self.showRegister = function () {
-        $(".loginButtonsDynamic>.loginButton").css({ "width": "45%", "float": "left" })
-        $(".loginButtonsDynamic>.registerButton").css({ "width": "45%", "float": "right" })
-        $(".registerScreen").show();
-        $(".loginScreen, .forgotPasswordScreen").hide();
-      }
-
-      self.showForgotPasswordSection = function(){
-        $(".forgotPasswordScreen").show();
-        $(".loginScreen, .registerScreen, .login-style").hide();
-      }
-
-      self.closeValidationPopup = function(){
-        $("#validationPopup").modal("hide")
-      }
-
-      self.errForgotPasswordMsg = ko.observable()
-      self.forgotPasswordValue = ko.observable();
-      self.SendOtpToRegisteredUser = function(){
-        let loginParams = {
-          requestParams: {
-            'APIReg': "10000",
-            'firstName': self.firstName(),
-            'lastName': self.lastName(),
-            'mobileNumber': self.mobileNumber(),
-            'email': self.email(),
-            'password': self.password(),
-            'referralCode': self.referralCode()
-          },
-          systemParams: {
-            'Source': 'Web',
-            'SourceId': window.location.hostname
-          }
-        };
-        $.ajax({
-          dataType: "json",
-          type: 'POST',
-          //crossDomain: true,
-          contentType: "application/json;charset=utf-8",
-          url: apiUrl + '/api', 		// Location of the service
-          data: JSON.stringify(loginParams),
-          success: function (response) {
-            window.localStorage.removeItem('rttoken');
-            self.showLoading(false);
-            console.log(response);
-            if (response && response.length > 0) {
-              if (response[1] && response[1][0] && response[1][0].UserId) {                
-                  self.showLogin();
-              }
-              else if (response[0] && response[0][0] && response[0][0].ErrorMessage){
-                // self.errLoginMsg(response[0][0].ErrorMessage);
-                self.errorMessage(response[0][0].ErrorMessage);
-                $("#validationPopup").modal("show");                
-                  return;
-              }
-              else{
-                self.errLoginMsg("There is server error, please contact administrator");
-              }
-            }
-            else{
-              self.errLoginMsg("There is server error, please contact administrator");
-            }
-          },
-          error: function (d) {
-            window.localStorage.removeItem('vwtoken');
-            self.showLoading(false);
-            console.log(d.responseJSON);
-            self.errRegisterMsg(d.responseJSON.ErrorMessage.message);
-          },
-        });
-      }
-
-    }
-
-    ko.extenders.isEmail = function (elm, customMessage) {
-      //add some sub-observables to our observable
-      elm.hasError = ko.observable();
-      elm.message = ko.observable();
-      //This is the function to validate the value entered in the text boxes
-      function validateEmail(valEntered) {
-        var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        //If the value entered is a valid mail id, return fals or return true
-        elm.hasError((emailPattern.test(valEntered) === false) ? true : false);
-        //If not a valid mail id, return custom message
-        elm.message((emailPattern.test(valEntered) === true) ? "" : customMessage);
-      }
-      //Call the validation function for the initial validation
-      validateEmail(elm());
-      //Validate the value whenever there is a change in value
-      elm.subscribe(validateEmail);
-      return elm;
-    };
-
-    ko.applyBindings(viewModel);
-
-
-    var input = document.querySelector("#phone");
-    window.intlTelInput(input, {
-      // allowDropdown: false,
-      // autoHideDialCode: false,
-      // autoPlaceholder: "off",
-      // dropdownContainer: document.body,
-      // excludeCountries: ["us"],
-      // formatOnDisplay: false,
-      // geoIpLookup: function(callback) {
-      //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-      //     var countryCode = (resp && resp.country) ? resp.country : "";
-      //     callback(countryCode);
-      //   });
-      // },
-      // hiddenInput: "full_number",
-      initialCountry: "in",
-      // localizedCountries: { 'de': 'Deutschland' },
-      // nationalMode: false,
-      // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-      // placeholderNumberType: "MOBILE",
-      // preferredCountries: ['cn', 'jp'],
-      // separateDialCode: true,
-      utilsScript: "dist/js/utils.js",
-    });
-
-    var slideIndex = 1;
-    showSlides(slideIndex);
-
-    function plusSlides(n) {
-      showSlides(slideIndex += n);
-    }
-
-    function currentSlide(n) {
-      showSlides(slideIndex = n);
-    }
-
-    function showSlides(n) {
-      var i;
-      var slides = document.getElementsByClassName("mySlides");
-      var dots = document.getElementsByClassName("dot");
-      if (n > slides.length) { slideIndex = 1 }
-      if (n < 1) { slideIndex = slides.length }
-      for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-      }
-      for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-      }
-      slides[slideIndex - 1].style.display = "block";
-      dots[slideIndex - 1].className += " active";
-    }
-
-  </script>
+	</script>
 </body>
 
 </html>

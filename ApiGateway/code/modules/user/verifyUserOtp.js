@@ -1,7 +1,9 @@
+const mssql = require('mssql');
+
 module.exports = (config, params, callback) => {
 
     const requestParams = config.dbwrapper.getNewRequest();
-    requestParams.input('Email', mssql.NVarChar, params.Email);
+    requestParams.input('UserId', mssql.Int, params.UserId);
     requestParams.input('Otp', mssql.INT, params.Otp);
 
     requestParams.execute('ValidateUserOtp', (err, result) => {

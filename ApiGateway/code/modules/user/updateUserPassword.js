@@ -1,4 +1,5 @@
 const md5 = require('md5');
+const mssql = require('mssql');
 
 module.exports = (config, params, callback) => {
 
