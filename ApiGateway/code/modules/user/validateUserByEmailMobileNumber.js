@@ -4,11 +4,9 @@ const mssql = require('mssql');
 module.exports = (config, params, callback) => {
 
     const requestParams = config.dbwrapper.getNewRequest();
-    requestParams.input('UserId', mssql.NVarChar, params.UserId);
-    requestParams.input('Password', mssql.NVarChar, md5(params.Password));
+    requestParams.input('Email', mssql.NVarChar, params.email);
 
-
-    requestParams.execute('UpdateUserPassword', (err, result) => {
+    requestParams.execute('ValidateUserEmailMobileNumber', (err, result) => {
         if (err) {
             console.log(err);
             callback(err);

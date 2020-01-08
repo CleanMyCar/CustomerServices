@@ -1836,19 +1836,19 @@ label {
     padding:0px;
 }
 .btn,.btn-primary,.btn-sm:focus{
-    color:$headerColor;
+    background:$headerColor;
     color:white;
 }
 .btn,.btn-primary,.btn-sm:hover{
-    color:$headerColor !important;
+    background:$headerColor !important;
     color:white !important;
 }
 .btn,.btn-primary,.btn-sm:active{
-    color:$headerColor !important;
+    background:$headerColor !important;
     color:white !important;
 }
 .btn,.btn-primary,.btn-sm{
-    color:$headerColor !important;
+    background:$headerColor !important;
     color:white !important;
 }
 label{
@@ -2349,7 +2349,7 @@ textarea {
 }
 
 .btn-default.active {
-    background: #2196F3 !important;
+    background: $headerColor !important;
     color: #fff !important;
 }
 
@@ -12339,7 +12339,7 @@ body {
             .btn-default:hover,
             .btn-default:active,
             .btn-default:focus {
-                color: #4d70e0 !important;
+                color:white !important;
             }
             & .dropdown-menu {
                 padding: 15px 0 15px;
@@ -12786,12 +12786,16 @@ body {
   .purchaseButton{
       padding: 5px;
       color: white;
+      box-shadow: 0px 0px 5px black;
       font-style: italic;
       font-size: 13px;
       cursor: pointer;
       border-radius: 3px;
-      margin-bottom: 5px;
+      margin-bottom: 7px;
       background: $headerColor;
+  }
+  .fa-search{
+      color:$headerColor;
   }
 
 //   .serviceName{
@@ -12956,15 +12960,31 @@ body {
 }
 
 a{
-    color:$headerColor ;
-    text-decoration:underline ;
-    text-decoration-color: $headerColor;
+    color:$headerColor  !important;
+    text-decoration:underline  !important;
+    text-decoration-color: $headerColor !important;
    
 }
 .clrbtn{
     a{
     color:#FFF !important;
     }
+}
+.edit-profile{
+    input{
+        border:1px solid $headerColor;
+        border-radius: 5px;
+        margin-bottom:5px;
+        margin-left: 9px;
+        padding-left: 5px;
+    }
+}
+.edit-input{
+    border:1px solid $headerColor;
+    border-radius: 5px;
+    margin-bottom:5px;
+    margin-left: 9px;
+    padding-left: 5px;
 }
 
 * {box-sizing:border-box}
@@ -13177,6 +13197,7 @@ a{
             // height: 125px;
             width:100%;
             border-radius: 10px;
+            height: 85px;
         }
         .inerhtml{
             margin: 0px;

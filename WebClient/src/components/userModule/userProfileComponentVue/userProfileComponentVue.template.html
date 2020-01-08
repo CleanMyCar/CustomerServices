@@ -55,11 +55,14 @@
                         </div>
                         <div class="row profile-name">
                             <div class="form-group">
-                                <label class="bold">Name: </label>
+                                <label class="bold" v-if="!editMode">Name: </label>
                                 <label class="bold" v-if="!editMode">{{userProfile.UserFirstName}}
                                     {{userProfile.UserLastName}}</label v-if="!editMode">
-                                <div class="edit-profile" v-if="editMode">
-                                    <input type="text" v-model="userProfile.UserFirstName">
+                                    <div class="edit-profile" v-if="editMode">
+                                        <label class="bold"  v-if="editMode">FirstName: </label>
+                                        
+                                        <input type="text" v-model="userProfile.UserFirstName">
+                                        <label class="bold"  v-if="editMode">LastName: </label>
                                     <input type="text" v-model="userProfile.UserLastName">
                                 </div>
                             </div>
@@ -70,7 +73,7 @@
                                 <label v-if="!editMode">
                                     {{userProfile.Email ? userProfile.Email : "NA"}}
                                 </label>
-                                <input v-if="editMode" type="text" name="userEmail" v-model="userProfile.Email" v-validate="'required|email'" />
+                                <input class="edit-input" v-if="editMode" type="text" name="userEmail" v-model="userProfile.Email" v-validate="'required|email'" />
                                 <span v-show="errors.has('userEmail')" class="invalid-feedback">
                                     <i v-show="errors.has('userEmail')" class="fa fa-warning"></i> 
                                     Please enter valid Email
@@ -83,7 +86,7 @@
                                 <label v-if="!editMode">
                                     {{userProfile.MobileNumber ? userProfile.MobileNumber : "NA"}}
                                 </label>
-                                <input v-if="editMode" type="number" name="userMobile" v-model="userProfile.MobileNumber" v-validate="'required|digits:10'" />
+                                <input class="edit-input" v-if="editMode" type="number" name="userMobile" v-model="userProfile.MobileNumber" v-validate="'required|digits:10'" />
                                 <span v-show="errors.has('userMobile')" class="invalid-feedback">
                                     <i v-show="errors.has('userMobile')" class="fa fa-warning"></i> 
                                     Please enter valid Mobile Number

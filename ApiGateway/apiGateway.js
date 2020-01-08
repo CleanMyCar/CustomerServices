@@ -38,7 +38,7 @@ const configParams = (() => {
             user: 'sa',
             password: 'Apple#123',
             database: 'master',
-			port:1433,
+            port: 1433,
             pool: {
                 max: 10,
                 min: 0,
@@ -493,7 +493,10 @@ require('./code/core/core')(configParams)
         const generateOtpForUser = require('./code/modules/user/generateOtpForUser.js');
         const verifyUserOtp = require('./code/modules/user/verifyUserOtp.js');
         const addAppIdToUser = require('./code/modules/user/addAppIdToUser.js');
-        const registerNewUser = require('./code/modules/user/registerUser');
+        const registerNewUser = require('./code/modules/user/registerUser'),
+            validateUserByEmailMobileNumber = require('./code/modules/user/validateUserByEmailMobileNumber'),
+            sendSms = require("./code/modules/common/sendSms")
+
 
 
 
@@ -549,47 +552,44 @@ require('./code/core/core')(configParams)
                     }
                 });
             } else if (apiRequestParams.APIReg === "10005" || apiRequestParams.APIReg === 10005) { //Forgot password - send OTP to registerd mobile number based on provided User Name
-                validateUser(config, apiRequestParams, function (error, responseObj) {
+                validateUserByEmailMobileNumber(config, apiRequestParams, function (error, responseObj) {
 
                     if (error) {
                         res.end(JSON.stringify(error));
                         return;
                     }
-
-                    if (responseObj && responseObj.length === 0) {
-                        apiRequestParams.ErrorMessage = "Please provide valid user name";
+                    if (responseObj && responseObj.length === 0 || (responseObj[0] && responseObj[0].ErrorMessage)) {
+                        apiRequestParams.ErrorMessage = "Please provide registered Email/Mobile Number";
                         res.end(JSON.stringify(apiRequestParams));
                     }
 
                     if (responseObj && responseObj.length > 0) {
 
-                        generateOtpForUser(config, { vwUserIdText: responseObj[0]["vwUserIdText"] }, function (err, userOtpObj) {
-                            if (config.utils.sendOtp) {
-                                sendOtp.send(userOtpObj[0][0]["MobileNumber"], "OTPSMS", userOtpObj[0][0]["Otp"], function (err, response) {
-                                    console.log(err, response);
+                        generateOtpForUser(config, { userId: responseObj[0]["UserId"] }, function (err, userOtpObj) {
+                            if (err) {
+                                console.log("Error in Generate OTP");
+                                apiRequestParams.ErrorMessage = "Error in Generate OTP, please contact support team";
+                                res.end(JSON.stringify(apiRequestParams));
+                                return;
+                            }
+                            sendSms(config,
+                                {
+                                    MobileNumber: userOtpObj[0]["MobileNumber"],
+                                    Message: "Please use this OTP " + userOtpObj[0]["UserOtp"] + " to change password"
+                                },
+                                function (err, response) {
                                     let clientResponseObj = {
-                                        userId: responseObj[0]["vwUserIdText"],
+                                        UserId: responseObj[0]["UserId"],
                                         ErrorMessage: response.type === "success" ? "" : "OTP not sent",
-                                        successMessage: response.type === "success" ? "OTP sent to registered mobile number" : ""
+                                        SuccessMessage: response.type === "success" ? "OTP sent to registered mobile number" : ""
                                     };
 
                                     res.end(JSON.stringify(clientResponseObj));
                                 });
-                            } else {
-
-                                let clientResponseObj = {
-                                    userId: responseObj[0]["vwUserIdText"],
-                                    mobileNumber: responseObj[0]["MobileNumber"],
-                                    ErrorMessage: "",
-                                    successMessage: "OTP sent to registered mobile number"
-                                };
-
-                                res.end(JSON.stringify(clientResponseObj));
-                            }
                         });
 
                     } else {
-                        apiRequestParams.ErrorMessage = "Please provide valid user name";
+                        apiRequestParams.ErrorMessage = "Please provide valid Email/Mobile Number";
                         res.end(JSON.stringify(apiRequestParams));
                     }
                 });
@@ -598,7 +598,7 @@ require('./code/core/core')(configParams)
             } else if (apiRequestParams.APIReg === "10006" || apiRequestParams.APIReg === 10006) { //Validate OTP which is entered by user        
 
                 verifyUserOtp(config, apiRequestParams, function (error, response) {
-                    if (response.length > 0) {
+                    if (response.length > 0 && response[0].UserId) {
                         apiRequestParams.successMessage = "OTP verified successfully, please change password";
                         apiRequestParams.ErrorMessage = "";
                     } else {
@@ -611,127 +611,16 @@ require('./code/core/core')(configParams)
 
             } else if (apiRequestParams.APIReg === "10007" || apiRequestParams.APIReg === 10007) { // Change user password
                 updateUserPassword(config, apiRequestParams, function (error, responseObj) {
-
+                    if (error) {
+                        apiRequestParams.ErrorMessage = "There is an error while updating password";
+                        return res.end(JSON.stringify(apiRequestParams));
+                    }
                     apiRequestParams.successMessage = "Password changed successfully";
                     apiRequestParams.ErrorMessage = "";
                     res.end(JSON.stringify(apiRequestParams));
                 });
-            } else if (apiRequestParams.APIReg === "10008" || apiRequestParams.APIReg === 10008) {
-                apiRequestParams.IsFromRentalsUnited = 1;
-                saveReservationGuestInfo(config, apiRequestParams, function (error, responseObj) {
-                    if (error) {
-                        console.log("Error in save guest info: ", error);
-                        res.end(JSON.stringify({
-                            customMessage: 'SaveReservation_GuestInfo Failed',
-                            errorMessage: error
-                        }))
-                    }
-                    // apiRequestParams.successMessage = "successfully";
-                    // apiRequestParams.ErrorMessage = "";
-                    // console.log("responseObj of saveReservationGuestInfo" + responseObj[0][0].ErrorMessage)
-                    if (responseObj) {
-                        if (responseObj[0] && responseObj[0][0] && (responseObj[0][0].ErrorMessage === "" || responseObj[0][0].ErrorMessage === null)) {
-                            console.log("responseObj[0][1]" + JSON.stringify(responseObj[1]))
-                            if (responseObj[1] && responseObj[1][0] && responseObj[1][0] && responseObj[1][0].ReservationId) {
-                                let assignRoomParams = apiRequestParams
-                                assignRoomParams.ReservationId = responseObj[1][0].ReservationId
-                                assignRoomParams.IsFromRentalsUnited = 1;
-
-                                SaveReservationAssignRooms(config, assignRoomParams, function (err, responseObj) {
-                                    if (err) {
-                                        console.log("Error in assign rooms: ", err);
-                                    }
-                                    // apiRequestParams.successMessage = "successfully";
-                                    // apiRequestParams.ErrorMessage = "";
-                                    // console.log("responseObj[0][0].ErrorMessage", responseObj[8]);
-                                    if (responseObj && responseObj[0] && responseObj[0].length > 0 && responseObj[0][0].ErrorMessage != " ") {
-                                        res.end(JSON.stringify({
-                                            customMessage: 'SaveReservation_AssignRooms Failed',
-                                            errorMessage: responseObj[0][0].ErrorMessage
-                                        }));
-                                    } else if (responseObj && responseObj.length > 1) {
-                                        if (responseObj && responseObj[6] && responseObj[6].length > 0 && responseObj[6][0].reservationID) {
-                                            res.end(JSON.stringify({
-                                                customMessage: 'assign rooms save sucess ',
-                                                errorMessage: responseObj[0][0].ErrorMessage
-                                            }));
-                                            let saveNotesObj = {
-                                                NoteTypeId: 2,
-                                                NoteSubject: "Turnover cleaning",
-                                                IsActionReqd: 1,
-                                                noteStatusId: 0,
-                                                taskTypeId: 1,
-                                                isAutoGenerated: 1,
-                                                DateOrTimeDue: moment(assignRoomParams.EndDate).format("YYYY-MM-DD"),
-                                                ReservationId: responseObj[6][0].reservationID,
-                                                NoteId: null,
-                                                NoteDetails: "Ru Reservation Turnover cleaning",
-                                                systemParams: { UserId: 17 }
-                                            }
-                                            // SaveNotesDetails(config, saveNotesObj, function (err, responseObj) {
-                                            //     if (err) {
-                                            //         console.log("Error in assign rooms: ", err);
-                                            //     }
-                                            // })
-                                        } else {
-                                            res.end(JSON.stringify({
-                                                customMessage: 'assign rooms save failed ',
-                                                errorMessage: "no reservationId"
-                                            }));
-                                        }
-                                    } else {
-                                        res.end(JSON.stringify({
-                                            customMessage: 'assign rooms save sucess ',
-                                            Message: "multiple call no change in data"
-                                        }));
-                                    }
-                                });
-                            } else {
-                                console.log("No reservation id returned from SP");
-                                res.end(JSON.stringify({
-                                    customMessage: 'No reservation id returned from SP and assign rooms save Failed',
-                                    errorMessage: responseObj[0][0].ErrorMessage
-                                }))
-                            }
-                        } else {
-                            res.end(JSON.stringify({
-                                customMessage: 'SaveReservation_GuestInfo Failed',
-                                errorMessage: responseObj[0][0].ErrorMessage
-                            }))
-                        }
-                    }
-                });
-
-            } else if (apiRequestParams.APIReg === "10009" || apiRequestParams.APIReg === 10009) {
-                console.log("request for the updated reservations in apigateway.js file")
-                updateResevationStatus(config, apiRequestParams, function (error, responseObj) {
-                    if (error) {
-                        console.log("Error in updateResevationStatus: ", error);
-                    }
-                    res.end('updateResevationStatus sucess')
-                })
-            } else if (apiRequestParams.APIReg === "10010" || apiRequestParams.APIReg === 10010) {
-
-                apiRequestParams.systemParams = apiSystemParams;
-
-                config.utils.JwtToken.VerifyToken(config, { "token": apiRequestParams.systemParams.token }, function (decodedObj) {
-                    if (decodedObj && decodedObj.decoded.header && decodedObj.decoded.header.UserId) {
-
-                        apiRequestParams.systemParams.UserId = decodedObj.decoded.header.UserId;
-                        apiRequestParams.systemParams.EmailId = decodedObj.decoded.header.EmailId;
-                        apiRequestParams.systemParams.UserClientId = decodedObj.decoded.header.UserClientId;
-                        apiRequestParams.systemParams.SelectedClientId = decodedObj.decoded.header.SelectedClientId;
-                        apiRequestParams.systemParams.PropertyId = decodedObj.decoded.header.PropertyId;
-
-                        getTapechartUnassignedresList(config, apiRequestParams, function (err, response) {
-                            res.send({ err: err, response: response });
-                        });
-                    } else {
-                        res.send({ response: null, token: null });
-                    }
-                });
-
-            } else {
+            } 
+            else {
                 res.end("Request received");
             }
         });
@@ -875,7 +764,7 @@ require('./code/core/core')(configParams)
         console.log(reason);
     });
 
-    
+
 process.on('uncaughtException', (err) => {
     console.log("uncaughtException", err)
     logger.fatal((new Date).toUTCString() + ' uncaughtException:', err.message, err.stack);
