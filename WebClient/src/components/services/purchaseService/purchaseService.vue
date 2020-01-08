@@ -290,7 +290,7 @@
             selectSubscribeType(product){
                 this.vehicleInfo.Frequency = product.SubscribeId;
                 if (product.SubscribeId != 2) {
-                    this.serviceObj.WeeklyDay = null;
+                    this.vehicleInfo.WeeklyDay = null;
                 }
             },
             selectWeeklyday(day){
