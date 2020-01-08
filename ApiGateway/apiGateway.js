@@ -575,7 +575,7 @@ require('./code/core/core')(configParams)
 
                             let clientResponseObj = {
                                 UserId: responseObj[0]["UserId"],
-                                ErrorMessage: "OTP not sent",
+                                ErrorMessage: "",
                                 SuccessMessage: "OTP sent to registered mobile number"
                             };
 

@@ -1,6 +1,7 @@
 const mssql = require('mssql');
 const generateOtp = require("./generateOtp")
-const request = require("request-promise")
+const request = require("request-promise");
+const sendEmail = require("../common/sendEmail")
 
 module.exports = async (config, params, callback) => {
     let userOtp = await generateOtp();
@@ -37,9 +38,24 @@ module.exports = async (config, params, callback) => {
                         return callback(err, result.recordsets[0]);
                     });
             }
+            if (result.recordsets[0][0].Email) {
+
+                let message = `Hi ${result.recordsets[0][0].UserFirstName}, <br> We've received a request to reset your password, please use OTP ${userOtp} to reset your password. <br><br> Thanks, <br> CleanMyCar Team`;
+                sendEmail(config, {
+                    Email: result.recordsets[0][0].Email,
+                    MessageTitle: "Reset password",
+                    MessageBody: message
+                }, function (err, response) {
+                    if (err) {
+                        console.log("OTP - email sending failed ", err)
+                    }
+                    if (!result.recordsets[0][0].MobileNumber)
+                        callback(null, result.recordsets[0]);
+                });
+            }
         }
-        else{
+        else {
             callback("no user found")
-        }        
+        }
     })
 }
