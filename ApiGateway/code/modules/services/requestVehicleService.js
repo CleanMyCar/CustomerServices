@@ -35,8 +35,8 @@ module.exports = (config, params, callback) => {
       }
 
       if (
-        (params.RequestId == -1 || !params.RequestId) &&
-        result.recordsets[0][0]
+        (params.RequestId == -1 || !params.RequestId) && result.recordsets[0][0]
+        && result.recordsets[0][0].RequestId
       ) {
         //When it is new service request, create subscription items for the Request
         
