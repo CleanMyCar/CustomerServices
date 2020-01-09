@@ -68,11 +68,23 @@
                             </div>
                         </div>
                         <div class="row row-padding">
-                            <div class="form-group profileDesig hearaa">
-                                <label class="labels sub-headre">Email: </label>
-                                <label v-if="!editMode">
+                            <div class="form-group profileDesig hearaa" v-if="!editMode">
+                                <!-- <label class="labels sub-headre">Email: </label> -->
+                                <label style="float: left;">
                                     {{userProfile.Email ? userProfile.Email : "NA"}}
-                                </label>
+                                </label>       
+                                <span v-if="userProfile.IsEmailVerified" style="margin-left: 5px;">                                    
+                                    <i style="color:green" class="fal fa-check-circle"></i>
+                                </span>
+                                <span v-else  style="margin-left: 5px;">                                    
+                                    <i style="color:#ff3b00" class="fal fa-times-circle"></i>
+                                </span>     
+                                <span>
+                                <a style="float: right;" v-if="!userProfile.IsEmailVerified" @click="resendOtp('email')">Verify</a>                                
+                            </span>                    
+                                
+                            </div>
+                            <div class="form-group profileDesig hearaa" v-else>
                                 <input class="edit-input" v-if="editMode" type="text" name="userEmail" v-model="userProfile.Email" v-validate="'required|email'" />
                                 <span v-show="errors.has('userEmail')" class="invalid-feedback">
                                     <i v-show="errors.has('userEmail')" class="fa fa-warning"></i> 
@@ -81,11 +93,21 @@
                             </div>
                         </div>
                         <div class="row row-padding">
-                            <div class="form-group profileDesig">
-                                <label class="labels sub-headre">Mobile Number: </label>
-                                <label v-if="!editMode">
+                            <div class="form-group profileDesig" v-if="!editMode">
+                                <!-- <label class="labels sub-headre">Mobile Number: </label> -->
+                                <label style="float: left;">
                                     {{userProfile.MobileNumber ? userProfile.MobileNumber : "NA"}}
                                 </label>
+                                <span v-if="userProfile.IsMobileNumberVerified">                                    
+                                    <i style="color:green" class="fal fa-check-circle"></i>
+                                </span>
+                                <span v-else>                                    
+                                    <i style="color:#ff3b00" class="fal fa-times-circle"></i>
+                                </span>
+                                <a  style="float: right;" v-if="!userProfile.IsMobileNumberVerified" @click="resendOtp('mobile')">Verify</a>
+                               
+                            </div>
+                            <div class="form-group profileDesig" v-else>
                                 <input class="edit-input" v-if="editMode" type="number" name="userMobile" v-model="userProfile.MobileNumber" v-validate="'required|digits:10'" />
                                 <span v-show="errors.has('userMobile')" class="invalid-feedback">
                                     <i v-show="errors.has('userMobile')" class="fa fa-warning"></i> 
@@ -120,7 +142,42 @@
     <addressPopupComponent v-if="isOpen" :isOpen="isOpen" :selectedAddress="selectedAddress" :updateParent="addressCallback"
     :closeAddressPopup="closeAddressPopup"></addressPopupComponent>
 
-    <toastrMessageComponent v-if="isDialogOpen" :message="popupMessage" :headerTitle="headerTitle" :isOpen="isDialogOpen" :closeToastrPopup="closeToastrPopup">
-        
+    <toastrMessageComponent v-if="isDialogOpen" :message="popupMessage" :headerTitle="headerTitle" :isOpen="isDialogOpen" :closeToastrPopup="closeToastrPopup">        
     </toastrMessageComponent>
+
+    <div class="modal" data-backdrop="static" role="dialog" id="verifyOtpPopup">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" style="position: absolute; right: 15px; top: 22px;"
+                        data-dismiss="modal">
+                        &times;
+                    </button>
+                    <h4>Verify OTP</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>
+                                    {{otpSentMessage}}
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" placeholder="OTP"
+                                    v-model="otp">
+                            </div>
+                        </div>                  
+                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary btn-sm pull-right" title="Cancel" 
+                    data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary btn-sm pull-right" title="Verify OTP"
+                        @click="verifyOtp">Verify OTP</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

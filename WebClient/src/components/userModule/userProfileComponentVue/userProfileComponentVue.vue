@@ -46,7 +46,10 @@
                 selectedAddress: null,
                 isDialogOpen: false,
                 popupMessage: null,
-                headerTitle: null
+                headerTitle: null,
+                otp: null,
+                otpSentMessage: null,
+                type: null
             }
         },
         props: [],
@@ -134,6 +137,44 @@
             },
             closeToastrPopup(){
                 this.isDialogOpen = false
+            },
+            resendOtp(type){
+                $("#verifyOtpPopup").modal("show");
+                var vm = this;
+                vm.type = type;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: 'ResendVerficationOtp',
+                    params: {
+                        type: type
+                    },
+                    callback: function (err, response) {
+                        if(err){
+                            vm.otpSentMessage = "OTP sent failed, please retry"
+                            return;
+                        }
+                        vm.otpSentMessage = "OTP sent successfully, please check your inbox"
+                    }
+                });
+
+            },
+            verifyOtp(){
+                var vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: 'VerfiyUserOtp',
+                    params: {
+                        Otp: vm.otp,
+                        IsEmail: vm.type == 'email' ? 1 : 0
+                    },
+                    callback: function (err, response) {
+                        if(err || (response[0] && response[0].ErrorMessage)){
+                            vm.otpSentMessage = "OTP verification failed, please enter correct OTP"
+                            return;
+                        }
+                        vm.otp = null
+                        $("#verifyOtpPopup").modal("hide");
+                        vm.getUserProfile();
+                    }
+                });
             }
         },
         computed: {

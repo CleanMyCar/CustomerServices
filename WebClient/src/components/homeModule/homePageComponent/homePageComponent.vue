@@ -30,7 +30,7 @@
                             });
                             return;
                         }
-                        
+
                         if (response.userDetails.UserRoleId === 2) {
                             vm.getServices(null, 20);
                         }
@@ -73,7 +73,7 @@
                     }
                 });
             },
-            getAllServices(){
+            getAllServices() {
                 this.getServices(null, -1)
             },
             showMoreInfo(serviceObj) {
@@ -128,11 +128,11 @@
             vm.getFrequentServices();
         },
         watch: {
-            SearchText(value){
-                if(value && value.length > 2){
+            SearchText(value) {
+                if (value && value.length > 2) {
                     this.getServices(value, -1)
                 }
-                else if(value.length == 0){
+                else if (value.length == 0) {
                     this.getServices(null, -1)
                 }
             }
@@ -141,3 +141,27 @@
 
     };
 </script>
+
+<style>
+    .searchTextInput {
+        padding: 10px;
+        font-size: 17px;
+        border: 1px solid grey;
+        float: left;
+        width: 80%;
+        background: #f1f1f1;
+    }
+
+    .button-holder {
+        float: left;
+        width: 15%;
+        padding: 5px;
+        /* background: #2196F3; */
+        color: white;
+        font-size: 17px;
+        border: 1px solid grey;
+        border-left: none;
+        /* Prevent double borders */
+        cursor: pointer;
+    }
+</style>

@@ -72,7 +72,9 @@ const getServiceList = require("./services/getServiceList"),
   updateVehicleNotificationFlag = require("./vehicles/updateVehicleNotificationFlag"),
   getVehicleHistory = require("./vehicles/getVehicleHistory"),
   getBuildingsAndServicePersons = require("./admin/getBuildingsAndServicePersons"),
-  updateSubscription = require("./customer/updateSubscription");
+  updateSubscription = require("./customer/updateSubscription"),
+  resendVerficationOtp = require("./user/resendVerificationOtp"),
+  verifyUserOtp = require("./user/verifyUserOtp");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -150,5 +152,7 @@ module.exports = [
   {key: "UpdateVehicleNotificationFlag", callback: updateVehicleNotificationFlag, pushkey: null, isLoggingEnabled: false},
   {key: "GetVehicleHistory", callback: getVehicleHistory, pushkey: null, isLoggingEnabled: false},
   {key: "GetBuildingsAndServicePersons", callback: getBuildingsAndServicePersons, pushkey: null, isLoggingEnabled: false},
-  {key: "UpdateSubscription", callback: updateSubscription, pushkey: null, isLoggingEnabled: false}
+  {key: "UpdateSubscription", callback: updateSubscription, pushkey: null, isLoggingEnabled: false},
+  {key: "ResendVerficationOtp", callback: resendVerficationOtp, pushkey: null, isLoggingEnabled: false},
+  {key: "VerfiyUserOtp", callback: verifyUserOtp, pushkey: null, isLoggingEnabled: false},
 ];

@@ -60,10 +60,14 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-4">
-                        <input type="text" placeholder="Search Services..." class="form-control" v-model="SearchText">
-                    </div>
                     <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" placeholder="Search Services..." class="form-control searchTextInput" v-model="SearchText">
+                            <button type="submit" class="button-holder"><i class="fa fa-search"></i></button>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-6" v-if="false">
                         <i @click="getAllServices" class="fa fa-search"></i>
                         <label> <a href="javascript:void(0)" @click="getAllServices">Show All</a></label>
                     </div>
