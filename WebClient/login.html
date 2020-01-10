@@ -33,17 +33,17 @@
 				<form class="form-styles">
 
 					<div class="row login-style">
-						<div class="col-md-6 loginButtonsDynamic" class="" style="text-align: center;">
+						<div class="col-md-4 loginButtonsDynamic" class="" style="text-align: center;">
 							<input type="button" value="Login" class="loginButton" data-bind="click: showLogin" />
 						</div>
-						<div class="col-md-6 loginButtonsDynamic" style="text-align: center;">
+						<div class="col-md-4 loginButtonsDynamic" style="text-align: center;">
 							<input type="button" value="Register" class="loginButton" data-bind="click: showRegister" />
 						</div>
 					</div>
 
 					<div class="loginScreen" style="display: none">
 						<div class="form-group">
-							<input type="text" placeholder="Phone Number/Email"
+							<input type="text" class="userEmailMobile" placeholder="Phone Number/Email"
 								data-bind="value: loginUsername, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
 						</div>
 						<div class="form-group">
@@ -54,8 +54,7 @@
 							<input type="button" value="Login" class="loginButton" data-bind="click: Login" />
 						</div>
 						<div class="form-group" style="text-align: center;">
-							<input type="button" value="To Register Screen" class="loginButton"
-								data-bind="click: showRegister" />
+							<input type="button" value="Register" class="loginButton" data-bind="click: showRegister" />
 						</div>
 						<div data-bind="text: errLoginMsg" class="invalidClient"></div>
 						<div class="form-group">
@@ -75,17 +74,27 @@
 							data-bind="value: mobileNumber, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
 						<input type="text" placeholder="Email"
 							data-bind="value: email, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
-						<input type="password" minlength="8" placeholder="Password (Min 8 Characters)"
+						<input type="password" autocomplete="off" minlength="8"
+							placeholder="Password (Min 8 Characters)"
 							data-bind="value: password, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
 						<input type="text" placeholder="Referral Code (Optional)"
 							data-bind="value: referralCode, valueUpdate: 'afterkeydown',event: { keypress: LoginOnEnter }" />
 
-						<div class="form-group" style="text-align: center;">
-							<input type="button" value="Register" class="loginButton" data-bind="click: Register" />
+						<div class="showRegisterButtons">
+							<div class="form-group" style="text-align: center;">
+								<input type="button" value="Register" id="registerButton" class="loginButton"
+									data-bind="click: function(){ Register('register') }" />
+							</div>
+							<div class="form-group" style="text-align: center;">
+								<input type="button" value="Login" class="loginButton" data-bind="click: showLogin" />
+							</div>
 						</div>
-						<div class="form-group" style="text-align: center;">
-							<input type="button" value="To Login Screen" class="loginButton"
-								data-bind="click: showLogin" />
+						<div class="showVerifyButtons" style="display: none;">
+							<input type="password" placeholder="OTP" data-bind="value: registerOtp">
+							<div class="form-group" style="text-align: center;">
+								<input type="button" value="Verify" class="loginButton"
+									data-bind="click: function(){ Register('verify') }" />
+							</div>
 						</div>
 						<div data-bind="text: errRegisterMsg" class="invalidClient"></div>
 					</div>
@@ -105,7 +114,8 @@
 						<input type="password" placeholder="OTP" data-bind="value: otp, valueUpdate: 'afterkeydown'" />
 
 						<div class="form-group" style="text-align: center;">
-							<input type="button" value="Verify OTP" class="loginButton" data-bind="click: ValidateOtp" />
+							<input type="button" value="Verify OTP" class="loginButton"
+								data-bind="click: ValidateOtp" />
 						</div>
 
 						<div data-bind="text: errForgotPasswordMsg" class="invalidClient"></div>
@@ -117,9 +127,9 @@
 						</div>
 						<div class="col-md-12" data-bind="if: otpTimeExpired">
 							<div class="form-group">
-								<span>OTP not yet received ? 
+								<span>OTP not yet received ?
 									<a href="" data-bind="click: SendOtpToRegisteredUser">Resend OTP</a>
-								</span>                                    
+								</span>
 							</div>
 						</div>
 					</div>
@@ -127,20 +137,20 @@
 						<div class="col-md-12">
 							<label>Password</label>
 							<div class="form-group">
-								<input type="password" data-bind='value: newPassword' class="form-control"
-									placeholder="Password">
+								<input type="password" autocomplete="off" data-bind='value: newPassword'
+									class="form-control" placeholder="Password">
 							</div>
 						</div>
 						<div class="col-md-12">
-							<label>Password</label>
+							<label>Confirm Password</label>
 							<div class="form-group">
-								<input type="password" data-bind='value: confirmPassword' class="form-control "
-									placeholder="Confirm Password">
+								<input type="password" autocomplete="off" data-bind='value: confirmPassword'
+									class="form-control " placeholder="Confirm Password">
 							</div>
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
-								<input type="button" data-bind='click: UpdatePassword'
+								<input type="button" autocomplete="off" data-bind='click: UpdatePassword'
 									class="btn btn-primary btn-block nextButton" value="Update Password">
 							</div>
 						</div>
@@ -250,7 +260,8 @@
 
 			self.errLoginMsg = ko.observable('');
 			self.errRegisterMsg = ko.observable('');
-			self.validationHeader = ko.observable("Validation")
+			self.validationHeader = ko.observable("Validation");
+			self.registerOtp = ko.observable();
 
 			self.showMessage = function (errMsg, success) {
 				if (errMsg) {
@@ -328,7 +339,7 @@
 										self.errLoginMsg("Server Error: " + response.response.errno);
 									}
 									else {
-										self.validationHeader("Login Failed !!")	
+										self.validationHeader("Login Failed !!")
 										self.errorMessage("Invalid Credentials");
 										$("#validationPopup").modal("show");
 										$(".okbutton").focus();
@@ -379,12 +390,16 @@
 			});
 			self.password.extend({
 				required: { message: 'Password is required', params: true },
-				minLength: { params: 8, message: "Password should be minimun 8 characters" }
+				minLength: { params: 8, message: "Password should be minimun 8 characters" },
+				pattern: {
+					message: 'Password should contain at least one uppercase letter, one number and one special character',
+					params: /^(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&_^~,.;:"'])[A-Za-z\d$@$!%*#?&_^~,.;:"']{7,}$/
+				}
 			});
 
 			self.registerErrors = ko.validation.group([self.firstName, self.lastName, self.mobileNumber, self.email, self.password]);
 
-			self.Register = function () {
+			self.Register = function (type) {
 				if (self.registerErrors().length) {
 					self.registerErrors.showAllMessages();
 					return;
@@ -401,7 +416,9 @@
 						'mobileNumber': self.mobileNumber(),
 						'email': self.email(),
 						'password': self.password(),
-						'referralCode': self.referralCode()
+						'referralCode': self.referralCode(),
+						'isVerify': type == "verify" ? 1 : 0,
+						'userOtp': self.registerOtp()
 					},
 					systemParams: {
 						'Source': 'Web',
@@ -421,10 +438,19 @@
 						console.log(response);
 						if (response && response.length > 0) {
 							if (response[1] && response[1][0] && response[1][0].UserId) {
-								self.showLogin();
+								if (type == "register") {
+									$(".showVerifyButtons").show();
+									$("#registerButton").attr("disabled", true);
+								}
+								else {
+									self.validationHeader("Registration")
+									self.errorMessage("Registration successful, please login with credentials");
+									$("#validationPopup").modal("show");									
+									self.showLogin();
+								}
 							}
 							else if (response[0] && response[0][0] && response[0][0].ErrorMessage) {
-								self.validationHeader("Registration failed !!")	
+								self.validationHeader("Registration failed !!")
 								self.errorMessage(response[0][0].ErrorMessage);
 								$("#validationPopup").modal("show");
 								return;
@@ -457,8 +483,8 @@
 				$(".loginButtonsDynamic>.loginButton").css({ "width": "45%", "float": "left" })
 				$(".loginButtonsDynamic>.registerButton").css({ "width": "45%", "float": "right" })
 				$(".loginScreen").show();
-				$(".registerScreen, .forgotPasswordScreen").hide();
-				$(".login-style").hide();
+				$(".registerScreen, .forgotPasswordScreen, .login-style, .showVerifyButtons").hide();
+				$(".userEmailMobile").focus();
 			}
 			self.showRegister = function () {
 				$(".loginButtonsDynamic>.loginButton").css({ "width": "45%", "float": "left" })
@@ -483,56 +509,56 @@
 			self.confirmPassword = ko.observable();
 
 			self.newPassword.extend(
-                {
-                    required: { message: 'Password is required', params: true },
-                    pattern: {
-                        message: 'Password should contain at least one uppercase letter, one number and one special character',
-                        params: /^(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&_^~,.;:"'])[A-Za-z\d$@$!%*#?&_^~,.;:"']{7,}$/
-                    }
-                }
-            );
-            self.confirmPassword.extend({
-                required: { message: 'Confirm Password is required', params: true },
-                equal: { message: 'Confirm Password should match', params: self.newPassword }
-            });
+				{
+					required: { message: 'Password is required', params: true },
+					pattern: {
+						message: 'Password should contain at least one uppercase letter, one number and one special character',
+						params: /^(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&_^~,.;:"'])[A-Za-z\d$@$!%*#?&_^~,.;:"']{7,}$/
+					}
+				}
+			);
+			self.confirmPassword.extend({
+				required: { message: 'Confirm Password is required', params: true },
+				equal: { message: 'Confirm Password should match', params: self.newPassword }
+			});
 
 
 			self.UserId = ko.observable();
 
 			self.otpSent = ko.observable(false);
-            self.otpTimeExpired = ko.observable(false);
-            self.showOtpTimer = function(){
-                self.otpSent(true)
-                self.otpTimeExpired(false);
-                var seconds = new Date().getSeconds();
-                var countDownDate = new Date().setSeconds(seconds + 15);
-                countDownDate = new Date(countDownDate).getTime()
-                // Update the count down every 1 second
-                var x = setInterval(function() {
-                    // Get today's date and time
-                    var now = new Date().getTime();
-                        
-                    // Find the distance between now and the count down date
-                    var distance = countDownDate - now;
-                        
-                    // Time calculations for days, hours, minutes and seconds
-                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                        
-                    // Output the result in an element with id="demo"
-                    document.getElementById("forgotpasswordTimer").innerHTML = "00:" + (seconds < 10 ? "0" + seconds : seconds) + " s";
-                        
-                    // If the count down is over, write some text 
-                    if (distance < 0) {
-                        clearInterval(x);
-                        // document.getElementById("demo").innerHTML = "EXPIRED";
-                        self.otpTimeExpired(true);
-                        self.otpSent(false)
-                    }
-                }, 1000);
-            }; 
+			self.otpTimeExpired = ko.observable(false);
+			self.showOtpTimer = function () {
+				self.otpSent(true)
+				self.otpTimeExpired(false);
+				var seconds = new Date().getSeconds();
+				var countDownDate = new Date().setSeconds(seconds + 15);
+				countDownDate = new Date(countDownDate).getTime()
+				// Update the count down every 1 second
+				var x = setInterval(function () {
+					// Get today's date and time
+					var now = new Date().getTime();
+
+					// Find the distance between now and the count down date
+					var distance = countDownDate - now;
+
+					// Time calculations for days, hours, minutes and seconds
+					var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+					var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+					var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+					var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+					// Output the result in an element with id="demo"
+					document.getElementById("forgotpasswordTimer").innerHTML = "00:" + (seconds < 10 ? "0" + seconds : seconds) + " s";
+
+					// If the count down is over, write some text 
+					if (distance < 0) {
+						clearInterval(x);
+						// document.getElementById("demo").innerHTML = "EXPIRED";
+						self.otpTimeExpired(true);
+						self.otpSent(false)
+					}
+				}, 1000);
+			};
 
 			self.sendOtpErrors = ko.validation.group([self.forgotPasswordValue]);
 			self.SendOtpToRegisteredUser = function () {
@@ -562,7 +588,7 @@
 					success: function (response) {
 
 						if (response && response.ErrorMessage) {
-							self.validationHeader("OTP not sent ")	
+							self.validationHeader("OTP not sent ")
 							self.errorMessage(response.ErrorMessage);
 							$("#validationPopup").modal("show");
 							return;
@@ -615,7 +641,7 @@
 					success: function (response) {
 
 						if (response && response.ErrorMessage) {
-							self.validationHeader("OTP validation failed")	
+							self.validationHeader("OTP validation failed")
 							self.errorMessage(response.ErrorMessage);
 							$("#validationPopup").modal("show");
 							return;
@@ -638,13 +664,13 @@
 					},
 				});
 			}
-			
+
 			self.changePasswordErrors = ko.validation.group([self.newPassword, self.confirmPassword]);
 			self.UpdatePassword = function () {
 
-				if(self.changePasswordErrors().length > 0){
-                    return;                    
-                }
+				if (self.changePasswordErrors().length > 0) {
+					return;
+				}
 
 				let loginParams = {
 					requestParams: {
@@ -667,14 +693,14 @@
 					success: function (response) {
 
 						if (response && response.ErrorMessage) {
-							self.validationHeader("Change password failed")	
+							self.validationHeader("Change password failed")
 							self.errorMessage(response.ErrorMessage);
 							$("#validationPopup").modal("show");
 							return;
 						}
 						else if (response && response.UserId) {
 							$(".forgotPasswordOtpScreen, .forgotPasswordScreen, .updatePasswordScreen").hide();
-							self.validationHeader("Sucess")							
+							self.validationHeader("Sucess")
 							self.errorMessage("Password updated successfully, please login.");
 							$("#validationPopup").modal("show");
 							self.showLogin();
