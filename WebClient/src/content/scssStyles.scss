@@ -167,7 +167,7 @@ p {
 
 #custom-nav-bar {
     /* background:$headerColor; */
-    background: $headerColor;
+    background: white;
     box-shadow: none;
     height: 55px;
     width: calc(100%);
@@ -1909,13 +1909,27 @@ label{
 
 }
 .custom-model-style{
-    position: absolute;
+    // position: fixed;
     // top:0px;
 }
 .modal-open .modal{
-    position: absolute;
-    top:50px;
+    position: fixed;
+    // top:100px;
 }
+.modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    width:96vw;
+  }
+
 .add-new{
     width: 50px;
     height: 50px;
@@ -1946,8 +1960,10 @@ label{
     justify-content: space-around;
     border-top: 1px solid $border-color;
     div{
-        width:50%;
-        padding:10px
+        width: 50%;
+        padding: 10px;
+        padding-top: 4px;
+        padding-bottom: 15px;
     }
     div:first-child{
         border-right: 1px solid $border-color;
@@ -3689,12 +3705,27 @@ dl {
     display: block;
 }
 
+.style-img-icon{
+    display: flex;
+    align-items: flex-start;
+    input{
+        width: 18px;
+        margin: 4px;
+        height: 16px;
+        margin-right: 8px;
+    }
+}
+
 .Typeahead ul li {
     white-space: nowrap;
     float: left;
     width: 100%;
 }
 
+.add-Btn-here{
+    font-size: 20px;
+    line-height: 1;
+}
 .Typeahead ul li span {
     width: auto;
     float: left;
@@ -13225,7 +13256,7 @@ a{
     margin:0px;
 }
 .ind{
-    background: $headerColor;
+    background: #496785;
     color: white;
     padding: 4px;
     padding-left: 12px;
@@ -13235,9 +13266,13 @@ a{
     align-items: center;
     h5,span{
         color: white;
-
+        margin:0px;
     }
 
+}
+.add-new-image{
+    width:100px;
+    height:100px;
 }
 .edit-img{
     canvas{
