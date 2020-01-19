@@ -34,6 +34,7 @@ import viewAddressComponent from "./components/commonComponents/viewAddressCompo
 import toastrMessageComponent from "./components/commonComponents/toastrMessageComponent/toastrMessageComponent.vue"
 import addressChooseComponent from "./components/commonComponents/addressChooseComponent/addressChooseComponent.vue"
 import historyPopupComponent from "./components/commonComponents/historyPopupComponent/historyPopupComponent.vue"
+import myWallet from "./components/myaccount/myWallet/myWallet.vue"
 
 Vue.component(datePickerComponent.name, datePickerComponent);
 Vue.component(pageLoadingComponent.name, pageLoadingComponent);
@@ -61,6 +62,7 @@ Vue.component(viewAddressComponent.name, viewAddressComponent);
 Vue.component(toastrMessageComponent.name, toastrMessageComponent)
 Vue.component(addressChooseComponent.name, addressChooseComponent)
 Vue.component(historyPopupComponent.name, historyPopupComponent);
+Vue.component(myWallet.name, myWallet)
 
 new Vue({
   el: '#app',

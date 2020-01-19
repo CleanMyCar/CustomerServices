@@ -137,7 +137,7 @@ p {
 .btn-default:hover,
 .btn-default:active,
 .btn-default:focus {
-    background-color:$hearerIconColour;
+    background-color:#fff;
     color: $headerColor !important;
 }
 
@@ -13293,4 +13293,8 @@ a{
 .btn-default{
     color: black !important;
     cursor: pointer;
+}
+
+.walletHeader th{
+    font-size: 12px;
 }

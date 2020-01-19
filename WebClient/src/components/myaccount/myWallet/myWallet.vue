@@ -4,7 +4,7 @@
     import moment from "moment-timezone";
     export default {
         name: "myWallet",
-        props: [],
+        props: ["hideHeader"],
         data() {
             return {
                 myWalletTransactions: [],

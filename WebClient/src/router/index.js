@@ -27,6 +27,7 @@ import serviceDetailComponent from "../components/adminModule/serviceDetailCompo
 import addAmountToWallet from "../components/adminModule/addAmountToWallet/addAmountToWallet.vue"
 import myWallet from "../components/myaccount/myWallet/myWallet.vue"
 import supportComponent from "../components/customerModule/supportComponent/supportComponent.vue"
+import rechargeWallet from "../components/myaccount/reachargeComponent/reachargeComponent.vue"
 Vue.use(Router);
 
 export default new Router({
@@ -136,6 +137,11 @@ export default new Router({
       path: '/support',
       name: 'support',
       component: supportComponent
+    } ,
+    {
+      path: '/recharge/:txnId',
+      name: 'rechargeWallet',
+      component: rechargeWallet
     }    
   ]
 })

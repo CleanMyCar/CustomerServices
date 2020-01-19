@@ -78,7 +78,11 @@
             redirectToSupport(){
                 this.panelCallback();
                 this.$router.push("/support")
-            }
+            },
+            redirectToRecharge(){
+                this.panelCallback();
+                this.$router.push("/recharge/-1")
+            },
         },
         computed: {
             userProfile(){

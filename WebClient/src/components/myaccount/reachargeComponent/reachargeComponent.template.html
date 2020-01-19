@@ -1,0 +1,79 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="header-subscribe">Recharge</h4>
+    </div>
+    <div class="panel-body addBg">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="number" class="form-control" v-model="rechargeAmount" name="rechargeAmount"
+                        placeholder="Enter Recharge Amount">
+                    <div class="form-group" v-if="errors.has('rechargeAmount')">
+                        <span v-show="errors.has('rechargeAmount')" class="invalid-feedback">
+                            <i v-show="errors.has('rechargeAmount')" class="fa fa-warning"></i>
+                            Please enter valid Amount
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="flex-wrapm">
+                                <div class="tabs-custom" v-for="recharge in rechargeAmounts">
+                                    <span class="radioLabel customradioLabel">
+                                        <button
+                                            v-bind:class="['btn-default serviceName custom-bbtn', selectedRechargeId == recharge.Id ? 'active': '']"
+                                            @click="selectRecharge(recharge)">
+                                            {{'+ ' + recharge.Amount}}
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div style="background-color: grey;">
+                                <span style="float: left;">Amount : ₹ {{rechargeAmount ? rechargeAmount : '0'}} /-
+                                </span>
+                                <span style="float: right; margin-left: 50px;" @click="rechargeWallet">Confirm</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="bold">Wallet Balance : </label>
+                            <label style="margin-left: 50px;">₹ {{walletSummary.Amount}} /-</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="bold">Last Recharge : </label>
+                            <label style="margin-left: 50px;">₹
+                                {{walletSummary.TransactionAmount ? walletSummary.TransactionAmount : '0'}} /-</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="bold">Recharge History</label>
+                            <myWallet hideHeader="true"></myWallet>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <toastrMessageComponent v-if="isDialogOpen" :message="popupMessage" :headerTitle="headerTitle"
+            :isOpen="isDialogOpen" :closeToastrPopup="closeToastrPopup"></toastrMessageComponent>
+    </div>
+</div>
