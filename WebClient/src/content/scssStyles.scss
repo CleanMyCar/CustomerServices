@@ -2479,6 +2479,32 @@ textarea {
     background: none;
 }
 
+.customer-service-tabs{
+    display: flex;
+    padding: 0px;
+    div{
+        border:1px solid $headerColor;
+        background-color: white;
+        color:$headerColor;
+        margin:6px;
+        padding: 4px 18px;
+        border-radius: 50px;
+
+        &.active{
+            background-color: $headerColor;
+            a{
+                color:white !important;
+                
+
+            }
+        }
+        a{
+            text-decoration: unset !important;
+        }
+
+    }
+}
+
 .btn-card:after {
     content: "";
     width: calc(100% - 10px);
@@ -2494,6 +2520,25 @@ textarea {
 .btn-card:active {
     border: 0;
     outline: 0;
+}
+
+.title-img-ping{
+    .dTable{
+        width: 90vw;
+        float: left;
+        overflow-x: auto;
+        margin-left: -45px;
+    
+    }
+}
+
+.customer-service-tabs{
+    a{
+    font-size: 12px;
+    }
+    .panel-body.addBg {
+        padding:0px !important;
+    }
 }
 
 .btn-card i {

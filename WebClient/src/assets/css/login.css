@@ -134,6 +134,9 @@ body{
     padding: 10px 20px;
     background: #1C3957;
     color: white;
+    position: fixed;
+    width: 100%;
+    box-shadow: 0px 0px 4px black;
     height: 10vh;
 }
 /* @media only screen and (max-width: 600px) {

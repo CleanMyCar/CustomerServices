@@ -1,12 +1,12 @@
 <div class="panel panel-default">
 
-    <div class="panel-heading">
+    <div class="panel-heading" style="padding:0px;">
         <h4 class="pull-left">Customer Services</h4>
         
         
     </div>
 
-    <div class="panel-body">
+    <div class="panel-body" style="padding:0px;">
         <div class="">
             <div class="row">
                 <div class="col-md-4">
@@ -42,12 +42,12 @@
                 </div>
             </div>
         </div>
-        <ul class="nav nav-tabs">
-            <li v-for="tab in detailTabs" v-on:click="" :class="{ active: selectedTab === tab.id }">
+        <div class="nav nav-tabs customer-service-tabs">
+            <div v-for="tab in detailTabs" v-on:click="" :class="{ active: selectedTab === tab.id }">
                 <a v-text="tab.text" v-on:click="selectTab(tab.id, $event)"></a>
-            </li>
-        </ul>
-        <div class="col-md-12">
+            </div>
+        </div>
+        <div class="col-md-12 title-img-ping">
             <div class="tab-content">
                 <div class="tab-pane" v-if="selectedTab === 1" :class="{ active: selectedTab === 1 }">
                     <div class="panel panel-default">
