@@ -1927,7 +1927,17 @@ label{
     display: inline-block;
     text-align: left;
     vertical-align: middle;
-    width:96vw;
+    width:90vw;
+    margin: 0px ;
+    margin-left:5vw;
+  }
+
+  .custom-small-popup{
+    .modal-dialog{
+        width:80vw;
+        margin-left: 10vw;
+        box-shadow: 0px 0px 4px black;
+    }
   }
 
 .add-new{

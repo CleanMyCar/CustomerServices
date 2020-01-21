@@ -117,7 +117,10 @@
         width: 35px;
         height: 35px;
         border-radius: 30px;
-        background: #eee
+        background: #eee;
+        display:flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .profilePicture {
