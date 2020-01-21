@@ -65,6 +65,7 @@ body{
 }
 .form-styles{
     height: 100%;
+    margin-top: 10vh;
     overflow-x: scroll;
 }
 .loginBoxDiv form input[type="submit"],  input[type="button"]{
@@ -132,7 +133,7 @@ body{
     display: flex;
     justify-content: space-between;
     padding: 10px 20px;
-    background: #1C3957;
+    background: white;
     color: white;
     position: fixed;
     width: 100%;
