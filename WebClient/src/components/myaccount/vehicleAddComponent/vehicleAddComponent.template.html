@@ -127,6 +127,6 @@
         </div>
     </div>
 
-    <deleteConfirmationPopup :updateParent="callbackFromConfirmation" :isOpen="vechileTypeChangePopup" v-if="vechileTypeChangePopup"
+    <deleteConfirmationPopup class="custom-small-popup"  :updateParent="callbackFromConfirmation" :isOpen="vechileTypeChangePopup" v-if="vechileTypeChangePopup"
         headerTitle="'Please confirm before change vehicle type'" message="'Changing vehicle type will delete all existing subscriptions for this vehicle. Are you sure want to change it ?'"></deleteConfirmationPopup>
 </div>
