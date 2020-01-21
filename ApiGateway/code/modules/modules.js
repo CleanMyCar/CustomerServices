@@ -74,7 +74,8 @@ const getServiceList = require("./services/getServiceList"),
   getBuildingsAndServicePersons = require("./admin/getBuildingsAndServicePersons"),
   updateSubscription = require("./customer/updateSubscription"),
   resendVerficationOtp = require("./user/resendVerificationOtp"),
-  verifyUserOtp = require("./user/verifyUserOtp");
+  verifyUserOtp = require("./user/verifyUserOtp"),
+  getUserWalletSummary = require("./myAccount/getUserWalletSummary");
 
 module.exports = [
   { key: "CreateUser", callback: createUser, pushkey: null, isLoggingEnabled: false },
@@ -155,4 +156,5 @@ module.exports = [
   {key: "UpdateSubscription", callback: updateSubscription, pushkey: null, isLoggingEnabled: false},
   {key: "ResendVerficationOtp", callback: resendVerficationOtp, pushkey: null, isLoggingEnabled: false},
   {key: "VerfiyUserOtp", callback: verifyUserOtp, pushkey: null, isLoggingEnabled: false},
+  {key: "GetUserWalletSummary", callback: getUserWalletSummary, pushkey: null, isLoggingEnabled: false},
 ];

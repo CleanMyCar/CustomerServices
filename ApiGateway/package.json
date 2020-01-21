@@ -15,6 +15,7 @@
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.2",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.16.2",
     "express-fileupload": "^0.1.4",
     "fcm-node": "^1.2.1",
@@ -30,9 +31,11 @@
     "nodemailer": "^4.4.1",
     "otplib": "^11.0.1",
     "promise": "^8.0.1",
+    "querystring": "^0.2.0",
     "request-promise": "^4.2.2",
     "socket.io": "^1.7.4",
     "stripe": "^6.25.1",
-    "uid-generator": "^1.0.0"
+    "uid-generator": "^1.0.0",
+    "util": "^0.12.1"
   }
 }

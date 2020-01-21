@@ -91,6 +91,7 @@ module.exports = async function (configParams) {
             rentalUnitedApiUrl: configParams.rentalUnitedApiUrl,
             sessionTimeOut: configParams.sessionTimeOut,
             // googleAnalyticsJwt : configParams.googleAnalyticsJwt
+            paytmConfig: null
         }
     }
     catch (e) {
