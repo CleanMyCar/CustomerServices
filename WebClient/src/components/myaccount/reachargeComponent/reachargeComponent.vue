@@ -22,7 +22,8 @@
                 isDialogOpen: false,
                 popupMessage: null,
                 headerTitle: null,
-                walletSummary: {}
+                walletSummary: {},
+                isWalletChanged: false
             }
         },
 
@@ -54,14 +55,21 @@
                 this.isDialogOpen = false;
             },
             rechargeWallet() {
-                let url = (window.location.protocol + '//' + window.location.hostname + (window.location.port ? ":1339" : '')) + '/rechargeWallet';
+                let vm = this;
+                let url = (window.location.protocol + '//' + window.location.hostname + (window.location.port ? ":1339" : '')) + '/api/rechargeWallet';
                 // window.location.href = url  + "?Amount=" + this.rechargeAmount + "&token=" + window.localStorage.getItem('rttoken')
-                
-                let receiveMessage = function(event) {
+
+                let receiveMessage = function (event) {
                     console.log(event);
                     if (event.origin === window.location.origin) {
                         let data = event.data;
-                        
+
+                        if (data.transactionId) {
+                            vm.getUserWalletSummary();
+                            vm.isWalletChanged = true;
+                            vm.rechargeAmount = null;
+                        }
+
                     }
                     else {
                         console.log("received response from another page ", event.origin)
@@ -70,7 +78,7 @@
                 window.removeEventListener('message', receiveMessage, false);
                 window.addEventListener("message", receiveMessage, false);
 
-                window.open(url  + "?Amount=" + this.rechargeAmount + "&token=" + window.localStorage.getItem('rttoken'), '_blank', 'width=600,height=600');
+                window.open(url + "?Amount=" + this.rechargeAmount + "&token=" + window.localStorage.getItem('rttoken'), '_blank', 'width=600,height=600');
 
 
             }

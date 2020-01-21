@@ -378,7 +378,7 @@
             </div>
         </div>
 
-        <vehicleAddComponent v-if="openedVehicleAddPopup" :vehicleId="vehicleAddress && vehicleAddress.VehicleId == -1"
+        <vehicleAddComponent v-if="openedVehicleAddPopup" :vehicleId="vehicleAddress && vehicleAddress.VehicleId"
             :updateParent="updateVehicleAddress" :isPersonal="vehicleInfo.IsPersonal" :isOpen="openedVehicleAddPopup"
             :closeVehicleAddPopup="closeVehicleAddPopup" :serviceDetail="serviceDetail"></vehicleAddComponent>
 

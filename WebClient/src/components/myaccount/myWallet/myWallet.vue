@@ -4,7 +4,7 @@
     import moment from "moment-timezone";
     export default {
         name: "myWallet",
-        props: ["hideHeader"],
+        props: ["hideHeader", "isWalletChanged"],
         data() {
             return {
                 myWalletTransactions: [],
@@ -41,6 +41,11 @@
         mounted() {
             let vm = this;
             vm.getMyWalletTransactions();
+        },
+        watch:{
+            isWalletChanged(){
+                this.getMyWalletTransactions();
+            }
         }
     };
 </script>

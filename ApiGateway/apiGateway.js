@@ -1,18 +1,20 @@
 ﻿const express = require("express");
 const httpModule = require("http");
-const socketio = require("socket.io");
+const socketio = require("socket.io", { path: '/api/socket-io'});
 let bodyParser = require("body-parser");
 let request = require("request");
 let moment = require("moment");
 let promise = require("promise");
 let app = express();
 let http = httpModule.createServer(app);
-let io = socketio(http);
+let io = socketio({ path: '/api/socket.io' }).listen(http);
 let log4js = require("log4js");
 let logger = log4js.getLogger();
 const fileUpload = require("express-fileupload");
 const https = require("https")
 let config = require("./code/core/core");
+
+io.origins('*:*') 
 
 config.socketIo = io;
 config.logger = logger;
@@ -721,7 +723,7 @@ require("./code/core/core")(configParams)
 		let saveTransactionDetails = require("./code/modules/wallet/rechargeWallet");
 		const checksum_lib = require("./code/modules/wallet/checksum");
 
-		app.get("/rechargeWallet", function (req, res) {
+		app.get("/api/rechargeWallet", function (req, res) {
 			let apiRequestParams = req.query;
 
 			if (typeof req.query == "string") {
@@ -818,7 +820,7 @@ require("./code/core/core")(configParams)
 			);
 		})
 
-		app.post("/paytmCallback", function (req, res) {
+		app.post("/api/paytmCallback", function (req, res) {
 			// console.log(req);
 
 			// let body = "";
@@ -916,9 +918,9 @@ require("./code/core/core")(configParams)
 								console.log("Payment details saving failed", err);
 								return res.send({ error: err });
 							}
-							res.writeHead(200, { "Content-Type": "text/html" });
-							res.write(html);
-							res.end();
+							// res.writeHead(200, { "Content-Type": "text/html" });
+							// res.write(html);
+							// res.end();
 						})
 					});
 				});
@@ -934,7 +936,7 @@ require("./code/core/core")(configParams)
 				res.write("</head>");
 				res.write("<body>");				
 				res.write('<script type="text/javascript">');
-				res.write("window.opener && window.opener.postMessage({ transactionId: " + response_data.TXNID + ", from: 'paytmsuccess' }, window.location.origin);window.close();");
+				res.write("window.opener && window.opener.postMessage({ transactionId: '" + response_data.TXNID + "', from: 'paytmsuccess' }, window.location.origin);window.close();");
 				res.write("</script>");
 				res.write("</body>");
 				res.write("</html>");
