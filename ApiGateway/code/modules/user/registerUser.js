@@ -65,8 +65,10 @@ module.exports = async (config, params, callback) => {
     userOtp = await generateOtp();
     saveuser();
     sendSms(config, {
-        message: `Please use OTP ${userOtp} to reset your password in CleanMyCar`,
+        message: `Please use OTP ${userOtp} to complete your registration in CleanMyCar`,
         mobileNumber: params.mobileNumber
+    }, function(err, resp){
+
     })
   }
 };

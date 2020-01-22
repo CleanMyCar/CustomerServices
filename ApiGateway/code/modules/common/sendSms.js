@@ -1,3 +1,4 @@
+const request = require("request-promise")
 module.exports = (config, params, callback) => {
     // let message = `Please use OTP ${params.userOtp} to reset your password in CleanMyCar`
     var options = {
@@ -7,10 +8,11 @@ module.exports = (config, params, callback) => {
 
     request(options)
         .then(function (parsedBody) {
-            return callback(null, result.recordsets[0]);
+            console.log("SMS SENT ", parsedBody)
+            return callback(null, parsedBody);
         })
         .catch(function (err) {
             console.log(err)
-            return callback(err, result.recordsets[0]);
+            return callback(err);
         });
 }

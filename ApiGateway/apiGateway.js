@@ -893,54 +893,56 @@ require("./code/core/core")(configParams)
 						html += "<b>Status Check Response</b><br>";
 						for (var x in _result) {
 							html += x + " => " + _result[x] + "<br/>";
-						}
-
-						saveTransactionDetails(config, {
-							WalletTransactionId: _result.ORDERID,
-							PaymentTransactionId: _result.TXNID,
-							PaymentMode: _result.PAYMENTMODE,
-							PaymentCurrency: response_data.CURRENCY,
-							PaymentTransactionDate: _result.TXNDATE.toString(),
-							TransactionStatus: _result.STATUS,
-							TransactionRespCode: _result.RESPCODE,
-							TransactionRespMessage: _result.RESPMSG,
-							PaymentGatewayName: _result.GATEWAYNAME,
-							BankTransactionId: _result.BANKTXNID,
-							BankName: _result.BANKNAME,
-							RefundAmount: _result.REFUNDAMT,
-							PaymentTransactionType: _result.TXNTYPE,
-							systemParams: {
-								UserId: null
-							}
-
-						}, function (err, resp) {
-							if (err) {
-								console.log("Payment details saving failed", err);
-								return res.send({ error: err });
-							}
-							// res.writeHead(200, { "Content-Type": "text/html" });
-							// res.write(html);
-							// res.end();
-						})
+						}						
 					});
 				});
 
 				// post the data
 				// post_req.write(post_data);
-				post_req.end();
 
-				res.writeHead(200, { "Content-Type": "text/html" });
-				res.write("<html>");
-				res.write("<head>");
-				res.write("<title>Merchant Checkout Page</title>");
-				res.write("</head>");
-				res.write("<body>");				
-				res.write('<script type="text/javascript">');
-				res.write("window.opener && window.opener.postMessage({ transactionId: '" + response_data.TXNID + "', from: 'paytmsuccess' }, window.location.origin);window.close();");
-				res.write("</script>");
-				res.write("</body>");
-				res.write("</html>");
-				res.end();
+				post_req.end();
+				saveTransactionDetails(config, {
+					WalletTransactionId: response_data.ORDERID,
+					PaymentTransactionId: response_data.TXNID,
+					PaymentMode: response_data.PAYMENTMODE,
+					PaymentCurrency: response_data.CURRENCY,
+					PaymentTransactionDate: response_data.TXNDATE.toString(),
+					TransactionStatus: response_data.STATUS,
+					TransactionRespCode: response_data.RESPCODE,
+					TransactionRespMessage: response_data.RESPMSG,
+					PaymentGatewayName: response_data.GATEWAYNAME,
+					BankTransactionId: response_data.BANKTXNID,
+					BankName: response_data.BANKNAME,
+					RefundAmount: response_data.REFUNDAMT,
+					PaymentTransactionType: response_data.TXNTYPE,
+					systemParams: {
+						UserId: null
+					}
+
+				}, function (err, resp) {
+					if (err) {
+						console.log("Payment details saving failed", err);
+						return res.send({ error: err });
+					}
+					// res.writeHead(200, { "Content-Type": "text/html" });
+					// res.write(html);
+					// res.end();
+					res.redirect("/index.html#/recharge/" + response_data.TXNID)
+				})
+				
+				// res.writeHead(200, { "Content-Type": "text/html" });
+				// res.write("<html>");
+				// res.write("<head>");
+				// res.write("<title>Merchant Checkout Page</title>");
+				// res.write("</head>");
+				// res.write("<body>");				
+				// res.write('<script type="text/javascript">');
+				// // res.write("window.opener && window.opener.postMessage({ transactionId: '" + response_data.TXNID + "', from: 'paytmsuccess' }, window.location.origin);window.close();");
+				// res.write("</script>");
+				// res.write("</body>");
+				// res.write("</html>");
+				// res.end();
+				// res.redirect("http://localhost/index.html#/recharge/" + response_data.TXNID)
 				
 				// res.writeHead(200, { "Content-Type": "text/html" });
 				// res.write("<html>");
