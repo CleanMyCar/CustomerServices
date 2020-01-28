@@ -8,15 +8,16 @@
                 <thead class="walletHeader">
                     <th>Transaction Date</th>
                     <th>Amount</th>
-                    <th>Transaction Type</th>                    
+                    <th>Transaction Type</th>    
+                    <th>Status</th>                
                 </thead>
                 <tbody class="myordersTable">
 
                     <tr v-for="transaction in myWalletTransactions">
                         <td>{{returnDateTime(transaction.TransactionDate)}}</td>
                         <td>₹ {{transaction.Amount}}</td>
-                        <td>{{transaction.IsCredited ? "Credited": "Debited"}}</td>
-                        <!-- <td> {{transaction.TransactionType}}</td> -->
+                        <td>{{transaction.IsCredited ? "Credit": "Debit"}}</td>
+                        <td>{{transaction.TransactionRespCode == "01" ? "Success": "Failure"}}</td>
                     </tr>
 
                 </tbody>

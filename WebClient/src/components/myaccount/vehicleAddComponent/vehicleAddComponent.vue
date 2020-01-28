@@ -46,7 +46,7 @@
                     ParkingLot: null,
                     VehicleImage: null,
                     VehicleTypeId: this.serviceDetail ? this.serviceDetail.VehicleCategoryType : "2",
-                    FourWheelerTypeId: this.serviceDetail && this.serviceDetail.VehicleCategoryType == "2" ? "2" : null
+                    FourWheelerTypeId: this.serviceDetail && this.serviceDetail.VehicleCategoryType ? this.serviceDetail.VehicleCategoryType : "2"
                 }
                 $("#newVehicleDetailsPopup").modal("show");
             },

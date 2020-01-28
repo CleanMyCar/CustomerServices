@@ -16,10 +16,17 @@ module.exports = (config, params, callback) => {
             return
         }
 
+        let messageBody = `Hi Team, <br> <br> Please find my feedback here <br> ${params.Message} <br><br>
+                            Regards, <br>
+                            ${params.Name} <br>
+                            ${params.MobileNumber}<br>
+                            ${params.Email}
+                            `;
+
         sendEmail(config, {
             Email: 'contact@cleanmycar.in',
             MessageTitle: "Feedback",
-            MessageBody: params.Message
+            MessageBody: messageBody
         }, function (err, response) {
             if (err) {
                 console.log("Support email sending failed ", err)

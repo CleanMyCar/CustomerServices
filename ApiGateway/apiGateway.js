@@ -906,7 +906,7 @@ require("./code/core/core")(configParams)
 					PaymentTransactionId: response_data.TXNID,
 					PaymentMode: response_data.PAYMENTMODE,
 					PaymentCurrency: response_data.CURRENCY,
-					PaymentTransactionDate: response_data.TXNDATE.toString(),
+					PaymentTransactionDate: response_data.TXNDATE ? response_data.TXNDATE.toString() : null,
 					TransactionStatus: response_data.STATUS,
 					TransactionRespCode: response_data.RESPCODE,
 					TransactionRespMessage: response_data.RESPMSG,

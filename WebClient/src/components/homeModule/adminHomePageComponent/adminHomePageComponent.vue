@@ -6,7 +6,7 @@
         name: "adminHomePage",
         props: [],
         data() {
-            let detailTabs = [], 
+            let detailTabs = [],
                 tobeAssignedTabs = { text: 'To be Assigned Services', id: 1 },
                 assignedTab = { text: 'Assigned Services', id: 4 },
                 compltedTab = { text: 'Completed Services', id: 5 },
@@ -42,11 +42,11 @@
 
         methods: {
             selectTab(tabId, event) {
-                let vm  = this;
+                let vm = this;
                 this.selectedTabId = tabId;
                 vm.services.splice(0, vm.services.length);
-                vm.pendingServiceFilter.PersonId = null;                
-                vm.getRequestedServices();                
+                vm.pendingServiceFilter.PersonId = null;
+                vm.getRequestedServices();
             },
             getAdminDashborad() {
                 let vm = this;
@@ -65,8 +65,18 @@
             showPendingVehicleServices() {
                 this.$router.push("/assignService/1");
             },
+            returnServiceDateTime(serviceObj) {
+                if (serviceObj && this.selectedTabId == 1 && serviceObj.ChildServiceDate && serviceObj.ChildParentId) {
+                    return moment.utc(serviceObj.ChildServiceDate).format("Do MMM YYYY")
+                }
+                if (serviceObj && serviceObj.ServiceDate) {
+                    return moment.utc(serviceObj.ServiceDate).format("Do MMM YYYY")
+                }
+                return null;
+
+            },
             returnDateTime(date) {
-                return date ? moment(date).format("Do MMM YYYY") : null
+                return date ? moment.utc(date).format("Do MMM YYYY") : null
             },
             getRequestedServices(serviceStatusId) {
                 let vm = this;
@@ -79,7 +89,7 @@
                     ServiceId: vm.pendingServiceFilter.ServiceId,
                     AddressId: vm.pendingServiceFilter.AddressId,
                     PersonId: vm.pendingServiceFilter.PersonId
-                }                
+                }
 
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "GetAllPendingServicesByType",
@@ -125,15 +135,15 @@
                 this.getRequestedServices(1);
                 // this.getRequestedServices(3);
             },
-            getServiceAmount(service){
-                let amount = service.VehicleTypeId == 2 ? (service.ServiceType == 2 ? service.FourWheelerOncePrice : service.FourWheelerSubPrice) : (service.ServiceType == 2 ? service.Price : service.SubscriptionPrice )
+            getServiceAmount(service) {
+                let amount = service.VehicleTypeId == 2 ? (service.ServiceType == 2 ? service.FourWheelerOncePrice : service.FourWheelerSubPrice) : (service.ServiceType == 2 ? service.Price : service.SubscriptionPrice)
                 return amount * service.Quantity;
             },
             updateServiceDate(key, dateObj, objectPassedToParent) {
                 this.pendingServiceFilter.ServiceDate = dateObj ? dateObj.format("DD MMM YYYY") : null;
                 this.pendingServiceFilter.ActualServiceDate = dateObj ? dateObj.format("YYYY-MM-DD") : null;
             },
-            getAdminServices(){                
+            getAdminServices() {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "GetAllServices",
@@ -150,13 +160,13 @@
                             vm.getRequestedServices(1);
                         }
                     }
-                });            
+                });
             },
-            getBuildingsAndServicePersons(){                
+            getBuildingsAndServicePersons() {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "GetBuildingsAndServicePersons",
-                    params: {                        
+                    params: {
                     },
                     callback: function (err, response) {
                         if (err) {
@@ -167,14 +177,14 @@
                             vm.servicePerons.splice(0, vm.servicePerons.length, ...response.servicePerons);
                         }
                     }
-                });            
+                });
             },
         },
         computed: {
             selectedTab() {
                 return this.selectedTabId;
             },
-            timeslots(){
+            timeslots() {
                 return this.$store.state.timeslots;
             }
         },
@@ -188,7 +198,7 @@
             })
         },
         watch: {
-            
+
             searchNameText(searchText) {
                 if (searchText && searchText.trim() && searchText.trim().length > 2) {
                     this.getServicePersonList()

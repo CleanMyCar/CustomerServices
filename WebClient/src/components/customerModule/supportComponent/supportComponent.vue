@@ -81,21 +81,18 @@
                 this.$router.push("/users")
             },
             resetForm() {
-                this.feedback = {
-                    Message: null,
-                    Name: null,
-                    Email: null,
-                    MobileNumber: null
-                }
+                this.feedback.Message = null;
             },
-            fillUserDetails(){
-                this.feedback.Name = this.loggedInUser.UserFirstName + " " + this.loggedInUser.UserLastName;
-                this.feedback.Email = this.loggedInUser.Email;
-                this.feedback.MobileNumber = this.loggedInUser.MobileNumber;
+            fillUserDetails() {
+                if (this.loggedInUser) {
+                    this.feedback.Name = this.loggedInUser.UserFirstName + " " + this.loggedInUser.UserLastName;
+                    this.feedback.Email = this.loggedInUser.Email;
+                    this.feedback.MobileNumber = this.loggedInUser.MobileNumber;
+                }
             }
         },
         computed: {
-            loggedInUser(){
+            loggedInUser() {
                 return this.$store.state.loggedInUserDetail;
             }
         },
@@ -106,7 +103,7 @@
 
         },
         watch: {
-            loggedInUser(){
+            loggedInUser() {
                 this.fillUserDetails();
             }
         }

@@ -26,6 +26,6 @@ module.exports = (config, params, callback) => {
         }
 
         // console.log(result);
-        callback(null)
+        callback(null, result.recordsets[0][0])
     })
 }

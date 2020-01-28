@@ -3,11 +3,14 @@
 <script>
     export default {
         name: "userCartPanel",
-        props: ["updateParent"],
+        props: ["updateParent", "panelCallback"],
         data() {
             return {
                 cartItems: [],
-                selectedIndex: null
+                selectedIndex: null,
+                isDialogOpen: false,
+                popupMessage: null,
+                headerTitle: null
             };
         },
 
@@ -76,6 +79,16 @@
                             return;
                         }
 
+                        if (response.ErrorMessage) {                                                        
+                            vm.headerTitle = "Alert !!";
+                            vm.popupMessage = response.ErrorMessage;
+                            vm.isDialogOpen = !vm.isDialogOpen;
+                            setTimeout(function(){
+                                $(".modal-backdrop").css("z-index", "")
+                            }, 100)
+                            
+                            return
+                        }
                         vm.cartItems.splice(0, vm.cartItems.length);
                         vm.$store.state.bus.$emit("refreshCart");
                     }
@@ -85,15 +98,18 @@
                 return cartItem.ServiceType == 2 ?
                     (cartItem.VehicleCategoryType == 2 ? cartItem.SubscribeItemPrice * cartItem.Quantity : cartItem.Price * cartItem.Quantity) :
                     (cartItem.VehicleCategoryType == 2 ? cartItem.SubscribeSubscriptionPrice * cartItem.Quantity : cartItem.SubscriptionPrice * cartItem.Quantity)
-            }
+            },
+            closeToastrPopup() {
+                this.isDialogOpen = !this.isDialogOpen;
+            },
         },
         computed: {
             cartTotalValue() {
                 let totalValue = 0
                 this.cartItems.forEach((cartItem) => {
                     totalValue += cartItem.ServiceType == 2 ?
-                    (cartItem.VehicleCategoryType == 2 ? cartItem.SubscribeItemPrice * cartItem.Quantity : cartItem.Price * cartItem.Quantity) :
-                    (cartItem.VehicleCategoryType == 2 ? cartItem.SubscribeSubscriptionPrice * cartItem.Quantity : cartItem.SubscriptionPrice * cartItem.Quantity);
+                        (cartItem.VehicleCategoryType == 2 ? cartItem.SubscribeItemPrice * cartItem.Quantity : cartItem.Price * cartItem.Quantity) :
+                        (cartItem.VehicleCategoryType == 2 ? cartItem.SubscribeSubscriptionPrice * cartItem.Quantity : cartItem.SubscriptionPrice * cartItem.Quantity);
                 })
                 return totalValue;
             }
