@@ -1,5 +1,5 @@
-<div>
-    <div class="searchResultsAmenitiesDiv">
+<div class="admin-sign">
+    <div style="width:140px" class="searchResultsAmenitiesDiv">
         <input type="text" placeholder="Please type name..." v-model.trim="searchNameText">
     </div>
     <div class="form-control searchResultsAmenities" @click="$event.stopPropagation()" id="propertyDropDown"
@@ -12,6 +12,6 @@
         </ul>
     </div>
     <div>
-        <button class="btn btn-success" style="font-size:12px; margin-top:10px" @click="assignService">Assign</button>
+        <button class="btn btn-success" style="font-size:12px;" @click="assignService">Assign</button>
     </div>
 </div>

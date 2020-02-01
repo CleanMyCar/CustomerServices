@@ -12925,7 +12925,7 @@ body {
 
 .adsBanner{
   position: relative;
-  height: 25vh;
+  height: 30vh;
 }
  .services{
      .serviceCards{
@@ -13086,7 +13086,7 @@ a{
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 1000px;
+//   max-width: 1000px;
   position: relative;
   margin: auto;
 //   width: 55%;
@@ -13098,6 +13098,12 @@ a{
   img{
       height:30vh;
   }
+}
+
+.admin-sign{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 // .banner-dots{
