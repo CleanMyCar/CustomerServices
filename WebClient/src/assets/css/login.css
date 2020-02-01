@@ -275,3 +275,18 @@ body{
 .mySlides img{
     height: 30vh;
 }
+
+.inline-logo{
+    position: absolute; 
+    left:28%; 
+    top:17px; 
+    margin:0px;
+}
+@media only screen and (min-width: 600px) {
+    .inline-logo{
+        position: absolute; 
+        left:43%; 
+        top:17px; 
+        margin:0px;
+    }
+  }

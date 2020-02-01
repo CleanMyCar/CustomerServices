@@ -1005,6 +1005,7 @@ h6 {
 }
 .header-subscribe{
     color: $headerColor;
+    // margin-top:13px;
 }
 .fa-chevron-left{
     color:$headerColor;
@@ -1232,6 +1233,7 @@ h6 {
     float: left;
     width: 100%;
     margin-top: 0px;
+    margin-top:18px;
 }
 
 .chart {
@@ -1887,6 +1889,7 @@ label{
 }
 .product-row{
     padding:0px 10px;
+    margin-top:20px;
 }
 
 }
@@ -13001,7 +13004,7 @@ body {
     }
     .subscribeTop{
         div{
-            word-break: break-all;
+            word-break: break-word;
         }
     }
 }
@@ -13176,6 +13179,9 @@ a{
     font-size: 14px;
 }
 
+.inner-text-in{
+    padding:20px;
+}
 .counter {
     /* position: absolute; */
     right: 0px;
@@ -13271,7 +13277,7 @@ a{
         border:1px solid $borderColor;
         border-radius: 5px;
         margin:5px;
-        min-width: calc(50vw - 39px);
+        min-width: 165px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -13353,3 +13359,18 @@ a{
 .walletHeader th{
     font-size: 12px;
 }
+.inline-logo{
+    position: absolute;
+    left: 23%;
+    top: 3px;
+    margin: 0px;
+}
+
+@media only screen and (min-width: 600px) {
+    .inline-logo{
+        position: absolute; 
+        left:43%; 
+        top:5px; 
+        margin:0px;
+    }
+  }
