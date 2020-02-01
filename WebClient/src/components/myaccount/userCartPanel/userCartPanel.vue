@@ -107,9 +107,10 @@
             cartTotalValue() {
                 let totalValue = 0
                 this.cartItems.forEach((cartItem) => {
-                    totalValue += cartItem.ServiceType == 2 ?
-                        (cartItem.VehicleCategoryType == 2 ? cartItem.SubscribeItemPrice * cartItem.Quantity : cartItem.Price * cartItem.Quantity) :
-                        (cartItem.VehicleCategoryType == 2 ? cartItem.SubscribeSubscriptionPrice * cartItem.Quantity : cartItem.SubscriptionPrice * cartItem.Quantity);
+                    totalValue += cartItem.Price * cartItem.Quantity
+                    // totalValue += cartItem.ServiceType == 2 ?
+                    //     (cartItem.VehicleCategoryType == 2 ? cartItem.SubscribeItemPrice * cartItem.Quantity : cartItem.Price * cartItem.Quantity) :
+                    //     (cartItem.VehicleCategoryType == 2 ? cartItem.SubscribeSubscriptionPrice * cartItem.Quantity : cartItem.SubscriptionPrice * cartItem.Quantity);
                 })
                 return totalValue;
             }

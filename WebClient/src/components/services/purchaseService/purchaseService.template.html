@@ -168,7 +168,7 @@
                         Date
                     </label>
                     <datePickerComponent :keyString="'StartDate'" v-model="vehicleInfo.ServiceDate"
-                        :value="vehicleInfo.ServiceDate" :format="'Do MMM YYYY'" :onUpdate="updateServiceDate"
+                        :value="vehicleInfo.ServiceDate" :minimumDate="minDate" :format="'Do MMM YYYY'" :onUpdate="updateServiceDate"
                         :pickerType="'date'">
                     </datePickerComponent>
 
@@ -204,8 +204,8 @@
                                 <div class="tabs-custom" v-for="product in subscriptionTypes"
                                     v-if="serviceDetail.serviceSubscribeTypes.indexOf(product.SubscribeId) > -1">
                                     <span class="radioLabel customradioLabel">
-                                        <!-- <input type="radio" name="serviceFrequency" :value="product.SubscribeId"
-                                            v-model="vehicleInfo.Frequency" v-validate="'required'"> -->
+                                        <input type="radio" name="serviceFrequency" :value="product.SubscribeId"
+                                            v-model="vehicleInfo.Frequency" v-validate="'required'" style="display: none;">
                                         <button v-bind:class="['btn-default serviceName custom-bbtn', vehicleInfo.Frequency == product.SubscribeId ? 'active': '']"  @click="selectSubscribeType(product)">
                                             {{product.SubscribeType}}
                                         </button>
@@ -263,14 +263,23 @@
                             </div>
                         </div>
                             
-
+                        <div style="display: none;">
                             
-                            <!-- <input type="radio" value="1" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Monday
-                            <input type="radio" value="2" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Tuesday
-                            <input type="radio" value="3" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Wednesday
-                            <input type="radio" value="4" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Thursday
-                            <input type="radio" value="5" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Friday
-                            <input type="radio" value="6" name="weeklyDay" v-model="vehicleInfo.WeeklyDay">Friday -->
+                            <input type="radio" value="1" name="weeklyDay" v-validate="'required'" v-model="vehicleInfo.WeeklyDay">Monday
+                            <input type="radio" value="2" name="weeklyDay" v-validate="'required'" v-model="vehicleInfo.WeeklyDay">Tuesday
+                            <input type="radio" value="3" name="weeklyDay" v-validate="'required'" v-model="vehicleInfo.WeeklyDay">Wednesday
+                            <input type="radio" value="4" name="weeklyDay" v-validate="'required'" v-model="vehicleInfo.WeeklyDay">Thursday
+                            <input type="radio" value="5" name="weeklyDay" v-validate="'required'" v-model="vehicleInfo.WeeklyDay">Friday
+                            <input type="radio" value="6" name="weeklyDay" v-validate="'required'" v-model="vehicleInfo.WeeklyDay">Saturday
+                            <input type="radio" value="7" name="weeklyDay" v-validate="'required'" v-model="vehicleInfo.WeeklyDay">Sunday
+                        </div>
+                        </div>
+
+                        <div class="form-group" v-if="vehicleInfo.Frequency  == 2 && errors.has('weeklyDay')">
+                            <span v-show="errors.has('weeklyDay')" class="invalid-feedback">
+                                <i v-show="errors.has('weeklyDay')" class="fa fa-warning"></i>
+                                Please select Week Day
+                            </span>
                         </div>
 
                         <div class="form-group">
@@ -279,7 +288,7 @@
                             </label>
                             <datePickerComponent :keyString="'StartDate'" v-model="vehicleInfo.ServiceDate"
                                 :value="vehicleInfo.ServiceDate" :format="'Do MMM YYYY'" :onUpdate="updateServiceDate"
-                                :pickerType="'date'">
+                                :pickerType="'date'" :minimumDate="subscriptionMinDate">
                             </datePickerComponent>
 
                         </div>
@@ -382,7 +391,7 @@
             :updateParent="updateVehicleAddress" :isPersonal="vehicleInfo.IsPersonal" :isOpen="openedVehicleAddPopup"
             :closeVehicleAddPopup="closeVehicleAddPopup" :serviceDetail="serviceDetail"></vehicleAddComponent>
 
-        <addressChooseComponent v-if="isAddressPopup"
+        <addressChooseComponent v-if="isAddressPopup" :isOpen="isAddressPopup"
             :selectedAddress="updateSelectedAddress" 
             :closeVehicleAddPopup="closeSelectAddressPopup"></addressChooseComponent>
             

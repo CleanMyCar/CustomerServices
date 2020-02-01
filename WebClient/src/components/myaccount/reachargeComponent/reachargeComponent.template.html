@@ -49,7 +49,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="bold">Wallet Balance : </label>
-                            <label style="margin-left: 50px;">₹ {{walletSummary.Amount}} /-</label>
+                            <label style="margin-left: 50px;">₹ {{walletSummary && walletSummary.Amount ? walletSummary.Amount : '0'}} /-</label>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                         <div class="form-group">
                             <label class="bold">Last Recharge : </label>
                             <label style="margin-left: 50px;">₹
-                                {{walletSummary.TransactionAmount ? walletSummary.TransactionAmount : '0'}} /-</label>
+                                {{walletSummary && walletSummary.TransactionAmount ? walletSummary.TransactionAmount : '0'}} /-</label>
                         </div>
                     </div>
                 </div>

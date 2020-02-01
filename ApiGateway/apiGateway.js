@@ -864,6 +864,8 @@ require("./code/core/core")(configParams)
 				err,
 				checksum
 			) {
+
+				console.log("checksum => ", checksum)
 				params.CHECKSUMHASH = checksum;
 				post_data = "JsonData=" + JSON.stringify(params);
 
@@ -898,7 +900,7 @@ require("./code/core/core")(configParams)
 				});
 
 				// post the data
-				// post_req.write(post_data);
+				post_req.write(post_data);
 
 				post_req.end();
 				saveTransactionDetails(config, {

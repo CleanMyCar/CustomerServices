@@ -140,7 +140,7 @@
                 return amount * service.Quantity;
             },
             updateServiceDate(key, dateObj, objectPassedToParent) {
-                this.pendingServiceFilter.ServiceDate = dateObj ? dateObj.format("DD MMM YYYY") : null;
+                this.pendingServiceFilter.ServiceDate = dateObj ? dateObj.format("Do MMM YYYY") : null;
                 this.pendingServiceFilter.ActualServiceDate = dateObj ? dateObj.format("YYYY-MM-DD") : null;
             },
             getAdminServices() {

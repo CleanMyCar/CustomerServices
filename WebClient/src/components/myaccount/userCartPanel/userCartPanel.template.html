@@ -19,7 +19,7 @@
                     <quantityComponent :disabled="cartItem.VehicleCategoryType != 3" :updateParent="callbackFromQuantity" :callbackResponse="cartItem" :inputValue="cartItem.Quantity"></quantityComponent>
                 </div>
                 <div style="font-size: 17px;">
-                ₹ {{itemPrice(cartItem)}}/-
+                ₹ {{cartItem.Quantity * cartItem.Price}}/-
             </div>
             </div>
         </div>

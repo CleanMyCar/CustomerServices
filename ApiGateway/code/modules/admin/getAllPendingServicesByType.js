@@ -3,8 +3,11 @@ const mssql = require('mssql');
 module.exports = (config, params, callback) => {
     let requestParams = config.dbwrapper.getNewRequest();
     let sp_name = "GetPendingVehicleServices";
-    if (params.StatusType == 1) {
+    if (params.serviceStatusId == 1) {
         sp_name = "GetPendingVehicleServices"
+    }
+    else if ([4, 5, 6].indexOf(params.serviceStatusId) > -1) {
+        sp_name = "GetAssignedVehicleServices";
     }
     requestParams.input('ServiceStatusId', mssql.Int, params.serviceStatusId);
     requestParams.input('ServiceDate', mssql.Date, params.ServiceDate);

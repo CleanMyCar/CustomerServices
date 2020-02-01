@@ -43,7 +43,9 @@
                 selectedPersonAddress: null,
                 isDialogOpen: false,
                 popupMessage: null,
-                headerTitle: null
+                headerTitle: null,
+                minDate: moment.utc(),
+                subscriptionMinDate: moment.utc().add(1, 'days')
             };
         },
 

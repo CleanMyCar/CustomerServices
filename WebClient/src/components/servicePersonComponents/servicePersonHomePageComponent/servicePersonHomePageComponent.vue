@@ -10,7 +10,7 @@
                 entityNamesdata: {},
                 servieList: [],
                 serviceObj: null,
-                todayDate: moment.utc().format("DD MMM, YY"),
+                todayDate: moment.utc().format("DD MMM, YYYY"),
                 selectedProduct: null,
                 selectedOption: null
             };
@@ -69,12 +69,20 @@
                         RequestId: vm.selectedProduct.RequestId,
                         Notes: vm.selectedProduct.notes,
                         ServiceType: vm.selectedProduct.ServiceType,
-                        Amount: vm.selectedProduct.VehicleTypeId == 2 ? (vm.selectedProduct.ServiceType == 2 ? vm.selectedProduct.FourWheelerOncePrice : vm.selectedProduct.FourWheelerSubPrice) : (vm.selectedProduct.ServiceType == 2 ? vm.selectedProduct.Price : vm.selectedProduct.SubscriptionPrice ),
+                        Amount: vm.selectedProduct.VehicleTypeId == 2 ? (vm.selectedProduct.ServiceType == 2 ? vm.selectedProduct.FourWheelerOncePrice : vm.selectedProduct.FourWheelerSubPrice) : (vm.selectedProduct.ServiceType == 2 ? vm.selectedProduct.Price : vm.selectedProduct.SubscriptionPrice),
                         // vm.selectedProduct.ServiceType == 2 ? vm.selectedProduct.Price : vm.selectedProduct.SubscriptionPrice,
                         Attachment: vm.selectedProduct.Attachment
                     },
                     callback: function (err, response) {
                         if (err) {
+                            return;
+                        }
+                        if (response.ErrorMessage) {
+                            vm.$store.dispatch("toastr", {
+                                type: "error",
+                                header: "Error!",
+                                message: response.ErrorMessage
+                            });
                             return;
                         }
                         $("#taskStatusChangePopup").modal("hide");
@@ -88,11 +96,11 @@
                 this.selectedProduct.checked = false;
                 $("#taskStatusChangePopup").modal("hide");
             },
-            showConfirmationPopup(flag){
+            showConfirmationPopup(flag) {
                 $("#serviceNotesPopup").modal("show")
                 this.selectedOption = flag;
             },
-            closeConfirmationPopup(){
+            closeConfirmationPopup() {
                 this.selectedOption = null;
                 $("#serviceNotesPopup").modal("hide")
             },
@@ -110,7 +118,7 @@
             userProfile() {
                 return this.$store.state.loggedInUserDetail;
             },
-            timeslots(){
+            timeslots() {
                 return this.$store.state.timeslots;
             }
         },

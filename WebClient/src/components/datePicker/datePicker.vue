@@ -42,7 +42,7 @@
                     clear: 'fa fa-trash',
                     close: 'far fa-times'
                 },
-                minDate: this.minimumDate && moment(this.minimumDate)._isValid ? this.minimumDate : moment(),
+                minDate: this.minimumDate && moment(this.minimumDate)._isValid ? this.minimumDate : false,
                 // maxDate: this.maximumDate,
                 inline: false,
                 ignoreReadonly: true,
@@ -159,7 +159,7 @@
                     this.control.date(newValue);
                 }
                 else{
-                    this.control.date(newValue ? (this.sourceFormat ? moment(newValue, this.sourceFormat).format(this.format) : moment(newValue).format(this.format)) : null);
+                    this.control.date(newValue ? (this.sourceFormat ? moment(newValue, this.sourceFormat).utc().format(this.format) : moment(newValue).utc().format(this.format)) : null);
                 }
                 
                 // if (this.maximumDate)
