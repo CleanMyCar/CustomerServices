@@ -32,15 +32,17 @@
                     <span v-if="product.Frequency == 2">
                         {{product.DayName}}
                     </span>
+                    <label class="my-products" style="float: right;">₹
+                        <b>{{product.VehicleTypeId == 2 ? (product.ServiceType == 2 ? product.FourWheelerOncePrice : product.FourWheelerSubPrice) : (product.ServiceType == 2 ? product.Price : product.SubscriptionPrice )}}/-</b>
+                    </label>
 
                 </div>
             </div>
         </div>
         <div class="row" v-if="product.ServiceStatusId == 2">
-            <div>
-                The subscription is modified from {{getFormattedDate(product.ServicePauseDate)}} to
-                {{getFormattedDate(product.ServiceEndDate)}}. Clicking on Resume will delete this modification.
-                <br>
+            <div class="inner-text-in">
+                The subscription is modified from <b>{{getFormattedDate(product.ServicePauseDate)}} to
+                {{getFormattedDate(product.ServiceEndDate)}}.</b> Clicking on Resume will delete this modification.
                 You can pause/update only after resuming the service.
             </div>
         </div>
