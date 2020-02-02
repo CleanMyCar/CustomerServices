@@ -1,5 +1,6 @@
 const mssql = require("mssql");
 const moment = require("moment");
+const updateSuspendedServices = require("./updateSuspendedServices");
 
 module.exports = (config, params, callback) => {
     try {
@@ -35,9 +36,13 @@ module.exports = (config, params, callback) => {
                 return;
             }
 
-            // if ((params.WalletTransactionId == -1 || !params.WalletTransactionId) && result.recordsets[0][0]&& result.recordsets[0][0].WalletTransactionId) {                
-
-            // }
+            if (result.recordsets[0][0]&& result.recordsets[0][0].WalletTransactionId && params.TransactionStatus == "01") {
+                updateSuspendedServices(config, params, function(err, response){
+                    if(err){
+                        console.log("activate services failed", err);
+                    }
+                })
+            }
 
             return callback(null, {
                 walletDetails: result.recordsets[0][0],

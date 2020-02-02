@@ -49,7 +49,8 @@
                                 IsSubscriptionEnabled: false,
                                 IsPurchaseOnceEnabled: false,
                                 ServiceOrder: 1,
-                                IsFrequent: 0
+                                IsFrequent: 0,
+                                Discount: 0
                             }
                         }
                         if (response.serviceDetail) {

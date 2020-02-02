@@ -20,7 +20,7 @@
                 <div class="">
                     {{getFormattedDate(product.ServiceDate)}}
                     <label class="my-products" style="float: right;">₹
-                        {{product.VehicleTypeId == 2 ? (product.ServiceType == 2 ? product.FourWheelerOncePrice : product.FourWheelerSubPrice) : (product.ServiceType == 2 ? product.Price : product.SubscriptionPrice )}}/-
+                        {{product.RequestPrice}}/-
                     </label>
                 </div>
                 <div>
@@ -44,12 +44,16 @@
                 You can pause/update only after resuming the service.
             </div>
         </div>
+        
         <div class="row" style="margin-top:8px">
             <div class="col-4">
                 <div @click="opneModifyPopup(product)" style="cursor: pointer;"
                     v-if="product.ServiceStatusId == 1 || product.ServiceStatusId == 4">
                     <span class="pauseSubscribe"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </span>
                     <span>Modify</span>
+                </div>
+                <div v-if="product.ServiceStatusId == 7">                    
+                    <span style="color: red; font-weight: 600;">Suspended</span>
                 </div>
             </div>
             <div class="col-4">

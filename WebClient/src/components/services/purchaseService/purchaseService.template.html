@@ -369,7 +369,12 @@
                 <div class="form-group">
                     <div
                         style="font-weight: bold; text-align: right;">
-                        Amount: ₹ {{servicePrice}}/-
+                        <span :class="discountPrice ? 'strikeText': ''">
+                            Amount: ₹ {{servicePrice}}/- <br>
+                        </span>
+                        <span v-if="discountPrice">
+                            Discount Price: ₹ {{discountPrice}}/-
+                        </span>
                     </div>
                 </div>
                 <div class="form-group">

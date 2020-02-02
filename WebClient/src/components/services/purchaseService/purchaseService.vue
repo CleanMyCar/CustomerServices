@@ -289,13 +289,13 @@
             closeToastrPopup() {
                 this.isDialogOpen = !this.isDialogOpen;
             },
-            selectSubscribeType(product){
+            selectSubscribeType(product) {
                 this.vehicleInfo.Frequency = product.SubscribeId;
                 if (product.SubscribeId != 2) {
                     this.vehicleInfo.WeeklyDay = null;
                 }
             },
-            selectWeeklyday(day){
+            selectWeeklyday(day) {
                 this.vehicleInfo.WeeklyDay = day;
             }
         },
@@ -320,6 +320,12 @@
                     return (vm.serviceType == 2 ? this.serviceDetail.Price : vm.serviceDetail.SubscriptionPrice) * this.vehicleInfo.Quantity
                 }
                 return 0;
+            },
+            discountPrice() {
+                if (Number(this.vehicleInfo.TimeSlot) >= 5 && this.serviceDetail.Discount && this.serviceType == 1)
+                    return this.servicePrice - ((this.servicePrice / 100) * this.serviceDetail.Discount)
+
+                return null
             }
         },
 

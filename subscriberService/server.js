@@ -13,7 +13,7 @@ app.use(bodyParser.json({ limit: 1024 * 1024 * 20, type: 'application/json' }));
 app.use(bodyParser.urlencoded(bodyParser.urlencoded({ extended: true, limit: 1024 * 1024 * 20, type: 'application/x-www-form-urlencoding' })));
 
 const configParams = (() => {
-    let p = {    
+    let p = {
         sql: {
             server: '127.0.0.1',
             user: 'sa',
@@ -41,7 +41,7 @@ const configParams = (() => {
         p.sql.database = process.env.sqldatabase;
         if (process.env.sqlencrypt) {
             p.sql.options.encrypt = process.env.sqlencrypt;
-        }        
+        }
     }
     if (process.env.port) {
         p.sql.port = process.env.port;
@@ -50,16 +50,22 @@ const configParams = (() => {
 })();
 
 var schedule = require('node-schedule');
-let executeSubscriptionTasks = require("./code/subscription/executeSubscriptionTasks")
+let executeSubscriptionTasks = require("./code/subscription/executeSubscriptionTasks");
+let suspendTasks = require("./code/subscription/suspendTasks");
 
 require('./code/core/core')(configParams)
     .then(config => {
-        var j = schedule.scheduleJob('*/1 * * * *', async function(){
-            console.log('The answer to life, the universe, and everything!');
+        var j = schedule.scheduleJob('*/1 * * * *', async function () {
+            console.log('Running subscription task - Create recurrence tasks !!');
             await executeSubscriptionTasks(config);
-          });
+        });
+
+        var j = schedule.scheduleJob('*/1 * * * *', async function () {
+            console.log('Running nightly job - to suspend the tasks which are not having sufficient wallet amount!');
+            await suspendTasks(config);
+        });
     })
-    .catch((ex)=>{
+    .catch((ex) => {
         console.log('core init failed: ', ex.message, ex.stack);
     })
 

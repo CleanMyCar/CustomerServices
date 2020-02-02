@@ -41,7 +41,8 @@ module.exports = (config, params, callback) => {
     requestParams.input('VehicleServicePrice', VehicleServicePrice);
     requestParams.input('ServiceOrder', mssql.INT, params.serviceDetail.ServiceOrder);
     requestParams.input('IsFrequent', mssql.INT, params.serviceDetail.IsFrequent ? 1 : 0);
-
+    requestParams.input("Discount", mssql.Float, params.serviceDetail.Discount ? params.serviceDetail.Discount : 0);
+    
     requestParams.execute('SaveServiceDetails', (err, result) => {
         if (err) {
             console.log(err);
