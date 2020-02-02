@@ -12925,7 +12925,7 @@ body {
 
 .adsBanner{
   position: relative;
-  height: 30vh;
+  height: 230px;
 }
  .services{
      .serviceCards{
@@ -13100,6 +13100,12 @@ a{
   }
 }
 
+.product-listingpage{
+    border:1px solid $borderColor;
+    padding:10px;
+    border-radius: 5px;
+    margin-top:5px;
+}
 .admin-sign{
     display: flex;
     justify-content: space-between;
@@ -13437,7 +13443,9 @@ a{
               transition: background-color 0.6s ease;
             }
             .mySlides{
-           
+           img{
+               height:230px !important;
+           }
             }
               .active, .dot:hover {
                 background-color: #FAC705;
@@ -13471,6 +13479,16 @@ a{
 //     border-radius: 0 3px 3px 0;
 //     user-select: none;
 //   }
+@media only screen and (max-width: 600px) {
+    .home-banner-block{
+        height:30vh;
+        .mySlides{
+            img{
+                height:30vh !important;
+            }
+             }
+    }
+}
 
 @media only screen and (min-width: 600px) {
     .inline-logo{
@@ -13505,6 +13523,7 @@ a{
     color : $headerColor !important;
   }
   .service-details-header{
+    
       label{
           color:$headerColor;
           padding-bottom: 10px;
@@ -13541,3 +13560,25 @@ a{
     padding-top:4px;
     }
   }
+  .service-preson-details{
+    color: $headerColor;
+  }
+
+      .left-con{
+          width:100%;
+          font-size: 14px;
+      }
+    
+      .flex-in{
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        margin-top:10px;
+  }
+  .header-hea{
+    padding-top:0px !important;
+    font-size: 14px;
+}
+.item-cls{
+    margin-top:20px;
+}

@@ -1,21 +1,22 @@
-<div class="row">
+<div class="row service-preson-details">
     <div class="col-md-12">
         <div class="" v-if="userProfile">
             <div class="row" style="text-align: center;">
-                <div class="col-md-12"> Welcome Mr. {{userProfile.UserLastName + " " + userProfile.UserFirstName}}</div>
+                <div class="col-md-12 header-hea"> Welcome Mr. {{userProfile.UserLastName + " " + userProfile.UserFirstName}}</div>
             </div>
             <div class="row" style="text-align: center;">
-                <div class="col-md-12"> {{todayDate}}</div>
+                <div class="col-md-12 header-hea"> <span class="bold">Service Date : </span>{{todayDate}}</div>
             </div>
         </div>
-        <div class="" v-if="userProfile">
+        <div class="item-cls" v-if="userProfile">
             <div class="row">
-                <div class="col-md-12"> Total Items to be serviced : {{servieList.length}}</div>
+                <div class="col-md-12 header-hea"> Total Items to be serviced : {{servieList.length}}</div>
             </div>
         </div>
-        <div class="" v-for="product in servieList" style="border: 1px solid #65ff00">
-            <div class="row">
-                <div class="col-md-7">
+        <div class="" v-for="product in servieList" class="product-listingpage">
+            <div>
+                <div class="left-con">
+                    <div class="bold">Address</div>
                     <span v-if="product.OtherAddressId">
                         {{product.OtherAddressLine1 + ', ' +  product.OtherAddressLine2 }} <br>
                         {{(product.OtherLandmark ? product.OtherLandmark+ ', ' : '' ) +  (product.OtherServiceCityName ? product.OtherServiceCityName : '') }}
@@ -25,24 +26,35 @@
                         {{(product.Landmark ? product.Landmark+ ', ' : '' )+  (product.CityName ? product.CityName : '') }}
                     </span>
                 </div>
-
-                <div class="col-md-3">
+                <div class="flex-in">
+                <div >
+                    <div class="bold">Time</div>
                     {{timeslots[product.TimeSlot]}}
                 </div>
-                <div class="col-md-2">
+                <div >
                     <input type="checkbox" v-model="product.checked" @click="taskStatusChangePopup(product)">
                 </div>
             </div>
+            </div>
             <div class="row">
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     {{product.ParkingLot}}
-                </div>
-                <div class="col-md-4">
+                </div> -->
+            
+                <div class="col-md-4" style="font-size: 14px;">
+                    <div class="bold">Service Type</div>
                     {{product.ServiceName}}
                 </div>
-                <div class="col-md-4">
+                <div  class="flex-in">
+                <div class="col-md-6" style="width:60%">
+                    <div class="bold">Vehicle Number</div>
                     {{product.VehicleNumber}}
                 </div>
+                <div class="col-md-4" >
+                    <div class="bold">Parking Slot</div>
+                    {{product.ParkingLot}}
+                </div>
+            </div>
             </div>
             <div class="row" v-if="product.OtherAddressId">
                 <div class="col-md-12">
