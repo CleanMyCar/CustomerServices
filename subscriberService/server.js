@@ -50,8 +50,9 @@ const configParams = (() => {
 })();
 
 var schedule = require('node-schedule');
-let executeSubscriptionTasks = require("./code/subscription/executeSubscriptionTasks");
-let suspendTasks = require("./code/subscription/suspendTasks");
+let executeSubscriptionTasks = require("./code/subscription/executeSubscriptionTasks"),
+    suspendTasks = require("./code/subscription/suspendTasks"),
+    sendNotificationToLowWalletBalanceUsers = require("./code/subscription/sendNotificationToLowWalletBalanceUsers");
 
 require('./code/core/core')(configParams)
     .then(config => {
@@ -60,9 +61,14 @@ require('./code/core/core')(configParams)
             await executeSubscriptionTasks(config);
         });
 
-        var j = schedule.scheduleJob('*/1 * * * *', async function () {
+        var k = schedule.scheduleJob('*/1 * * * *', async function () {
             console.log('Running nightly job - to suspend the tasks which are not having sufficient wallet amount!');
             await suspendTasks(config);
+        });
+
+        var l = schedule.scheduleJob('*/1 * * * *', async function () {
+            console.log('Running nightly job - to send notification to low wallet balance users');
+            await sendNotificationToLowWalletBalanceUsers(config);
         });
     })
     .catch((ex) => {

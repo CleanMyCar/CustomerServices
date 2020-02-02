@@ -23,7 +23,7 @@ module.exports = async (config, params, callback) => {
         if (result.recordsets[0] && result.recordsets[0][0]) {
             if (result.recordsets[0][0].MobileNumber) {
 
-                let otpMessage = `Please use OTP ${userOtp} to reset your password in CleanMyCar`
+                let otpMessage = `Your One Time Password ${userOtp} to reset CleanMyCar login. \n Thanks, \nCleanMyCar`
                 var options = {
                     method: 'POST',
                     url: `https://www.bulksmsgateway.in/sendmessage.php?user=CleanMyCar&password=ANV@2019anv&message=${otpMessage}&sender=CMYCAR&mobile=${result.recordsets[0][0].MobileNumber}&type=3`

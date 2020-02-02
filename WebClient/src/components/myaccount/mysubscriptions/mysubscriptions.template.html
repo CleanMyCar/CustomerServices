@@ -19,8 +19,13 @@
                 </div>
                 <div class="">
                     {{getFormattedDate(product.ServiceDate)}}
-                    <label class="my-products" style="float: right;">₹
-                        {{product.RequestPrice}}/-
+                    <label class="my-products" style="float: right;">
+                        <span :class="product.Discount ? 'strikeText': ''">
+                            Price: ₹ <b>{{product.VehicleTypeId == 2 ? (product.ServiceType == 2 ? product.FourWheelerOncePrice : product.FourWheelerSubPrice) : (product.ServiceType == 2 ? product.Price : product.SubscriptionPrice )}}/-</b> <br>
+                        </span>
+                        <span v-if="product.Discount">
+                            Discount Price: ₹ {{product.RequestPrice}}/-
+                        </span>
                     </label>
                 </div>
                 <div>
@@ -32,7 +37,7 @@
                     <span v-if="product.Frequency == 2">
                         {{product.DayName}}
                     </span>
-                    <label class="my-products" style="float: right;">₹
+                    <label class="my-products" style="float: right;display: none;">₹
                         <b>{{product.VehicleTypeId == 2 ? (product.ServiceType == 2 ? product.FourWheelerOncePrice : product.FourWheelerSubPrice) : (product.ServiceType == 2 ? product.Price : product.SubscriptionPrice )}}/-</b>
                     </label>
 
@@ -121,7 +126,7 @@
 
                                 <datePickerComponent :keyString="'StartDate'" v-model="serviceObj.StartDate"
                                     :value="serviceObj.StartDate" :format="'Do MMM YYYY'"
-                                    :minimumDate="calendarStartDate" :onUpdate="updateFilterStartDate"
+                                    :minimumDate="serviceObj.ServiceDate" :onUpdate="updateFilterStartDate"
                                     :pickerType="'date'">
                                 </datePickerComponent>
                             </div>

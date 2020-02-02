@@ -2,6 +2,8 @@
 let jwtAuthorization = require("./jwtAuthorization");
 let mssql = require('mssql');
 let _createSqlParams = require('./db/sql/sqlParamsRequest');
+let sendSms = require("../modules/common/sendSms");
+let sendEmail = require("../modules/common/sendEmail")
 
 module.exports = async function (configParams) {
     try {
@@ -91,7 +93,9 @@ module.exports = async function (configParams) {
             rentalUnitedApiUrl: configParams.rentalUnitedApiUrl,
             sessionTimeOut: configParams.sessionTimeOut,
             // googleAnalyticsJwt : configParams.googleAnalyticsJwt
-            paytmConfig: null
+            paytmConfig: null,
+            sendSms: sendSms,
+            sendEmail: sendEmail
         }
     }
     catch (e) {

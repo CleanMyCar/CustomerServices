@@ -37,10 +37,10 @@
             },
             addDetailsToPause(serviceItem) {
                 this.serviceObj = JSON.parse(JSON.stringify(serviceItem));
-                this.$set(this.serviceObj, 'StartDate', moment.utc().add(1, 'days'));
-                this.$set(this.serviceObj, 'EndDate', moment.utc().add(1, 'days'));
-                this.$set(this.serviceObj, 'ServicePauseDate' , moment.utc().add(1, 'days'));
-                this.$set(this.serviceObj, 'ServiceEndDate', moment.utc().add(1, 'days'));
+                this.$set(this.serviceObj, 'StartDate', moment.utc(this.serviceObj.ServiceDate).add(1, 'days'));
+                this.$set(this.serviceObj, 'EndDate', moment.utc(this.serviceObj.ServiceDate).add(1, 'days'));
+                this.$set(this.serviceObj, 'ServicePauseDate' , moment.utc(this.serviceObj.ServiceDate).add(1, 'days'));
+                this.$set(this.serviceObj, 'ServiceEndDate', moment.utc(this.serviceObj.ServiceDate).add(1, 'days'));
 
                 $("#pauseServiceDetailsPopup").modal("show");
             },
@@ -178,6 +178,9 @@
             },
             selectWeeklyday(day) {
                 this.serviceObj.WeeklyDay = day;
+            },
+            getServicePrice(product){
+                return this.$store.state.getAmountByServiceType(product);
             }
         },
 

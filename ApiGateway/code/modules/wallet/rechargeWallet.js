@@ -36,12 +36,32 @@ module.exports = (config, params, callback) => {
                 return;
             }
 
-            if (result.recordsets[0][0]&& result.recordsets[0][0].WalletTransactionId && params.TransactionStatus == "01") {
-                updateSuspendedServices(config, params, function(err, response){
-                    if(err){
+            if (result.recordsets[0][0] && result.recordsets[0][0].WalletTransactionId && params.TransactionStatus == "01") {
+                updateSuspendedServices(config, params, function (err, response) {
+                    if (err) {
                         console.log("activate services failed", err);
                     }
                 })
+                if (result.recordsets[1][0]) {
+                    if (result.recordsets[1][0]['MobleNumber']) {
+                        config.sendSms(config, {
+                            message: `Thank you for recharging your CleanMyCar Wallet. The updated available balance is ${result.recordsets[1][0]["Amount"]}. Drive Fresh Daily!! \nThanks, \nTeam CleanMyCar`,
+                            mobileNumber: result.recordsets[1][0]["MobileNumber"]
+                        }, function (err, resp) {
+
+                        })
+                    }
+
+                    if (result.recordsets[1][0]["Email"]) {
+                        config.sendEmail(config, {
+                            MessageBody: `Thank you for recharging your CleanMyCar Wallet. The updated available balance is ${result.recordsets[1][0]["Amount"]}. Drive Fresh Daily!! \nThanks, \nTeam CleanMyCar`,
+                            Email: result.recordsets[1][0]["Email"],
+                            MessageTitle: "CleanMyCar - Recharge Wallet",
+                        }, function (err, resp) {
+
+                        })
+                    }
+                }
             }
 
             return callback(null, {
@@ -50,7 +70,7 @@ module.exports = (config, params, callback) => {
                 paytmConfig: result.recordsets[2][0]
             });
         });
-    } 
+    }
     catch (ex) {
         console.log(ex);
         callback(ex);

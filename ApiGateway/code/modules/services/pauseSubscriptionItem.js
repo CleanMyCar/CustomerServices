@@ -14,6 +14,25 @@ module.exports = (config, params, callback) => {
             return
         }
 
+        if (result.recordsets[0][0]["MobileNumber"]) {
+            config.sendSms(config, {
+                message: `Dear Customer, \nYour subscription ${result.recordsets[0][0]["ServiceName"]} has been paused and will be resumed on ${moment(params.ServiceEndDate).format("YYYY-MM-DD")} .\nThanks, \nTeam CleanMyCar`,
+                mobileNumber: result.recordsets[0][0]["MobileNumber"]
+            }, function (err, resp) {
+
+            })
+        }
+
+        if (result.recordsets[0][0]["Email"]) {
+            config.sendEmail(config, {
+                MessageBody: `Dear Customer, \nYour subscription ${result.recordsets[0][0]["ServiceName"]} has been paused and will be resumed on ${moment(params.ServiceEndDate).format("YYYY-MM-DD")} .\nThanks, \nTeam CleanMyCar`,
+                Email: result.recordsets[0][0]["Email"],
+                MessageTitle: "CleanMyCar - Subscription Paused",
+            }, function (err, resp) {
+
+            })
+        }
+
         // console.log(result);
         return callback(null, result.recordsets[0][0]);
     })
