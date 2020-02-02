@@ -13481,3 +13481,63 @@ a{
         width:150px;
     }
   }
+  .serviccc-ppp{
+    position: relative;
+    img{
+        height: 105px;
+        width: 276px;
+        margin-top: 10px;
+    position: absolute;
+    opacity: 0.3;
+    }
+  }
+  .fill-content{
+  i,.fa.fa-upload{
+    margin: 0 120px !important;
+    color:#828181!important;
+  }
+
+  }
+  .label-header-clr{
+    font-weight: 600;
+    margin: 5px 0px;
+    padding-top: 19px;
+    color : $headerColor !important;
+  }
+  .service-details-header{
+      label{
+          color:$headerColor;
+          padding-bottom: 10px;
+      }
+      input{
+          padding-left:10px !important;
+          border: 1px solid $borderColor;
+          border-radius: 5px;
+      }
+      
+      input[type="checkbox"]{
+        margin-right:10px !important;
+    }
+    input[type="radio"]{
+        margin-right:10px !important;
+    }
+    textarea{
+        border: 1px solid $borderColor;
+    }
+    .align-input-block{
+        padding-top: 6px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    }
+    .flex-con{
+        display: flex;
+        flex-direction: column;
+        input{
+            width:170px;
+        }
+    }
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+    padding-top:4px;
+    }
+  }

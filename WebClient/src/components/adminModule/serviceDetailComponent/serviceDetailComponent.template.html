@@ -6,17 +6,17 @@
             <button class="btn btn-success btn-sm pull-right" @click="saveService">Save</button>
         </div>
     </div>
-    <div class="panel-body addBg">
+    <div class="panel-body addBg service-details-header">
 
         <div class="row">
             <div class="col-md-12">
 
-                <div class="form-group">
+                <div class="form-group serviccc-ppp">
                     <img :src="serviceDetail.ServiceImage" v-if="serviceDetail.ServiceImage"
-                        style="height: 100px; width: 200px;" />
+                        style="height: 105px; width: 276px;" />
 
                     <label class="custom-file-upload">
-                        <div>
+                        <div class="fill-content" style="width:276px">
                             <i class="fa fa-upload" aria-hidden="true"></i>
                             <input type="file" id="logo" name="logo" accept="image/*" @change="filesChange($event)" />
                         </div>
@@ -24,7 +24,7 @@
                     </label>
                 </div>
                 <div class="form-group">
-                    <label>
+                    <label class="label-header-clr">
                         Service Name
                     </label>
                     <input type="text" v-model="serviceDetail.ServiceName" class="form-control" placeholder="Name" name="ServiceName"  v-validate="'required'">
@@ -34,14 +34,16 @@
                     </span>
                 </div>
                 <div class="form-group">
-                    <label>
+                    <label class="label-header-clr">
                         Vehicle Type
                     </label>
+                    <div class="form-group">
                     <label v-for="type in vehicleTypes">
                         <input type="radio" name="VehicleCategoryType" v-model="serviceDetail.VehicleCategoryType"
                             :value="type.VehicleTypeId" v-validate="'required'">
                         <i class="radioLabel">{{type.VehicleTypeName}}</i>
                     </label>
+                </div>
                 </div>
                 <div class="form-group">
                     <span v-show="errors.has('VehicleCategoryType')" class="invalid-feedback">
@@ -50,14 +52,16 @@
                     </span>
                 </div>
                 <div class="form-group" v-if="serviceDetail.VehicleCategoryType == '2'">
-                    <label>
+                    <label class="label-header-clr">
                         Sub Category
                     </label>
+                    <div class="form-group">
                     <label v-for="type in fourWheelerTypes">
                         <input type="checkbox" v-model="serviceDetail.serviceFourWheelerTypes" :value="type.Id"
                         name="serviceFourWheelerTypes" v-validate="{ rules: { required: serviceDetail.VehicleCategoryType == '2' ? true:false} }">
                         <i class="radioLabel">{{type.VehicleType}}</i>
                     </label>
+                </div>
                     <span v-show="errors.has('serviceFourWheelerTypes')" class="invalid-feedback">
                         <i v-show="errors.has('serviceFourWheelerTypes')" class="fa fa-warning"></i> 
                         Please choose Four Wheeler Type
@@ -78,7 +82,7 @@
                     <input type="number" v-model="serviceDetail.ServiceOrder" class="form-control" placeholder="Service Order" name="ServiceOrder">                    
                 </div>
                 <div class="form-group">
-                    <label>
+                    <label class="label-header-clr">
                         <input type="checkbox" v-model="serviceDetail.IsPurchaseOnceEnabled" name="IsPurchaseOnceEnabled" @click="togglePrice"
                         v-validate ="{ rules: { required: serviceDetail.IsSubscriptionEnabled?false:true} }">Price for Once
                     </label>
@@ -90,12 +94,14 @@
 
                 <div class="form-group" v-if="serviceDetail.VehicleCategoryType == '2' && serviceDetail.IsPurchaseOnceEnabled">
                     <label v-for="type in fourWheelerTypes" v-if="serviceDetail.serviceFourWheelerTypes.indexOf(type.Id) > -1">
-                        <label>{{type.VehicleType}} Price</label>
+                        <label  class="align-input-block">{{type.VehicleType}} Price</label>
+                        <div class="flex-con">
                         <input type="number" v-model="type.Price" :name="type.VehicleType" v-validate="'required'">
                         <span :show="errors.has(type.VehicleType)" class="invalid-feedback">
                             <i :show="errors.has(type.VehicleType)" class="fa fa-warning"></i> 
                             Please enter {{type.VehicleType}} Price
                         </span>
+                    </div>
                     </label>
                 </div>
                 <div class="form-group" v-if="serviceDetail.IsPurchaseOnceEnabled && serviceDetail.VehicleCategoryType != '2' ">
@@ -107,7 +113,7 @@
                         </span>
                 </div>
                 <div class="form-group">
-                    <label>
+                    <label class="label-header-clr">
                         <input type="checkbox" v-model="serviceDetail.IsSubscriptionEnabled" name="IsSubscriptionEnabled" @click="toggleSubscribe"
                         v-validate ="{ rules: { required: serviceDetail.IsPurchaseOnceEnabled?false:true} }">Subscription
                     </label>
@@ -117,14 +123,16 @@
                     </span>
                 </div>
                 <div class="form-group" v-if="serviceDetail.IsSubscriptionEnabled">
-                    <label>
+                    <label class="label-header-clr">
                         Subscription Types
                     </label>
+                    <div class="form-group">
                     <label v-for="type in subscribeTypes">
                         <input type="checkbox" v-model="serviceDetail.serviceSubscribeTypes" :value="type.SubscribeId" 
                         name="ServiceSubscribeTypes" v-validate="{ rules: { required: serviceDetail.IsSubscriptionEnabled ? true:false} }">
                         <i class="radioLabel">{{type.SubscribeType}}</i>
                     </label>
+                </div >
                     <span v-show="errors.has('ServiceSubscribeTypes')" class="invalid-feedback">
                         <i v-show="errors.has('ServiceSubscribeTypes')" class="fa fa-warning"></i> 
                         One of Subscription Type is required
@@ -132,7 +140,7 @@
                 </div>
                 <div class="form-group" v-if="serviceDetail.IsSubscriptionEnabled && serviceDetail.VehicleCategoryType == '2'">
                     <label v-for="type in fourWheelerTypes" v-if="serviceDetail.serviceFourWheelerTypes.indexOf(type.Id) > -1">
-                        <label>{{type.VehicleType}} Price</label>
+                        <label class="align-input-block">{{type.VehicleType}} Price</label>
                         <input type="number" v-model="type.SubscriptionPrice">
                     </label>
                 </div>
@@ -145,10 +153,10 @@
                         </span>
                 </div>
                 <div class="form-group">
-                    <label>
+                    <label class="label-header-clr">
                         Description
                     </label>
-                    <textarea v-model="serviceDetail.ServiceDescription" class="form-control"
+                    <textarea rows="6" v-model="serviceDetail.ServiceDescription" class="form-control"
                         placeholder="Service Description"></textarea>
                 </div>
 
