@@ -12,6 +12,7 @@
                 SearchText: null,
                 defaultCarImage: "../../../src/content/images/car.png",
                 defaultBikeImage: "../../../src/content/images/bike.png",
+                bannerImages: []
             };
         },
 
@@ -114,6 +115,26 @@
                         }
                     }
                 });
+            },
+            getBannerImages(){
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "GetBannerImages",
+                    params: {
+                        IsLogin: 0
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+                        if (response) {
+                            vm.bannerImages.splice(0, vm.bannerImages.length, ...response);
+                            setTimeout(function(){
+                                showSlides(1)
+                            }, 5); 
+                        }
+                    }
+                });
             }
         },
         computed: {
@@ -126,6 +147,7 @@
             let vm = this;
             vm.getUserDetails();
             vm.getFrequentServices();
+            vm.getBannerImages();
         },
         watch: {
             SearchText(value) {

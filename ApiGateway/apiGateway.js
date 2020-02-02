@@ -1,6 +1,6 @@
 ﻿const express = require("express");
 const httpModule = require("http");
-const socketio = require("socket.io", { path: '/api/socket-io'});
+const socketio = require("socket.io", { path: '/api/socket-io' });
 let bodyParser = require("body-parser");
 let request = require("request");
 let moment = require("moment");
@@ -14,7 +14,7 @@ const fileUpload = require("express-fileupload");
 const https = require("https")
 let config = require("./code/core/core");
 
-io.origins('*:*') 
+io.origins('*:*')
 
 config.socketIo = io;
 config.logger = logger;
@@ -532,7 +532,7 @@ require("./code/core/core")(configParams)
 		const addAppIdToUser = require("./code/modules/user/addAppIdToUser.js");
 		const registerNewUser = require("./code/modules/user/registerUser"),
 			validateUserByEmailMobileNumber = require("./code/modules/user/validateUserByEmailMobileNumber"),
-			sendSms = require("./code/modules/common/sendSms");
+			getBannerImages = require("./code/modules/admin/getBannerImages");
 
 		app.post("/api", function (req, res) {
 			//   console.log("loginconsoleapi",req);
@@ -715,6 +715,18 @@ require("./code/core/core")(configParams)
 					apiRequestParams.ErrorMessage = "";
 					res.end(JSON.stringify(apiRequestParams));
 				});
+			}
+			else if (apiRequestParams.APIReg === "10008" || apiRequestParams.APIReg === 10008) {
+				// Change user password
+				getBannerImages(config, apiRequestParams, function (error, response) {
+					if (error) {
+						apiRequestParams.ErrorMessage = "There is an error while getting imagtes";
+						return res.end(JSON.stringify(apiRequestParams));
+					}
+					
+					apiRequestParams.ErrorMessage = "";
+					res.end(JSON.stringify(response));
+				});
 			} else {
 				res.end("Request received");
 			}
@@ -895,7 +907,7 @@ require("./code/core/core")(configParams)
 						html += "<b>Status Check Response</b><br>";
 						for (var x in _result) {
 							html += x + " => " + _result[x] + "<br/>";
-						}						
+						}
 					});
 				});
 
@@ -931,7 +943,7 @@ require("./code/core/core")(configParams)
 					// res.end();
 					res.redirect("/index.html#/recharge/" + response_data.TXNID)
 				})
-				
+
 				// res.writeHead(200, { "Content-Type": "text/html" });
 				// res.write("<html>");
 				// res.write("<head>");
@@ -945,7 +957,7 @@ require("./code/core/core")(configParams)
 				// res.write("</html>");
 				// res.end();
 				// res.redirect("http://localhost/index.html#/recharge/" + response_data.TXNID)
-				
+
 				// res.writeHead(200, { "Content-Type": "text/html" });
 				// res.write("<html>");
 				// res.write("<head>");
