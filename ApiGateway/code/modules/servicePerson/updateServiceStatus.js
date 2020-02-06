@@ -20,7 +20,7 @@ module.exports = (config, params, callback) => {
         // console.log(result);
         if(result.recordsets[0] && result.recordsets[0][0] && result.recordsets[0][0]["ErrorMessage"] && result.recordsets[1] && result.recordsets[1][0]["MobileNumber"]){
             sendSms(config, {
-                message: `Hi ${result.recordsets[0][0]["UserFirstName"]}, You have insufficient amount in wallet to complete service. Please recharge ASAP to complete service. Thanks, CleanMyCar`,
+                message: `Hi ${result.recordsets[1][0]["FirstName"]}, You have insufficient amount in wallet to complete service. Please recharge ASAP to complete service. Thanks, CleanMyCar`,
                 mobileNumber: result.recordsets[1][0]["MobileNumber"]
             }, function(err, resp){
         
