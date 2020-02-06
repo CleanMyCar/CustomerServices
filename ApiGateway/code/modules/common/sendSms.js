@@ -3,7 +3,7 @@ module.exports = (config, params, callback) => {
     // let message = `Please use OTP ${params.userOtp} to reset your password in CleanMyCar`
     var options = {
         method: 'POST',
-        url: `https://www.bulksmsgateway.in/sendmessage.php?user=CleanMyCar&password=ANV@2019anv&message=${params.message}&sender=CMYCAR&mobile=${params.mobileNumber}&type=3`
+        url: `https://www.bulksmsgateway.in/sendmessage.php?user=CleanMyCar&password=ANV@2019anv&message=${escape(params.message)}&sender=CMYCAR&mobile=${params.mobileNumber}&type=3`
     };
 
     request(options)

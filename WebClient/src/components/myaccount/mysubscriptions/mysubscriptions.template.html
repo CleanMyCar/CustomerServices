@@ -20,10 +20,10 @@
                 <div class="">
                     {{getFormattedDate(product.ServiceDate)}}
                     <label class="my-products" style="float: right;">
-                        <span :class="product.Discount ? 'strikeText': ''">
+                        <span :class="product.Discount && product.TimeSlot > 4 ? 'strikeText': ''">
                             Price: ₹ <b>{{product.VehicleTypeId == 2 ? (product.ServiceType == 2 ? product.FourWheelerOncePrice : product.FourWheelerSubPrice) : (product.ServiceType == 2 ? product.Price : product.SubscriptionPrice )}}/-</b> <br>
                         </span>
-                        <span v-if="product.Discount">
+                        <span v-if="product.Discount && product.TimeSlot > 4">
                             Discount Price: ₹ {{product.RequestPrice}}/-
                         </span>
                     </label>

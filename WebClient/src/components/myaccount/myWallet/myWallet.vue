@@ -8,6 +8,7 @@
         data() {
             return {
                 myWalletTransactions: [],
+                walletSummary: {}
             }
         },
 
@@ -32,6 +33,22 @@
                 return date ? moment.utc(date).format("Do MMM YYYY") : null
             },
 
+            getUserWalletSummary() {
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "GetUserWalletSummary",
+                    params: {
+
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+
+                        vm.walletSummary = response;
+                    }
+                });
+            },
         },
 
         computed: {
@@ -41,10 +58,12 @@
         mounted() {
             let vm = this;
             vm.getMyWalletTransactions();
+            vm.getUserWalletSummary();
         },
         watch:{
             isWalletChanged(){
                 this.getMyWalletTransactions();
+                this.getUserWalletSummary();
             }
         }
     };

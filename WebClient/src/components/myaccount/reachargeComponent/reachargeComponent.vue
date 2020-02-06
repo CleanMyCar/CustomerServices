@@ -68,7 +68,7 @@
                             let data = event.data;
 
                             if (data.transactionId) {
-                                vm.getUserWalletSummary();
+                                // vm.getUserWalletSummary();
                                 vm.isWalletChanged = true;
                                 vm.rechargeAmount = null;
                             }
@@ -99,7 +99,7 @@
 
         mounted() {
             let vm = this;
-            vm.getUserWalletSummary();
+            // vm.getUserWalletSummary();
         },
         watch: {
             rechargeAmount() {

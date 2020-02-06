@@ -2,14 +2,33 @@
     <div>
         <h4 v-if="!hideHeader">My Wallet</h4>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="bold">Wallet Balance : </label>
+                <label style="margin-left: 50px;">₹
+                    {{walletSummary && walletSummary.Amount ? walletSummary.Amount : '0'}} /-</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="bold">Last Recharge : </label>
+                <label style="margin-left: 50px;">₹
+                    {{walletSummary && walletSummary.TransactionAmount ? walletSummary.TransactionAmount : '0'}}
+                    /-</label>
+            </div>
+        </div>
+    </div>
     <div class="ResGrid">
         <div class="dTable">
             <table style="width: 100%; overflow:scroll;">
                 <thead class="walletHeader">
                     <th>Transaction Date</th>
                     <th>Amount</th>
-                    <th>Transaction Type</th>    
-                    <th>Status</th>                
+                    <th>Transaction Type</th>
+                    <th>Status</th>
                 </thead>
                 <tbody class="myordersTable">
 

@@ -45,7 +45,8 @@
                 popupMessage: null,
                 headerTitle: null,
                 minDate: moment.utc(),
-                subscriptionMinDate: moment.utc().add(1, 'days')
+                subscriptionMinDate: moment.utc().add(1, 'days'),
+                rechargeVisible: false
             };
         },
 
@@ -214,9 +215,17 @@
                                     }
                                 }
                                 else if (response.ErrorMessage) {
+                                    $("#insufftoastrMessagePopup").modal("show")
                                     vm.headerTitle = "Alert !!";
                                     vm.popupMessage = response.ErrorMessage;
                                     vm.isDialogOpen = !vm.isDialogOpen;
+
+                                    if(response.ErrorCode == -99){
+                                        vm.rechargeVisible = true;
+                                    }
+                                    else{
+                                        vm.rechargeVisible = false;
+                                    }
                                 }
                             }
                         });
@@ -288,6 +297,7 @@
             },
             closeToastrPopup() {
                 this.isDialogOpen = !this.isDialogOpen;
+                $("#insufftoastrMessagePopup").modal("hide")
             },
             selectSubscribeType(product) {
                 this.vehicleInfo.Frequency = product.SubscribeId;
@@ -297,6 +307,10 @@
             },
             selectWeeklyday(day) {
                 this.vehicleInfo.WeeklyDay = day;
+            },
+            navigateToRecharge(){
+                $("#insufftoastrMessagePopup").modal("hide")
+                this.$router.push("/recharge/-1")
             }
         },
         computed: {

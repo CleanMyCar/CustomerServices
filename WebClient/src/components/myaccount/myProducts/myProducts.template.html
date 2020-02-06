@@ -3,9 +3,9 @@
         <h4 class="header-subscribe">My Products</h4>
     </div>
 
-    <div>
+    <div  style="margin-top: 20px;">
         <span style="float: left;">
-            <h5 class="header-subscribe">Vehicles</h5>
+            <h5 class="header-subscribe">Personal Vehicles</h5>
         </span>
         <button class="btn btn-primary" style="float: right;" @click="openVehicleAddPopup">
             <span class="add-Btn-here">+</span> Add
@@ -62,6 +62,70 @@
                 </div>
             </div>
             <div class="add-new-outer">
+                <button class="add-new" style="font-size: 20px" @click="openVehicleAddPopup">
+                 <i class="fa fa-plus"></i>
+                </button>
+                <div class='bold'>Add Vehicle</div>
+            </div>
+        </div>
+    </div>
+
+    <div  style="margin-top: 50px;">
+        <span style="float: left;">
+            <h5 class="header-subscribe">Guest Vehicles</h5>
+        </span>        
+    </div>
+    <div class="outer">
+        <div class="product-row">
+            <div class="flec-colpro" v-for="product in nonPersonalVehicles">
+                <div class="cell">
+                    <div class="" style="margin: 0px;">
+                        <span style="float: left;" @click="editProduct(product)">
+                            <i class="fas fa-edit"></i>
+                        </span>
+                        <span style="float: right;" @click="openConfirmationPopup(product)">
+                            <i class="far fa-trash-alt"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="cell" style="margin-top: -10px;">
+                    <!-- <span v-if="product.VehicleTypeId == 1" class="defaultBikeImage"></span>
+                    <span v-if="product.VehicleTypeId == 2" class="defaultCarImage"></span> -->
+                    <img :src="product.VehicleImage ? product.VehicleImage : (product.VehicleTypeId == 1 ? defaultBikeImage : defaultCarImage)"
+                        height="60" width="60">
+                </div>
+                <div class="cell">
+                    <div>
+                        <div>
+
+                        </div>
+                        <div style="text-align: center;white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">
+                            <span> {{product.VehicleName}}</span>
+                        </div>
+                        <div style="text-align: center;white-space: nowrap; overflow: hidden;text-overflow: ellipsis;">
+                            <span> {{product.VehicleNumber}}</span>
+                            <span style="color: #004dff;">{{product.SubscribeType}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cell card-botm">
+                    <div>
+                        <span v-if="product.NotificationsOn" @click="changeNotificationFlg(product, 0)">
+                            <i class="fas fa-bell"></i>
+                        </span>
+                        <span v-else @click="changeNotificationFlg(product, 1)">
+                            <i class="fas fa-bell-slash"></i>
+                        </span>
+                    </div>
+                    <div>
+                        <span @click="navigateToProductHistory(product)">
+                            <i class="fas fa-ellipsis-v"></i>
+                            <i class="fas fa-bars"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="add-new-outer" style="display: none;">
                 <button class="add-new" style="font-size: 20px" @click="openVehicleAddPopup">
                  <i class="fa fa-plus"></i>
                 </button>

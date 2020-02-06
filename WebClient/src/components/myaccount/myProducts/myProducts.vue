@@ -11,7 +11,8 @@
                 selectedVehicle: null,
                 defaultCarImage: "../../../src/content/images/car.png",
                 defaultBikeImage: "../../../src/content/images/bike.png",
-                openHistoryPopup: false
+                openHistoryPopup: false,
+                nonPersonalVehicles: []
             };
         },
 
@@ -21,6 +22,7 @@
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "GetMyProducts",
                     params: {
+                        IsPersonal: 1
                     },
                     callback: function (err, response) {
                         if (err) {
@@ -28,6 +30,22 @@
                         }
 
                         vm.myVehicles.splice(0, vm.myVehicles.length, ...response.vehicles);
+                    }
+                });
+            },
+            getNonPersonalProducts() {
+                let vm = this;
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "GetMyProducts",
+                    params: {
+                        IsPersonal: 0
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+
+                        vm.nonPersonalVehicles.splice(0, vm.nonPersonalVehicles.length, ...response.vehicles);
                     }
                 });
             },
@@ -129,6 +147,7 @@
         mounted() {
             let vm = this;
             vm.getMyProducts();
+            vm.getNonPersonalProducts();
         }
     };
 </script>

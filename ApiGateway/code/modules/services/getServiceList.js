@@ -22,6 +22,7 @@ module.exports = (config, params, callback) => {
                 vehiclesWithTypes[currVehicleType.VehicleTypeId] = {
                     VehicleCategoryType: currVehicleType.VehicleTypeId,
                     VehicleCategoryTypeName: currVehicleType.VehicleTypeName,
+                    SortOrder: currVehicleType.SortOrder,
                     services: []
                 }
             }
@@ -32,6 +33,15 @@ module.exports = (config, params, callback) => {
             vehiclesWithTypes[currVehicle.VehicleCategoryType].services.push(currVehicle);
         }
 
-        return callback(null, vehiclesWithTypes);
+        let arr = [];
+        Object.keys(vehiclesWithTypes).forEach(function(id, obj){
+            arr.push(vehiclesWithTypes[id]);
+        })
+
+        arr = arr.sort(function(a, b){
+            return a.SortOrder - b.SortOrder;
+        })
+
+        return callback(null, arr);
     })
 }
