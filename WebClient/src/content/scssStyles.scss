@@ -13586,3 +13586,14 @@ a{
 .item-cls{
     margin-top:20px;
 }
+.modal-backdrop{
+    z-index: 800!important;
+}
+.modal{
+    background: #808080c7 !important;
+    position: fixed !important;
+    z-index: 999999 !important;
+}
+// .modal-dialog{
+//     z-index:1000;
+// }
