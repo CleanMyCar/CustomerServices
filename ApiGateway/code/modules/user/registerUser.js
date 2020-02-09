@@ -1,7 +1,8 @@
 var md5 = require("md5");
 const mssql = require("mssql");
 const generateOtp = require("./generateOtp");
-const sendSms = require("../common/sendSms")
+const sendSms = require("../common/sendSms");
+const sendEmail = require("../common/sendEmail")
 
 module.exports = async (config, params, callback) => {
 	var userOtp = null;
@@ -35,12 +36,34 @@ module.exports = async (config, params, callback) => {
 			callback(null, result.recordsets);
 
 			//Send E-mail and SMS about registration
-			sendSms(config, {
-				message: `Thank you for registering CleanMyCar service. We look forward to serve you with world class cleaning services for your vehicle. \nThanks, \nTeam CleanMyCar`,
-				mobileNumber: params.mobileNumber
-			}, function (err, resp) {
+			if (isMobileNumberVerified) {
+				sendSms(config, {
+					message: `Thank you for registering CleanMyCar service. We look forward to serve you with world class cleaning services for your vehicle. \nThanks, \nTeam CleanMyCar`,
+					mobileNumber: params.mobileNumber
+				}, function (err, resp) {
+					if(err){
+						console.log("New Registration - SMS sending failed", err)
+					}
+				})
+				sendSms(config, {
+					message: `Hi Team, \nNew customer ${params.firstName} registered just now with ${params.mobileNumber}`,
+					mobileNumber: "7095889988,7095444498"
+				}, function (err, resp) {
+					if(err){
+						console.log("New Registration - SMS sending failed", err)
+					}
+				})
+				sendEmail(config, {
+                    Email: "Contact@cleanmycar.in",
+                    MessageTitle: "Customer Registration",
+                    MessageBody: `Hi Team, \nNew customer ${params.firstName} registered just now with ${params.mobileNumber}`
+                }, function (err, response) {
+                    if (err) {
+                        console.log("New Registration - email sending failed ", err)
+                    }
+                });
 
-			})
+			}
 		});
 	};
 

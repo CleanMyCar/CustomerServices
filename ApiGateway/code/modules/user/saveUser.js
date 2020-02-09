@@ -18,6 +18,7 @@ module.exports = (config, params, callback) => {
     requestParams.input('ReferralCode', mssql.NVarChar, params.ReferralCode);
     requestParams.input('UserOtp', mssql.NVarChar, params.UserOtp);
     requestParams.input('UserRoleId', mssql.Int, params.UserRoleId);
+    requestParams.input("IsMobileNumberVerified", mssql.Int, 0);
     requestParams.execute('SaveUserDetail', (err, result) => {
         if (err) {
             console.log(err);

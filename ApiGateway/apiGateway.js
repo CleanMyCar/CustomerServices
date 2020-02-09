@@ -47,7 +47,7 @@ const awsImageService = require("./code/modules/imageUploadServices/awsStorageSe
 const configParams = (() => {
 	let p = {
 		sql: {
-			server: "14.192.1.221",
+			server: "localhost",
 			user: "sa",
 			password: "Apple#123",
 			database: "master",
@@ -1025,6 +1025,8 @@ require("./code/core/core")(configParams)
 		/* Route for writing data to an excel and downloading it */
 
 		// ==================== files uploading =================================
+
+		
 
 		http.listen(process.env.PORT || 1339);
 	})

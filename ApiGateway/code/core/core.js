@@ -95,7 +95,8 @@ module.exports = async function (configParams) {
             // googleAnalyticsJwt : configParams.googleAnalyticsJwt
             paytmConfig: null,
             sendSms: sendSms,
-            sendEmail: sendEmail
+            sendEmail: sendEmail,
+            adminConfig: null
         }
     }
     catch (e) {

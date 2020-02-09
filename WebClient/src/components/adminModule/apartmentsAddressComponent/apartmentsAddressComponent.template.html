@@ -1,0 +1,96 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Manage Address</h4>
+        <div class="pull-right" v-if="!showEdit">
+            <button class="btn btn-success btn-sm" @click="newAddress">New Address</button>
+        </div>
+        <div class="pull-right" v-if="showEdit">
+            <button class="btn btn-danger btn-sm" @click="cancel">Cancel</button>
+            <button class="btn btn-success btn-sm" @click="saveAddress">Save</button>
+        </div>
+    </div>
+    <div class="panel-body addBg" v-if="!showEdit">
+        <div class="row" v-if="false">
+            <div class="col-md-4">
+                <select class="form-control" v-model="selectedStatus">
+                    <option v-for="(status, statusId) in statusList" :value="statusId">{{status}}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-success btn-sm" @click="getServices">Search</button>
+            </div>
+        </div>
+        <div class="ResGrid">
+            <div class="dTable">
+                <table style="width: 100%; overflow:scroll;">
+                    <thead>
+                        <th>Service</th>
+                        <th>Image</th>
+                        <th>Subscription</th>
+                        <th>Amount(Once)</th>
+                        <th>Amount(Subscription)</th>
+                        <th>Status</th>
+                        <th>Order</th>
+                        <th>Frequent</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="service in serviceList" style="height: 50px;">
+
+                            <td @click="getServiceDetail(service)" style="cursor: pointer;">
+                                <b>{{service.ServiceName}}</b>                                
+                            </td>
+                            <td><img v-if="service.ServiceImage" :src="service.ServiceImage" height="50" width="50"></td>
+                            <td>{{service.Subscriptions}}</td>
+                            <td> {{service.VehicleCategoryType == 2 ? (service.StartingPrice ? '₹' + service.StartingPrice + '/-' : 'NA') : (service.Price + '/-') }}</td>
+                            <td> {{service.VehicleCategoryType == 2 ? (service.StartingSubscriptionPrice ? '₹' + service.StartingSubscriptionPrice + '/-' : 'NA') : (service.SubscriptionPrice + '/-')}}</td>
+                            <td>
+                                {{service.IsEnabled ? "Enabled" : "Disabled"}}
+                            </td>
+                            <td><input type="number" :disabled="!service.IsEnabled" v-model="service.ServiceOrder" class="form-control" @change="updateServiceOrder(service)" ></td>
+                            <td>
+                                <input type="checkbox" :disabled="!service.IsEnabled" v-model="service.IsFrequent" @click="updateServiceFrequent(service, $event)" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body addBg" v-if="showEdit">
+        <div class="ResGrid">
+            <div class="dTable">
+                <table style="width: 100%; overflow:scroll;">
+                    <thead>
+                        <th>Service</th>
+                        <th>Image</th>
+                        <th>Subscription</th>
+                        <th>Amount(Once)</th>
+                        <th>Amount(Subscription)</th>
+                        <th>Status</th>
+                        <th>Order</th>
+                        <th>Frequent</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="service in serviceList" style="height: 50px;">
+
+                            <td @click="getServiceDetail(service)" style="cursor: pointer;">
+                                <b>{{service.ServiceName}}</b>                                
+                            </td>
+                            <td><img v-if="service.ServiceImage" :src="service.ServiceImage" height="50" width="50"></td>
+                            <td>{{service.Subscriptions}}</td>
+                            <td> {{service.VehicleCategoryType == 2 ? (service.StartingPrice ? '₹' + service.StartingPrice + '/-' : 'NA') : (service.Price + '/-') }}</td>
+                            <td> {{service.VehicleCategoryType == 2 ? (service.StartingSubscriptionPrice ? '₹' + service.StartingSubscriptionPrice + '/-' : 'NA') : (service.SubscriptionPrice + '/-')}}</td>
+                            <td>
+                                {{service.IsEnabled ? "Enabled" : "Disabled"}}
+                            </td>
+                            <td><input type="number" :disabled="!service.IsEnabled" v-model="service.ServiceOrder" class="form-control" @change="updateServiceOrder(service)" ></td>
+                            <td>
+                                <input type="checkbox" :disabled="!service.IsEnabled" v-model="service.IsFrequent" @click="updateServiceFrequent(service, $event)" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
