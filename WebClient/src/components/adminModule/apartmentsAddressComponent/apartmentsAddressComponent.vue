@@ -7,85 +7,95 @@
         data() {
             return {
                 addressList: [],
-                showEdit: false
+                showEdit: false,
+                selectedAddress: null
             };
         },
 
         methods: {
-            getServices(searchText, numberOfRecords) {
+            getAddressList() {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
-                    key: "GetAllServices",
+                    key: "GetAddressBySearch",
                     params: {
-                        SearchText: searchText,
-                        NumberOfRecords: numberOfRecords,
-                        SelectedStatus: vm.selectedStatus
+                        SearchText: null
                     },
                     callback: function (err, response) {
                         if (err) {
                             return;
                         }
                         if (response) {
-                            vm.serviceList.splice(0, vm.serviceList.length, ...response);
+                            vm.addressList.splice(0, vm.addressList.length, ...response);
                         }
+                        vm.showEdit = false;
                     }
                 });
             },
             newAddress() {
                 this.showEdit = true;
+                this.selectedAddress = {
+                    AddressId: null,
+                    AddressLine1: null,
+                    AddressLine2: null,
+                    Country: 101,
+                    State: 36,
+                    City: 4460,
+                    Pincode: null,
+                    StatusId: 1
+                }
             },
-            cancel(){
+            cancel() {
                 this.showEdit = false;
             },
-            getServiceDetail(service) {
-                this.$router.push("/serviceDetail/" + service.ServiceId);
-            },
-            updateServiceFrequent(service, evt) {
+            saveAddress(service, evt) {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
-                    key: "UpdateServiceFrequencyFlag",
-                    params: {
-                        ServiceId: service.ServiceId,
-                        IsFrequent: evt.currentTarget.checked
-                    },
+                    key: "SaveAddress",
+                    params: Object.assign(vm.selectedAddress, { IsUserAddress: false }),
                     callback: function (err, response) {
                         if (err) {
                             return;
                         }
-                        vm.getServices(null, -1);
+                        vm.getAddressList();
                     }
                 });
             },
 
-            updateServiceOrder(service) {
+            getAddressDetail(address) {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
-                    key: "UpdateServiceOrder",
+                    key: "GetAddressDetails",
                     params: {
-                        ServiceId: service.ServiceId,
-                        ServiceOrder: service.ServiceOrder
+                        AddressId: address.AddressId
                     },
                     callback: function (err, response) {
                         if (err) {
                             return;
                         }
-                        vm.getServices(null, -1);
+                        vm.selectedAddress = response;
+                        vm.showEdit = true;
                     }
                 });
             },
         },
         computed: {
-            role() {
-                return this.$store.state.loggedInUserDetail ? this.$store.state.loggedInUserDetail.UserRoleId : null
-            },
             statusList() {
                 return this.$store.state.status;
+            },
+            countries() {
+                return this.$store.state.countryStateCities;
+            },
+            states() {
+                return this.$store.state.countryStateCities[this.selectedAddress.Country].states;
+            },
+            cities() {
+                return this.$store.state.countryStateCities[this.selectedAddress.Country].states[this.selectedAddress.State].cities;
             }
         },
 
         mounted() {
             let vm = this;
-            vm.getServices(null, -1);
+            vm.getAddressList();
         },
         watch: {
 

@@ -10,45 +10,29 @@
         </div>
     </div>
     <div class="panel-body addBg" v-if="!showEdit">
-        <div class="row" v-if="false">
-            <div class="col-md-4">
-                <select class="form-control" v-model="selectedStatus">
-                    <option v-for="(status, statusId) in statusList" :value="statusId">{{status}}</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-success btn-sm" @click="getServices">Search</button>
-            </div>
-        </div>
         <div class="ResGrid">
             <div class="dTable">
                 <table style="width: 100%; overflow:scroll;">
                     <thead>
-                        <th>Service</th>
-                        <th>Image</th>
-                        <th>Subscription</th>
-                        <th>Amount(Once)</th>
-                        <th>Amount(Subscription)</th>
-                        <th>Status</th>
-                        <th>Order</th>
-                        <th>Frequent</th>
+                        <th>Building / Plot No.</th>
+                        <th>Locality</th>
+                        <th>Landmark</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Pincode</th>
                     </thead>
                     <tbody>
-                        <tr v-for="service in serviceList" style="height: 50px;">
+                        <tr v-for="address in addressList" style="height: 50px;">
 
-                            <td @click="getServiceDetail(service)" style="cursor: pointer;">
-                                <b>{{service.ServiceName}}</b>                                
+                            <td @click="getAddressDetail(address)" style="cursor: pointer;">
+                                <b>{{address.AddressLine1}}</b>                                
                             </td>
-                            <td><img v-if="service.ServiceImage" :src="service.ServiceImage" height="50" width="50"></td>
-                            <td>{{service.Subscriptions}}</td>
-                            <td> {{service.VehicleCategoryType == 2 ? (service.StartingPrice ? '₹' + service.StartingPrice + '/-' : 'NA') : (service.Price + '/-') }}</td>
-                            <td> {{service.VehicleCategoryType == 2 ? (service.StartingSubscriptionPrice ? '₹' + service.StartingSubscriptionPrice + '/-' : 'NA') : (service.SubscriptionPrice + '/-')}}</td>
+                            <td>{{address.AddressLine2}}</td>
+                            <td>{{address.Landmark}}</td>
+                            <td> {{address.CityName }}</td>
+                            <td> {{address.StateName}}</td>
                             <td>
-                                {{service.IsEnabled ? "Enabled" : "Disabled"}}
-                            </td>
-                            <td><input type="number" :disabled="!service.IsEnabled" v-model="service.ServiceOrder" class="form-control" @change="updateServiceOrder(service)" ></td>
-                            <td>
-                                <input type="checkbox" :disabled="!service.IsEnabled" v-model="service.IsFrequent" @click="updateServiceFrequent(service, $event)" />
+                                {{address.Pincode}}
                             </td>
                         </tr>
                     </tbody>
@@ -56,41 +40,58 @@
             </div>
         </div>
     </div>
-    <div class="panel-body addBg" v-if="showEdit">
-        <div class="ResGrid">
-            <div class="dTable">
-                <table style="width: 100%; overflow:scroll;">
-                    <thead>
-                        <th>Service</th>
-                        <th>Image</th>
-                        <th>Subscription</th>
-                        <th>Amount(Once)</th>
-                        <th>Amount(Subscription)</th>
-                        <th>Status</th>
-                        <th>Order</th>
-                        <th>Frequent</th>
-                    </thead>
-                    <tbody>
-                        <tr v-for="service in serviceList" style="height: 50px;">
-
-                            <td @click="getServiceDetail(service)" style="cursor: pointer;">
-                                <b>{{service.ServiceName}}</b>                                
-                            </td>
-                            <td><img v-if="service.ServiceImage" :src="service.ServiceImage" height="50" width="50"></td>
-                            <td>{{service.Subscriptions}}</td>
-                            <td> {{service.VehicleCategoryType == 2 ? (service.StartingPrice ? '₹' + service.StartingPrice + '/-' : 'NA') : (service.Price + '/-') }}</td>
-                            <td> {{service.VehicleCategoryType == 2 ? (service.StartingSubscriptionPrice ? '₹' + service.StartingSubscriptionPrice + '/-' : 'NA') : (service.SubscriptionPrice + '/-')}}</td>
-                            <td>
-                                {{service.IsEnabled ? "Enabled" : "Disabled"}}
-                            </td>
-                            <td><input type="number" :disabled="!service.IsEnabled" v-model="service.ServiceOrder" class="form-control" @change="updateServiceOrder(service)" ></td>
-                            <td>
-                                <input type="checkbox" :disabled="!service.IsEnabled" v-model="service.IsFrequent" @click="updateServiceFrequent(service, $event)" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <div class="panel-body addBg" v-if="showEdit && selectedAddress">        
+        <div class="form-group">
+            <label class="label-header-clr">
+                Building Name / Plot No.
+            </label>
+            <input type="text" v-model="selectedAddress.AddressLine1" class="form-control" placeholder="Building Name" name="AddressLine1"  v-validate="'required'">
+            <span v-show="errors.has('AddressLine1')" class="invalid-feedback">
+                <i v-show="errors.has('AddressLine1')" class="fa fa-warning"></i> 
+                Please enter Building Name
+            </span>
+        </div>
+        <div class="form-group">
+            <label>
+                Street / Locality
+            </label>
+            <input type="text" v-model="selectedAddress.AddressLine2" class="form-control" placeholder="Locality" name="AddressLine2">            
+        </div>
+        <div class="form-group">
+            <label>
+                Landmark
+            </label>
+            <input type="text" v-model="selectedAddress.Landmark" class="form-control" placeholder="Landmark" name="Landmark">            
+        </div>
+        <div class="form-group" v-if="false">
+            <select class="form-control" v-model="selectedAddress.Country">
+                <option value=null>Select Country</option>
+                <option v-for="(country, countryId) in countries" :value="country.CountryId">{{country.CountryName}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>
+                State
+            </label>
+            <select class="form-control" v-model="selectedAddress.State">
+                <option value=null>Select State</option>
+                <option v-for="(state, stateId) in states" :value="state.StateId">{{state.StateName}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>
+                City
+            </label>
+            <select class="form-control" v-model="selectedAddress.City">
+                <option value=null>Select City</option>
+                <option v-for="(city, cityId) in cities" :value="city.CityId">{{city.CityName}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>
+                Pincode
+            </label>
+            <input type="text" v-model="selectedAddress.Pincode" class="form-control" placeholder="Pincode" name="Pincode">
         </div>
     </div>
 </div>

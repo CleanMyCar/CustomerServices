@@ -15,20 +15,22 @@
                         <div class="form-group">
 
                             <div class="col-md-12 searchResultsAmenitiesDiv">
-                                <input style="font-size:14px;" type="text" placeholder="Please type here to choose address..."
-                                    v-model.trim="searchAddressText" autocomplete="off" v-validate="'required'" name="addressId">                                    
+                                <input style="font-size:14px;" type="text"
+                                    placeholder="Please type here to choose address..." v-model.trim="searchAddressText"
+                                    autocomplete="off" v-validate="'required'" name="addressId">
                             </div>
                             <div class="form-control searchResultsAmenities" @click="$event.stopPropagation()"
                                 id="propertyDropDown" v-show="showAddressList">
                                 <ul>
                                     <li v-for="address in addressList" v-bind:value="address.AddressId"
                                         @click="selectAddress(address)">
-                                        {{address.AddressLine1 + " " + address.AddressLine2 + ", " + address.Landmark + " " + address.CityName + ", " + address.StateName}}
+                                        {{address.AddressLine1 + " " + (address.AddressLine2 ? address.AddressLine2: "") + ", " + (address.Landmark ? address.Landmark: "") + " " + address.CityName + ", " + address.StateName}}
                                     </li>
                                 </ul>
                             </div>
                             <span v-show="errors.has('addressId')" class="invalid-feedback">
-                                <i v-show="errors.has('addressId')" class="fa fa-warning"></i> Please choose address</span>
+                                <i v-show="errors.has('addressId')" class="fa fa-warning"></i> Please choose
+                                address</span>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Vehicle Name"
@@ -37,10 +39,10 @@
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Vehicle No" name="VehicleNumber"
                                 v-model="newVehicleDetails.VehicleNumber" v-validate="'required|alpha_num'">
-                                <span v-show="errors.has('VehicleNumber')" class="invalid-feedback">
-                                    <i v-show="errors.has('VehicleNumber')" class="fa fa-warning"></i> 
-                                    Vehicle Number is required and it should not contain spaces or special characters
-                                </span>
+                            <span v-show="errors.has('VehicleNumber')" class="invalid-feedback">
+                                <i v-show="errors.has('VehicleNumber')" class="fa fa-warning"></i>
+                                Vehicle Number is required and it should not contain spaces or special characters
+                            </span>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Vehicle Make"
@@ -53,15 +55,14 @@
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Parking Lot"
                                 v-model="newVehicleDetails.ParkingLot" name="ParkingLot" v-validate="'required'">
-                                <span v-show="errors.has('ParkingLot')" class="invalid-feedback">
-                                    <i v-show="errors.has('ParkingLot')" class="fa fa-warning"></i> 
-                                    Parking Lot is required
-                                </span>
+                            <span v-show="errors.has('ParkingLot')" class="invalid-feedback">
+                                <i v-show="errors.has('ParkingLot')" class="fa fa-warning"></i>
+                                Parking Lot is required
+                            </span>
                         </div>
                         <div class="form-group img-upload-cls">
                             <label class="custom-file-upload">
-                                <img  :src="newVehicleDetails.VehicleImage" v-if="newVehicleDetails.VehicleImage"
-                                 />
+                                <img :src="newVehicleDetails.VehicleImage" v-if="newVehicleDetails.VehicleImage" />
                                 <div>
                                     <i class="fa fa-upload" aria-hidden="true"></i>
                                     <input type="file" id="logo" name="logo" accept="image/*"
@@ -69,10 +70,10 @@
                                 </div>
 
                             </label>
-                          
-                        </div> 
 
-                    
+                        </div>
+
+
                         <div class="form-group" v-if="!serviceDetail">
                             <label v-for="vehicleType in vehicleTypes" v-if="vehicleType.VehicleTypeId != 3">
                                 <input type="radio" name="vehicleType" @click="changeVehicleType(vehicleType, $event)"
@@ -111,7 +112,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <ul v-for="(message, fieldName) in validations">
-                                <li>                                    
+                                <li>
                                     <span><b>{{fieldName}}</b></span>:<span>{{message}}</span>
                                 </li>
                             </ul>
@@ -127,6 +128,9 @@
         </div>
     </div>
 
-    <deleteConfirmationPopup class="custom-small-popup"  :updateParent="callbackFromConfirmation" :isOpen="vechileTypeChangePopup" v-if="vechileTypeChangePopup"
-        headerTitle="'Please confirm before change vehicle type'" message="'Changing vehicle type will delete all existing subscriptions for this vehicle. Are you sure want to change it ?'"></deleteConfirmationPopup>
+    <deleteConfirmationPopup class="custom-small-popup" :updateParent="callbackFromConfirmation"
+        :isOpen="vechileTypeChangePopup" v-if="vechileTypeChangePopup"
+        headerTitle="'Please confirm before change vehicle type'"
+        message="'Changing vehicle type will delete all existing subscriptions for this vehicle. Are you sure want to change it ?'">
+    </deleteConfirmationPopup>
 </div>

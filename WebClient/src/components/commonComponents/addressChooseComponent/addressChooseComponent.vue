@@ -21,7 +21,7 @@
                     if (result) {
                         vm.$store.dispatch("dataRequestHandler", {
                             key: "SaveAddress",
-                            params: Object.assign(vm.address, { StatusId: status }),
+                            params: Object.assign(vm.address, { StatusId: status, IsUserAddress: true }),
                             callback: function (err, response) {
                                 if (err) {
                                     return;

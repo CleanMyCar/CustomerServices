@@ -12,7 +12,7 @@ module.exports = (config, params, callback) => {
     requestParams.input('Pincode', mssql.Int, params.Pincode);
     requestParams.input('IsDefault', mssql.Int, params.IsDefault ? 1 : 0);
     requestParams.input('StatusId', mssql.Int, params.StatusId);
-    requestParams.input('UserId', mssql.Int, params.systemParams.UserId);
+    requestParams.input('UserId', mssql.Int, params.IsUserAddress ? params.systemParams.UserId: null);
 
     requestParams.execute('SaveAddress', (err, result) => {
         if (err) {
