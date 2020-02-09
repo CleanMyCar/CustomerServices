@@ -47,6 +47,9 @@
                 <li @click="redirectToUsersWallet" v-if="userRole === 0">
                     Users Wallet
                 </li>
+                <li @click="redirectToManageAddress" v-if="userRole === 0">
+                    Manage Address
+                </li>
                 <li @click="redirectToCompanyAssets" v-if="userRole === 3">
                     Company Assests with Me
                 </li>

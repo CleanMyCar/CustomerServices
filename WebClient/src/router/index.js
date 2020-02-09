@@ -28,10 +28,11 @@ import addAmountToWallet from "../components/adminModule/addAmountToWallet/addAm
 import myWallet from "../components/myaccount/myWallet/myWallet.vue"
 import supportComponent from "../components/customerModule/supportComponent/supportComponent.vue"
 import rechargeWallet from "../components/myaccount/reachargeComponent/reachargeComponent.vue"
+import apartmentsAddressComponent from "../components/adminModule/apartmentsAddressComponent/apartmentsAddressComponent.vue"
 Vue.use(Router);
 
 export default new Router({
-  routes: [    
+  routes: [
     {
       path: '/',
       name: 'homePage',
@@ -118,10 +119,10 @@ export default new Router({
       path: '/manageServices',
       name: 'manageServicesComponent',
       component: manageServices
-    },{
+    }, {
       path: '/serviceDetail/:serviceId',
       name: 'serviceDetailComponent',
-      component:serviceDetailComponent
+      component: serviceDetailComponent
     },
     {
       path: '/addAmountToWallet',
@@ -137,11 +138,16 @@ export default new Router({
       path: '/support',
       name: 'support',
       component: supportComponent
-    } ,
+    },
     {
       path: '/recharge/:txnId',
       name: 'rechargeWallet',
       component: rechargeWallet
-    }    
+    },
+    {
+      path: '/serviceApartments',
+      name: 'serviceApartments',
+      component: apartmentsAddressComponent
+    }
   ]
 })

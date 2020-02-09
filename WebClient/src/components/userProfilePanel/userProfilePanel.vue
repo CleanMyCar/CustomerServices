@@ -83,6 +83,10 @@
                 this.panelCallback();
                 this.$router.push("/recharge/-1")
             },
+            redirectToManageAddress(){
+                this.panelCallback();
+                this.$router.push("/serviceApartments")
+            },
         },
         computed: {
             userProfile(){

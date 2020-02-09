@@ -1,6 +1,11 @@
 const request = require("request-promise")
 module.exports = (config, params, callback) => {
     // let message = `Please use OTP ${params.userOtp} to reset your password in CleanMyCar`
+    // if(config.adminConfig && !config.adminConfig.SmsNotifications){
+    //     console.log("SMS Sent - Notifications Off");
+    //     console.log(params.message, params.mobileNumber);
+    //     return;
+    // }
     var options = {
         method: 'POST',
         url: `https://www.bulksmsgateway.in/sendmessage.php?user=CleanMyCar&password=ANV@2019anv&message=${escape(params.message)}&sender=CMYCAR&mobile=${params.mobileNumber}&type=3`
