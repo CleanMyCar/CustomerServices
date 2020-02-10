@@ -37,11 +37,16 @@ module.exports = async (config, params, callback) => {
 
 			//Send E-mail and SMS about registration
 			if (isMobileNumberVerified) {
+				let message = `Thank you for registering CleanMyCar service.`;
+				if (result.recordsets[2] && result.recordsets[2][0] && result.recordsets[2][0].WalletAmount && result.recordsets[2][0].Validity) {
+					message += `Rs.${result.recordsets[2][0].WalletAmount}/- FREE CASH added to your CelanMyCar wallet. Valid up to next  ${result.recordsets[2][0].Validity} days.`
+				}
+				message += ` We look forward to serve you with world class cleaning services for your vehicle. \nThanks, \nTeam CleanMyCar`
 				sendSms(config, {
-					message: `Thank you for registering CleanMyCar service. We look forward to serve you with world class cleaning services for your vehicle. \nThanks, \nTeam CleanMyCar`,
+					message: message,
 					mobileNumber: params.mobileNumber
 				}, function (err, resp) {
-					if(err){
+					if (err) {
 						console.log("New Registration - SMS sending failed", err)
 					}
 				})
@@ -49,19 +54,19 @@ module.exports = async (config, params, callback) => {
 					message: `Hi Team, \nNew customer ${params.firstName} registered just now with ${params.mobileNumber}`,
 					mobileNumber: "7095889988,7095444498"
 				}, function (err, resp) {
-					if(err){
+					if (err) {
 						console.log("New Registration - SMS sending failed", err)
 					}
 				})
 				sendEmail(config, {
-                    Email: "Contact@cleanmycar.in",
-                    MessageTitle: "Customer Registration",
-                    MessageBody: `Hi Team, \nNew customer ${params.firstName} registered just now with ${params.mobileNumber}`
-                }, function (err, response) {
-                    if (err) {
-                        console.log("New Registration - email sending failed ", err)
-                    }
-                });
+					Email: "Contact@cleanmycar.in",
+					MessageTitle: "Customer Registration",
+					MessageBody: `Hi Team, \nNew customer ${params.firstName} registered just now with ${params.mobileNumber}`
+				}, function (err, response) {
+					if (err) {
+						console.log("New Registration - email sending failed ", err)
+					}
+				});
 
 			}
 		});
