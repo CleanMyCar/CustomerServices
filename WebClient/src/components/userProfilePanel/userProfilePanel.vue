@@ -49,56 +49,59 @@
             userLogout() {
                 this.panelCallback();
                 window.localStorage.removeItem('rttoken');
+                window.webkit.messageHandlers.jsHandler.postMessage({type: "logout"});
                 window.location.href = "/login.html"
+
+                // window.location.href = "preindex.html?logout=ios";
             },
-            redirectToRequestMaterial(){
+            redirectToRequestMaterial() {
                 this.panelCallback();
                 this.$router.push("/requestMaterial")
             },
-            redirectToCompanyAssets(){
+            redirectToCompanyAssets() {
                 this.panelCallback();
                 this.$router.push("/assets")
             },
-            redirectToUsers(){
+            redirectToUsers() {
                 this.panelCallback();
                 this.$router.push("/users")
             },
-            redirectToManageServices(){
+            redirectToManageServices() {
                 this.panelCallback();
                 this.$router.push("/manageServices")
             },
-            redirectToUsersWallet(){
+            redirectToUsersWallet() {
                 this.panelCallback();
                 this.$router.push("/addAmountToWallet")
             },
-            redirectToMySubscriptions(){
+            redirectToMySubscriptions() {
                 this.panelCallback();
                 this.$router.push("/mysubscriptions")
             },
-            redirectToSupport(){
+            redirectToSupport() {
                 this.panelCallback();
                 this.$router.push("/support")
             },
-            redirectToRecharge(){
+            redirectToRecharge() {
                 this.panelCallback();
                 this.$router.push("/recharge/-1")
             },
-            redirectToManageAddress(){
+            redirectToManageAddress() {
                 this.panelCallback();
                 this.$router.push("/serviceApartments")
             },
         },
         computed: {
-            userProfile(){
+            userProfile() {
                 return this.$store.state.loggedInUserDetail ? this.$store.state.loggedInUserDetail : null;
             },
-            userRole(){
+            userRole() {
                 return this.userProfile && this.userProfile.UserRoleId;;
             },
-            userWallet(){
+            userWallet() {
                 return this.$store.state.loggedInUserWallet;
             }
-            
+
         },
         beforeDestroy() {
 
@@ -122,7 +125,7 @@
         height: 35px;
         border-radius: 30px;
         background: #eee;
-        display:flex;
+        display: flex;
         justify-content: center;
         align-items: center;
     }

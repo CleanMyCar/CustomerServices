@@ -450,7 +450,7 @@ require("./code/core/core")(configParams)
 				});
 			}
 		});
-		app.get("/downloadImage/:imageGuid/:size", function (req, res) {
+		app.get("/downloadBannerImage/:imageId", function (req, res) {
 			res.set("Cache-Control", "public, max-age=31557600"); // one year
 			// config.logger.info("received request in express /downloadImage", "Cookies: ", req.cookies, "body: ", req.body);
 			//console.log("body: ", req.body)
@@ -545,6 +545,8 @@ require("./code/core/core")(configParams)
 			if (typeof req.body.systemParams == "string") {
 				apiSystemParams = JSON.parse(req.body.systemParams);
 			}
+
+			apiRequestParams.systemParams = apiSystemParams;
 
 			if (apiRequestParams.APIReg === "10000") {
 				//Register new user
@@ -723,7 +725,7 @@ require("./code/core/core")(configParams)
 						apiRequestParams.ErrorMessage = "There is an error while getting imagtes";
 						return res.end(JSON.stringify(apiRequestParams));
 					}
-					
+
 					apiRequestParams.ErrorMessage = "";
 					res.end(JSON.stringify(response));
 				});
@@ -1026,7 +1028,7 @@ require("./code/core/core")(configParams)
 
 		// ==================== files uploading =================================
 
-		
+
 
 		http.listen(process.env.PORT || 1339);
 	})

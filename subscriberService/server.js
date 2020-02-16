@@ -56,18 +56,23 @@ let executeSubscriptionTasks = require("./code/subscription/executeSubscriptionT
 
 require('./code/core/core')(configParams)
     .then(config => {
-        var j = schedule.scheduleJob('*/1 * * * *', async function () {
+        var j = schedule.scheduleJob('* */0 * * *', async function () {
             console.log('Running subscription task - Create recurrence tasks !!');
             await executeSubscriptionTasks(config);
         });
 
-        var k = schedule.scheduleJob('*/1 * * * *', async function () {
+        var k = schedule.scheduleJob('* */0 * * *', async function () {
             console.log('Running nightly job - to suspend the tasks which are not having sufficient wallet amount!');
             await suspendTasks(config);
         });
 
-        var l = schedule.scheduleJob('*/1 * * * *', async function () {
+        var l = schedule.scheduleJob('* */0 * * *', async function () {
             console.log('Running nightly job - to send notification to low wallet balance users');
+            await sendNotificationToLowWalletBalanceUsers(config);
+        });
+
+        var m = schedule.scheduleJob('* */12 * * *', async function () {
+            console.log('Running job at 12pm - to send notification to low wallet balance users');
             await sendNotificationToLowWalletBalanceUsers(config);
         });
     })

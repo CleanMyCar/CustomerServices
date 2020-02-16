@@ -42,7 +42,7 @@
       logout() {
         let scope = this;
         window.localStorage.removeItem("rttoken");
-        window.location.href = "login.html";
+        window.location.href = "preindex.html?logout=ios";
       },
       navigateToHome: function () {
         window.location.href = this.$store.state.uiPageName;// + this.userDetail.response["p_9"]["txt"];

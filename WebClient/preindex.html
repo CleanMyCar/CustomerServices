@@ -1,0 +1,37 @@
+<html>
+
+<body>
+    <script type="text/javascript">
+        function setAppToken(token) {
+            console.log(token);
+            window.localStorage.setItem('rttoken', token);
+            window.location.href = "/index.html";
+        }
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // interface Window {
+        //     webkit?: any;
+        // }
+
+        // declare var window: Window;
+
+        if(getParameterByName('logout') === "ios"){
+            postMessage("User Logged out"); 
+            // (window as any).webkit.messageHandlers.jsHandeler.postMessage("logged out")
+        }
+        // else{
+        //     window.location = "login.html"
+        // }
+    </script>
+</body>
+
+</html>
