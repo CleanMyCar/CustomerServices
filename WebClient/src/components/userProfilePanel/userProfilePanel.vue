@@ -49,7 +49,9 @@
             userLogout() {
                 this.panelCallback();
                 window.localStorage.removeItem('rttoken');
-                window.webkit.messageHandlers.jsHandler.postMessage({type: "logout"});
+                if(window.webkit && window.webkit.messageHandlers){
+                    window.webkit.messageHandlers.jsHandler.postMessage({type: "logout"});
+                }
                 window.location.href = "/login.html"
 
                 // window.location.href = "preindex.html?logout=ios";

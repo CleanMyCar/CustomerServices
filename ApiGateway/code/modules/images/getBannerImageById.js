@@ -2,16 +2,15 @@ const mssql = require('mssql');
 
 module.exports = (config, params, callback) => {
     const requestParams = config.dbwrapper.getNewRequest();
-    requestParams.input('IsLogin', mssql.Int, params.IsLogin);
-    requestParams.input('Source', mssql.NVarChar, params.Source);
+    requestParams.input('ImageId', mssql.Int, params.ImageId);
 
-    requestParams.execute('GetBannerImages', (err, result) => {
+    requestParams.execute('GetBannerImageById', (err, result) => {
         if (err) {
             console.log(err);
             callback(err);
             return
         }
 
-        return callback(null, result.recordsets[0]);
+        return callback(null, result.recordsets[0][0]);
     })
 }

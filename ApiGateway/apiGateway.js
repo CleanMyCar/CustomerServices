@@ -450,30 +450,20 @@ require("./code/core/core")(configParams)
 				});
 			}
 		});
-		app.get("/downloadBannerImage/:imageId", function (req, res) {
+
+		let getBannerImageById = require("./code/modules/images/getBannerImageById");
+		app.get("/api/downloadBannerImage/:imageId", function (req, res) {
 			res.set("Cache-Control", "public, max-age=31557600"); // one year
 			// config.logger.info("received request in express /downloadImage", "Cookies: ", req.cookies, "body: ", req.body);
 			//console.log("body: ", req.body)
 
-			let imageFormat = "image/jpeg";
-			// console.log("format" + imageFormat)
-			let reqObj = {};
-			let size = req.params.size;
-			console.log("size====>", size);
-			if (size != "null") {
-				let imageSize = req.params.size.split("x");
-				console.log("imageSize==>", imageSize);
-				reqObj.width = Number(imageSize[0]);
-				reqObj.height = Number(imageSize[1]);
-			}
+			let reqObj = {};			
 			reqObj.image = null;
-			reqObj.imageGuid = req.params.imageGuid;
-			reqObj.method = 30032;
-			awsImageService(config, reqObj, function (err, response) {
+			reqObj.ImageId = req.query.imageId;
+			getBannerImageById(config, reqObj, function (err, response) {
 				if (response) {
-					let img = response;
-					console.log(img);
-					res.writeHead(200, { "Content-Type": imageFormat });
+					let img = response.Image;
+					res.writeHead(200, { "Content-Type": "image/jpeg" });
 					res.end(img, "binary");
 				} else {
 					res.send(err);
@@ -722,7 +712,7 @@ require("./code/core/core")(configParams)
 				// Change user password
 				getBannerImages(config, apiRequestParams, function (error, response) {
 					if (error) {
-						apiRequestParams.ErrorMessage = "There is an error while getting imagtes";
+						apiRequestParams.ErrorMessage = "There is an error while getting images";
 						return res.end(JSON.stringify(apiRequestParams));
 					}
 

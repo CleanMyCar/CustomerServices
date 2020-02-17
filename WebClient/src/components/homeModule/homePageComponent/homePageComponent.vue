@@ -121,7 +121,8 @@
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "GetBannerImages",
                     params: {
-                        IsLogin: 0
+                        IsLogin: 0,
+                        Source: 'Web'
                     },
                     callback: function (err, response) {
                         if (err) {

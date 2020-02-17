@@ -724,7 +724,8 @@
 			let bannerImageParams = {
 				requestParams: {
 					APIReg: 10008,
-					IsLogin: 1
+					IsLogin: 1,
+					Source: 'Web'
 				}
 			}
 
@@ -750,7 +751,8 @@
 						}, 5000)
 					}
 					else {
-						self.errLoginMsg("There is server error, please contact administrator");
+						// self.errLoginMsg("There is server error, please contact administrator");
+						console.log("There are no images", response)
 					}
 				},
 				error: function (d) {
