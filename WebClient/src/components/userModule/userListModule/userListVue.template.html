@@ -113,6 +113,9 @@
             <div class="dCell EMAIL" v-if="headerColumnList.EMAIL.IsChecked">
               <strong>{{inst.RoleName}}</strong>
             </div>
+            <div class="dCell EMAIL" v-if="headerColumnList.CreatedDate.IsChecked">
+              <strong>{{getFormattedDate(inst.CreatedOn)}}</strong>
+            </div>
           </div>
         </div>
       </div>

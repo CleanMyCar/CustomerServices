@@ -1,5 +1,6 @@
 <template src="./userListVue.template.html"></template>
 <script>
+    import moment from 'moment'
     export default {
         // options
         name: "userListComponent",
@@ -33,6 +34,7 @@
                     MOBIILENUMBER: { Label: "MOBILE NUMBER", IsChecked: true, ColumnName: "mobileNumber", isSortLoading: false, isAscOrDesc: null },
                     STATUS: { Label: "STATUS", IsChecked: true, ColumnName: "StatusId", isSortLoading: false, isAscOrDesc: null },
                     RoleId: { Label: "Role", IsChecked: true, ColumnName: "RoleName", isSortLoading: false, isAscOrDesc: null },
+                    CreatedDate: { Label: "Registered Date", IsChecked: true, ColumnName: "RoleName", isSortLoading: false, isAscOrDesc: null },
                 },
 
                 filterObj: {
@@ -145,6 +147,9 @@
                     this.listType = 'card';
                 else
                     this.listType = 'list';
+            },
+            getFormattedDate(date){
+                return moment(date).format("Do MMM, YYYY")
             }
         },
         computed: {

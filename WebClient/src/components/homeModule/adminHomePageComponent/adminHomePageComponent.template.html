@@ -2,8 +2,8 @@
 
     <div class="panel-heading" style="padding:0px;">
         <h4 class="pull-left">Customer Services</h4>
-        
-        
+
+
     </div>
 
     <div class="panel-body" style="padding:0px;">
@@ -12,7 +12,8 @@
                 <div class="col-md-4">
                     <select class="form-control" v-model="pendingServiceFilter.ServiceId">
                         <option value="-1">All</option>
-                        <option v-for="service in adminServiceList" :value="service.ServiceId">{{service.ServiceName}}</option>
+                        <option v-for="service in adminServiceList" :value="service.ServiceId">{{service.ServiceName}}
+                        </option>
                     </select>
                 </div>
                 <div class="col-md-4">
@@ -28,13 +29,14 @@
                 <div class="col-md-4" v-if="selectedTab == 2">
                     <select class="form-control" v-model="pendingServiceFilter.PersonId">
                         <option value=null>--Select Service Person--</option>
-                        <option v-for="person in servicePerons" :value="person.UserId">{{person.UserFirstName + ' ' + person.UserLastName}}</option>
+                        <option v-for="person in servicePerons" :value="person.UserId">
+                            {{person.UserFirstName + ' ' + person.UserLastName}}</option>
                     </select>
                 </div>
                 <div class="col-md-4">
                     <datePickerComponent :keyString="'StartDate'" v-model="pendingServiceFilter.ServiceDate"
-                        :value="pendingServiceFilter.ServiceDate" :format="'Do MMM YYYY'"
-                        :onUpdate="updateServiceDate" :pickerType="'date'">
+                        :value="pendingServiceFilter.ServiceDate" :format="'Do MMM YYYY'" :onUpdate="updateServiceDate"
+                        :pickerType="'date'">
                     </datePickerComponent>
                 </div>
                 <div class="col-md-2">
@@ -51,7 +53,7 @@
             <div class="tab-content">
                 <div class="tab-pane" v-if="selectedTab === 1" :class="{ active: selectedTab === 1 }">
                     <div class="panel panel-default">
-                        <div class="panel-body addBg">                            
+                        <div class="panel-body addBg">
                             <div class="ResGrid">
                                 <div class="dTable">
                                     <table style="width: 100%; overflow:scroll;">
@@ -59,12 +61,13 @@
                                             <th>Actions</th>
                                             <th>Building</th>
                                             <th>Service</th>
-
                                             <th>Service Date</th>
                                             <th>Time Slot</th>
                                             <th>Subscription</th>
                                             <th>Quantity</th>
                                             <th>Amount</th>
+                                            <th>Customer Name</th>
+                                            <th>Mobile Number</th>
                                             <th>Vehicle Number</th>
                                         </thead>
                                         <tbody>
@@ -87,12 +90,19 @@
                                                 <td>
                                                     {{service.Quantity}}
                                                 </td>
-                                                <td style="white-space: nowrap;">₹                                                    
+                                                <td style="white-space: nowrap;">₹
                                                     <span>
                                                         {{service.RequestPrice}}
                                                     </span>/-
                                                 </td>
+                                                <td>{{service.CustomerFirstName + ', ' + (service.CustomerLastName ? service.CustomerLastName : '')}}</td>
+                                                <td>{{service.CustomerMobileNumber}}</td>
                                                 <td>{{service.VehicleNumber}}</td>
+                                            </tr>
+                                            <tr v-if="services.length == 0">
+                                                <td colspan="7">
+                                                    <span>There are no services for the criteria</span>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -124,7 +134,7 @@
                                                 <td>{{returnDateTime(service.RequestedOn)}}</td>
                                                 <td>{{returnDateTime(service.ServiceDate)}}</td>
                                                 <td>{{service.SubscribeType ? service.SubscribeType : 'Once'}}</td>
-                                                <td style="white-space: nowrap;">₹                                                    
+                                                <td style="white-space: nowrap;">₹
                                                     <span>
                                                         {{service.RequestPrice}}
                                                     </span>/-
@@ -132,6 +142,11 @@
                                                 <td>{{service.VehicleNumber}}</td>
                                                 <td>{{service.UserFirstName}} {{service.UserLastName}} <br>
                                                     {{service.MobileNumber}}</td>
+                                            </tr>
+                                            <tr v-if="services.length == 0">
+                                                <td colspan="7">
+                                                    <span>There are no services for the criteria</span>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -142,7 +157,7 @@
                 </div>
                 <div class="tab-pane" v-if="selectedTab === 5" :class="{ active: selectedTab === 5 }">
                     <div class="panel panel-default">
-                        <div class="panel-body addBg">                            
+                        <div class="panel-body addBg">
                             <div class="ResGrid">
                                 <div class="dTable">
                                     <table style="width: 100%; overflow:scroll;">
@@ -159,7 +174,7 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="service in services" style="height: 50px;"
-                                                v-if="service.ServiceType == 2 || (service.ServiceType == 1 && service.ParentId)">
+                                                v-if="service.ServiceType == 2 || (service.ServiceType == 1 && ( service.ParentId || service.RequestParentId))">
                                                 <td>{{service.OtherAddressId ? (service.OtherAddressLine1 + ", " + service.OtherAddressLine2) :  (service.AddressLine1 + ', ' + service.ParkingLot)}}
                                                 </td>
                                                 <td>{{service.ServiceName}}</td>
@@ -179,6 +194,11 @@
                                                 <td>{{service.VehicleNumber}}</td>
                                                 <td>{{service.UserFirstName + ' ' + service.UserLastName}}</td>
                                             </tr>
+                                            <tr v-if="services.length == 0">
+                                                <td colspan="7">
+                                                    <span>There are no services for the criteria</span>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -188,7 +208,7 @@
                 </div>
                 <div class="tab-pane" v-if="selectedTab === 6" :class="{ active: selectedTab === 6 }">
                     <div class="panel panel-default">
-                        <div class="panel-body addBg">                            
+                        <div class="panel-body addBg">
                             <div class="ResGrid">
                                 <div class="dTable">
                                     <table style="width: 100%; overflow:scroll;">
@@ -207,7 +227,7 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="service in services" style="height: 50px;"
-                                                v-if="service.ServiceType == 2 || (service.ServiceType == 1 && service.ParentId)">
+                                            v-if="service.ServiceType == 2 || (service.ServiceType == 1 && ( service.ParentId || service.RequestParentId))">
                                                 <td>
                                                     NA
                                                 </td>
@@ -229,6 +249,11 @@
                                                 </td>
                                                 <td>{{service.VehicleNumber}}</td>
                                                 <td>{{service.UserFirstName + ' ' + service.UserLastName}}</td>
+                                            </tr>
+                                            <tr v-if="services.length == 0">
+                                                <td colspan="7">
+                                                    <span>There are no services for the criteria</span>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
