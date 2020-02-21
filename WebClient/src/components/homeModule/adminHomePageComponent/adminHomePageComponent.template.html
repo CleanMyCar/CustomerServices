@@ -95,7 +95,8 @@
                                                         {{service.RequestPrice}}
                                                     </span>/-
                                                 </td>
-                                                <td>{{service.CustomerFirstName + ', ' + (service.CustomerLastName ? service.CustomerLastName : '')}}</td>
+                                                <td>{{service.CustomerFirstName + ', ' + (service.CustomerLastName ? service.CustomerLastName : '')}}
+                                                </td>
                                                 <td>{{service.CustomerMobileNumber}}</td>
                                                 <td>{{service.VehicleNumber}}</td>
                                             </tr>
@@ -122,10 +123,13 @@
                                             <th>Service</th>
                                             <th>Requested On</th>
                                             <th>Service Date</th>
+                                            <th>Time Slot</th>
                                             <th>Subscription</th>
                                             <th>Amount</th>
                                             <th>Vehicle Number</th>
                                             <th>Service Person</th>
+                                            <th>Customer Name</th>
+                                            <th>Mobile Number</th>
                                         </thead>
                                         <tbody>
                                             <tr v-for="service in services" style="height: 50px;">
@@ -133,6 +137,7 @@
                                                 <td>{{service.ServiceName}}</td>
                                                 <td>{{returnDateTime(service.RequestedOn)}}</td>
                                                 <td>{{returnDateTime(service.ServiceDate)}}</td>
+                                                <td>{{timeslots[service.TimeSlot]}}</td>
                                                 <td>{{service.SubscribeType ? service.SubscribeType : 'Once'}}</td>
                                                 <td style="white-space: nowrap;">₹
                                                     <span>
@@ -142,6 +147,9 @@
                                                 <td>{{service.VehicleNumber}}</td>
                                                 <td>{{service.UserFirstName}} {{service.UserLastName}} <br>
                                                     {{service.MobileNumber}}</td>
+                                                <td>{{service.CustomerFirstName + ', ' + (service.CustomerLastName ? service.CustomerLastName : '')}}
+                                                </td>
+                                                <td>{{service.CustomerMobileNumber}}</td>
                                             </tr>
                                             <tr v-if="services.length == 0">
                                                 <td colspan="7">
@@ -171,10 +179,12 @@
                                             <th>Amount</th>
                                             <th>Vehicle Number</th>
                                             <th>Service Person</th>
+                                            <th>Customer Name</th>
+                                            <th>Mobile Number</th>
                                         </thead>
                                         <tbody>
                                             <tr v-for="service in services" style="height: 50px;"
-                                                v-if="service.ServiceType == 2 || (service.ServiceType == 1 && ( service.ParentId || service.RequestParentId))">
+                                                v-if="service.ServiceType == 2 || (service.ServiceType == 1 && ( service.ParentId || service.RequestId))">
                                                 <td>{{service.OtherAddressId ? (service.OtherAddressLine1 + ", " + service.OtherAddressLine2) :  (service.AddressLine1 + ', ' + service.ParkingLot)}}
                                                 </td>
                                                 <td>{{service.ServiceName}}</td>
@@ -193,6 +203,8 @@
                                                 </td>
                                                 <td>{{service.VehicleNumber}}</td>
                                                 <td>{{service.UserFirstName + ' ' + service.UserLastName}}</td>
+                                                <td>{{service.CustomerFirstName + ', ' + (service.CustomerLastName ? service.CustomerLastName : '')}}</td>
+                                                <td>{{service.CustomerMobileNumber}}</td>
                                             </tr>
                                             <tr v-if="services.length == 0">
                                                 <td colspan="7">
@@ -224,10 +236,12 @@
                                             <th>Amount</th>
                                             <th>Vehicle Number</th>
                                             <th>Service Person</th>
+                                            <th>Customer Name</th>
+                                            <th>Mobile Number</th>
                                         </thead>
                                         <tbody>
                                             <tr v-for="service in services" style="height: 50px;"
-                                            v-if="service.ServiceType == 2 || (service.ServiceType == 1 && ( service.ParentId || service.RequestParentId))">
+                                                v-if="service.ServiceType == 2 || (service.ServiceType == 1 && ( service.ParentId || service.RequestId))">
                                                 <td>
                                                     NA
                                                 </td>
@@ -249,6 +263,8 @@
                                                 </td>
                                                 <td>{{service.VehicleNumber}}</td>
                                                 <td>{{service.UserFirstName + ' ' + service.UserLastName}}</td>
+                                                <td>{{service.CustomerFirstName + ', ' + (service.CustomerLastName ? service.CustomerLastName : '')}}</td>
+                                                <td>{{service.CustomerMobileNumber}}</td>
                                             </tr>
                                             <tr v-if="services.length == 0">
                                                 <td colspan="7">

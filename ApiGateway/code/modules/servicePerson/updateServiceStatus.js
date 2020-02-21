@@ -3,7 +3,7 @@ const mssql = require('mssql');
 
 module.exports = (config, params, callback) => {
     const requestParams = config.dbwrapper.getNewRequest();
-    
+
     requestParams.input('RequestId', mssql.Int, params.RequestId);
     requestParams.input('Reason', mssql.NVarChar, params.Notes);
     requestParams.input('StatusId', mssql.Int, params.StatusId);
@@ -18,14 +18,25 @@ module.exports = (config, params, callback) => {
         }
 
         // console.log(result);
-        if(result.recordsets[0] && result.recordsets[0][0] && result.recordsets[0][0]["ErrorMessage"] && result.recordsets[1] && result.recordsets[1][0]["MobileNumber"]){
-            sendSms(config, {
-                message: `Hi ${result.recordsets[1][0]["FirstName"]}, You have insufficient amount in wallet to complete service. Please recharge ASAP to complete service. Thanks, CleanMyCar`,
-                mobileNumber: result.recordsets[1][0]["MobileNumber"]
-            }, function(err, resp){
-        
-            })
+        if (result.recordsets[0] && result.recordsets[0][0] && result.recordsets[1] && result.recordsets[1][0]["MobileNumber"]) {
+            if (result.recordsets[0][0]["ErrorMessage"]) {
+                sendSms(config, {
+                    message: `Hi ${result.recordsets[1][0]["FirstName"]}, You have insufficient amount in wallet to complete service. Please recharge ASAP to complete service. Thanks, CleanMyCar`,
+                    mobileNumber: result.recordsets[1][0]["MobileNumber"]
+                }, function (err, resp) {
+
+                })
+            }
+            else if (params.StatusId == 5 || params.StatusId == 6) {
+                sendSms(config, {
+                    message: `Hi ${result.recordsets[1][0]["FirstName"]}, You service is ${params.StatusId == 6 ? 'not' : ''} completed Thanks, CleanMyCar`,
+                    mobileNumber: result.recordsets[1][0]["MobileNumber"]
+                }, function (err, resp) {
+
+                })
+            }
         }
+
         return callback(null, result.recordsets[0][0]);
     })
 }

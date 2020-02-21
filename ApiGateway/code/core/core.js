@@ -4,6 +4,7 @@ let mssql = require('mssql');
 let _createSqlParams = require('./db/sql/sqlParamsRequest');
 let sendSms = require("../modules/common/sendSms");
 let sendEmail = require("../modules/common/sendEmail")
+let pushNotification = require("../modules/notifications/pushNotification")
 
 module.exports = async function (configParams) {
     try {
@@ -96,7 +97,8 @@ module.exports = async function (configParams) {
             paytmConfig: null,
             sendSms: sendSms,
             sendEmail: sendEmail,
-            adminConfig: null
+            adminConfig: null,
+            pushNotification: pushNotification
         }
     }
     catch (e) {

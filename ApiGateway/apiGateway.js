@@ -459,12 +459,16 @@ require("./code/core/core")(configParams)
 
 			let reqObj = {};			
 			reqObj.image = null;
-			reqObj.ImageId = req.query.imageId;
+			reqObj.ImageId = req.params.imageId;
 			getBannerImageById(config, reqObj, function (err, response) {
 				if (response) {
-					let img = response.Image;
-					res.writeHead(200, { "Content-Type": "image/jpeg" });
-					res.end(img, "binary");
+					// let img = response.Image;
+					res.writeHead(200, { "Content-Type": "image/png" });
+					var base64Data = response.Image.replace(/^data:image\/(png|jpeg|jpg);base64,/, '');
+ 
+					var img = Buffer.from(base64Data, 'base64');
+					res.end(img);
+					
 				} else {
 					res.send(err);
 				}
@@ -522,7 +526,8 @@ require("./code/core/core")(configParams)
 		const addAppIdToUser = require("./code/modules/user/addAppIdToUser.js");
 		const registerNewUser = require("./code/modules/user/registerUser"),
 			validateUserByEmailMobileNumber = require("./code/modules/user/validateUserByEmailMobileNumber"),
-			getBannerImages = require("./code/modules/admin/getBannerImages");
+			getBannerImages = require("./code/modules/admin/getBannerImages"),
+			resendOtpToNewUser = require("./code/modules/user/resendOtpToNewUser");
 
 		app.post("/api", function (req, res) {
 			//   console.log("loginconsoleapi",req);
@@ -712,6 +717,7 @@ require("./code/core/core")(configParams)
 				// Change user password
 				getBannerImages(config, apiRequestParams, function (error, response) {
 					if (error) {
+						console.log(apiRequestParams);
 						apiRequestParams.ErrorMessage = "There is an error while getting images";
 						return res.end(JSON.stringify(apiRequestParams));
 					}
@@ -719,7 +725,14 @@ require("./code/core/core")(configParams)
 					apiRequestParams.ErrorMessage = "";
 					res.end(JSON.stringify(response));
 				});
-			} else {
+			} 
+			else if (apiRequestParams.APIReg === "10009") {
+				//Resend OTP to new user
+				resendOtpToNewUser(config, apiRequestParams, function (error, responseObj) {
+					res.end(JSON.stringify(responseObj));
+				});
+			} 
+			else {
 				res.end("Request received");
 			}
 		});
