@@ -29,7 +29,7 @@ module.exports = (config, params, callback) => {
             }
             else if (params.StatusId == 5 || params.StatusId == 6) {
                 sendSms(config, {
-                    message: `Hi ${result.recordsets[1][0]["FirstName"]}, You service is ${params.StatusId == 6 ? 'not' : ''} completed Thanks, CleanMyCar`,
+                    message: `Hi ${result.recordsets[1][0]["FirstName"]}, Your service is ${params.StatusId == 6 ? 'not' : ''} completed Thanks, CleanMyCar`,
                     mobileNumber: result.recordsets[1][0]["MobileNumber"]
                 }, function (err, resp) {
 
