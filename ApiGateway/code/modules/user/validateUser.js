@@ -26,11 +26,11 @@ module.exports = (config, params, callback) => {
                     console.log(err);
                 }
 
-                config.pushNotification(config, { deviceId: params.systemParams.SourceId, message: "You just logged into CleanMyCar", title: "You just Logged in" }, function (err, response) {
-                    if (err) {
-                        console.log("push notification failed", err);
-                    }
-                });
+                // config.pushNotification(config, { deviceId: params.systemParams.SourceId, message: "You just logged into CleanMyCar", title: "You just Logged in" }, function (err, response) {
+                //     if (err) {
+                //         console.log("push notification failed", err);
+                //     }
+                // });
             })
         }
         return callback(null, result);

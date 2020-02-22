@@ -210,17 +210,18 @@
             if (vm.vehicleId && vm.vehicleId > 0) {
                 vm.getVehicleDetails();
             }
+            vm.getAddressBySearchText();
         },
         watch: {
             $route: "fetchData",
-            searchAddressText(value) {
-                if (value && value.trim().length > 2 && value.trim().length < 10) {
-                    this.getAddressBySearchText(value);
-                }
-                else {
-                    this.addressList.splice(0, this.addressList.length)
-                }
-            },
+            // searchAddressText(value) {
+            //     if (value && value.trim().length > 2 && value.trim().length < 10) {
+            //         this.getAddressBySearchText(value);
+            //     }
+            //     else {
+            //         this.addressList.splice(0, this.addressList.length)
+            //     }
+            // },
             vehicleId(value) {
                 if (value && value > 0) {
                     this.getVehicleDetails();

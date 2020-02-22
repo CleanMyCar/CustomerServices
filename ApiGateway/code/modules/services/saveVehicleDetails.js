@@ -4,8 +4,8 @@ module.exports = (config, params, callback) => {
     const requestParams = config.dbwrapper.getNewRequest();
     requestParams.input('VehicleId', mssql.Int, params.VehicleId);
     requestParams.input('VehicleNumber', mssql.NVarChar, params.VehicleNumber.toUpperCase());
-    requestParams.input('VehicleMake', mssql.NVarChar, params.VehicleMake.toUpperCase());
-    requestParams.input('VehicleModel', mssql.NVarChar, params.VehicleModel.toUpperCase());
+    requestParams.input('VehicleMake', mssql.NVarChar, params.VehicleMake ? params.VehicleMake.toUpperCase() : null);
+    requestParams.input('VehicleModel', mssql.NVarChar, params.VehicleModel ? params.VehicleModel.toUpperCase() : null);
     requestParams.input('ParkingLot', mssql.NVarChar, params.ParkingLot.toUpperCase());
     requestParams.input('AddressId', mssql.Int, params.AddressId);
     requestParams.input('IsPersonal', mssql.Int, params.IsPersonal ? 1 : 0);

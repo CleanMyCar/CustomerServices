@@ -14,7 +14,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
 
-                            <div class="col-md-12 searchResultsAmenitiesDiv">
+                            <!-- <div class="col-md-12 searchResultsAmenitiesDiv">
                                 <input style="font-size:14px;" type="text"
                                     placeholder="Please type here to choose Apartment Name..." v-model.trim="searchAddressText"
                                     autocomplete="off" v-validate="'required'" name="addressId">
@@ -27,7 +27,13 @@
                                         {{address.AddressLine1 + " " + (address.AddressLine2 ? address.AddressLine2: "") + ", " + (address.Landmark ? address.Landmark: "") + " " + address.CityName + ", " + address.StateName}}
                                     </li>
                                 </ul>
-                            </div>
+                            </div> -->
+                            <select class="form-control" v-model="newVehicleDetails.AddressId" name="addressId"  v-validate="'required'">
+                                <option value=null>Please Select Apartment</option>
+                                <option v-for="address in addressList" :value="address.AddressId">
+                                    {{address.AddressLine1 + " " + (address.AddressLine2 ? address.AddressLine2: "") + ", " + (address.Landmark ? address.Landmark: "") + " " + address.CityName + ", " + address.StateName}}
+                                </option>
+                            </select>
                             <span v-show="errors.has('addressId')" class="invalid-feedback">
                                 <i v-show="errors.has('addressId')" class="fa fa-warning"></i> Please select Apartment Name
                             </span>
