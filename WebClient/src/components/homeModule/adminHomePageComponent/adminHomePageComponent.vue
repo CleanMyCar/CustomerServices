@@ -32,7 +32,8 @@
                     ActualServiceDate: moment.utc().format("YYYY-MM-DD"),
                     ServiceId: null,
                     AddressId: null,
-                    PersonId: null
+                    PersonId: null,
+                    MobileNumber: null
                 },
                 adminServiceList: [],
                 buildingList: [],
@@ -88,7 +89,8 @@
                     ServiceDate: vm.pendingServiceFilter.ActualServiceDate,
                     ServiceId: vm.pendingServiceFilter.ServiceId,
                     AddressId: vm.pendingServiceFilter.AddressId,
-                    PersonId: vm.pendingServiceFilter.PersonId
+                    PersonId: vm.pendingServiceFilter.PersonId,
+                    MobileNumber: vm.pendingServiceFilter.MobileNumber
                 }
 
                 vm.$store.dispatch("dataRequestHandler", {

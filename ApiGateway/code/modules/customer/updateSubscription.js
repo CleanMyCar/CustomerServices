@@ -22,7 +22,20 @@ module.exports = (config, params, callback) => {
 			runDailySubscriptionService(config, params);
 			if (params.StatusId && params.ServiceType == 1) {
 
-				if (result.recordsets[0][0]["MobileNumber"]) {
+				if (result.recordsets[2] && result.recordsets[2].length > 0) {
+					for (let deviceObj of result.recordsets[2]) {
+
+						config.pushNotification(config, {
+							deviceId: deviceObj.UserDeviceToken,
+							message:  `Dear Customer, \nYour subscription ${result.recordsets[1][0]["ServiceName"]} is modified successfully. You can modify\/pause service using CleanMyCar app.\nThanks, \nTeam CleanMyCar`
+						}, function (err, response) {
+							if (err) {
+								console.log("push notification failed", err);
+							}
+						});
+					}
+				}
+				else if (result.recordsets[0][0]["MobileNumber"]) {
 					config.sendSms(config, {
 						message: `Dear Customer, \nYour subscription ${result.recordsets[1][0]["ServiceName"]} is modified successfully. You can modify\/pause service using CleanMyCar app.\nThanks, \nTeam CleanMyCar`,
 						mobileNumber: result.recordsets[0][0]["MobileNumber"]

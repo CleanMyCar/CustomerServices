@@ -29,12 +29,18 @@ module.exports = (config, params, callback) => {
         serviceDetail.serviceSubscribeTypes = serviceSubscribeTypes
         serviceDetail.serviceFourWheelerTypes = serviceFourWheelerTypes
 
+        let serviceTimeslots = [];
+        for (let sIndex = 0; sIndex < result.recordsets[7].length; sIndex++) {
+            serviceTimeslots.push(result.recordsets[7][sIndex]["TimeSlotId"])
+        }
+        serviceDetail.serviceTimeslots = serviceTimeslots;
+
         return callback(null, {
             serviceDetail: serviceDetail,
             vehicleTypes: result.recordsets[1],
             fourWheelerTypes: result.recordsets[2],
             subscribeTypes: result.recordsets[3],
-
+            timeslots: result.recordsets[6],
         });
     })
 }

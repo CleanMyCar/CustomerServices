@@ -1,7 +1,7 @@
 <template src="./serviceDetailComponent.template.html"></template>
 
 <script>
-    
+    import moment from "moment-timezone";
     import Vue from "vue";
     import VeeValidate from "vee-validate";
     Vue.use(VeeValidate);
@@ -17,7 +17,8 @@
                 defaultImage: null,
                 vehicleTypes: [],
                 fourWheelerTypes: [],
-                subscribeTypes: []
+                subscribeTypes: [],
+                timeslots: []
             };
         },
 
@@ -59,6 +60,7 @@
                         vm.vehicleTypes.splice(0, vm.vehicleTypes.length, ...response.vehicleTypes)
                         vm.fourWheelerTypes.splice(0, vm.fourWheelerTypes.length, ...response.fourWheelerTypes)
                         vm.subscribeTypes.splice(0, vm.subscribeTypes.length, ...response.subscribeTypes)
+                        vm.timeslots.splice(0, vm.timeslots.length, ...response.timeslots)
                     }
                 });
             },
@@ -77,19 +79,19 @@
                 let vm = this;
                 // vm.$validator.validateAll().then(result => {
                 //     if (result) {
-                        vm.$store.dispatch("dataRequestHandler", {
-                            key: "SaveServiceDetail",
-                            params: {
-                                serviceDetail: vm.serviceDetail,
-                                fourWheelerTypes: vm.fourWheelerTypes
-                            },
-                            callback: function (err, response) {
-                                if (err) {
-                                    return;
-                                }
-                                vm.$router.push("/manageServices");
-                            }
-                        });
+                vm.$store.dispatch("dataRequestHandler", {
+                    key: "SaveServiceDetail",
+                    params: {
+                        serviceDetail: vm.serviceDetail,
+                        fourWheelerTypes: vm.fourWheelerTypes
+                    },
+                    callback: function (err, response) {
+                        if (err) {
+                            return;
+                        }
+                        vm.$router.push("/manageServices");
+                    }
+                });
                 //     }
                 // });
             },
@@ -104,6 +106,18 @@
                     vm.serviceDetail.ServiceImage = e.target.result;
                 }
                 reader.readAsDataURL(files[0]);
+            },
+            selectTimeSlot(timeslotObj) {
+                let index = this.serviceDetail.serviceTimeslots.indexOf(timeslotObj.TimeSlotId);
+                if (index > -1) {
+                    this.serviceDetail.serviceTimeslots.splice(index, 1);
+                }
+                else {
+                    this.serviceDetail.serviceTimeslots.push(timeslotObj.TimeSlotId);
+                }
+            },
+            getFormatedTime(time) {
+                return moment.utc(time).format("HH:mm")
             }
         },
         computed: {
@@ -118,14 +132,14 @@
         },
         watch: {
             $route: "getServiceDetail",
-            'serviceDetail.VehicleCategoryType'(type){
-                if(type == "2"){
+            'serviceDetail.VehicleCategoryType'(type) {
+                if (type == "2") {
                     this.serviceDetail.Price = null;
                     this.serviceDetail.SubscriptionPrice = null;
                 }
             },
-            'serviceDetail.ServiceOrder'(value){
-                if(value <= 0){
+            'serviceDetail.ServiceOrder'(value) {
+                if (value <= 0) {
                     this.serviceDetail.ServiceOrder = null;
                 }
             }

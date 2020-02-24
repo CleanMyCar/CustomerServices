@@ -18,7 +18,7 @@
                     IsPersonal: true,
                     VehicleId: null,
                     Frequency: null,
-                    TimeSlot: "1",
+                    TimeSlot: null,
                     AddressId: null,
                     Quantity: 1,
                     ServiceDate: moment.utc().add(1, 'days'),
@@ -46,7 +46,8 @@
                 headerTitle: null,
                 minDate: moment.utc(),
                 subscriptionMinDate: moment.utc().add(1, 'days'),
-                rechargeVisible: false
+                rechargeVisible: false,
+                timeslots: []
             };
         },
 
@@ -64,6 +65,10 @@
                         }
 
                         vm.myServiceProducts.splice(0, vm.myServiceProducts.length, ...response);
+
+                        if (vm.myServiceProducts && vm.myServiceProducts.length == 1) {
+                            vm.chooseVehicle(vm.myServiceProducts[0])
+                        }
                     }
                 });
             },
@@ -88,6 +93,24 @@
                         vm.fourWheelerTypes = response.fourWheelerTypes;
                         vm.subscriptionTypes = response.subscribeTypes
 
+                        if (response.timeslots) {
+                            let sysTime = moment().add(1, 'days').format("YYYY-MM-DD HH:mm");
+                            for (let timeObj of response.timeslots) {
+                                let endTime = moment.utc(timeObj.EndTime).format("HH:mm");
+                                let endDateTime = moment().add(1, 'days').add(endTime.substring(0, 2), 'hours')
+                                // let endTime = moment.utc(endDateTime).format("YYYY-MM-DD HH:mm");
+                                // console.log(moment(endDateTime, "YYYY-MM-DD HH:mm").format("YYYY-MM-DD HH:mm"))
+                                // console.log(moment(sysTime, "YYYY-MM-DD HH:mm").format("YYYY-MM-DD HH:mm"))
+                                if (moment(endDateTime, "YYYY-MM-DD HH:mm").diff(moment(sysTime, "YYYY-MM-DD HH:mm"), 'hours') >= 2) {
+                                    timeObj.available = true;
+                                }
+                                else {
+                                    timeObj.available = false;
+                                }
+                            }
+                        }
+
+                        vm.timeslots = response.timeslots
                         if (vm.serviceDetail.VehicleCategoryType == "3") {
                             vm.$store.dispatch("dataRequestHandler", {
                                 key: 'GetUserAddressIds',
@@ -220,10 +243,10 @@
                                     vm.popupMessage = response.ErrorMessage;
                                     vm.isDialogOpen = !vm.isDialogOpen;
 
-                                    if(response.ErrorCode == -99){
+                                    if (response.ErrorCode == -99) {
                                         vm.rechargeVisible = true;
                                     }
-                                    else{
+                                    else {
                                         vm.rechargeVisible = false;
                                     }
                                 }
@@ -236,7 +259,31 @@
                 this.$router.push("/");
             },
             updateServiceDate(key, dateObj, objectPassedToParent) {
+                let selectedDateObj = dateObj.format("DD MMM YYYY HH:mm")
+                if (!selectedDateObj) {
+                    return;
+                }
                 this.vehicleInfo.ServiceDate = dateObj ? dateObj.format("DD MMM YYYY") : null;
+
+                console.log(moment.utc(selectedDateObj).diff(moment.utc(), 'hours'))
+                if(moment.utc(selectedDateObj).diff(moment.utc(), 'hours') < 0){                
+                    selectedDateObj = moment.utc(selectedDateObj).add(new Date().getHours(), 'hours').add(new Date().getMinutes(), 'minutes')
+                }
+                let sysTime = moment(selectedDateObj).format("YYYY-MM-DD HH:mm");
+
+                for (let timeObj of this.timeslots) {
+                    let endTime = moment.utc(timeObj.EndTime).format("HH:mm");
+                    let endDateTime = moment.utc(dateObj).add(endTime.substring(0, 2), 'hours')
+                    // let endTime = moment.utc(endDateTime).format("YYYY-MM-DD HH:mm");
+                    // console.log(moment(endDateTime, "YYYY-MM-DD HH:mm").format("YYYY-MM-DD HH:mm"))
+                    // console.log(moment(sysTime, "YYYY-MM-DD HH:mm").format("YYYY-MM-DD HH:mm"))
+                    if (moment(endDateTime, "YYYY-MM-DD HH:mm").diff(moment(sysTime, "YYYY-MM-DD HH:mm"), 'hours') >= 2) {
+                        timeObj.available = true;
+                    }
+                    else {
+                        timeObj.available = false;
+                    }
+                }
             },
             getAddressBySearchText(text) {
                 let vm = this;
@@ -308,9 +355,15 @@
             selectWeeklyday(day) {
                 this.vehicleInfo.WeeklyDay = day;
             },
-            navigateToRecharge(){
+            navigateToRecharge() {
                 $("#insufftoastrMessagePopup").modal("hide")
                 this.$router.push("/recharge/-1")
+            },
+            getFormatedTime(time) {
+                return moment.utc(time).format("HH:mm")
+            },
+            selectTimeSlot(timeslotObj) {
+                this.vehicleInfo.TimeSlot = timeslotObj.TimeSlotId
             }
         },
         computed: {

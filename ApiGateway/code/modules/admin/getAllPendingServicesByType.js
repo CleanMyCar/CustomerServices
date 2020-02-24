@@ -14,6 +14,7 @@ module.exports = (config, params, callback) => {
     requestParams.input('ServiceId', mssql.Int, params.ServiceId);
     requestParams.input('AddressId', mssql.Int, params.AddressId);
     requestParams.input('PersonId', mssql.Int, params.PersonId);
+    requestParams.input('MobileNumber', mssql.NVarChar, params.MobileNumber);
 
     requestParams.execute(sp_name, (err, result) => {
         if (err) {

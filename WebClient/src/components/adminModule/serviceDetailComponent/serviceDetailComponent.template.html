@@ -151,7 +151,19 @@
                             <i v-show="errors.has('SubscriptionPrice')" class="fa fa-warning"></i> 
                             Please enter Subscription Price
                         </span>
-                </div>                
+                </div>     
+                <div class="form-group">
+                    <div class="bold">Time Slot</div>
+                    <div class="flex-wrapper">
+                        <div class="radioPadg" v-for="timeslot in timeslots">
+                            <label>
+                                <button
+                                    v-bind:class="['btn-default custom-bbtn', serviceDetail.serviceTimeslots.indexOf(timeslot.TimeSlotId) > -1 ? 'active': '']"
+                                    @click="selectTimeSlot(timeslot)">{{getFormatedTime(timeslot.StartTime) + ' - ' + getFormatedTime(timeslot.EndTime)}}</button>
+                            </label>
+                        </div>
+                    </div>                    
+                </div>           
                 <div class="form-group">
                     <label>
                         Discount(After 2pm) In Percentage

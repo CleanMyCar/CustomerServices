@@ -56,7 +56,7 @@ let executeSubscriptionTasks = require("./code/subscription/executeSubscriptionT
 
 require('./code/core/core')(configParams)
     .then(config => {
-        var j = schedule.scheduleJob('* */0 * * *', async function () {
+        var j = schedule.scheduleJob('*/1 * * * *', async function () {
             console.log('Running subscription task - Create recurrence tasks !!');
             await executeSubscriptionTasks(config);
         });

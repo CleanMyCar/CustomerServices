@@ -56,7 +56,7 @@
                 <li @click="redirectToUsers" v-if="userRole === 1">
                     Manage Users
                 </li>
-                <li @click="redirectToManageServices" v-if="userRole === 1">
+                <li @click="redirectToManageServices" v-if="userRole === 0">
                     Manage Services
                 </li>
                 <li v-if="false">

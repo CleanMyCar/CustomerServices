@@ -38,12 +38,28 @@ module.exports = (config, params, callback) => {
 				&& result.recordsets[0][0].RequestId) {
 				//When it is new service request, create subscription items for the Request
 
-				runDailySubscriptionService(config, params, result.recordsets[0][0]);
+				if (params.Frequency)
+					runDailySubscriptionService(config, params, result.recordsets[0][0]);
 
 				if (params.StatusId && params.ServiceType == 1) {
-					if (result.recordsets[0][0]["MobileNumber"]) {
+					let message = `Dear Customer, \nYour subscription ${result.recordsets[1][0]["ServiceName"]} is submitted successfully. You can modify\/pause service using CleanMyCar app.\nThanks, \nTeam CleanMyCar`
+					if (result.recordsets[2] && result.recordsets[2].length > 0) {
+
+						for (let deviceObj of result.recordsets[2]) {
+
+							config.pushNotification(config, {
+								deviceId: deviceObj.UserDeviceToken,
+								message: message
+							}, function (err, response) {
+								if (err) {
+									console.log("push notification failed", err);
+								}
+							});
+						}
+					}
+					else if (result.recordsets[0][0]["MobileNumber"]) {
 						config.sendSms(config, {
-							message: `Dear Customer, \nYour subscription ${result.recordsets[1][0]["ServiceName"]} is submitted successfully. You can modify\/pause service using CleanMyCar app.\nThanks, \nTeam CleanMyCar`,
+							message: message,
 							mobileNumber: result.recordsets[0][0]["MobileNumber"]
 						}, function (err, resp) {
 
@@ -60,6 +76,21 @@ module.exports = (config, params, callback) => {
 						})
 					}
 				}
+
+				if(result.recordsets[0][0].Email)
+				config.sendEmail(config, {
+                    MessageBody: `Sir, \nCustomer has requested new service, please find the details below\n                                  
+                                  Name: ${result.recordsets[0][0]["UserFirstName"]} \n
+								  Mobile: ${result.recordsets[0][0]["MobileNumber"]} \n
+								  Service: ${result.recordsets[1][0]["ServiceName"]} \n
+								  VehicleNumber: ${result.recordsets[1][0]["VehicleNumber"]} \n\n								  
+                                  Please keep this reference number for future #${result.recordsets[0][0]["RequestId"]} 
+                                  `,
+                    Email: "contact@cleanmycar.in",
+                    MessageTitle: "New Service Request",
+                }, function (err, resp) {
+                    
+                })
 
 			}
 

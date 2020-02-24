@@ -42,6 +42,15 @@ module.exports = (config, params, callback) => {
     requestParams.input('ServiceOrder', mssql.INT, params.serviceDetail.ServiceOrder);
     requestParams.input('IsFrequent', mssql.INT, params.serviceDetail.IsFrequent ? 1 : 0);
     requestParams.input("Discount", mssql.Float, params.serviceDetail.Discount ? params.serviceDetail.Discount : 0);
+
+    let serviceTimeSlots = new mssql.Table();
+    serviceTimeSlots.columns.add('TimeSlotId', mssql.Int);
+    for (let i = 0; i < params.serviceDetail.serviceTimeslots.length; i++) {
+        serviceTimeSlots.rows.add(params.serviceDetail.serviceTimeslots[i]);
+    }
+    requestParams.input('ServiceTimeSlots', serviceTimeSlots);
+
+
     
     requestParams.execute('SaveServiceDetails', (err, result) => {
         if (err) {

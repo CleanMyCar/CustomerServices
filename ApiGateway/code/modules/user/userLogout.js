@@ -1,3 +1,4 @@
+const mssql = require('mssql');
 module.exports = (config, params, callback) => {
     const requestParams = config.dbwrapper.getNewRequest();
     requestParams.input('DeviceId', mssql.Int, params.DeviceId);

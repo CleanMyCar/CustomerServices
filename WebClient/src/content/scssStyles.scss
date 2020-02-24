@@ -117,6 +117,7 @@ p {
 .flex-wrapper{
     display: flex;
     flex-wrap: wrap;
+    border: 0 !important;
 .radioPadg{
     padding:3px;
  
@@ -13597,3 +13598,15 @@ a{
 // .modal-dialog{
 //     z-index:1000;
 // }
+
+button:disabled, button:disabled:hover{
+    // background-color: #FAFAFA;  
+    // background: #D8D8D8 !important;
+    color: #D8D8D8 !important;
+    border-color: #D8D8D8 !important;
+}
+
+.timeslotNotAvail{
+    // font-size: 10px;
+    color: black !important;
+}

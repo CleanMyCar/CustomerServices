@@ -149,7 +149,7 @@
                     this.listType = 'list';
             },
             getFormattedDate(date){
-                return moment(date).format("Do MMM, YYYY")
+                return moment.utc(date).format("Do MMM, YYYY")
             }
         },
         computed: {

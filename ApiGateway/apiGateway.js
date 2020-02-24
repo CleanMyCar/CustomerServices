@@ -527,7 +527,8 @@ require("./code/core/core")(configParams)
 		const registerNewUser = require("./code/modules/user/registerUser"),
 			validateUserByEmailMobileNumber = require("./code/modules/user/validateUserByEmailMobileNumber"),
 			getBannerImages = require("./code/modules/admin/getBannerImages"),
-			resendOtpToNewUser = require("./code/modules/user/resendOtpToNewUser");
+			resendOtpToNewUser = require("./code/modules/user/resendOtpToNewUser"),
+			userLogout = require("./code/modules/user/userLogout");
 
 		app.post("/api", function (req, res) {
 			//   console.log("loginconsoleapi",req);
@@ -729,6 +730,12 @@ require("./code/core/core")(configParams)
 			else if (apiRequestParams.APIReg === "10009") {
 				//Resend OTP to new user
 				resendOtpToNewUser(config, apiRequestParams, function (error, responseObj) {
+					res.end(JSON.stringify(responseObj));
+				});
+			} 
+			else if (apiRequestParams.APIReg === "10010") {
+				//Resend OTP to new user
+				userLogout(config, apiRequestParams, function (error, responseObj) {
 					res.end(JSON.stringify(responseObj));
 				});
 			} 
