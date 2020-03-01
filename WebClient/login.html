@@ -584,7 +584,7 @@
 				self.otpSent(true)
 				self.otpTimeExpired(false);
 				var seconds = new Date().getSeconds();
-				var countDownDate = new Date().setSeconds(seconds + 15);
+				var countDownDate = new Date().setSeconds(seconds + 30);
 				countDownDate = new Date(countDownDate).getTime()
 				// Update the count down every 1 second
 				var x = setInterval(function () {
