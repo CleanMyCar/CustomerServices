@@ -6,8 +6,11 @@ module.exports = (config, params, callback) => {
     if (params.serviceStatusId == 1) {
         sp_name = "GetPendingVehicleServices"
     }
-    else if ([4, 5, 6].indexOf(params.serviceStatusId) > -1) {
+    else if ([4, 6].indexOf(params.serviceStatusId) > -1) {
         sp_name = "GetAssignedVehicleServices";
+    }
+    else if ([5].indexOf(params.serviceStatusId) > -1) {
+        sp_name = "GetCompletedVehicleServices";
     }
     requestParams.input('ServiceStatusId', mssql.Int, params.serviceStatusId);
     requestParams.input('ServiceDate', mssql.Date, params.ServiceDate);

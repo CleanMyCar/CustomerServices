@@ -105,5 +105,16 @@ module.exports = async (config, params, callback) => {
 		}, function (err, resp) {
 
 		})
+		if (params.email) {
+			sendEmail(config, {
+				Email: params.email,
+				MessageTitle: "OTP for Registration",
+				MessageBody: `Please use OTP ${userOtp} to complete your registration in CleanMyCar`
+			}, function (err, response) {
+				if (err) {
+					console.log("New Registration - email sending failed ", err)
+				}
+			});
+		}
 	}
 };

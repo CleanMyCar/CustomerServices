@@ -1,9 +1,7 @@
 <div class="panel panel-default">
 
     <div class="panel-heading" style="padding:0px;">
-        <h4 class="pull-left">Customer Services</h4>
-
-
+        <h4 class="pull-left">Services</h4>
     </div>
 
     <div class="panel-body" style="padding:0px;">
@@ -18,7 +16,7 @@
                 </div>
                 <div class="col-md-4">
                     <select class="form-control" v-model="pendingServiceFilter.AddressId">
-                        <option value=null>--Select Building--</option>
+                        <option value=null>All Buildings</option>
                         <option v-for="building in buildingList" :value="building.AddressId">
                             {{building.AddressLine1 + ', ' + building.AddressLine2 + ', ' + building.Landmark}}
                         </option>
@@ -40,7 +38,7 @@
                     </datePickerComponent>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" v-model="pendingServiceFilter.MobileNumber" >
+                    <input type="text" class="form-control" placeholder="Mobile Number" v-model="pendingServiceFilter.MobileNumber" >
                 </div>
                 <div class="col-md-2">
                     <button class="btn btn-success btn-sm" @click="getRequestedServices">Search</button>
@@ -202,7 +200,7 @@
                                                     {{service.Quantity}}
                                                 </td>
                                                 <td>₹
-                                                    {{getServiceAmount(service)}}
+                                                    {{service.Amount}}
                                                 </td>
                                                 <td>{{service.VehicleNumber}}</td>
                                                 <td>{{service.UserFirstName + ' ' + service.UserLastName}}</td>

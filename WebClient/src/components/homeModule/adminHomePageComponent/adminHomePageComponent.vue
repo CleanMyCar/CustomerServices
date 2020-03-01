@@ -30,7 +30,7 @@
                 pendingServiceFilter: {
                     ServiceDate: moment.utc(),
                     ActualServiceDate: moment.utc().format("YYYY-MM-DD"),
-                    ServiceId: null,
+                    ServiceId: "-1",
                     AddressId: null,
                     PersonId: null,
                     MobileNumber: null
@@ -158,7 +158,7 @@
                         }
                         if (response) {
                             vm.adminServiceList.splice(0, vm.adminServiceList.length, ...response);
-                            vm.pendingServiceFilter.ServiceId = vm.adminServiceList[0]["ServiceId"];
+                            // vm.pendingServiceFilter.ServiceId = vm.adminServiceList[0]["ServiceId"];
                             vm.getRequestedServices(1);
                         }
                     }
