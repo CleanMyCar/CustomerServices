@@ -41,7 +41,7 @@ module.exports = (config, params, callback) => {
 				if (params.Frequency)
 					runDailySubscriptionService(config, params, result.recordsets[0][0]);
 
-				if (params.StatusId && params.ServiceType == 1) {
+				if (params.StatusId) {
 					let message = `Dear Customer, \nYour subscription ${result.recordsets[1][0]["ServiceName"]} is submitted successfully. You can modify\/pause service using CleanMyCar app.\nThanks, \nTeam CleanMyCar`
 					if (result.recordsets[2] && result.recordsets[2].length > 0) {
 

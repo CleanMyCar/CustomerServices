@@ -12,7 +12,8 @@ module.exports = (config, params, callback) => {
   requestParams.input("DeletedReasons", deletedReasons);
 
   requestParams.input("DeletedReason", mssql.NVarChar, params.serviceObj.OtherReason);
-
+  requestParams.input('UserId', mssql.Int, params.systemParams.UserId);
+  
   requestParams.execute("DeleteSubscription", (err, result) => {
     if (err) {
       console.log(err);
@@ -20,6 +21,21 @@ module.exports = (config, params, callback) => {
       return;
     }
 
+    let message = `Dear Customer, \nYour deleted subscription for ${result.recordsets[1][0]["ServiceName"]}. If you have not done please report to customer care.\nThanks, \nTeam CleanMyCar`
+    if (result.recordsets[1] && result.recordsets[1].length > 0) {
+
+        for (let deviceObj of result.recordsets[1]) {
+
+            config.pushNotification(config, {
+                deviceId: deviceObj.UserDeviceToken,
+                message: message
+            }, function (err, response) {
+                if (err) {
+                    console.log("push notification failed", err);
+                }
+            });
+        }
+    }
     // console.log(result);
     return callback(null, result.recordsets[0][0]);
   });
