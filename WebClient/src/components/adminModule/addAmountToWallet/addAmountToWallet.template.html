@@ -16,10 +16,11 @@
                         <th>Role</th>
                         <th>Wallet</th>
                         <th>Amount</th>
+                        <th>Reason</th>
                         <th>Action</th>
                     </thead>
                     <tbody>
-                        <tr v-for="user in userList" style="height: 50px;">
+                        <tr v-for="user in userList" style="height: 50px;" v-if="user.UserRoleId == 2">
 
                             <td style="cursor: pointer;">
                                 <b>{{user.Email}}</b>
@@ -30,6 +31,7 @@
                             <td> {{user.RoleName }}</td>
                             <td style="text-align: left;">₹ {{user.WalletAmount }}</td>
                             <td> <input type="number" v-model="user.rechargeAmount"> </td>
+                            <td> <textarea v-model="user.rechargeReason"></textarea></td>
                             <td>
                                 <button class="btn btn-primary" @click="rechargeToUser(user)">
                                     Recharge

@@ -12,7 +12,8 @@
                 SearchText: null,
                 defaultCarImage: "../../../src/content/images/car.png",
                 defaultBikeImage: "../../../src/content/images/bike.png",
-                bannerImages: []
+                bannerImages: [],
+                route: null
             };
         },
 
@@ -32,7 +33,7 @@
                             return;
                         }
 
-                        if (response.userDetails.UserRoleId === 2) {
+                        if (response.userDetails.UserRoleId === 2 || (response.userDetails.UserRoleId === 1 && vm.route == 'serviceRequest')) {
                             vm.getServices(null, 20);
                         }
                     }
@@ -82,7 +83,13 @@
                 $("#primaryEmailPopup").modal("show");
             },
             chooseOption(serviceObj, optionType) {
-                this.$router.push("/purchaseService/" + serviceObj.ServiceId + "/" + optionType);
+                if (this.route == 'serviceRequest') {
+                    this.$router.push("/purchaseCustomerService/" + serviceObj.ServiceId + "/" + optionType);
+                }
+                else {
+                    this.$router.push("/purchaseService/" + serviceObj.ServiceId + "/" + optionType);
+                }
+
             },
             getAdminDashborad() {
                 let vm = this;
@@ -116,7 +123,7 @@
                     }
                 });
             },
-            getBannerImages(){
+            getBannerImages() {
                 let vm = this;
                 vm.$store.dispatch("dataRequestHandler", {
                     key: "GetBannerImages",
@@ -130,12 +137,19 @@
                         }
                         if (response) {
                             vm.bannerImages.splice(0, vm.bannerImages.length, ...response);
-                            setTimeout(function(){
+                            setTimeout(function () {
                                 showSlides(1)
-                            }, 5); 
+                            }, 5);
                         }
                     }
                 });
+            },
+            fetchData() {
+                console.log(this.$route.name)
+                this.route = this.$route.name;
+                if (this.role === 2 || (this.role === 1 && this.route == 'serviceRequest')) {
+                    this.getServices(null, 20);
+                }
             }
         },
         computed: {
@@ -149,8 +163,11 @@
             vm.getUserDetails();
             vm.getFrequentServices();
             vm.getBannerImages();
+            console.log(this.$route.name)
+            this.route = this.$route.name;
         },
         watch: {
+            $route: "fetchData",
             SearchText(value) {
                 if (value && value.length > 2) {
                     this.getServices(value, -1)

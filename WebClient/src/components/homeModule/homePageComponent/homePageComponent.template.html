@@ -54,7 +54,7 @@
 
         
     </div>
-    <div class="panel-body addBg" v-if="role === 2">
+    <div class="panel-body addBg" v-if="role === 2 || (role === 1 && route == 'serviceRequest')">
         <div class="row">
             <div class="modal" data-backdrop="static" role="dialog" id="primaryEmailPopup">
                 <div class="modal-dialog" v-if="serviceObj">
@@ -183,7 +183,7 @@
             </div>
         </div>
     </div>
-    <div class="panel-body addBg" v-if="role === 1">
+    <div class="panel-body addBg" v-if="role === 1 && route == 'homePage'">
         <adminHomePage v-if="role === 1"></adminHomePage>
     </div>
     <div class="panel-body addBg" v-if="role === 3">

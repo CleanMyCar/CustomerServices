@@ -109,8 +109,7 @@
 						<div class="form-group" style="text-align: center;">
 							<input type="button" value="Submit" class="loginButton"
 								data-bind="click: SendOtpToRegisteredUser" />
-							<input type="button" value="Login" class="loginButton"
-								data-bind="click: showLogin" />
+							<input type="button" value="Login" class="loginButton" data-bind="click: showLogin" />
 						</div>
 
 						<div data-bind="text: errForgotPasswordMsg" class="invalidClient"></div>
@@ -194,6 +193,50 @@
 								<div class="modal-footer">
 									<button class="btn btn-success btn-sm pull-right okbutton" title="Cancel"
 										data-bind="click: closeValidationPopup">OK</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="modal custom-model-style" data-backdrop="static" role="dialog" id="otpVerifyPopup">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4>Verify OTP</h4>
+								</div>
+
+								<div class="modal-body">
+									<div class="row">
+										<div class="col-md-12">
+											<label data-bind="text: errorMessage"></label>
+										</div>
+									</div>
+									<div>
+										<div class="form-group">
+											<input type="password" data-bind="value: registerOtp" maxlength="6">											
+										</div>
+										<div class="form-group">
+											<span>Please enter 6 digit OTP to verfiy your Mobile Number</span>
+										</div>
+
+										<div class="col-md-12" data-bind="if: otpSent">
+											<div class="form-group" style="text-align: right">
+												<span id="resendpasswordTimer"></span>
+											</div>
+										</div>
+										<div class="col-md-12" data-bind="if: otpTimeExpired">
+											<div class="form-group">
+												<span>OTP not yet received ?
+													<a href="" data-bind="click: ResSendOtpToUser">Resend OTP</a>
+												</span>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="modal-footer">									
+									<button class="btn btn-success btn-sm pull-right okbutton" title="Cancel"
+										data-bind="click: function() { Register('verify') }">Verify</button>
 								</div>
 							</div>
 						</div>
@@ -373,6 +416,7 @@
 			self.email = ko.observable('')
 			self.password = ko.observable('');
 			self.referralCode = ko.observable('')
+			self.registerdUserId = ko.observable()
 
 			self.firstName.extend({
 				required: { message: 'First Name is required', params: true }
@@ -387,8 +431,7 @@
 					params: /^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$/
 				}
 			});
-			self.email.extend({
-				required: { message: 'Email is required', params: true },
+			self.email.extend({				
 				email: { message: 'Please enter valid Email', params: true },
 			});
 			self.password.extend({
@@ -400,7 +443,7 @@
 				}
 			});
 
-			self.registerErrors = ko.validation.group([self.firstName, self.lastName, self.mobileNumber, self.email, self.password]);
+			self.registerErrors = ko.validation.group([self.firstName, self.lastName, self.mobileNumber, self.password]);
 
 			self.Register = function (type) {
 				if (self.registerErrors().length) {
@@ -421,7 +464,8 @@
 						'password': self.password(),
 						'referralCode': self.referralCode(),
 						'isVerify': type == "verify" ? 1 : 0,
-						'userOtp': self.registerOtp()
+						'userOtp': self.registerOtp(),
+						userId: self.registerdUserId()
 					},
 					systemParams: {
 						'Source': 'Web',
@@ -441,21 +485,27 @@
 						console.log(response);
 						if (response && response.length > 0) {
 							if (response[1] && response[1][0] && response[1][0].UserId) {
+								self.errorMessage("");
 								if (type == "register") {
-									$(".showVerifyButtons").show();
-									$("#registerButton").attr("disabled", true);
+									// $(".showVerifyButtons").show();
+									$("#registerButton").attr("disabled", true);									
+									$("#otpVerifyPopup").modal("show");
+									self.registerdUserId(response[1][0].UserId);
+									self.showOtpTimer("resendpasswordTimer")
 								}
 								else {
+									$("#otpVerifyPopup").modal("hide");
 									self.validationHeader("Registration")
 									self.errorMessage("Registration successful, please login with credentials");
 									$("#validationPopup").modal("show");
 									self.showLogin();
+									self.registerdUserId(undefined);
 								}
 							}
 							else if (response[0] && response[0][0] && response[0][0].ErrorMessage) {
-								self.validationHeader("Registration failed !!")
+								// self.validationHeader("Registration failed !!")
 								self.errorMessage(response[0][0].ErrorMessage);
-								$("#validationPopup").modal("show");
+								// $("#validationPopup").modal("show");
 								return;
 							}
 							else {
@@ -530,7 +580,7 @@
 
 			self.otpSent = ko.observable(false);
 			self.otpTimeExpired = ko.observable(false);
-			self.showOtpTimer = function () {
+			self.showOtpTimer = function (elementId) {
 				self.otpSent(true)
 				self.otpTimeExpired(false);
 				var seconds = new Date().getSeconds();
@@ -551,7 +601,7 @@
 					var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 					// Output the result in an element with id="demo"
-					document.getElementById("forgotpasswordTimer").innerHTML = "00:" + (seconds < 10 ? "0" + seconds : seconds) + " s";
+					document.getElementById(elementId).innerHTML = "00:" + (seconds < 10 ? "0" + seconds : seconds) + " s";
 
 					// If the count down is over, write some text 
 					if (distance < 0) {
@@ -562,6 +612,50 @@
 					}
 				}, 1000);
 			};
+
+			self.ResSendOtpToUser = function () {			
+
+				let loginParams = {
+					requestParams: {
+						'APIReg': "10009",
+						'mobileNumber': self.mobileNumber(),
+						userId: self.registerdUserId()
+					},
+					systemParams: {
+						'Source': 'Web',
+						'SourceId': window.location.hostname
+					}
+				};
+				$.ajax({
+					dataType: "json",
+					type: 'POST',
+					//crossDomain: true,
+					contentType: "application/json;charset=utf-8",
+					url: apiUrl + '/api', 		// Location of the service
+					data: JSON.stringify(loginParams),
+					success: function (response) {
+
+						if (response && response.UserId) {							
+							self.showOtpTimer("resendpasswordTimer");
+						}
+						else if (response && response.ErrorMessage) {
+							self.validationHeader("OTP not sent ")
+							self.errorMessage(response.ErrorMessage);
+							$("#validationPopup").modal("show");
+							return;
+						}
+						else {
+							self.errLoginMsg("There is server error, please contact administrator");
+						}
+					},
+					error: function (d) {
+						window.localStorage.removeItem('vwtoken');
+						self.showLoading(false);
+						console.log(d.responseJSON);
+						self.errRegisterMsg(d.responseJSON.ErrorMessage.message);
+					},
+				});
+			}
 
 			self.sendOtpErrors = ko.validation.group([self.forgotPasswordValue]);
 			self.SendOtpToRegisteredUser = function () {
@@ -600,7 +694,7 @@
 							self.UserId(response.UserId)
 							$(".forgotPasswordOtpScreen").show();
 							$(".forgotPasswordScreen").hide();
-							self.showOtpTimer();
+							self.showOtpTimer("forgotpasswordTimer");
 						}
 						else {
 							self.errLoginMsg("There is server error, please contact administrator");

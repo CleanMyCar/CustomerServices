@@ -32,7 +32,7 @@
                 })
             },
             rechargeToUser(user) {
-                if (user.rechargeAmount && !isNaN(user.rechargeAmount)) {
+                if (user.rechargeAmount && !isNaN(user.rechargeAmount) && user.rechargeReason && user.rechargeReason.trim()) {
 
                     let vm = this;
                     vm.$store.dispatch("dataRequestHandler", {
@@ -41,7 +41,8 @@
                         {
                             Amount: user.rechargeAmount,
                             UserId: user.UserId,
-                            WalletId: user.WalletId
+                            WalletId: user.WalletId,
+                            Reason: user.rechargeReason
                         },
                         callback: function (err, response) {
                             if (err) {
@@ -55,7 +56,7 @@
                     })
                 }
                 else{
-                    alert("enter valid amount")
+                    alert("enter valid amount/reason")
                 }
             }
         },

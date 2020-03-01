@@ -47,7 +47,8 @@
                 minDate: moment.utc(),
                 subscriptionMinDate: moment.utc().add(1, 'days'),
                 rechargeVisible: false,
-                timeslots: []
+                timeslots: [],
+                route: null
             };
         },
 
@@ -400,6 +401,7 @@
             let vm = this;
             console.log("mounted")
             vm.fetchData();
+            this.route = this.$route.name;
         },
         watch: {
             $route: "fetchData",

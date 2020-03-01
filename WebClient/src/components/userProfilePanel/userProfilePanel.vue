@@ -49,8 +49,8 @@
             userLogout() {
                 this.panelCallback();
                 window.localStorage.removeItem('rttoken');
-                if(window.webkit && window.webkit.messageHandlers){
-                    window.webkit.messageHandlers.jsHandler.postMessage({type: "logout"});
+                if (window.webkit && window.webkit.messageHandlers) {
+                    window.webkit.messageHandlers.jsHandler.postMessage({ type: "logout" });
                 }
                 window.location.href = "/login.html"
 
@@ -92,6 +92,10 @@
                 this.panelCallback();
                 this.$router.push("/serviceApartments")
             },
+            redirectToCusomerServices() {
+                this.panelCallback();
+                this.$router.push("/services")
+            }
         },
         computed: {
             userProfile() {

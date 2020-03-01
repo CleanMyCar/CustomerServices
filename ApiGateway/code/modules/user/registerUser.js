@@ -76,6 +76,7 @@ module.exports = async (config, params, callback) => {
 		const requestParams = config.dbwrapper.getNewRequest();
 		requestParams.input("MobileNumber", mssql.NVarChar, params.mobileNumber);
 		requestParams.input("Otp", mssql.NVarChar, params.userOtp);
+		requestParams.input("UserId", mssql.Int, params.userId);
 		requestParams.execute("ValidateRegisterUserOtp", (err, result) => {
 			if (err) {
 				console.log(err);
@@ -85,7 +86,7 @@ module.exports = async (config, params, callback) => {
 				saveuser(1);
 			}
 			else {
-				callback({ ErrorMessage: "User Not found" })
+				callback(null, [[{ ErrorMessage: "OTP entered is not valid" }]])
 			}
 		});
 

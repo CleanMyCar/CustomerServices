@@ -12,7 +12,7 @@
                 serviceDeleteReasons: [],
                 selectedReasons: [],
                 newbtn: "../../../src/content/images/subscribe.png",
-                calendarStartDate: moment.utc().add(1, 'days'),
+                calendarStartDate: moment.utc().add(1, 'days').format("Do MMM YYYY"),
                 subscriptionTypes: [],
                 serviceDetail: null
             };
@@ -37,10 +37,15 @@
             },
             addDetailsToPause(serviceItem) {
                 this.serviceObj = JSON.parse(JSON.stringify(serviceItem));
-                this.$set(this.serviceObj, 'StartDate', moment.utc(this.serviceObj.ServiceDate).add(1, 'days'));
-                this.$set(this.serviceObj, 'EndDate', moment.utc(this.serviceObj.ServiceDate).add(1, 'days'));
-                this.$set(this.serviceObj, 'ServicePauseDate' , moment.utc(this.serviceObj.ServiceDate).add(1, 'days'));
-                this.$set(this.serviceObj, 'ServiceEndDate', moment.utc(this.serviceObj.ServiceDate).add(1, 'days'));
+                let startDate = this.serviceObj.ServiceDate
+                if(moment(this.serviceObj.ServiceDate, "YYYY-MM-DD").diff(moment(), 'days') < 0 ){
+                    startDate = moment().format("YYYY-MM-DD")
+                }
+
+                this.$set(this.serviceObj, 'StartDate', moment.utc(startDate).add(1, 'days'));
+                this.$set(this.serviceObj, 'EndDate', moment.utc(startDate).add(1, 'days'));
+                this.$set(this.serviceObj, 'ServicePauseDate' , moment.utc(startDate).add(1, 'days'));
+                this.$set(this.serviceObj, 'ServiceEndDate', moment.utc(startDate).add(1, 'days'));
 
                 $("#pauseServiceDetailsPopup").modal("show");
             },
@@ -88,6 +93,10 @@
 
                         vm.serviceDetail = response.serviceDetail;
                         vm.subscriptionTypes = response.subscribeTypes
+                        if(moment(vm.serviceDetail.ServiceDate).diff(moment(), "days") > 0){
+                            calendarStartDate = vm.serviceDetail.ServiceDate
+                            calendarEndDate = vm.serviceDetail.ServiceDate
+                        }
                         $("#modifyServiceDetailsPopup").modal("show");
                     }
                 });

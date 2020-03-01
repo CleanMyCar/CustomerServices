@@ -93,6 +93,12 @@ export default new Router({
       props: {}
     },
     {
+      path: '/purchaseCustomerService/:serviceId/:serviceType',
+      name: 'purchaseCustomerService',
+      component: purchaseService,
+      props: {}
+    },
+    {
       path: '/mysubscriptions',
       name: 'mysubscriptions',
       component: mysubscriptions,
@@ -148,6 +154,12 @@ export default new Router({
       path: '/serviceApartments',
       name: 'serviceApartments',
       component: apartmentsAddressComponent
-    }
+    },
+    {
+      path: '/services',
+      name: 'serviceRequest',
+      component: homePageComponent,
+      props: {}
+    },
   ]
 })

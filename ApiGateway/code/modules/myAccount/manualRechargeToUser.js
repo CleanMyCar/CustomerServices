@@ -5,7 +5,8 @@ module.exports = (config, params, callback) => {
     const requestParams = config.dbwrapper.getNewRequest();
     requestParams.input('UserId', mssql.Int, params.UserId)
     requestParams.input('Amount', mssql.Money, params.Amount);
-    requestParams.input('WalletId', mssql.Int, params.WalletId)
+    requestParams.input('WalletId', mssql.Int, params.WalletId);
+    requestParams.input('Reason', mssql.NVarChar, params.Reason);
     
     requestParams.execute('ManualRechargeToUser', (err, result) => {
         if (err) {
